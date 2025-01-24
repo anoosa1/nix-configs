@@ -749,6 +749,7 @@
         "lanzaboote": "lanzaboote",
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
+        "secrets": "secrets",
         "sops-nix": "sops-nix",
         "stylix": "stylix"
       }
@@ -776,6 +777,22 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
+      }
+    },
+    "secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1737753014,
+        "narHash": "sha256-p4Tq8LTUqAC9UL+dJyFFy6jiCEybEzJq+eSaW2NQxAE=",
+        "ref": "refs/heads/main",
+        "rev": "862e38f0902163ed9d0d80aef22f037e3aa34a88",
+        "revCount": 1,
+        "type": "git",
+        "url": "ssh://git@github.com/anoosa1/secrets.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/anoosa1/secrets.git"
       }
     },
     "sops-nix": {
