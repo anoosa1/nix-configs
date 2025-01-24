@@ -120,10 +120,10 @@
       hsts-file=~/.local/var/state/wget-hsts
     '';
 
-    ".local/share/flatpak/overrides/global".text = ''
-      [Context]
-      filesystems=/run/current-system/sw/share/X11/fonts:ro;/nix/store:ro;xdg-config/gtk-4.0:ro;xdg-config/gtk-3.0:ro
-    '';
+    #".local/share/flatpak/overrides/global".text = ''
+    #  [Context]
+    #  filesystems=/run/current-system/sw/share/X11/fonts:ro;/nix/store:ro;xdg-config/gtk-4.0:ro;xdg-config/gtk-3.0:ro
+    #'';
 
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
