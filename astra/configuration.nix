@@ -43,6 +43,8 @@
 
   networking = {
     hostName = "astra";
+    nameservers = [ "100.100.100.100" "1.1.1.1" "1.0.0.1" ];
+    search = [ "tail999916.ts.net" ];
   };
 
   # Set your time zone.
@@ -114,6 +116,17 @@
     #    #};
     #  };
     #};
+
+    tailscale = {
+      enable = true;
+      useRoutingFeatures = "server";
+      openFirewall = true;
+      interfaceName = "userspace-networking"; 
+    };
+
+    resolved = {
+      enable = true;
+    };
   };
 
   nixpkgs = {

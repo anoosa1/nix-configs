@@ -44,7 +44,7 @@
 
     secrets = {
       url = "git+ssh://git@github.com/anoosa1/secrets.git";
-      flake = false
+      flake = false;
     };
 
     # Stylix
