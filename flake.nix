@@ -42,6 +42,11 @@
       };
     };
 
+    secrets = {
+      url = "git+ssh://git@github.com/anoosa1/secrets.git";
+      flake = false
+    };
+
     # Stylix
     stylix = {
       url = "github:danth/stylix";

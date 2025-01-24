@@ -109,7 +109,7 @@
   #};
 
   hardware = {
-    enableRedistributableFirmware = true;
+    enableAllFirmware = true;
 
     facetimehd = {
       enable = true;
@@ -251,6 +251,7 @@
         bibata-cursors
         comma
         file
+        code-cursor
         flatpak
         git
         sushi
@@ -261,6 +262,7 @@
         neofetch
         protonup
         pulsemixer
+        linux-firmware
         sbctl
         starship
         steam
