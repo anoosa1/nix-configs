@@ -119,10 +119,6 @@
       enable = true;
     };
 
-    pulseaudio = {
-      enable = false;
-    };
-
     video = {
     };
   };
@@ -174,6 +170,10 @@
       server = {
         enable = true;
       };
+    };
+
+    pulseaudio = {
+      enable = false;
     };
 
     # pipewire
@@ -247,7 +247,6 @@
   environment = {
     systemPackages = 
       (with pkgs; [
-        adwsteamgtk
         bibata-cursors
         comma
         file
@@ -257,16 +256,12 @@
         sushi
         localsend
         inputs.nixvim.packages.${system}.default
-        mangohud
         monocraft
         neofetch
-        protonup
         pulsemixer
         linux-firmware
         sbctl
         starship
-        steam
-        wineWowPackages.waylandFull
         gnome-tweaks
         zsh
       ])
@@ -336,17 +331,8 @@
         ];
       };
     };
-    gamemode = {
-      enable = true;
-    };
     hyprland = {
       enable = true;
-    };
-    steam = {
-      enable = true;  # This will raise a ValueError
-      gamescopeSession = {
-        enable = true;
-      };
     };
   };
 
