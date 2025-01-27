@@ -5,66 +5,28 @@
 }:
 
 {
-  sops = {
-      "cloudflare" = {
-        owner = "acme";
-      };
-    };
-  };
-
-  networking = {
-    interfaces."br0".ipv4.addresses = [{
-      address = "10.0.0.20";
-      prefixLength = 24;
-    }]
-    defaultGateway = "10.0.0.1";
-  };
-
-  containers = {
-    kasmweb = {
-      autoStart = true;
-      privateNetwork = true;
-      localAddress = "10.0.0.20/24";
-      hostBridge = "br0";
-
-      config = { config, pkgs, lib, ... }: {
-    
-        services = {
-          kasmweb = {
-            enable = true;
-            networkSubnet = "10.0.1.0/24";
-          };
-
-          resolved = {
-            enable = true;
-          };
+  services = {
+    nginx.virtualHosts = {
+      "kasm.asherif.xyz" = {
+        forceSSL = true;
+        enableACME = true;
+        acmeRoot = null;
+        locations."/" = {
+          proxyPass = "https://localhost:8443";
+          proxyWebsockets = true;
+          extraConfig = ''
+            proxy_pass_header Authorization;
+            proxy_set_header Host $host;
+          '';
         };
       };
     };
+    kasmweb = {
+      enable = true;
+      networkSubnet = "10.0.1.0/24";
+      listenPort = 8443;
+      sslCertificate = "/kasm.asherif.xyz/cert.pem";
+      sslCertificateKey = "/kasm.asherif.xyz/key.pem";
+    };
   };
-
-  #security = {
-  #  acme = {
-  #    acceptTerms = true;
-  #    defaults = {
-  #      email = "anas@asherif.xyz";
-  #      dnsProvider = "cloudflare";
-  #      dnsResolver = "1.1.1.1:53";
-  #      dnsPropagationCheck = true;
-  #      credentialFiles = {
-  #        "CF_DNS_API_TOKEN_FILE" = "/run/secrets/cloudflare";
-  #      };
-  #    };
-  #  };
-  #};
-
-  #services = {
-  #  nginx.virtualHosts = {
-  #    "kasm.asherif.xyz" = {
-  #      forceSSL = true;
-  #      enableACME = true;
-  #      acmeRoot = null;
-  #    };
-  #  };
-  #};
 }

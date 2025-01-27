@@ -43,6 +43,13 @@
 
   networking = {
     hostName = "astra";
+    useDHCP = false;
+    interfaces."eth0@if200" = {
+      ipv4.addresses = [{
+        address = "10.0.0.244";
+        prefixLength = 24;
+      }];
+    };
     nameservers = [ "100.100.100.100" "1.1.1.1" "1.0.0.1" ];
     search = [ "tail999916.ts.net" ];
   };
@@ -135,6 +142,12 @@
       allowUnfree = true;
     };
   };
+
+  #virtualisation = {
+  #  docker = {
+  #    enable = true;
+  #  };
+  #};
 
   # system packages
   environment = {

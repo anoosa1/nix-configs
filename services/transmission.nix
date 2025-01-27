@@ -25,6 +25,7 @@
         };
       };
     };
+
     transmission = {
       enable = true;
       webHome = pkgs.flood-for-transmission;
