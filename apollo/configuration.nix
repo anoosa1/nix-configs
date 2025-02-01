@@ -160,7 +160,10 @@
         enable = true;
       };
       # gnome-online-accounts
-      gnome-online-accounts = {
+      core-utilities = {
+        enable = lib.mkForce false;
+      };
+      sushi = {
         enable = true;
       };
     };
@@ -248,21 +251,21 @@
     systemPackages = 
       (with pkgs; [
         bibata-cursors
+        code-cursor
         comma
         file
-        code-cursor
         flatpak
         git
-        sushi
-        localsend
+        gnome-tweaks
         inputs.nixvim.packages.${system}.default
+        linux-firmware
+        localsend
         monocraft
+        nautilus
         neofetch
         pulsemixer
-        linux-firmware
         sbctl
         starship
-        gnome-tweaks
         zsh
       ])
       ++ (with pkgs.gnomeExtensions; [
@@ -272,36 +275,9 @@
       ]);
     gnome.excludePackages =
       (with pkgs; [
-        baobab
-        epiphany
-        evince
-        file-roller
-        geary
-        gnome-calculator
-        gnome-calendar
-        gnome-characters
-        gnome-clocks
-        gnome-connections
-        gnome-console
-        gnome-contacts
-        gnome-font-viewer
-        gnome-logs
-        gnome-maps
-        gnome-music
-        gnome-photos
-        gnome-software
-        gnome-system-monitor
-        gnome-terminal
-        gnome-text-editor
         gnome-tour
-        gnome-weather
-        loupe
-        seahorse
-        simple-scan
-        snapshot
-        totem
-        yelp
       ]);
+
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -330,9 +306,6 @@
           }
         ];
       };
-    };
-    hyprland = {
-      enable = true;
     };
   };
 
