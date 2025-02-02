@@ -5,17 +5,6 @@
 }:
 
 {
-  sops = {
-    secrets = {
-      "nextcloud/admin/password" = {
-        owner = "nextcloud";
-      };
-      "cloudflare" = {
-        owner = "acme";
-      };
-    };
-  };
-
   services = {
     nginx.virtualHosts = {
       "home.asherif.xyz" = {
@@ -46,22 +35,25 @@
         doInstallCheck = false;
       });
       extraComponents = [
-        "met"
-        "esphome"
-        "radio_browser"
-        "google_translate"
-        "isal"
-        "ffmpeg"
-        "tts"
-        "http"
-        "websocket_api"
+        "analytics"
         "auth"
         "backup"
-        "shopping_list"
-        "analytics"
+        "esphome"
+        "ffmpeg"
+        "google_translate"
+        "homekit"
+        "homekit_controller"
+        "http"
+        "isal"
+        "met"
         "mobile_app"
+        "radio_browser"
+        "shopping_list"
+        "tts"
+        "websocket_api"
       ];
       config = {
+        default_config = {};
         http = {
           server_host = "127.0.0.1";
           trusted_proxies = [ "127.0.0.1" ];
@@ -70,6 +62,7 @@
         recorder = {
           db_url = "postgresql://@/hass";
         };
+
       };
     };
   };
