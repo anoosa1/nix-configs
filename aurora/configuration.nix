@@ -207,8 +207,10 @@ in
       gnome-keyring = {
         enable = true;
       };
-      # gnome-online-accounts
-      gnome-online-accounts = {
+      core-utilities = {
+        enable = lib.mkForce false;
+      };
+      sushi = {
         enable = true;
       };
     };
@@ -217,9 +219,6 @@ in
     nfs = {
       server = {
         enable = true;
-        exports = ''
-          /export/aa 10.0.0.138(ro,fsid=0,no_subtree_check)
-        '';
       };
     };
 
@@ -231,7 +230,7 @@ in
       pulse.enable = true;
       wireplumber.enable = true;
       # If you want to use JACK applications, uncomment this
-      #jack.enable = true;
+      jack.enable = true;
     };
 
     # smb
@@ -297,22 +296,14 @@ in
   environment = {
     systemPackages =
       (with pkgs; [
-        #adwsteamgtk
         bibata-cursors
-        comma
 	mangohud
-        eclipses.eclipse-sdk
-        file
         flatpak
         git
-        sushi
         monocraft
         neofetch
         neovim
-        pantheon-tweaks
-        protonup
         pulsemixer
-        sbctl
         starship
         zsh
         inputs.nixvim.packages.${system}.default
@@ -324,35 +315,7 @@ in
       ]);
     gnome.excludePackages =
       (with pkgs; [
-        baobab
-        epiphany
-        evince
-        file-roller
-        geary
-        gnome-calculator
-        gnome-calendar
-        gnome-characters
-        gnome-clocks
-        gnome-connections
-        gnome-console
-        gnome-contacts
-        gnome-font-viewer
-        gnome-logs
-        gnome-maps
-        gnome-music
-        gnome-photos
-        gnome-software
-        gnome-system-monitor
-        gnome-terminal
-        gnome-text-editor
         gnome-tour
-        gnome-weather
-        loupe
-        seahorse
-        simple-scan
-        snapshot
-        totem
-        yelp
       ]);
   };
 
@@ -381,22 +344,6 @@ in
             };
           }
         ];
-      };
-    };
-    gamemode = {
-      enable = true;
-    };
-    gamescope = {
-      enable = true;
-      capSysNice = true;
-    };
-    hyprland = {
-      enable = true;
-    };
-    steam = {
-      enable = true; 
-      gamescopeSession = {
-        enable = true;
       };
     };
   };
@@ -446,10 +393,10 @@ in
   #services.blueman.enable = true;
 
   # dbus
-  services.dbus = {
-    enable = true;
-    implementation = "broker";
-  };
+  #services.dbus = {
+  #  enable = true;
+  #  implementation = "broker";
+  #};
 
   # xdg-desktop-portal
   #xdg.portal = {
@@ -515,6 +462,6 @@ in
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
+  system.stateVersion = "24.11"; # Did you read the comment?
 
 }

@@ -252,8 +252,6 @@
       (with pkgs; [
         bibata-cursors
         code-cursor
-        comma
-        file
         flatpak
         git
         gnome-tweaks
@@ -264,7 +262,6 @@
         nautilus
         neofetch
         pulsemixer
-        sbctl
         starship
         zsh
       ])
