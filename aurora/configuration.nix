@@ -156,10 +156,6 @@ in
   hardware = {
     enableRedistributableFirmware = true;
 
-    facetimehd = {
-      enable = true;
-    };
-
     graphics = {
       enable = true;
     };
@@ -393,10 +389,10 @@ in
   #services.blueman.enable = true;
 
   # dbus
-  #services.dbus = {
-  #  enable = true;
-  #  implementation = "broker";
-  #};
+  services.dbus = {
+    enable = true;
+    implementation = "broker";
+  };
 
   # xdg-desktop-portal
   #xdg.portal = {
