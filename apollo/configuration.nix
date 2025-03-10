@@ -21,7 +21,7 @@
       efi.canTouchEfiVariables = true;
     };
     kernelPackages = pkgs.linuxPackages_latest;
-    supportedfilesystems = ["ntfs"];
+    supportedFilesystems = ["ntfs"];
     plymouth = {
       enable = true;
     };
@@ -164,13 +164,6 @@
       };
     };
 
-    # nfs
-    nfs = {
-      server = {
-        enable = true;
-      };
-    };
-
     # pipewire
     pipewire = {
       enable = true;
@@ -206,14 +199,12 @@
       enable = false;
     };
   };
-
   # system packages
   environment = {
-    systemPackages = 
+    systemPackages =
       (with pkgs; [
         bibata-cursors
         code-cursor
-        flatpak
         git
         gnome-tweaks
         inputs.nixvim.packages.${system}.default
@@ -234,7 +225,7 @@
     gnome.excludePackages =
       (with pkgs; [
         gnome-tour
-      ]);
+    ]);
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -242,9 +233,6 @@
   # programs.mtr.enable = true;
 
   programs = {
-    adb = {
-      enable = true;
-    };
     dconf = {
       enable = true;
       profiles.gdm = {
@@ -339,11 +327,11 @@
   services.openssh = {
     enable = true;
     # require public key authentication for better security
-    #settings = {
-    #  PasswordAuthentication = false;
-    #  KbdInteractiveAuthentication = false;
-    #  PermitRootLogin = "no";
-    #};
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = "no";
+    };
   };
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -356,11 +344,6 @@
       allowPing = true;
     };
   };
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  #system.copySystemConfiguration = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

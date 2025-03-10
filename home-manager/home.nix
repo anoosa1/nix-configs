@@ -207,13 +207,6 @@
     WINIT_X11_SCALE_FACTOR = "1.0";
   };
 
-  qt = {
-    enable = true;
-    platformTheme = {
-      name = "gtk";
-    };
-  };
-
   programs = {
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
