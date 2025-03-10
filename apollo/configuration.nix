@@ -21,7 +21,7 @@
       efi.canTouchEfiVariables = true;
     };
     kernelPackages = pkgs.linuxPackages_latest;
-    supportedFilesystems = ["ntfs"];
+    supportedfilesystems = ["ntfs"];
     plymouth = {
       enable = true;
     };
@@ -54,7 +54,7 @@
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
     settings = {
-      experimental-features = ["nix-command" "flakes"];
+      experimental-features = [ "nix-command" "flakes" ];
       auto-optimise-store = true;
     };
   };
@@ -102,8 +102,8 @@
 
   ## hardware
 
-  #fileSystems."/mnt/10.0.0.2" = {
-  #  device = "10.0.0.2:/home/anas";
+  #fileSystems."PATH" = {
+  #  device = "REMOTEPATH";
   #  fsType = "nfs";
   #  options = [ "x-systemd.automount" "noauto" ];
   #};
@@ -117,9 +117,6 @@
 
     graphics = {
       enable = true;
-    };
-
-    video = {
     };
   };
 
@@ -159,7 +156,6 @@
       gnome-keyring = {
         enable = true;
       };
-      # gnome-online-accounts
       core-utilities = {
         enable = lib.mkForce false;
       };
@@ -175,59 +171,24 @@
       };
     };
 
-    pulseaudio = {
-      enable = false;
-    };
-
     # pipewire
     pipewire = {
       enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      # If you want to use JACK applications, uncomment this
-      jack.enable = true;
+
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+
+      pulse = {
+        enable = true;
+      };
+
+      wireplumber = {
+        enable = true;
+      };
     };
 
-    # smb
-    #samba = {
-    #  enable = true;
-    #  openFirewall = true;
-    #  settings = {
-    #    default = {
-    #      "workgroup" = "WORKGROUP";
-    #      "server string" = "aurora";
-    #      "netbios name" = "aurora";
-    #      "security" = "user";
-    #      #"use sendfile" = "yes";
-    #      #"max protocol" = "smb2";
-    #      #"hosts allow" = "10.0.0.138 127.0.0.1 localhost";
-    #      #"hosts deny" = "0.0.0.0/0";
-    #      #"guest account" = "nobody";
-    #      "map to guest" = "bad user";
-    #    };
-    #    #public = {
-    #    #  path = "/mnt/Shares/Public";
-    #    #  browseable = "yes";
-    #    #  "read only" = "no";
-    #    #  "guest ok" = "yes";
-    #    #  "create mask" = "0644";
-    #    #  "directory mask" = "0755";
-    #    #  "force user" = "username";
-    #    #  "force group" = "groupname";
-    #    #};
-    #    #private = {
-    #    #  path = "/export/aa";
-    #    #  browseable = "yes";
-    #    #  "read only" = "no";
-    #    #  "guest ok" = "no";
-    #    #  "create mask" = "0600";
-    #    #  "directory mask" = "0700";
-    #    #  "force user" = "anas";
-    #    #  "force group" = "anas";
-    #    #};
-    #  };
-    #};
   };
 
   nixpkgs = {
@@ -274,7 +235,6 @@
       (with pkgs; [
         gnome-tour
       ]);
-
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -308,7 +268,7 @@
 
   programs.gnupg.agent = {
     enable = true;
-    #  enableSSHSupport = true;
+  #  enableSSHSupport = true;
   };
 
   # security settings
@@ -392,7 +352,7 @@
   networking = {
     firewall = {
       enable = false;
-      allowedTCPPorts = [2049];
+      allowedTCPPorts = [ 2049 ];
       allowPing = true;
     };
   };
