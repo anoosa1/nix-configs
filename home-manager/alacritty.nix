@@ -13,11 +13,12 @@
 	};
 	dynamic_padding = false;
         #opacity = 0.9;
-	title = "Alacritty";
+        title = "Alacritty";
+        decorations_theme_variant = "Dark";
 	class = {
 	  instance = "Alacritty";
 	  general = "Alacritty";
-	};
+        };
       };
       scrolling = {
         history = 5000;

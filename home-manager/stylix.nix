@@ -50,6 +50,10 @@
 
       gtk = {
         enable = true;
+
+        flatpakSupport = {
+          enable = true;
+        };
       };
 
       sxiv = {
