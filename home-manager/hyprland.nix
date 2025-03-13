@@ -3,13 +3,15 @@
 {
   wayland.windowManager.hyprland = {
     enable = true;
+    xwayland.enable = false;
+    systemd.enable = true;
     settings = {
       "$mod" = "SUPER";
       bind =
         [
           "$mod, RETURN, exec, alacritty"
           "$mod, D, exec, bemenu-run"
-          "$mod, W, exec, com.google.Chrome"
+          "$mod, W, exec, com.brave.Browser"
         ]
         ++ (
           # workspaces

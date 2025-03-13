@@ -18,7 +18,7 @@
   xdg.stateHome = "/home/anas/.local/var/state";
 
   fonts.fontconfig.enable = true;
-  gtk.theme.name = lib.mkForce "adw-gtk3-dark";
+  #gtk.theme.name = lib.mkForce "adw-gtk3-dark";
 
   imports =
     [

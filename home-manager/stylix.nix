@@ -64,6 +64,11 @@
         enable = true;
       };
 
+      qt = {
+        enable = true;
+        platform = "qtct";
+      };
+
       zathura = {
         enable = true;
       };
