@@ -22,10 +22,6 @@
     };
     kernelPackages = pkgs.linuxPackages_latest;
     supportedFilesystems = ["ntfs"];
-    #lanzaboote = {
-    #  enable = true;
-    #  pkiBundle = "/etc/secureboot";
-    #};
     plymouth = {
       enable = true;
     };
@@ -224,7 +220,6 @@
         gnome-tweaks
         inputs.nixvim.packages.${system}.default
         linux-firmware
-        localsend
         monocraft
         nautilus
         neofetch
@@ -308,12 +303,11 @@
   #};
 
   # xdg-desktop-portal
-  #xdg.portal = {
-  #  enable = true;
-  #  # wlr.enable = true;
-  #  # gtk portal needed to make gtk apps happy
-  #  extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
-  #};
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
+    configPackages = [ pkgs.gnome-session ];
+  };
 
   # polkit
   #security.polkit.enable = true;
