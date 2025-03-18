@@ -205,7 +205,7 @@
   networking = {
     firewall = {
       enable = false;
-      allowedTCPPorts = [2049];
+      allowedTCPPorts = [2049 2222];
       allowPing = true;
     };
   };
