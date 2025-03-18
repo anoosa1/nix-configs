@@ -54,7 +54,7 @@
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
     settings = {
-      experimental-features = ["nix-command" "flakes"];
+      experimental-features = [ "nix-command" "flakes" ];
       auto-optimise-store = true;
     };
   };
@@ -102,8 +102,8 @@
 
   ## hardware
 
-  #fileSystems."/mnt/10.0.0.2" = {
-  #  device = "10.0.0.2:/home/anas";
+  #fileSystems."PATH" = {
+  #  device = "REMOTEPATH";
   #  fsType = "nfs";
   #  options = [ "x-systemd.automount" "noauto" ];
   #};
@@ -111,15 +111,12 @@
   hardware = {
     enableAllFirmware = true;
 
-    facetimehd = {
-      enable = true;
-    };
-
     graphics = {
       enable = true;
     };
 
-    video = {
+    facetimehd = {
+      enable = true;
     };
   };
 
@@ -159,7 +156,6 @@
       gnome-keyring = {
         enable = true;
       };
-      # gnome-online-accounts
       core-utilities = {
         enable = lib.mkForce false;
       };
@@ -168,66 +164,24 @@
       };
     };
 
-    # nfs
-    nfs = {
-      server = {
+    # pipewire
+    pipewire = {
+      enable = true;
+
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+
+      pulse = {
+        enable = true;
+      };
+
+      wireplumber = {
         enable = true;
       };
     };
 
-    pulseaudio = {
-      enable = false;
-    };
-
-    # pipewire
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      # If you want to use JACK applications, uncomment this
-      jack.enable = true;
-    };
-
-    # smb
-    #samba = {
-    #  enable = true;
-    #  openFirewall = true;
-    #  settings = {
-    #    default = {
-    #      "workgroup" = "WORKGROUP";
-    #      "server string" = "aurora";
-    #      "netbios name" = "aurora";
-    #      "security" = "user";
-    #      #"use sendfile" = "yes";
-    #      #"max protocol" = "smb2";
-    #      #"hosts allow" = "10.0.0.138 127.0.0.1 localhost";
-    #      #"hosts deny" = "0.0.0.0/0";
-    #      #"guest account" = "nobody";
-    #      "map to guest" = "bad user";
-    #    };
-    #    #public = {
-    #    #  path = "/mnt/Shares/Public";
-    #    #  browseable = "yes";
-    #    #  "read only" = "no";
-    #    #  "guest ok" = "yes";
-    #    #  "create mask" = "0644";
-    #    #  "directory mask" = "0755";
-    #    #  "force user" = "username";
-    #    #  "force group" = "groupname";
-    #    #};
-    #    #private = {
-    #    #  path = "/export/aa";
-    #    #  browseable = "yes";
-    #    #  "read only" = "no";
-    #    #  "guest ok" = "no";
-    #    #  "create mask" = "0600";
-    #    #  "directory mask" = "0700";
-    #    #  "force user" = "anas";
-    #    #  "force group" = "anas";
-    #    #};
-    #  };
-    #};
   };
 
   nixpkgs = {
@@ -245,26 +199,20 @@
       enable = false;
     };
   };
-
   # system packages
   environment = {
-    systemPackages = 
+    systemPackages =
       (with pkgs; [
         bibata-cursors
         code-cursor
-        comma
-        file
-        flatpak
         git
         gnome-tweaks
         inputs.nixvim.packages.${system}.default
         linux-firmware
-        localsend
         monocraft
         nautilus
         neofetch
         pulsemixer
-        sbctl
         starship
         zsh
       ])
@@ -276,8 +224,7 @@
     gnome.excludePackages =
       (with pkgs; [
         gnome-tour
-      ]);
-
+    ]);
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -285,9 +232,6 @@
   # programs.mtr.enable = true;
 
   programs = {
-    adb = {
-      enable = true;
-    };
     dconf = {
       enable = true;
       profiles.gdm = {
@@ -311,7 +255,7 @@
 
   programs.gnupg.agent = {
     enable = true;
-    #  enableSSHSupport = true;
+  #  enableSSHSupport = true;
   };
 
   # security settings
@@ -348,12 +292,11 @@
   #};
 
   # xdg-desktop-portal
-  #xdg.portal = {
-  #  enable = true;
-  #  # wlr.enable = true;
-  #  # gtk portal needed to make gtk apps happy
-  #  extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
-  #};
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
+    configPackages = [ pkgs.gnome-session ];
+  };
 
   # polkit
   #security.polkit.enable = true;
@@ -382,11 +325,11 @@
   services.openssh = {
     enable = true;
     # require public key authentication for better security
-    #settings = {
-    #  PasswordAuthentication = false;
-    #  KbdInteractiveAuthentication = false;
-    #  PermitRootLogin = "no";
-    #};
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = "no";
+    };
   };
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -395,15 +338,10 @@
   networking = {
     firewall = {
       enable = false;
-      allowedTCPPorts = [2049];
+      allowedTCPPorts = [ 2049 ];
       allowPing = true;
     };
   };
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  #system.copySystemConfiguration = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

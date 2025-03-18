@@ -24,13 +24,8 @@
       url = "github:anoosa1/nvim-flake/main";
     };
 
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.1";
-      inputs = {
-        nixpkgs = {
-          follows = "nixpkgs";
-        };
-      };
+    jovian-nixos = {
+      url = "github:Jovian-Experiments/Jovian-NixOS";
     };
 
     sops-nix = {
@@ -57,7 +52,6 @@
     self,
     nixpkgs,
     home-manager,
-    lanzaboote,
     ...
   } @ inputs:
 
@@ -75,6 +69,7 @@
 
         modules = [
           inputs.stylix.nixosModules.stylix
+          inputs.jovian-nixos.nixosModules.default
           ./aurora/configuration.nix
 	  ./stylix.nix
 	  ./users/anas.nix

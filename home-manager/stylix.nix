@@ -50,6 +50,10 @@
 
       gtk = {
         enable = true;
+
+        flatpakSupport = {
+          enable = true;
+        };
       };
 
       sxiv = {
@@ -58,6 +62,11 @@
 
       tmux = {
         enable = true;
+      };
+
+      qt = {
+        enable = false;
+        #platform = "qtct";
       };
 
       zathura = {

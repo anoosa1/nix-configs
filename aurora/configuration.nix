@@ -1,37 +1,42 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
-
 {
   inputs,
   lib,
   config,
   pkgs,
+  outputs,
   ...
-}:
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
-let
-  unstable = import <nixos-unstable> {};
-in
-
-  {
-    imports =
-      [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  jovian = {
+    decky-loader = {
+      enable = true;
+    };
+    steam = {
+      enable = true;
+      user = "anas";
+      autoStart = true;
+      desktopSession = "gnome";
+    };
+    steamos = {
+      enableBluetoothConfig = true;
+    };
+  };
 
   # Use the systemd-boot EFI boot loader.
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    #lanzaboote = {
-    #  enable = true;
-    #  pkiBundle = "/etc/secureboot";
-    #};
-    supportedFilesystems = [ "ntfs" ];
+    kernelPackages = pkgs.linuxPackages_latest;
+    supportedFilesystems = ["ntfs"];
     plymouth = {
       enable = true;
     };
@@ -54,9 +59,7 @@ in
     loader.timeout = 0;
   };
 
-
   nix = {
-
     # This will add each flake input as a registry
     # To make nix3 commands consistent with your flake
     registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
@@ -71,10 +74,15 @@ in
     };
   };
 
-  networking.hostName = "aurora";
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking = {
+    hostName = "aurora";
+
+    # Pick only one of the below networking options.
+    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    networkmanager = {
+      enable = true; # Easiest to use and most distros use this by default.
+    };
+  };
 
   # Set your time zone.
   time = {
@@ -94,6 +102,25 @@ in
     useXkbConfig = true; # use xkbOptions in tty.
   };
 
+  systemd.user.services."wait-for-full-path" = {
+    description = "wait for systemd units to have full PATH";
+    wantedBy = [ "xdg-desktop-portal.service" ];
+    before = [ "xdg-desktop-portal.service" ];
+    path = with pkgs; [ systemd coreutils gnugrep ];
+    script = ''
+      ispresent () {
+        systemctl --user show-environment | grep -E '^PATH=.*/.nix-profile/bin'
+      }
+      while ! ispresent; do
+        sleep 0.1;
+      done
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      TimeoutStartSec = "60";
+    };
+  };
+
   environment.sessionVariables = rec {
     XDG_CACHE_HOME = "$HOME/.local/var/cache";
     XDG_CONFIG_HOME = "$HOME/.local/etc";
@@ -109,85 +136,108 @@ in
 
   ## hardware
 
-  #fileSystems."/home/anas/audio" = {
-  #  device = "10.0.0.2:/home/anas/audio";
+  #fileSystems."PATH" = {
+  #  device = "REMOTEPATH";
   #  fsType = "nfs";
   #  options = [ "x-systemd.automount" "noauto" ];
   #};
 
-  # fileSystems."/home/anas/.local/media/home.local" = {
-  #   device = "192.168.2.10:/srv/nfs";
-  #   fsType = "nfs";
-  #   options = [ "x-systemd.automount" "noauto" ];
-  # };
-  # fileSystems."/home/anas/audio" = {
-  #   device = "192.168.2.10:/srv/nfs/audio";
-  #   fsType = "nfs";
-  #   options = [ "x-systemd.automount" "noauto" ];
-  # };
-  # fileSystems."/home/anas/docs" = {
-  #   device = "192.168.2.10:/srv/nfs/docs";
-  #   fsType = "nfs";
-  #   options = [ "x-systemd.automount" "noauto" ];
-  # };
-  # fileSystems."/home/anas/pics" = {
-  #   device = "192.168.2.10:/srv/nfs/pics";
-  #   fsType = "nfs";
-  #   options = [ "x-systemd.automount" "noauto" ];
-  # };
-  # fileSystems."/home/anas/.local/var/games" =
-  # {
-  #   device = "192.168.2.10:/srv/nfs/.local/var/games";
-  #   fsType = "nfs";
-  #   options = [ "x-systemd.automount" "noauto" ];
-  # };
-
-  # nvidia - gpu
-  powerManagement.enable = true;
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = false;
-    powerManagement.finegrained = false;
-    open = true;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
-
   hardware = {
-    enableRedistributableFirmware = true;
-
-    facetimehd = {
-      enable = true;
-    };
+    enableAllFirmware = true;
 
     graphics = {
       enable = true;
     };
 
-    pulseaudio = {
-      enable = false;
-    };
+    # nvidia - gpu
+    nvidia = {
+      open = true;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
 
-    video = {
+      powerManagement = {
+        enable = true;
+      };
+
+      modesetting = {
+        enable = true;
+      };
     };
   };
+
+  powerManagement.enable = true;
 
   # bluetooth
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
 
+  # List services that you want to enable:
   services = {
+    # dbus
+    dbus = {
+      enable = true;
+      implementation = "broker";
+    };
+
+    # flatpak
+    flatpak = {
+      enable = true;
+    };
+
+    # gnome
+    gnome = {
+      # gnome-keyring
+      gnome-keyring = {
+        enable = true;
+      };
+      core-utilities = {
+        enable = lib.mkForce false;
+      };
+      sushi = {
+        enable = true;
+      };
+    };
+
+    # Enable the OpenSSH daemon.
+    openssh = {
+      enable = true;
+      # require public key authentication for better security
+      settings = {
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+        PermitRootLogin = "no";
+      };
+    };
+
+    # pipewire
+    pipewire = {
+      enable = true;
+
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+
+      pulse = {
+        enable = true;
+      };
+
+      wireplumber = {
+        enable = true;
+      };
+    };
+
+    sunshine = {
+      enable = true;
+      autoStart = true;
+      capSysAdmin = true;
+      openFirewall = true;
+    };
+
     xserver = {
       enable = true;
       excludePackages = [
         pkgs.xterm
       ];
-      # Enable the GNOME Desktop Environment.
-      displayManager = {
-        gdm = {
-          enable = true;
-        };
-      };
       desktopManager = {
         gnome = {
           enable = true;
@@ -200,83 +250,7 @@ in
       };
       videoDrivers = ["nvidia"];
     };
-
-    # gnome
-    gnome = {
-      # gnome-keyring
-      gnome-keyring = {
-        enable = true;
-      };
-      # gnome-online-accounts
-      gnome-online-accounts = {
-        enable = true;
-      };
-    };
-
-    # nfs
-    nfs = {
-      server = {
-        enable = true;
-        exports = ''
-          /export/aa 10.0.0.138(ro,fsid=0,no_subtree_check)
-        '';
-      };
-    };
-
-    # pipewire
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      wireplumber.enable = true;
-      # If you want to use JACK applications, uncomment this
-      #jack.enable = true;
-    };
-
-    # smb
-    #samba = {
-    #  enable = true;
-    #  securityType = "user";
-    #  openFirewall = true;
-    #  extraConfig = ''
-    #    workgroup = WORKGROUP
-    #    server string = aurora
-    #    netbios name = aurora
-    #    security = user
-    #    #use sendfile = yes
-    #    #max protocol = smb2
-    #    # note: localhost is the ipv6 localhost ::1
-    #    hosts allow = 10.0.0.138 127.0.0.1 localhost
-    #    hosts deny = 0.0.0.0/0
-    #    guest account = nobody
-    #    map to guest = bad user
-    #  '';
-    #  shares = {
-    #    #public = {
-    #    #  path = "/mnt/Shares/Public";
-    #    #  browseable = "yes";
-    #    #  "read only" = "no";
-    #    #  "guest ok" = "yes";
-    #    #  "create mask" = "0644";
-    #    #  "directory mask" = "0755";
-    #    #  "force user" = "username";
-    #    #  "force group" = "groupname";
-    #    #};
-    #    private = {
-    #      path = "/export/aa";
-    #      browseable = "yes";
-    #      "read only" = "no";
-    #      "guest ok" = "no";
-    #      "create mask" = "0600";
-    #      "directory mask" = "0700";
-    #      "force user" = "anas";
-    #      "force group" = "anas";
-    #    };
-    #  };
-    #};
   };
-
 
   nixpkgs = {
     config = {
@@ -297,25 +271,16 @@ in
   environment = {
     systemPackages =
       (with pkgs; [
-        #adwsteamgtk
         bibata-cursors
-        comma
-	mangohud
-        eclipses.eclipse-sdk
-        file
-        flatpak
-        git
-        sushi
+        gnome-tweaks
+        inputs.nixvim.packages.${system}.default
+        linux-firmware
+        mangohud
         monocraft
+        nautilus
         neofetch
-        neovim
-        pantheon-tweaks
-        protonup
-        pulsemixer
-        sbctl
         starship
         zsh
-        inputs.nixvim.packages.${system}.default
       ])
       ++ (with pkgs.gnomeExtensions; [
         appindicator
@@ -324,36 +289,8 @@ in
       ]);
     gnome.excludePackages =
       (with pkgs; [
-        baobab
-        epiphany
-        evince
-        file-roller
-        geary
-        gnome-calculator
-        gnome-calendar
-        gnome-characters
-        gnome-clocks
-        gnome-connections
-        gnome-console
-        gnome-contacts
-        gnome-font-viewer
-        gnome-logs
-        gnome-maps
-        gnome-music
-        gnome-photos
-        gnome-software
-        gnome-system-monitor
-        gnome-terminal
-        gnome-text-editor
         gnome-tour
-        gnome-weather
-        loupe
-        seahorse
-        simple-scan
-        snapshot
-        totem
-        yelp
-      ]);
+    ]);
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -361,9 +298,6 @@ in
   # programs.mtr.enable = true;
 
   programs = {
-    adb = {
-      enable = true;
-    };
     dconf = {
       enable = true;
       profiles.gdm = {
@@ -383,20 +317,41 @@ in
         ];
       };
     };
-    gamemode = {
-      enable = true;
-    };
-    gamescope = {
-      enable = true;
-      capSysNice = true;
-    };
-    hyprland = {
-      enable = true;
-    };
+
+    #gamescope = {
+    #  enable = true;
+    #  capSysNice = true;
+    #};
+
     steam = {
-      enable = true; 
-      gamescopeSession = {
-        enable = true;
+      enable = true;
+
+      dedicatedServer = {
+        openFirewall = true;
+      };
+
+      extraCompatPackages = [
+        pkgs.proton-ge-bin
+      ];
+
+      #extraPackages = [
+      #  pkgs.gamescope
+      #];
+
+      #gamescopeSession = {
+      #  enable = true;
+      #};
+
+      localNetworkGameTransfers = {
+        openFirewall = true;
+      };
+
+      #protontricks = {
+      #  enable = true;
+      #};
+
+      remotePlay = {
+        openFirewall = true;
       };
     };
   };
@@ -428,36 +383,13 @@ in
     };
   };
 
-  # List services that you want to enable:
-  # pipewire - sound
-  #services.pipewire = {
-  #  enable = true;
-  #  alsa.enable = true;
-  #  alsa.support32Bit = true;
-  #  pulse.enable = true;
-  #  # If you want to use JACK applications, uncomment this
-  #  jack.enable = true;
-  #};
-
-  # flatpak
-  services.flatpak.enable = true;
-
-  # blueman - bluetooth
-  #services.blueman.enable = true;
-
-  # dbus
-  services.dbus = {
-    enable = true;
-    implementation = "broker";
-  };
-
   # xdg-desktop-portal
-  #xdg.portal = {
-  #  enable = true;
-  #  # wlr.enable = true;
-  #  # gtk portal needed to make gtk apps happy
-  #  extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
-  #};
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
+    configPackages = [ pkgs.gnome-session ];
+  };
 
   # polkit
   #security.polkit.enable = true;
@@ -482,16 +414,6 @@ in
 
   security.pam.services.gdm.enableGnomeKeyring = true;
 
-  # Enable the OpenSSH daemon.
-  services.openssh = {
-    enable = true;
-    # require public key authentication for better security
-    #settings = {
-    #  PasswordAuthentication = false;
-    #  KbdInteractiveAuthentication = false;
-    #  PermitRootLogin = "no";
-    #};
-  };
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
@@ -504,17 +426,11 @@ in
     };
   };
 
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  #system.copySystemConfiguration = true;
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It's perfectly fine and recommended to leave
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
-
+  system.stateVersion = "24.11"; # Did you read the comment?
 }
