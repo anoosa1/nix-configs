@@ -14,6 +14,21 @@
     ./hardware-configuration.nix
   ];
 
+  jovian = {
+    decky-loader = {
+      enable = true;
+    };
+    steam = {
+      enable = true;
+      user = "anas";
+      autoStart = true;
+      desktopSession = "gnome";
+    };
+    steamos = {
+      enableBluetoothConfig = true;
+    };
+  };
+
   # Use the systemd-boot EFI boot loader.
   boot = {
     loader = {
@@ -87,6 +102,25 @@
     useXkbConfig = true; # use xkbOptions in tty.
   };
 
+  systemd.user.services."wait-for-full-path" = {
+    description = "wait for systemd units to have full PATH";
+    wantedBy = [ "xdg-desktop-portal.service" ];
+    before = [ "xdg-desktop-portal.service" ];
+    path = with pkgs; [ systemd coreutils gnugrep ];
+    script = ''
+      ispresent () {
+        systemctl --user show-environment | grep -E '^PATH=.*/.nix-profile/bin'
+      }
+      while ! ispresent; do
+        sleep 0.1;
+      done
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      TimeoutStartSec = "60";
+    };
+  };
+
   environment.sessionVariables = rec {
     XDG_CACHE_HOME = "$HOME/.local/var/cache";
     XDG_CONFIG_HOME = "$HOME/.local/etc";
@@ -111,10 +145,13 @@
   hardware = {
     enableAllFirmware = true;
 
+    graphics = {
+      enable = true;
+    };
+
     # nvidia - gpu
     nvidia = {
       open = true;
-      nvidiaSettings = true;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
 
       powerManagement = {
@@ -125,10 +162,6 @@
         enable = true;
       };
     };
-
-    graphics = {
-      enable = true;
-    };
   };
 
   powerManagement.enable = true;
@@ -137,29 +170,17 @@
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
 
+  # List services that you want to enable:
   services = {
-    xserver = {
+    # dbus
+    dbus = {
       enable = true;
-      excludePackages = [
-        pkgs.xterm
-      ];
-      # Enable the GNOME Desktop Environment.
-      displayManager = {
-        gdm = {
-          enable = true;
-        };
-      };
-      desktopManager = {
-        gnome = {
-          enable = true;
-          extraGSettingsOverridePackages = [pkgs.mutter];
-          extraGSettingsOverrides = ''
-            [org.gnome.mutter]
-            experimental-features=['scale-monitor-framebuffer']
-          '';
-        };
-      };
-      videoDrivers = ["nvidia"];
+      implementation = "broker";
+    };
+
+    # flatpak
+    flatpak = {
+      enable = true;
     };
 
     # gnome
@@ -173,6 +194,17 @@
       };
       sushi = {
         enable = true;
+      };
+    };
+
+    # Enable the OpenSSH daemon.
+    openssh = {
+      enable = true;
+      # require public key authentication for better security
+      settings = {
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+        PermitRootLogin = "no";
       };
     };
 
@@ -194,6 +226,30 @@
       };
     };
 
+    sunshine = {
+      enable = true;
+      autoStart = true;
+      capSysAdmin = true;
+      openFirewall = true;
+    };
+
+    xserver = {
+      enable = true;
+      excludePackages = [
+        pkgs.xterm
+      ];
+      desktopManager = {
+        gnome = {
+          enable = true;
+          extraGSettingsOverridePackages = [pkgs.mutter];
+          extraGSettingsOverrides = ''
+            [org.gnome.mutter]
+            experimental-features=['scale-monitor-framebuffer']
+          '';
+        };
+      };
+      videoDrivers = ["nvidia"];
+    };
   };
 
   nixpkgs = {
@@ -216,14 +272,13 @@
     systemPackages =
       (with pkgs; [
         bibata-cursors
-        git
         gnome-tweaks
         inputs.nixvim.packages.${system}.default
         linux-firmware
+        mangohud
         monocraft
         nautilus
         neofetch
-        pulsemixer
         starship
         zsh
       ])
@@ -262,6 +317,43 @@
         ];
       };
     };
+
+    #gamescope = {
+    #  enable = true;
+    #  capSysNice = true;
+    #};
+
+    steam = {
+      enable = true;
+
+      dedicatedServer = {
+        openFirewall = true;
+      };
+
+      extraCompatPackages = [
+        pkgs.proton-ge-bin
+      ];
+
+      #extraPackages = [
+      #  pkgs.gamescope
+      #];
+
+      #gamescopeSession = {
+      #  enable = true;
+      #};
+
+      localNetworkGameTransfers = {
+        openFirewall = true;
+      };
+
+      #protontricks = {
+      #  enable = true;
+      #};
+
+      remotePlay = {
+        openFirewall = true;
+      };
+    };
   };
 
   programs.gnupg.agent = {
@@ -291,20 +383,10 @@
     };
   };
 
-  # List services that you want to enable:
-
-  # flatpak
-  services.flatpak.enable = true;
-
-  # dbus
-  #services.dbus = {
-  #  enable = true;
-  #  implementation = "broker";
-  #};
-
   # xdg-desktop-portal
   xdg.portal = {
     enable = true;
+    xdgOpenUsePortal = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
     configPackages = [ pkgs.gnome-session ];
   };
@@ -332,16 +414,6 @@
 
   security.pam.services.gdm.enableGnomeKeyring = true;
 
-  # Enable the OpenSSH daemon.
-  services.openssh = {
-    enable = true;
-    # require public key authentication for better security
-    settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
-      PermitRootLogin = "no";
-    };
-  };
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];

@@ -23,9 +23,9 @@
   imports =
     [
       ./alacritty.nix
-      ./bat.nix
+      #./bat.nix
       ./git.nix
-      ./hyprland.nix
+      #./hyprland.nix
       ./lf/lf.nix
       #./ncmpcpp.nix
       ./services.nix
@@ -34,6 +34,15 @@
       #./x.nix
       ./zsh.nix
     ];
+
+    systemd = {
+      user = {
+        enable = true;
+        settings = {
+          Default.Environment = "PATH=/run/current-system/sw/bin";
+        };
+      };
+    };
 
     nixpkgs = {
     # Configure your nixpkgs instance
@@ -61,24 +70,20 @@
     # # "Hello, world!" when run.
     # pkgs.hello
 
-    python312Packages.beautifulsoup4
-    python312Packages.requests
-    python3
-
-    rustc
-    cargo
-    bemenu
-    gtk4
+    #rustc
+    #cargo
+    #bemenu
+    #gtk4
     chafa
     du-dust
-    eva
+    #eva
     eza
-    fd
-    fzf
-    libsixel
+    #fd
+    #fzf
+    #libsixel
     monocraft
     mpv
-    nsxiv
+    #nsxiv
     #passExtensions.pass-audit
     #passExtensions.pass-genphrase
     #passExtensions.pass-import
@@ -87,12 +92,12 @@
     #passExtensions.pass-update
     #(pass.withExtensions (ext: with ext; [ pass-audit pass-otp pass-import pass-genphrase pass-update pass-tomb ]))
     ripgrep
-    rsync
-    skim
-    tty-clock
+    #rsync
+    #skim
+    #tty-clock
     wget
-    zathura
-    zig
+    #zathura
+    #zig
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
