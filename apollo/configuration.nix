@@ -114,6 +114,10 @@
     graphics = {
       enable = true;
     };
+
+    facetimehd = {
+      enable = true;
+    };
   };
 
   powerManagement.enable = true;
