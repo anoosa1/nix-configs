@@ -89,6 +89,7 @@
         specialArgs = { inherit inputs; };
 
         modules = [
+          inputs.sops-nix.nixosModules.sops
           ./astra/configuration.nix
 	  ./users/anas.nix
         ];

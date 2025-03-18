@@ -12,7 +12,6 @@
 }: {
   imports = [
     (modulesPath + "/virtualisation/proxmox-lxc.nix")
-    inputs.sops-nix.nixosModules.sops
     ../services
   ];
 
@@ -29,14 +28,14 @@
   nix = {
     # This will add each flake input as a registry
     # To make nix3 commands consistent with your flake
-    #registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
+    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
-    #nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
+    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
     settings = {
-      experimental-features = ["nix-command" "flakes"];
+      experimental-features = [ "nix-command" "flakes" ];
       auto-optimise-store = true;
     };
   };
@@ -58,10 +57,6 @@
   time = {
     timeZone = "America/Toronto";
   };
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   environment.sessionVariables = rec {
     XDG_CACHE_HOME = "$HOME/.local/var/cache";
@@ -155,6 +150,7 @@
       (with pkgs; [
         file
         git
+        openjdk
         inputs.nixvim.packages.${system}.default
         config.services.nextcloud.occ
         starship
