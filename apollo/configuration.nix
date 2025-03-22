@@ -75,16 +75,31 @@
     hardwareClockInLocalTime = true;
   };
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
     #keyMap = "us";
     useXkbConfig = true; # use xkbOptions in tty.
+  };
+
+  systemd.user.services."wait-for-full-path" = {
+    description = "wait for systemd units to have full PATH";
+    wantedBy = [ "xdg-desktop-portal.service" ];
+    before = [ "xdg-desktop-portal.service" ];
+    path = with pkgs; [ systemd coreutils gnugrep ];
+    script = ''
+      ispresent () {
+        systemctl --user show-environment | grep -E '^PATH=.*/.nix-profile/bin'
+      }
+      while ! ispresent; do
+        sleep 0.1;
+      done
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      TimeoutStartSec = "60";
+    };
   };
 
   environment.sessionVariables = rec {
@@ -126,7 +141,19 @@
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
 
+  # List services that you want to enable:
   services = {
+    # dbus
+    dbus = {
+      enable = true;
+      implementation = "broker";
+    };
+
+    # flatpak
+    flatpak = {
+      enable = true;
+    };
+
     xserver = {
       enable = true;
       excludePackages = [
@@ -161,6 +188,17 @@
       };
       sushi = {
         enable = true;
+      };
+    };
+
+    # Enable the OpenSSH daemon.
+    openssh = {
+      enable = true;
+      # require public key authentication for better security
+      settings = {
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+        PermitRootLogin = "no";
       };
     };
 
@@ -204,15 +242,12 @@
     systemPackages =
       (with pkgs; [
         bibata-cursors
-        code-cursor
-        git
         gnome-tweaks
         inputs.nixvim.packages.${system}.default
         linux-firmware
         monocraft
         nautilus
         neofetch
-        pulsemixer
         starship
         zsh
       ])
@@ -280,20 +315,10 @@
     };
   };
 
-  # List services that you want to enable:
-
-  # flatpak
-  services.flatpak.enable = true;
-
-  # dbus
-  #services.dbus = {
-  #  enable = true;
-  #  implementation = "broker";
-  #};
-
   # xdg-desktop-portal
   xdg.portal = {
     enable = true;
+    xdgOpenUsePortal = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
     configPackages = [ pkgs.gnome-session ];
   };
@@ -321,16 +346,6 @@
 
   security.pam.services.gdm.enableGnomeKeyring = true;
 
-  # Enable the OpenSSH daemon.
-  services.openssh = {
-    enable = true;
-    # require public key authentication for better security
-    settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
-      PermitRootLogin = "no";
-    };
-  };
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
