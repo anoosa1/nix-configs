@@ -289,10 +289,6 @@
     ]);
   };
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-
   programs = {
     dconf = {
       enable = true;
@@ -342,9 +338,9 @@
         openFirewall = true;
       };
 
-      #protontricks = {
-      #  enable = true;
-      #};
+      protontricks = {
+        enable = true;
+      };
 
       remotePlay = {
         openFirewall = true;
