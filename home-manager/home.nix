@@ -78,6 +78,7 @@
   # environment.
   home.packages = with pkgs; [
     brave
+    bluetui
     chafa
     du-dust
     eva
