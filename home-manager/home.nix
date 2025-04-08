@@ -27,6 +27,7 @@
   imports =
     [
       ./alacritty.nix
+      ./dwl
       #./bat.nix
       ./git.nix
       ./hyprland
@@ -78,25 +79,29 @@
   # environment.
   home.packages = with pkgs; [
     brave
+    cartridges
     chafa
     du-dust
     eva
     eza
     fd
-    pulsemixer
     fzf
     libsixel
+    localsend
     monocraft
     mpv
-    localsend
     mullvad-browser
     nsxiv
+    pulsemixer
     ripgrep
     rsync
     simplex-chat-desktop
     skim
+    termusic
     tty-clock
+    umu-launcher
     wget
+    wineWowPackages.waylandFull
     zathura
     #passExtensions.pass-audit
     #passExtensions.pass-genphrase
