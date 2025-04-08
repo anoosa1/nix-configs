@@ -11,11 +11,11 @@
       settings = {
         mainBar = {
           layer = "top";
-          position = "bottom";
+          position = "top";
           height = 30;
-          modules-left = ["hyprland/workspaces"];
-          modules-center = ["hyprland/window"];
-          modules-right = ["custom/weather" "pulseaudio" "clock" "tray"];
+          modules-left = ["hyprland/workspaces" "hyprland/window"];
+          modules-center = ["clock" "custom/weather"];
+          modules-right = ["tray" "network" "pulseaudio" "battery"];
           "hyprland/workspaces" = {
             disable-scroll = true;
             show-special = true;
@@ -25,44 +25,60 @@
             format-icons = {
               "1" = "";
               "2" = "";
-              "3" = "";
-              "4" = "";
-              "5" = "";
+              "3" = "";
               "magic" = "";
             };
 
             persistent-workspaces = {
-              "*" = 5;
+              "*" = 3;
             };
+          };
+
+          "hyprland/window" = {
+            max-length = 25;
           };
 
           "custom/weather" = {
             format = " {} ";
             exec = "curl -s 'wttr.in/yyz?format=%c%t'";
             interval = 1000;
+            on-click = "mullvad-browser wttr.in";
             class = "weather";
           };
 
           "pulseaudio" = {
             format = "{icon} {volume}%";
             format-bluetooth = "{icon} {volume}% ";
-            format-muted = "";
+            format-muted = "🔇";
             format-icons = {
-              "headphones" = "";
-              "handsfree" = "";
-              "headset" = "";
-              "phone" = "";
-              "portable" = "";
-              "car" = "";
-              "default" = ["" ""];
+              "headphones" = "🎧";
+              "default" = ["🔉" "🔊"];
             };
             on-click = "alacritty -e pulsemixer";
+          };
+
+          "network" = {
+            format-wifi = "🛜";
+            format-disconnected = "❎";
+            tooltip-format = "Signal: {signalStrength}%";
+            interval = 10;
+            on-click = "alacritty -e nmtui";
+          };
+          
+          "battery" = {
+            states = {
+              warning = 30;
+              critical = 10;
+            };
+            format = "{icon}{capacity}%";
+            format-charging = "🔌{capacity}%";
+            format-icons = ["❗" "🪫" "🟢" "🔋" "🔋"];
           };
 
           "clock" = {
             tooltip = true;
             interval = 1;
-            format = "{:%H:%M:%S}";
+            format = "{:%B %d  %H:%M:%S}";
             tooltip-format = "{:%A, %B %d %Y %H:%M:%S}";
           };
 
