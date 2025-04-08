@@ -19,7 +19,11 @@
       }) { inherit system pkgs; };
     })
   ];
-  boot.extraModulePackages = [ boot.kernelPackages.broadcom_sta ];
+  nixpkgs.overlays = [
+    (import ./broadcom-overlay.nix)
+  ];
+
+  boot.extraModulePackages = [ "broadcom_sta" ];
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/5a64d9bc-5366-4032-8cee-8e35ef347e67";
