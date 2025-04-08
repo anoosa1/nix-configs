@@ -12,17 +12,14 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" "wl" ];
   nixpkgs.overlays = [
-    (final: prev: {
-      nixpkgs-pr379913 = import (pkgs.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "653a9311a6990223f07489b1981965538c139b7b";
-        sha256 = "r04690b6q56f84x0m1410m09x69g4981x44v401f59743700";
-      }) { config = config.nixpkgs.config; };
-
-      boot.extraModulePackages = [ nixpkgs-pr379913.boot.kernelPackages.broadcom_sta ];
+    (self: super: {
+      broadcom_sta = import (builtins.fetchTarball {
+        url = "https://github.com/NixOS/nixpkgs/archive/310be0e.tar.gz";
+        sha256 = "0l4nmks5...";  # Replace with the correct hash.
+      }) { inherit system pkgs; };
     })
   ];
+  boot.extraModulePackages = [ boot.kernelPackages.broadcom_sta ];
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/5a64d9bc-5366-4032-8cee-8e35ef347e67";
