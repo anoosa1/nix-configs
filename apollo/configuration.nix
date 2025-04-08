@@ -20,7 +20,7 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_6_13;
     supportedFilesystems = ["ntfs"];
     plymouth = {
       enable = true;
@@ -149,46 +149,13 @@
       implementation = "broker";
     };
 
+    gvfs = {
+      enable = true;
+    };
+
     # flatpak
     flatpak = {
       enable = true;
-    };
-
-    xserver = {
-      enable = true;
-      excludePackages = [
-        pkgs.xterm
-      ];
-      # Enable the GNOME Desktop Environment.
-      displayManager = {
-        gdm = {
-          enable = true;
-        };
-      };
-      desktopManager = {
-        gnome = {
-          enable = true;
-          extraGSettingsOverridePackages = [pkgs.mutter];
-          extraGSettingsOverrides = ''
-            [org.gnome.mutter]
-            experimental-features=['scale-monitor-framebuffer']
-          '';
-        };
-      };
-    };
-
-    # gnome
-    gnome = {
-      # gnome-keyring
-      gnome-keyring = {
-        enable = true;
-      };
-      core-utilities = {
-        enable = lib.mkForce false;
-      };
-      sushi = {
-        enable = true;
-      };
     };
 
     # Enable the OpenSSH daemon.
@@ -220,6 +187,22 @@
       };
     };
 
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time";
+          user = "greeter";
+        };
+      };
+    };
+
+    sunshine = {
+      enable = true;
+      autoStart = true;
+      capSysAdmin = true;
+      openFirewall = true;
+    };
   };
 
   nixpkgs = {
@@ -242,55 +225,36 @@
     systemPackages =
       (with pkgs; [
         bibata-cursors
-        gnome-tweaks
         inputs.nixvim.packages.${system}.default
         linux-firmware
         monocraft
         nautilus
+        sushi
         neofetch
         starship
         zsh
-      ])
-      ++ (with pkgs.gnomeExtensions; [
-        appindicator
-        blur-my-shell
-        color-picker
       ]);
-    gnome.excludePackages =
-      (with pkgs; [
-        gnome-tour
-    ]);
   };
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
 
   programs = {
     dconf = {
       enable = true;
-      profiles.gdm = {
-        databases = [
-          {
-            lockAll = true;
-            settings = {
-              "org/gnome/desktop/interface" = {
-                color-scheme = "prefer-dark";
-                clock-format = "12h";
-                clock-show-weekday = true;
-                show-battery-percentage = true;
-                cursor-theme = "Bibata-Modern-Ice";
-              };
-            };
-          }
-        ];
+    };
+
+    gnupg = {
+      agent = {
+        enable = true;
+        #enableSSHSupport = true;
       };
     };
-  };
+    hyprland = {
+      enable = true;
+      withUWSM = true;
 
-  programs.gnupg.agent = {
-    enable = true;
-  #  enableSSHSupport = true;
+      xwayland = {
+        enable = true;
+      };
+    };
   };
 
   # security settings
@@ -320,7 +284,6 @@
     enable = true;
     xdgOpenUsePortal = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
-    configPackages = [ pkgs.gnome-session ];
   };
 
   # polkit
@@ -343,8 +306,6 @@
   #    DefaultTimeoutStopSec=10s
   #  '';
   #};
-
-  security.pam.services.gdm.enableGnomeKeyring = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

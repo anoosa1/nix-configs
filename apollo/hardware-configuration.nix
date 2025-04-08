@@ -11,11 +11,7 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" "wl" ];
-  nixpkgs.overlays = [
-    (import ./broadcom-overlay.nix)
-  ];
-
-  boot.extraModulePackages = [ "broadcom_sta" ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/5a64d9bc-5366-4032-8cee-8e35ef347e67";
