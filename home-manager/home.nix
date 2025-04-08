@@ -18,19 +18,24 @@
   xdg.stateHome = "/home/anas/.local/var/state";
 
   fonts.fontconfig.enable = true;
-  #gtk.theme.name = lib.mkForce "adw-gtk3-dark";
+  gtk.iconTheme = {
+    package = pkgs.adwaita-icon-theme;
+    name = "Adwaita";
+  };
+  services.polkit-gnome.enable = true;
 
   imports =
     [
       ./alacritty.nix
       #./bat.nix
       ./git.nix
-      #./hyprland.nix
+      ./hyprland
       ./lf/lf.nix
       #./ncmpcpp.nix
       ./services.nix
       ./starship.nix
       ./stylix.nix
+      ./waybar
       #./x.nix
       ./zsh.nix
     ];
@@ -63,27 +68,36 @@
   # release notes.
   home.stateVersion = "24.11"; # Please read the comment before changing.
 
+  programs = {
+    bemenu = {
+      enable = true;
+    };
+  };
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-
-    #rustc
-    #cargo
-    #bemenu
-    #gtk4
+    brave
     chafa
     du-dust
-    #eva
+    eva
     eza
-    #fd
-    #fzf
-    #libsixel
+    fd
+    pulsemixer
+    fzf
+    libsixel
     monocraft
     mpv
-    #nsxiv
+    localsend
+    mullvad-browser
+    nsxiv
+    ripgrep
+    rsync
+    simplex-chat-desktop
+    skim
+    tty-clock
+    wget
+    zathura
     #passExtensions.pass-audit
     #passExtensions.pass-genphrase
     #passExtensions.pass-import
@@ -91,13 +105,6 @@
     #passExtensions.pass-tomb
     #passExtensions.pass-update
     #(pass.withExtensions (ext: with ext; [ pass-audit pass-otp pass-import pass-genphrase pass-update pass-tomb ]))
-    ripgrep
-    #rsync
-    #skim
-    #tty-clock
-    wget
-    #zathura
-    #zig
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -209,6 +216,7 @@
     DICS = "/usr/share/stardict/dic/";
     FZF_DEFAULT_OPTS = "--layout=reverse --height 40%";
     MOZ_USE_XINPUT2 = "1";
+    NIXOS_OZONE_WL = "1";
     SUDO_ASKPASS = "$HOME/.local/bin/dmenupass.sh";
     WINIT_X11_SCALE_FACTOR = "1.0";
   };

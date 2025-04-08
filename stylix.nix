@@ -37,16 +37,17 @@
     };
 
     targets = {
+      plymouth = {
+        enable = true;
+        logoAnimated = false;
+      };
+
       nixvim = {
         enable = true;
 
         transparentBackground = {
           main = true;
         };
-      };
-
-      gnome = {
-        enable = true;
       };
     };
   };

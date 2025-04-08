@@ -57,6 +57,9 @@
         allow-preset-passphrase
       '';
     };
+    gnome-keyring = {
+      enable = true;
+    };
     #mpd = {
     #  enable = true;
     #  package = pkgs.mpd;

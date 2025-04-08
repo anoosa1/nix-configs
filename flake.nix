@@ -24,10 +24,6 @@
       url = "github:anoosa1/nvim-flake/main";
     };
 
-    jovian-nixos = {
-      url = "github:Jovian-Experiments/Jovian-NixOS";
-    };
-
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs = {
@@ -69,7 +65,6 @@
 
         modules = [
           inputs.stylix.nixosModules.stylix
-          inputs.jovian-nixos.nixosModules.default
           ./aurora/configuration.nix
 	  ./stylix.nix
 	  ./users/anas.nix

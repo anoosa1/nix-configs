@@ -44,8 +44,10 @@
         enable = true;
       };
 
-      gnome = {
+      bemenu = {
         enable = true;
+        alternate = true;
+        fontSize = 16;
       };
 
       gtk = {
@@ -54,6 +56,22 @@
         flatpakSupport = {
           enable = true;
         };
+      };
+
+      hyprland = {
+        enable = true;
+
+        hyprpaper = {
+          enable = true;
+        };
+      };
+
+      hyprlock = {
+        enable = true;
+      };
+
+      hyprpaper = {
+        enable = true;
       };
 
       sxiv = {

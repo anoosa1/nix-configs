@@ -14,21 +14,6 @@
     ./hardware-configuration.nix
   ];
 
-  jovian = {
-    decky-loader = {
-      enable = true;
-    };
-    steam = {
-      enable = true;
-      user = "anas";
-      autoStart = true;
-      desktopSession = "gnome";
-    };
-    steamos = {
-      enableBluetoothConfig = true;
-    };
-  };
-
   # Use the systemd-boot EFI boot loader.
   boot = {
     loader = {
@@ -148,7 +133,7 @@
     # nvidia - gpu
     nvidia = {
       open = true;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
 
       powerManagement = {
         enable = true;
@@ -174,23 +159,17 @@
       implementation = "broker";
     };
 
+    gvfs = {
+      enable = true;
+    };
+
     # flatpak
     flatpak = {
       enable = true;
     };
 
-    # gnome
-    gnome = {
-      # gnome-keyring
-      gnome-keyring = {
-        enable = true;
-      };
-      core-utilities = {
-        enable = lib.mkForce false;
-      };
-      sushi = {
-        enable = true;
-      };
+    xserver = {
+      videoDrivers = ["nvidia"];
     };
 
     # Enable the OpenSSH daemon.
@@ -222,29 +201,21 @@
       };
     };
 
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time";
+          user = "greeter";
+        };
+      };
+    };
+
     sunshine = {
       enable = true;
       autoStart = true;
       capSysAdmin = true;
       openFirewall = true;
-    };
-
-    xserver = {
-      enable = true;
-      excludePackages = [
-        pkgs.xterm
-      ];
-      desktopManager = {
-        gnome = {
-          enable = true;
-          extraGSettingsOverridePackages = [pkgs.mutter];
-          extraGSettingsOverrides = ''
-            [org.gnome.mutter]
-            experimental-features=['scale-monitor-framebuffer']
-          '';
-        };
-      };
-      videoDrivers = ["nvidia"];
     };
   };
 
@@ -268,52 +239,34 @@
     systemPackages =
       (with pkgs; [
         bibata-cursors
-        gnome-tweaks
         inputs.nixvim.packages.${system}.default
         linux-firmware
         mangohud
         monocraft
         nautilus
+        sushi
         neofetch
         starship
         zsh
-      ])
-      ++ (with pkgs.gnomeExtensions; [
-        appindicator
-        blur-my-shell
-        color-picker
       ]);
-    gnome.excludePackages =
-      (with pkgs; [
-        gnome-tour
-    ]);
   };
 
   programs = {
     dconf = {
       enable = true;
-      profiles.gdm = {
-        databases = [
-          {
-            lockAll = true;
-            settings = {
-              "org/gnome/desktop/interface" = {
-                color-scheme = "prefer-dark";
-                clock-format = "12h";
-                clock-show-weekday = true;
-                show-battery-percentage = true;
-                cursor-theme = "Bibata-Modern-Ice";
-              };
-            };
-          }
-        ];
+    };
+
+    gnupg = {
+      agent = {
+        enable = true;
+        #enableSSHSupport = true;
       };
     };
 
-    #gamescope = {
-    #  enable = true;
-    #  capSysNice = true;
-    #};
+    gamescope = {
+      enable = true;
+      capSysNice = true;
+    };
 
     steam = {
       enable = true;
@@ -326,13 +279,13 @@
         pkgs.proton-ge-bin
       ];
 
-      #extraPackages = [
-      #  pkgs.gamescope
-      #];
+      extraPackages = [
+        pkgs.gamescope
+      ];
 
-      #gamescopeSession = {
-      #  enable = true;
-      #};
+      gamescopeSession = {
+        enable = true;
+      };
 
       localNetworkGameTransfers = {
         openFirewall = true;
@@ -341,16 +294,16 @@
       protontricks = {
         enable = true;
       };
+    };
 
-      remotePlay = {
-        openFirewall = true;
+    hyprland = {
+      enable = true;
+      withUWSM = true;
+
+      xwayland = {
+        enable = true;
       };
     };
-  };
-
-  programs.gnupg.agent = {
-    enable = true;
-  #  enableSSHSupport = true;
   };
 
   # security settings
@@ -380,7 +333,6 @@
     enable = true;
     xdgOpenUsePortal = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
-    configPackages = [ pkgs.gnome-session ];
   };
 
   # polkit
@@ -403,8 +355,6 @@
   #    DefaultTimeoutStopSec=10s
   #  '';
   #};
-
-  security.pam.services.gdm.enableGnomeKeyring = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
