@@ -12,14 +12,6 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" "wl" ];
   nixpkgs.overlays = [
-    (self: super: {
-      broadcom_sta = import (builtins.fetchTarball {
-        url = "https://github.com/NixOS/nixpkgs/archive/310be0e.tar.gz";
-        sha256 = "0l4nmks5...";  # Replace with the correct hash.
-      }) { inherit system pkgs; };
-    })
-  ];
-  nixpkgs.overlays = [
     (import ./broadcom-overlay.nix)
   ];
 
