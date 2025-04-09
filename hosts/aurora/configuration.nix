@@ -277,6 +277,7 @@
 
       extraCompatPackages = [
         pkgs.proton-ge-bin
+        pkgs.winewowPackages.waylandFull
       ];
 
       extraPackages = [

@@ -27,7 +27,6 @@
   imports =
     [
       ./alacritty.nix
-      ./dwl
       #./bat.nix
       ./git.nix
       ./hyprland

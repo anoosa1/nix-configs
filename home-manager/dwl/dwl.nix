@@ -54,10 +54,18 @@ in
     nixpkgs = {
       overlays = [
         (final: prev: {
-          dwl = prev.dwl.overrideAttrs {
-            configH = cfg.config;
+          dwl = prev.dwl.overrideAttrs (oldAttrs: rec {
             patches = cfg.patches;
-          };
+            configH = cfg.config;
+            src = prev.fetchFromGitea {
+              domain = "codeberg.org";
+              owner = "notchoc";
+              repo = "dwl";
+              rev = "ipc";
+              hash = "sha256-qfFGA7L1TxoNbY7kSVD0ITEXbEX7t0dQ0Wsmi6/SUDI=";
+            };
+            buildInputs = oldAttrs.buildInputs;
+          });
         })
       ];
     };
