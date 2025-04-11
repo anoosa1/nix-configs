@@ -12,7 +12,7 @@
 }: {
   imports = [
     (modulesPath + "/virtualisation/proxmox-lxc.nix")
-    ../services
+    ../../services
   ];
 
   sops = {

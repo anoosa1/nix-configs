@@ -34,9 +34,11 @@
       #./ncmpcpp.nix
       ./services.nix
       ./starship.nix
+      ./kitty.nix
       ./stylix.nix
       ./waybar
       #./x.nix
+      ./wezterm.nix
       ./zsh.nix
     ];
 

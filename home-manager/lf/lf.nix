@@ -101,7 +101,7 @@
   programs.lf = {
     enable = true;
     previewer = {
-      keybinding = "<lt>";
+      keybinding = "=";
       source = "${pkgs.ctpv}/bin/ctpv";
     };
     settings = {
@@ -245,10 +245,10 @@
       "<c-y>" = "up";
     };
     extraConfig = ''
-      set cleaner "ctpvclear"
-      set sixel true
-      #&${pkgs.ctpv}/bin/ctpv -s $id
       source "~/.local/etc/lf/shortcuts.lf"
+      &${pkgs.ctpv}/bin/ctpv -s $id
+      cmd on-quit %${pkgs.ctpv}/bin/ctpv -e $id
+      set cleaner ${pkgs.ctpv}/bin/ctpvclear
     '';
   };
 }

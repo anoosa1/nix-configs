@@ -1,5 +1,5 @@
 {
-  import = [
+  imports = [
     ./anas.nix
   ];
 }

@@ -57,27 +57,23 @@
   in
 
   {
-    # NixOS configuration entrypoint
-    # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
       aurora = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
 
         modules = [
           inputs.stylix.nixosModules.stylix
-          ./aurora/configuration.nix
-	  ./stylix.nix
-	  ./users/anas.nix
+          ./hosts/aurora
+	  ./nixos
         ];
       };
       apollo = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
 
         modules = [
-          ./apollo/configuration.nix
           inputs.stylix.nixosModules.stylix
-          ./stylix.nix
-	  ./users/anas.nix
+	  ./hosts/apollo
+          ./nixos
         ];
       };
       astra = nixpkgs.lib.nixosSystem {
@@ -85,8 +81,8 @@
 
         modules = [
           inputs.sops-nix.nixosModules.sops
-          ./astra/configuration.nix
-	  ./users/anas.nix
+          ./hosts/astra
+	  ./nixos
         ];
       };
     };

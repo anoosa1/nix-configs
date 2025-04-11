@@ -1,6 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running `nixos-help`).
 {
   inputs,
   lib,
@@ -10,20 +7,29 @@
   ...
 }: {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
 
-  # Use the systemd-boot EFI boot loader.
+  ## boot
   boot = {
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
     kernelPackages = pkgs.linuxPackages_latest;
     supportedFilesystems = ["ntfs"];
+
     plymouth = {
       enable = true;
+    };
+
+    loader = {
+      timeout = 0;
+
+      systemd-boot = {
+        enable = true;
+        editor = false;
+      };
+
+      efi = {
+        canTouchEfiVariables = true;
+      };
     };
 
     # Enable "Silent Boot"
@@ -38,13 +44,10 @@
       "rd.udev.log_level=3"
       "udev.log_priority=3"
     ];
-    # Hide the OS choice for bootloaders.
-    # It's still possible to open the bootloader list by pressing any key
-    # It will just not appear on screen unless a key is pressed
-    loader.timeout = 0;
   };
 
   nix = {
+    enable = true;
     # This will add each flake input as a registry
     # To make nix3 commands consistent with your flake
     registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
@@ -59,28 +62,42 @@
     };
   };
 
+  ## networking
   networking = {
+    # hostname
     hostName = "aurora";
 
-    # Pick only one of the below networking options.
-    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    # firewall
+    firewall = {
+      enable = false;
+      allowPing = true;
+
+      allowedTCPPorts = [
+      ];
+    };
+
+    # networkmanager
     networkmanager = {
-      enable = true; # Easiest to use and most distros use this by default.
+      enable = true;
     };
   };
 
-  # Set your time zone.
+  # time
   time = {
+    # timezone
     timeZone = "America/Toronto";
     hardwareClockInLocalTime = true;
   };
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+  };
+
   console = {
+    enable = true;
     font = "Lat2-Terminus16";
     #keyMap = "us";
-    useXkbConfig = true; # use xkbOptions in tty.
   };
 
   systemd.user.services."wait-for-full-path" = {
@@ -115,19 +132,24 @@
     ];
   };
 
-  ## hardware
-
   #fileSystems."PATH" = {
   #  device = "REMOTEPATH";
   #  fsType = "nfs";
   #  options = [ "x-systemd.automount" "noauto" ];
   #};
 
+  ## hardware
   hardware = {
     enableAllFirmware = true;
 
     graphics = {
       enable = true;
+    };
+
+    # bluetooth
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
     };
 
     # nvidia - gpu
@@ -147,12 +169,20 @@
 
   powerManagement.enable = true;
 
-  # bluetooth
-  hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-
   # List services that you want to enable:
   services = {
+    kmscon = {
+      enable = true;
+      hwRender = true;
+
+      fonts = [
+        {
+          name = "Monocraft";
+          package = pkgs.monocraft;
+        }
+      ];
+    };
+
     # dbus
     dbus = {
       enable = true;
@@ -201,6 +231,12 @@
       };
     };
 
+    #displayManager = {
+    #  cosmic-greeter = {
+    #    enable = true;
+    #  };
+    #};
+
     greetd = {
       enable = true;
       settings = {
@@ -226,18 +262,15 @@
     };
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-
   documentation = {
     nixos = {
       enable = false;
     };
   };
+
   # system packages
   environment = {
-    systemPackages =
-      (with pkgs; [
+    systemPackages = with pkgs; [
         bibata-cursors
         inputs.nixvim.packages.${system}.default
         linux-firmware
@@ -248,7 +281,7 @@
         neofetch
         starship
         zsh
-      ]);
+      ];
   };
 
   programs = {
@@ -270,19 +303,12 @@
 
     steam = {
       enable = true;
+      extraPackages = [ pkgs.gamescope ];
+      extraCompatPackages = [ pkgs.proton-ge-bin ];
 
       dedicatedServer = {
         openFirewall = true;
       };
-
-      extraCompatPackages = [
-        pkgs.proton-ge-bin
-        pkgs.winewowPackages.waylandFull
-      ];
-
-      extraPackages = [
-        pkgs.gamescope
-      ];
 
       gamescopeSession = {
         enable = true;
@@ -307,7 +333,7 @@
     };
   };
 
-  # security settings
+  # security
   security = {
     pam = {
       services = {
@@ -323,21 +349,27 @@
       };
     };
 
-    # rtkit is optional but recommended
+    # rtkit
     rtkit = {
+      enable = true;
+    };
+
+    # polkit
+    polkit = {
       enable = true;
     };
   };
 
-  # xdg-desktop-portal
-  xdg.portal = {
-    enable = true;
-    xdgOpenUsePortal = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
+  # xdg
+  xdg = {
+    # portal
+    portal = {
+      enable = true;
+      xdgOpenUsePortal = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
+    };
   };
 
-  # polkit
-  #security.polkit.enable = true;
   #systemd = {
   #  user.services.polkit-gnome-authentication-agent-1 = {
   #    description = "polkit-gnome-authentication-agent-1";
@@ -357,23 +389,7 @@
   #  '';
   #};
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  networking = {
-    firewall = {
-      enable = false;
-      allowedTCPPorts = [ 2049 ];
-      allowPing = true;
-    };
+  system = {
+    stateVersion = "24.11";
   };
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It's perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.11"; # Did you read the comment?
 }

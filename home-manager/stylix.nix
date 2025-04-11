@@ -74,6 +74,10 @@
         enable = true;
       };
 
+      kitty = {
+        enable = true;
+      };
+
       sxiv = {
         enable = true;
       };
@@ -85,6 +89,10 @@
       qt = {
         enable = false;
         #platform = "qtct";
+      };
+
+      wezterm = {
+        enable = true;
       };
 
       zathura = {
