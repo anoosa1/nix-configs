@@ -80,7 +80,11 @@
   # environment.
   home.packages = with pkgs; [
     brave
+<<<<<<< HEAD
     cartridges
+=======
+    bluetui
+>>>>>>> b290ed8d60b24aa0bd7094b790c111e59fa49926
     chafa
     du-dust
     eva

@@ -48,7 +48,7 @@
 
           "pulseaudio" = {
             format = "{icon} {volume}%";
-            format-bluetooth = "{icon} {volume}% ";
+            format-bluetooth = "{icon} {volume}%";
             format-muted = "🔇";
             format-icons = {
               "headphones" = "🎧";
