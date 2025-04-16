@@ -245,6 +245,7 @@
       "<c-y>" = "up";
     };
     extraConfig = ''
+      set sixel true
       source "~/.local/etc/lf/shortcuts.lf"
       &${pkgs.ctpv}/bin/ctpv -s $id
       cmd on-quit %${pkgs.ctpv}/bin/ctpv -e $id

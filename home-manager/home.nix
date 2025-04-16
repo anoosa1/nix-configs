@@ -82,9 +82,11 @@
     brave
     cartridges
     bluetui
+    windsurf
     chafa
     du-dust
     eva
+    ollama
     eza
     fd
     fzf
