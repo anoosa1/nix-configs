@@ -132,6 +132,8 @@
     ];
   };
 
+  ## hardware
+
   #fileSystems."PATH" = {
   #  device = "REMOTEPATH";
   #  fsType = "nfs";
@@ -171,18 +173,6 @@
 
   # List services that you want to enable:
   services = {
-    kmscon = {
-      enable = true;
-      hwRender = true;
-
-      fonts = [
-        {
-          name = "Monocraft";
-          package = pkgs.monocraft;
-        }
-      ];
-    };
-
     # dbus
     dbus = {
       enable = true;
@@ -230,12 +220,6 @@
         enable = true;
       };
     };
-
-    #displayManager = {
-    #  cosmic-greeter = {
-    #    enable = true;
-    #  };
-    #};
 
     greetd = {
       enable = true;
@@ -340,22 +324,27 @@
         su = {
           requireWheel = true;
         };
+
         system-login = {
           failDelay = {
             enable = true;
             delay = 4000000;
           };
         };
-      };
-    };
 
-    # rtkit
-    rtkit = {
-      enable = true;
+        greetd = {
+          enableGnomeKeyring = true;
+        };
+      };
     };
 
     # polkit
     polkit = {
+      enable = true;
+    };
+
+    # rtkit
+    rtkit = {
       enable = true;
     };
   };
@@ -370,24 +359,26 @@
     };
   };
 
-  #systemd = {
-  #  user.services.polkit-gnome-authentication-agent-1 = {
-  #    description = "polkit-gnome-authentication-agent-1";
-  #    wantedBy = [ "graphical-session.target" ];
-  #    wants = [ "graphical-session.target" ];
-  #    after = [ "graphical-session.target" ];
-  #    serviceConfig = {
-  #      Type = "simple";
-  #      ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-  #      Restart = "on-failure";
-  #      RestartSec = 1;
-  #      TimeoutStopSec = 10;
-  #    };
-  #  };
-  #  extraConfig = ''
-  #    DefaultTimeoutStopSec=10s
-  #  '';
-  #};
+  systemd = {
+    user = {
+      services = {
+        polkit-gnome-authentication-agent-1 = {
+          description = "polkit-gnome-authentication-agent-1";
+          wantedBy = [ "graphical-session.target" ];
+          wants = [ "graphical-session.target" ];
+          after = [ "graphical-session.target" ];
+
+          serviceConfig = {
+            Type = "simple";
+            ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+            Restart = "on-failure";
+            RestartSec = 1;
+            TimeoutStopSec = 10;
+          };
+        };
+      };
+    };
+  };
 
   system = {
     stateVersion = "24.11";

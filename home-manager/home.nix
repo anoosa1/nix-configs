@@ -22,7 +22,6 @@
     package = pkgs.adwaita-icon-theme;
     name = "Adwaita";
   };
-  services.polkit-gnome.enable = true;
 
   imports =
     [
