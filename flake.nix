@@ -63,6 +63,7 @@
 
         modules = [
           inputs.stylix.nixosModules.stylix
+          ./nixos/stylix
           ./hosts/aurora
 	  ./nixos
         ];
@@ -72,6 +73,7 @@
 
         modules = [
           inputs.stylix.nixosModules.stylix
+          ./nixos/stylix
 	  ./hosts/apollo
           ./nixos
         ];
