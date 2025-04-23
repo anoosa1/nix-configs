@@ -39,6 +39,7 @@
       #./x.nix
       ./wezterm.nix
       ./zsh.nix
+      ./river
     ];
 
     systemd = {
@@ -78,14 +79,12 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
+    bluetui
     brave
     cartridges
-    bluetui
-    windsurf
     chafa
     du-dust
     eva
-    ollama
     eza
     fd
     fzf
@@ -95,8 +94,11 @@
     mpv
     mullvad-browser
     nsxiv
+    ollama
+    pamixer
     pulsemixer
     ripgrep
+    rofi-wayland
     rsync
     simplex-chat-desktop
     skim
@@ -104,6 +106,7 @@
     tty-clock
     umu-launcher
     wget
+    windsurf
     wineWowPackages.waylandFull
     zathura
     #passExtensions.pass-audit

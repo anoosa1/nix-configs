@@ -307,12 +307,21 @@
       };
     };
 
-    hyprland = {
+    uwsm = {
       enable = true;
-      withUWSM = true;
 
-      xwayland = {
-        enable = true;
+      waylandCompositors = {
+        sway = {
+          prettyName = "River";
+          comment = "River (UWSM)";
+          binPath = "/home/anas/.nix-profile/bin/river";
+        };
+
+        hyprland = {
+          prettyName = "Hyprland";
+          comment = "Hyprland (UWSM)";
+          binPath = "/home/anas/.nix-profile/bin/hyprland";
+        };
       };
     };
   };

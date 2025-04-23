@@ -13,9 +13,14 @@
           layer = "top";
           position = "top";
           height = 30;
-          modules-left = ["hyprland/workspaces" "hyprland/window"];
-          modules-center = ["clock" "custom/weather"];
+          modules-left = ["hyprland/workspaces""river/tags" "hyprland/window""river/window"];
+          modules-center = ["clock" "custom/weather" "river/mode"];
           modules-right = ["tray" "network" "pulseaudio" "battery"];
+
+          "river/tags" = {
+            tag-labels = [ "" "" "" "4" "5" "6" "7" "8" "9" ];
+          };
+
           "hyprland/workspaces" = {
             disable-scroll = true;
             show-special = true;
@@ -32,6 +37,12 @@
             persistent-workspaces = {
               "*" = 3;
             };
+          };
+
+          "river/window" = {
+            max-length = 25;
+            on-scroll-up = "riverctl focus-view previous";
+            on-scroll-down = "riverctl focus-view next";
           };
 
           "hyprland/window" = {

@@ -91,6 +91,14 @@
         #platform = "qtct";
       };
 
+      river = {
+        enable = true;
+      };
+
+      rofi = {
+        enable = true;
+      };
+
       wezterm = {
         enable = true;
       };
