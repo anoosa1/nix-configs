@@ -127,6 +127,9 @@
           "None XF86AudioRaiseVolume" = "spawn 'pamixer -i 5'";
           "None XF86AudioLowerVolume" = "spawn 'pamixer -d 5'";
           "None XF86AudioMute" = "spawn 'pamixer --toggle-mute'";
+          "Super XF86AudioRaiseVolume" = "spawn 'pamixer --default-source -i 5'";
+          "Super XF86AudioLowerVolume" = "spawn 'pamixer --default-source -d 5'";
+          "Super XF86AudioMute" = "spawn 'pamixer --default-source --toggle-mute'";
           "None XF86MonBrightnessUp" = "spawn 'brightnessctl set +5%'";
           "None XF86MonBrightnessDown" = "spawn 'brightnessctl set -5%'";
         };
@@ -136,6 +139,9 @@
         };
 
         locked = {
+          "Super XF86AudioRaiseVolume" = "spawn 'pamixer --default-source -i 5'";
+          "Super XF86AudioLowerVolume" = "spawn 'pamixer --default-source -d 5'";
+          "Super XF86AudioMute" = "spawn 'pamixer --default-source --toggle-mute'";
           "None XF86AudioRaiseVolume" = "spawn 'pamixer -i 5'";
           "None XF86AudioLowerVolume" = "spawn 'pamixer -d 5'";
           "None XF86AudioMute" = "spawn 'pamixer --toggle-mute'";
