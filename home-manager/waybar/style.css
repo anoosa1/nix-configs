@@ -10,22 +10,10 @@ window#waybar {
   background: transparent;
 }
 
-#tags {
-  margin-top: 6px;
-  margin-left: 12px;
-  font-size: 4px;
-  margin-bottom: 0px;
-  border-radius: 10px;
-  min-width: 0;
-  background: #0e1218;
-  transition: none;
-}
-
 #tags button {
   transition: none;
   color: #dfd2c4;
   background: transparent;
-  font-size: 16px;
   border-radius: 2px;
 }
 
@@ -40,17 +28,13 @@ window#waybar {
   color: #cc4f5e;
 }
 
-#tags button:hover {
+#tags button:hover,
+#tags button.focused:hover {
   transition: none;
   box-shadow: inherit;
   text-shadow: inherit;
   color: #ffffee;
-    border-color: #ffffee;
-    color: #ffffee;
-}
-
-#tags button.focused:hover {
-    color: #ffffee;
+  border-color: #ffffee;
 }
 
 #tags button.urgent {
@@ -60,7 +44,7 @@ window#waybar {
 
 #battery.charging, #battery.plugged {
   color: #ffffee;
-    background-color: #9F9C9D;
+  background-color: #9F9C9D;
 }
 
 #battery.critical:not(.charging) {
@@ -83,14 +67,21 @@ window#waybar {
 #network,
 #window,
 #custom-launcher,
-#mode {
+#mode,
+#tags {
   margin-top: 6px;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-bottom: 0px;
+  margin-right: 6px;
+  margin-left: 6px;
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 10px;
   transition: none;
   color: #ffffee;
   background: #202937;
+}
+
+#tags {
+  padding-left: 0px;
+  padding-right: 0px;
 }
