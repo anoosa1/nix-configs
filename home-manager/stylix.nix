@@ -99,6 +99,10 @@
         enable = true;
       };
 
+      waybar = {
+        enable = false;
+      };
+
       wezterm = {
         enable = true;
       };

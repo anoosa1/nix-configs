@@ -2,7 +2,7 @@
   programs = {
     waybar = {
       enable = true;
-      #style = ./style.css;
+      style = ./style.css;
 
       systemd = {
         enable = true;
@@ -12,13 +12,20 @@
         mainBar = {
           layer = "top";
           position = "top";
-          height = 30;
-          modules-left = ["hyprland/workspaces""river/tags" "hyprland/window""river/window"];
-          modules-center = ["clock" "custom/weather" "river/mode"];
-          modules-right = ["tray" "network" "pulseaudio" "battery"];
+          height = 36;
+          modules-center = [ "river/tags" "river/window" ];
+          #modules-left = ["hyprland/workspaces""river/tags" "hyprland/window""river/window"];
+          modules-left = [ "custom/launcher" "clock" "custom/weather" "mpd" ];
+          modules-right = [ "tray" "network" "pulseaudio" "pulseaudio#mic" "battery" ];
+
+          "custom/launcher" = {
+            format = "";
+            on-click = "rofi -show run";
+          };
 
           "river/tags" = {
-            tag-labels = [ "" "" "" "4" "5" "6" "7" "8" "9" ];
+            hide-vacant = true;
+            tag-labels = [ "" "" "" "4" "5" "6" "7" "8" "9"];
           };
 
           "hyprland/workspaces" = {
@@ -40,6 +47,7 @@
           };
 
           "river/window" = {
+            format = "{}";
             max-length = 25;
             on-scroll-up = "riverctl focus-view previous";
             on-scroll-down = "riverctl focus-view next";
@@ -50,27 +58,57 @@
           };
 
           "custom/weather" = {
-            format = " {} ";
+            format = "{}";
             exec = "curl -s 'wttr.in/yyz?format=%c%t'";
-            interval = 1000;
+            interval = 18000;
             on-click = "mullvad-browser wttr.in";
             class = "weather";
           };
 
           "pulseaudio" = {
             format = "{icon} {volume}%";
-            format-bluetooth = "{icon} {volume}%";
-            format-muted = "🔇";
+            format-muted = " {volume}%";
+            format-bluetooth = " {volume}%";
+            format-bluetooth-muted = "  {volume}%";
             format-icons = {
-              "headphones" = "🎧";
-              "default" = ["🔉" "🔊"];
+              default = [ "" "" "" "" ];
+              headphones = " ";
+              speaker = " ";
+              hands-free = " ";
+              headset = " ";
+              phone = " ";
+              car = " ";
+              hifi = " ";
             };
+
+            scroll-step = 5;
             on-click = "alacritty -e pulsemixer";
+            on-scroll-up = "pamixer -i 5";
+            on-scroll-down = "pamixer -d 5";
+          };
+
+          "pulseaudio#mic" = {
+            format = "{format_source}";
+            format-source = " {volume}%";
+            format-source-muted = " {volume}%";
+            scroll-step = 5;
+            on-click = "alacritty -e pulsemixer";
+            on-scroll-up = "pamixer --default-source -i 5";
+            on-scroll-down = "pamixer --get-source -d 5";
           };
 
           "network" = {
-            format-wifi = "🛜";
-            format-disconnected = "❎";
+            format = "{icon}";
+            format-alt = "{ipaddr} {icon}";
+            format-alt-click = "click-right";
+
+            format-icons = {
+              wifi = [ "" "" "" ];
+              disconnected = "";
+              disable = "";
+              ethernet = "";
+            };
+
             tooltip-format = "Signal: {signalStrength}%";
             interval = 10;
             on-click = "alacritty -e nmtui";
@@ -78,12 +116,15 @@
           
           "battery" = {
             states = {
-              warning = 30;
-              critical = 10;
+              good = 90;
+              warning = 50;
+              critical = 25;
             };
+
             format = "{icon}{capacity}%";
-            format-charging = "🔌{capacity}%";
-            format-icons = ["❗" "🪫" "🟢" "🔋" "🔋"];
+            format-charging = "{capacity}%";
+            format-icons = [ "" "" "" "" "" ""];
+            tooltip-format = "Time: {time}\nHealth: {health}";
           };
 
           "clock" = {
@@ -94,8 +135,21 @@
           };
 
           "tray" = {
-            icon-size = 14;
-            spacing = 5;
+            icon-size = 18;
+            spacing = 10;
+          };
+
+          "mpd" = {
+            format = " {artist} - {title}";
+            format-paused = " {artist} - {title}";
+            format-stopped = "";
+            format-disconnect = "MPD Disconnected";
+
+            on-click = "alacrirtty -e ncmpcpp";
+            on-click-right = "mpc toggle";
+            on-scroll-up = "mpc next";
+            on-scroll-down = "mpc prev";
+            on-click-middle = "mpc stop";
           };
         };
       };

@@ -60,20 +60,15 @@
     gnome-keyring = {
       enable = true;
     };
-    #mpd = {
-    #  enable = true;
-    #  package = pkgs.mpd;
-    #  dbFile = "~/.local/share/mpd/mpd.db";
-    #  #extraConfig = ''
-    #  #'';
-    #  musicDirectory = "~/audio";
-    #  network = {
-    #    listenAddress = "any";
-    #    port = 6600;
-    #    startWhenNeeded = true;
-
-    #  };
-    #};
+    mpd = {
+      enable = true;
+      musicDirectory = "~/audio";
+      network = {
+        listenAddress = "any";
+        port = 6600;
+        startWhenNeeded = true;
+      };
+    };
     #unclutter = {
     #  enable = true;
     #};

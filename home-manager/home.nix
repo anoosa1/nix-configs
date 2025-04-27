@@ -30,7 +30,6 @@
       ./git.nix
       ./hyprland
       ./lf/lf.nix
-      #./ncmpcpp.nix
       ./services.nix
       ./starship.nix
       ./kitty.nix
@@ -80,9 +79,11 @@
   # environment.
   home.packages = with pkgs; [
     bluetui
+    seahorse
     brave
     cartridges
     chafa
+    brightnessctl
     du-dust
     eva
     eza
@@ -94,7 +95,9 @@
     mpv
     mullvad-browser
     nsxiv
-    ollama
+    (pkgs.ollama.override { 
+      acceleration = "cuda";
+    })
     pamixer
     pulsemixer
     ripgrep
