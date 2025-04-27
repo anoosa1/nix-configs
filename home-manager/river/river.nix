@@ -16,7 +16,7 @@
       border-width = 2;
       set-repeat = "50 300";
       xcursor-theme = "Bibata-Modern-Ice 24";
-      output-layout = "rivertile";
+      output-layout = "rivertile -view-padding 3 -outer-padding 3";
 
       declare-mode = [
         "locked"
