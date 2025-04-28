@@ -17,13 +17,6 @@ window#waybar {
   border-radius: 2px;
 }
 
-#tags button.occupied {
-  transition: none;
-  color: #c5663d;
-  background: transparent;
-  font-size: 4px;
-}
-
 #tags button.focused {
   color: #cc4f5e;
 }
@@ -69,10 +62,10 @@ window#waybar {
 #custom-launcher,
 #mode,
 #tags {
-  margin-top: 6px;
+  margin-top: 4px;
   margin-bottom: 0px;
-  margin-right: 6px;
-  margin-left: 6px;
+  margin-right: 4px;
+  margin-left: 4px;
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 10px;

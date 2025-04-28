@@ -17,6 +17,7 @@
       set-repeat = "50 300";
       xcursor-theme = "Bibata-Modern-Ice 24";
       output-layout = "rivertile";
+      focus-follow-cursor = "normal";
 
       declare-mode = [
         "locked"
@@ -35,7 +36,7 @@
       map = {
         normal = {
           "Super Return" = "spawn alacritty";
-          "Super W" = "spawn mullvad-browser";
+          "Super W" = "spawn brave";
           "Super D" = "spawn 'rofi -show run'";
           "Super B" = "spawn 'systemctl --user kill --signal=SIGUSR1 waybar.service'";
           "Super Backspace" = "spawn 'hyprlock --immediate'";
