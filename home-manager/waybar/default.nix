@@ -12,6 +12,7 @@
         mainBar = {
           layer = "top";
           position = "top";
+          start_hidden = true;
           height = 36;
           modules-center = [ "river/tags" "river/window" ];
           #modules-left = ["hyprland/workspaces""river/tags" "hyprland/window""river/window"];
