@@ -171,7 +171,7 @@
 
   powerManagement.enable = true;
 
-  # List services that you want to enable:
+  ## services
   services = {
     # dbus
     dbus = {
@@ -252,6 +252,23 @@
       autoStart = true;
       capSysAdmin = true;
       openFirewall = true;
+    };
+    udisks2 = {
+      enable = true;
+    };
+
+    upower = {
+      enable = true;
+    };
+
+    power-profiles-daemon = {
+      enable = true;
+    };
+
+    gnome = {
+      gnome-keyring = {
+        enable = true;
+      };
     };
   };
 

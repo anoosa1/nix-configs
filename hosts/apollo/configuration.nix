@@ -12,7 +12,7 @@
 
   ## boot
   boot = {
-    kernelPackages = pkgs.linuxPackages_6_13;
+    kernelPackages = pkgs.linuxPackages_latest;
     supportedFilesystems = ["ntfs"];
 
     plymouth = {
@@ -130,6 +130,8 @@
       "${XDG_BIN_HOME}"
     ];
   };
+
+  ## hardware
 
   #fileSystems."PATH" = {
   #  device = "REMOTEPATH";
@@ -272,12 +274,22 @@
         #enableSSHSupport = true;
       };
     };
-    hyprland = {
-      enable = true;
-      withUWSM = true;
 
-      xwayland = {
-        enable = true;
+    uwsm = {
+      enable = true;
+
+      waylandCompositors = {
+        sway = {
+          prettyName = "River";
+          comment = "River (UWSM)";
+          binPath = "/home/anas/.nix-profile/bin/river";
+        };
+
+        hyprland = {
+          prettyName = "Hyprland";
+          comment = "Hyprland (UWSM)";
+          binPath = "/home/anas/.nix-profile/bin/hyprland";
+        };
       };
     };
   };

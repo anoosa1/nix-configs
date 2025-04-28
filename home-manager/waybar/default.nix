@@ -73,13 +73,13 @@
             format-bluetooth-muted = "  {volume}%";
             format-icons = {
               default = [ "" "" "" "" ];
-              headphones = " ";
-              speaker = " ";
-              hands-free = " ";
-              headset = " ";
-              phone = " ";
-              car = " ";
-              hifi = " ";
+              headphones = "";
+              speaker = "";
+              hands-free = "";
+              headset = "";
+              phone = "";
+              car = "";
+              hifi = "";
             };
 
             scroll-step = 5;

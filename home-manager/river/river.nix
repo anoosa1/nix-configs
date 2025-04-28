@@ -132,7 +132,9 @@
           "Super XF86AudioLowerVolume" = "spawn 'pamixer --default-source -d 5'";
           "Super XF86AudioMute" = "spawn 'pamixer --default-source --toggle-mute'";
           "None XF86MonBrightnessUp" = "spawn 'brightnessctl set +5%'";
-          "None XF86MonBrightnessDown" = "spawn 'brightnessctl set -5%'";
+          "None XF86MonBrightnessDown" = "spawn 'brightnessctl set 5%-'";
+          "None XF86KbdBrightnessUp" = "spawn 'brightnessctl --device=smc::kbd_backlight set +10%'";
+          "None XF86KbdBrightnessDown" = "spawn 'brightnessctl --device=smc::kbd_backlight set 10%-'";
         };
 
         passthrough = {
@@ -147,7 +149,9 @@
           "None XF86AudioLowerVolume" = "spawn 'pamixer -d 5'";
           "None XF86AudioMute" = "spawn 'pamixer --toggle-mute'";
           "None XF86MonBrightnessUp" = "spawn 'brightnessctl set +5%'";
-          "None XF86MonBrightnessDown" = "spawn 'brightnessctl set -5%'";
+          "None XF86MonBrightnessDown" = "spawn 'brightnessctl set 5%-'";
+          "None XF86KbdBrightnessUp" = "spawn 'brightnessctl --device=smc::kbd_backlight set +10%'";
+          "None XF86KbdBrightnessDown" = "spawn 'brightnessctl --device=smc::kbd_backlight set 10%-'";
         };
       };
 
@@ -160,7 +164,8 @@
       };
 
       spawn = [
-        "rivertile -view-padding 2 -outer-padding 2"
+        "'rivertile -view-padding 2 -outer-padding 2'"
+        "'wlr-randr --output eDP-1 --scale 1.5'"
       ];
     };
   };

@@ -79,25 +79,20 @@
   # environment.
   home.packages = with pkgs; [
     bluetui
-    seahorse
     brave
-    cartridges
     chafa
     brightnessctl
     du-dust
     eva
     eza
     fd
-    fzf
     libsixel
     localsend
     monocraft
     mpv
     mullvad-browser
     nsxiv
-    (pkgs.ollama.override { 
-      acceleration = "cuda";
-    })
+    ollama
     pamixer
     pulsemixer
     ripgrep
@@ -105,12 +100,11 @@
     rsync
     simplex-chat-desktop
     skim
-    termusic
     tty-clock
     umu-launcher
     wget
     windsurf
-    wineWowPackages.waylandFull
+    wlr-randr
     zathura
     #passExtensions.pass-audit
     #passExtensions.pass-genphrase
