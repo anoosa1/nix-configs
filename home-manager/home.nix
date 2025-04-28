@@ -96,7 +96,7 @@
     pamixer
     pulsemixer
     ripgrep
-    rofi-wayland
+    (pkgs.rofi-wayland.override { plugins = [ pkgs.rofi-games ]; })
     rsync
     simplex-chat-desktop
     skim

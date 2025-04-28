@@ -17,7 +17,7 @@
       set-repeat = "50 300";
       xcursor-theme = "Bibata-Modern-Ice 24";
       output-layout = "rivertile";
-      focus-follow-cursor = "normal";
+      focus-follows-cursor = "normal";
 
       declare-mode = [
         "locked"
