@@ -4,9 +4,9 @@
     ./nextcloud.nix
     ./transmission.nix
     ./homeassistant.nix
+    ./soft-serve.nix
     ./kasm.nix
     ./paperless.nix
     #./code-server.nix
-    #./git.nix
   ];
 }
