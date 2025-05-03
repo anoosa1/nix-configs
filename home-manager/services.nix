@@ -60,6 +60,7 @@
     gnome-keyring = {
       enable = true;
     };
+
     mpd = {
       enable = true;
       musicDirectory = "~/audio";
@@ -69,6 +70,15 @@
         startWhenNeeded = true;
       };
     };
+
+    mpd-mpris = {
+      enable = true;
+    };
+
+    playerctld = {
+      enable = true;
+    };
+
     #unclutter = {
     #  enable = true;
     #};

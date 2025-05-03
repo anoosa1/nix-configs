@@ -19,6 +19,11 @@
       output-layout = "rivertile";
       focus-follows-cursor = "normal";
 
+      hide-cursor = {
+        timeout = 5000;
+        when-typing = true;
+      };
+
       declare-mode = [
         "locked"
         "normal"
@@ -125,16 +130,26 @@
 
           "Super F11" = "enter-mode passthrough";
 
-          "None XF86AudioRaiseVolume" = "spawn 'pamixer -i 5'";
-          "None XF86AudioLowerVolume" = "spawn 'pamixer -d 5'";
-          "None XF86AudioMute" = "spawn 'pamixer --toggle-mute'";
-          "Super XF86AudioRaiseVolume" = "spawn 'pamixer --default-source -i 5'";
-          "Super XF86AudioLowerVolume" = "spawn 'pamixer --default-source -d 5'";
-          "Super XF86AudioMute" = "spawn 'pamixer --default-source --toggle-mute'";
           "None XF86MonBrightnessUp" = "spawn 'brightnessctl set +5%'";
           "None XF86MonBrightnessDown" = "spawn 'brightnessctl set 5%-'";
           "None XF86KbdBrightnessUp" = "spawn 'brightnessctl --device=smc::kbd_backlight set +10%'";
           "None XF86KbdBrightnessDown" = "spawn 'brightnessctl --device=smc::kbd_backlight set 10%-'";
+          "None XF86AudioRaiseVolume" = "spawn 'pamixer -i 5'";
+          "None XF86AudioLowerVolume" = "spawn 'pamixer -d 5'";
+          "None XF86AudioMute" = "spawn 'pamixer --toggle-mute'";
+          "None XF86AudioPlay" = "spawn 'playerctl play-pause'";
+          "None XF86AudioPrev" = "spawn 'playerctl previous'";
+          "None XF86AudioNext" = "spawn 'playerctl next'";
+          "None XF86AudioStop" = "spawn 'playerctl stop'";
+          "None XF86AudioMedia" = "spawn 'alacritty -e rmpc'";
+          "Super XF86AudioRaiseVolume" = "spawn 'pamixer --default-source -i 5'";
+          "Super XF86AudioLowerVolume" = "spawn 'pamixer --default-source -d 5'";
+          "Super XF86AudioMute" = "spawn 'pamixer --default-source --toggle-mute'";
+          "Super XF86AudioPlay" = "spawn 'rmpc togglepause'";
+          "Super XF86AudioPrev" = "spawn 'rmpc prev'";
+          "Super XF86AudioNext" = "spawn 'rmpc next'";
+          "Super XF86AudioStop" = "spawn 'rmpc stop'";
+          "Super XF86AudioMedia" = "spawn 'alacritty -e termusic'";
         };
 
         passthrough = {
@@ -142,16 +157,24 @@
         };
 
         locked = {
-          "Super XF86AudioRaiseVolume" = "spawn 'pamixer --default-source -i 5'";
-          "Super XF86AudioLowerVolume" = "spawn 'pamixer --default-source -d 5'";
-          "Super XF86AudioMute" = "spawn 'pamixer --default-source --toggle-mute'";
-          "None XF86AudioRaiseVolume" = "spawn 'pamixer -i 5'";
-          "None XF86AudioLowerVolume" = "spawn 'pamixer -d 5'";
-          "None XF86AudioMute" = "spawn 'pamixer --toggle-mute'";
           "None XF86MonBrightnessUp" = "spawn 'brightnessctl set +5%'";
           "None XF86MonBrightnessDown" = "spawn 'brightnessctl set 5%-'";
           "None XF86KbdBrightnessUp" = "spawn 'brightnessctl --device=smc::kbd_backlight set +10%'";
           "None XF86KbdBrightnessDown" = "spawn 'brightnessctl --device=smc::kbd_backlight set 10%-'";
+          "None XF86AudioRaiseVolume" = "spawn 'pamixer -i 5'";
+          "None XF86AudioLowerVolume" = "spawn 'pamixer -d 5'";
+          "None XF86AudioMute" = "spawn 'pamixer --toggle-mute'";
+          "None XF86AudioPlay" = "spawn 'playerctl play-pause'";
+          "None XF86AudioPrev" = "spawn 'playerctl previous'";
+          "None XF86AudioNext" = "spawn 'playerctl next'";
+          "None XF86AudioStop" = "spawn 'playerctl stop'";
+          "Super XF86AudioRaiseVolume" = "spawn 'pamixer --default-source -i 5'";
+          "Super XF86AudioLowerVolume" = "spawn 'pamixer --default-source -d 5'";
+          "Super XF86AudioMute" = "spawn 'pamixer --default-source --toggle-mute'";
+          "Super XF86AudioPlay" = "spawn 'rmpc togglepause'";
+          "Super XF86AudioPrev" = "spawn 'rmpc prev'";
+          "Super XF86AudioNext" = "spawn 'rmpc next'";
+          "Super XF86AudioStop" = "spawn 'rmpc stop'";
         };
       };
 
@@ -164,7 +187,7 @@
       };
 
       spawn = [
-        "'rivertile -view-padding 2 -outer-padding 2'"
+        "'rivertile -view-padding 0 -outer-padding 0'"
         "'wlr-randr --output eDP-1 --scale 1.5'"
       ];
     };

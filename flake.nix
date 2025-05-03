@@ -24,6 +24,10 @@
       url = "github:anoosa1/nvim-flake/main";
     };
 
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/master";
+    };
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs = {
@@ -73,6 +77,7 @@
 
         modules = [
           inputs.stylix.nixosModules.stylix
+          nixos-hardware.nixosModules.apple-macbook-pro-11-1
           ./nixos/stylix.nix
 	  ./hosts/apollo
           ./nixos

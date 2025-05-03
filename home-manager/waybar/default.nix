@@ -14,15 +14,8 @@
           position = "top";
           start_hidden = true;
           height = 36;
-          modules-center = [ "river/tags" "river/window" ];
-          #modules-left = ["hyprland/workspaces""river/tags" "hyprland/window""river/window"];
-          modules-left = [ "custom/launcher" "clock" "custom/weather" "mpd" ];
-          modules-right = [ "tray" "network" "pulseaudio" "pulseaudio#mic" "battery" ];
-
-          "custom/launcher" = {
-            format = "";
-            on-click = "rofi -show run";
-          };
+          modules-left = [ "river/tags" "river/window" "mpris" ];
+          modules-right = [ "tray" "network" "pulseaudio" "pulseaudio#mic" "battery" "custom/weather" "clock" ];
 
           "river/tags" = {
             hide-vacant = true;
@@ -66,7 +59,7 @@
             class = "weather";
           };
 
-          "pulseaudio" = {
+          pulseaudio = {
             format = "{icon} {volume}%";
             format-muted = " {volume}%";
             format-bluetooth = " {volume}%";
@@ -98,7 +91,7 @@
             on-scroll-down = "pamixer --get-source -d 5";
           };
 
-          "network" = {
+          network = {
             format = "{icon}";
             format-alt = "{ipaddr} {icon}";
             format-alt-click = "click-right";
@@ -115,7 +108,7 @@
             on-click = "alacritty -e nmtui";
           };
           
-          "battery" = {
+          battery = {
             states = {
               good = 90;
               warning = 50;
@@ -128,29 +121,38 @@
             tooltip-format = "Time: {time}\nHealth: {health}";
           };
 
-          "clock" = {
+          clock = {
             tooltip = true;
             interval = 1;
             format = "{:%B %d  %H:%M:%S}";
             tooltip-format = "{:%A, %B %d %Y %H:%M:%S}";
           };
 
-          "tray" = {
+          tray = {
             icon-size = 18;
             spacing = 10;
           };
 
-          "mpd" = {
-            format = " {artist} - {title}";
-            format-paused = " {artist} - {title}";
-            format-stopped = "";
-            format-disconnect = "MPD Disconnected";
+          mpris = {
+            format = "{player_icon} - {status_icon} {title}";
+            format-paused = "{player_icon} - {status_icon} <i>{title}</i>";
+            format-stopped = "{status_icon}";
+            title-len = 20;
+            on-click = "alacritty -e rmpc";
+            on-click-right = "playerctl play-pause";
+            on-scroll-up = "playerctl next";
+            on-scroll-down = "playerctl previous";
+            on-click-middle = "playerctl stop";
 
-            on-click = "alacrirtty -e ncmpcpp";
-            on-click-right = "mpc toggle";
-            on-scroll-up = "mpc next";
-            on-scroll-down = "mpc prev";
-            on-click-middle = "mpc stop";
+            player-icons = {
+              default = "";
+            };
+
+            status-icons = {
+              playing = "";
+              stopped = "";
+              paused = "";
+            };
           };
         };
       };

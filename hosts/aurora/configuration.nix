@@ -48,12 +48,7 @@
 
   nix = {
     enable = true;
-    # This will add each flake input as a registry
-    # To make nix3 commands consistent with your flake
     registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
-
-    # This will additionally add your inputs to the system's legacy channels
-    # Making legacy nix commands consistent as well, awesome!
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
     settings = {
@@ -96,27 +91,9 @@
 
   console = {
     enable = true;
-    font = "Lat2-Terminus16";
-    #keyMap = "us";
-  };
-
-  systemd.user.services."wait-for-full-path" = {
-    description = "wait for systemd units to have full PATH";
-    wantedBy = [ "xdg-desktop-portal.service" ];
-    before = [ "xdg-desktop-portal.service" ];
-    path = with pkgs; [ systemd coreutils gnugrep ];
-    script = ''
-      ispresent () {
-        systemctl --user show-environment | grep -E '^PATH=.*/.nix-profile/bin'
-      }
-      while ! ispresent; do
-        sleep 0.1;
-      done
-    '';
-    serviceConfig = {
-      Type = "oneshot";
-      TimeoutStartSec = "60";
-    };
+    font = "${pkgs.terminus_font}/share/consolefonts/ter-i16n.psf.gz";
+    packages = with pkgs; [ terminus_font ];
+    keyMap = "us";
   };
 
   environment.sessionVariables = rec {
@@ -183,13 +160,15 @@
       enable = true;
     };
 
-    # flatpak
-    flatpak = {
-      enable = true;
-    };
-
     xserver = {
       videoDrivers = ["nvidia"];
+    };
+
+    sunshine = {
+      enable = true;
+      autoStart = true;
+      capSysAdmin = true;
+      openFirewall = true;
     };
 
     # Enable the OpenSSH daemon.
@@ -218,22 +197,6 @@
 
       wireplumber = {
         enable = true;
-
-        extraConfig = {
-          "10-bluez" = {
-            "monitor.bluez.properties" = {
-              "bluez5.enable-sbc-xq" = true;
-              "bluez5.enable-msbc" = true;
-              "bluez5.enable-hw-volume" = true;
-              "bluez5.roles" = [
-                "hsp_hs"
-                "hsp_ag"
-                "hfp_hf"
-                "hfp_ag"
-              ];
-            };
-          };
-        };
       };
     };
 
@@ -247,12 +210,6 @@
       };
     };
 
-    sunshine = {
-      enable = true;
-      autoStart = true;
-      capSysAdmin = true;
-      openFirewall = true;
-    };
     udisks2 = {
       enable = true;
     };
@@ -291,7 +248,6 @@
         bibata-cursors
         inputs.nixvim.packages.${system}.default
         linux-firmware
-        mangohud
         monocraft
         nautilus
         sushi
@@ -315,28 +271,19 @@
 
     gamescope = {
       enable = true;
-      capSysNice = true;
+    };
+
+    gamemode = {
+      enable = true;
+      enableRenice = true;
     };
 
     steam = {
       enable = true;
-      extraPackages = [ pkgs.gamescope ];
       extraCompatPackages = [ pkgs.proton-ge-bin ];
 
       dedicatedServer = {
         openFirewall = true;
-      };
-
-      gamescopeSession = {
-        enable = true;
-      };
-
-      localNetworkGameTransfers = {
-        openFirewall = true;
-      };
-
-      protontricks = {
-        enable = true;
       };
     };
 
@@ -348,12 +295,6 @@
           prettyName = "River";
           comment = "River (UWSM)";
           binPath = "/home/anas/.nix-profile/bin/river";
-        };
-
-        hyprland = {
-          prettyName = "Hyprland";
-          comment = "Hyprland (UWSM)";
-          binPath = "/home/anas/.nix-profile/bin/hyprland";
         };
       };
     };
@@ -388,16 +329,6 @@
     # rtkit
     rtkit = {
       enable = true;
-    };
-  };
-
-  # xdg
-  xdg = {
-    # portal
-    portal = {
-      enable = true;
-      xdgOpenUsePortal = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
     };
   };
 

@@ -23,6 +23,20 @@
       fsType = "vfat";
     };
 
+  fileSystems."/home/anas/.local/media/Data" = {
+    device = "/dev/disk/by-uuid/01DA2B0CD38FCEB0";
+    fsType = "ntfs3";
+
+    options = [
+      "x-gvfs-show"
+      "nofail"
+      "uid=1000"
+      "gid=1000"
+      "dmask=077"
+      "umask=177"
+    ];
+  };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/510dd866-22e0-41e0-a2ae-254596d098b6"; }
     ];

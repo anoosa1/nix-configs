@@ -1,20 +1,28 @@
 * {
-  border: none;
-  border-radius: 10px;
   font-family: "Monocraft", "Font Awesome 5 Pro";
   font-size: 14px;
   min-height: 10px;
+  background: #202937;
 }
 
-window#waybar {
-  background: transparent;
+#custom-weather,
+#mpd,
+#clock,
+#tray,
+#battery,
+#backlight,
+#pulseaudio,
+#network,
+#window,
+#mode {
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #ffffee;
 }
 
 #tags button {
-  transition: none;
   color: #dfd2c4;
   background: transparent;
-  border-radius: 2px;
 }
 
 #tags button.focused {
@@ -23,7 +31,6 @@ window#waybar {
 
 #tags button:hover,
 #tags button.focused:hover {
-  transition: none;
   box-shadow: inherit;
   text-shadow: inherit;
   color: #ffffee;
@@ -48,33 +55,4 @@ window#waybar {
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;
-}
-
-#custom-weather,
-#mpd,
-#clock,
-#tray,
-#battery,
-#backlight,
-#pulseaudio,
-#network,
-#window,
-#custom-launcher,
-#mode,
-#tags {
-  margin-top: 4px;
-  margin-bottom: 0px;
-  margin-right: 4px;
-  margin-left: 4px;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 10px;
-  transition: none;
-  color: #ffffee;
-  background: #202937;
-}
-
-#tags {
-  padding-left: 0px;
-  padding-right: 0px;
 }

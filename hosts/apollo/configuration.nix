@@ -48,12 +48,7 @@
 
   nix = {
     enable = true;
-    # This will add each flake input as a registry
-    # To make nix3 commands consistent with your flake
     registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
-
-    # This will additionally add your inputs to the system's legacy channels
-    # Making legacy nix commands consistent as well, awesome!
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
     settings = {
@@ -96,7 +91,9 @@
 
   console = {
     enable = true;
-    #keyMap = "us";
+    font = "${pkgs.terminus_font}/share/consolefonts/ter-i32n.psf.gz";
+    packages = with pkgs; [ terminus_font ];
+    keyMap = "us";
   };
 
   systemd.user.services."wait-for-full-path" = {
@@ -283,12 +280,6 @@
           prettyName = "River";
           comment = "River (UWSM)";
           binPath = "/home/anas/.nix-profile/bin/river";
-        };
-
-        hyprland = {
-          prettyName = "Hyprland";
-          comment = "Hyprland (UWSM)";
-          binPath = "/home/anas/.nix-profile/bin/hyprland";
         };
       };
     };
