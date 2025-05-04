@@ -77,7 +77,7 @@
 
         modules = [
           inputs.stylix.nixosModules.stylix
-          nixos-hardware.nixosModules.apple-macbook-pro-11-1
+          inputs.nixos-hardware.nixosModules.apple-macbook-pro-11-1
           ./nixos/stylix.nix
 	  ./hosts/apollo
           ./nixos

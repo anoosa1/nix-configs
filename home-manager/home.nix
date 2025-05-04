@@ -169,6 +169,7 @@
       RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
       SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/gcr/ssh";
       SSH_HOME = "$XDG_CONFIG_HOME/ssh";
+      XKB_DEFAULT_OPTIONS = "caps:swapescape";
       STARSHIP_CACHE = "$XDG_CACHE_HOME/starship";
       STARSHIP_CONFIG = "$XDG_CONFIG_HOME/starship.toml";
       STEAM_EXTRA_COMPAT_TOOLS_PATHS = "$HOME/.steam/root/compatibilitytools.d";

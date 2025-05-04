@@ -96,25 +96,6 @@
     keyMap = "us";
   };
 
-  systemd.user.services."wait-for-full-path" = {
-    description = "wait for systemd units to have full PATH";
-    wantedBy = [ "xdg-desktop-portal.service" ];
-    before = [ "xdg-desktop-portal.service" ];
-    path = with pkgs; [ systemd coreutils gnugrep ];
-    script = ''
-      ispresent () {
-        systemctl --user show-environment | grep -E '^PATH=.*/.nix-profile/bin'
-      }
-      while ! ispresent; do
-        sleep 0.1;
-      done
-    '';
-    serviceConfig = {
-      Type = "oneshot";
-      TimeoutStartSec = "60";
-    };
-  };
-
   environment.sessionVariables = rec {
     XDG_CACHE_HOME = "$HOME/.local/var/cache";
     XDG_CONFIG_HOME = "$HOME/.local/etc";
@@ -166,11 +147,6 @@
     };
 
     gvfs = {
-      enable = true;
-    };
-
-    # flatpak
-    flatpak = {
       enable = true;
     };
 
@@ -314,16 +290,6 @@
     # rtkit
     rtkit = {
       enable = true;
-    };
-  };
-
-  # xdg
-  xdg = {
-    # portal
-    portal = {
-      enable = true;
-      xdgOpenUsePortal = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
     };
   };
 
