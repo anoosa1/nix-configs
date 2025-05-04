@@ -44,7 +44,7 @@
           "Super W" = "spawn brave";
           "Super D" = "spawn 'rofi -show run'";
           "Super B" = "spawn 'systemctl --user kill --signal=SIGUSR1 waybar.service'";
-          "Super Backspace" = "spawn 'hyprlock --immediate'";
+          "Super Backspace" = "spawn 'waylock'";
 
           "Super Q" = "close";
           "Super+Shift Backspace" = "exit";

@@ -12,7 +12,6 @@
     ./alacritty.nix
     ./bat.nix
     ./git.nix
-    ./hyprland
     ./lf/lf.nix
     ./services.nix
     ./starship.nix
@@ -70,7 +69,7 @@
 
     packages = with pkgs; [
       bluetui
-      qutebrowser
+      apkgs.neovim
       brave
       brightnessctl
       chafa
@@ -79,6 +78,7 @@
       eza
       fd
       libsixel
+      lmstudio
       localsend
       monocraft
       mpv
@@ -88,15 +88,17 @@
       pamixer
       playerctl
       pulsemixer
+      qutebrowser
       ripgrep
-      (pkgs.rofi-wayland.override { plugins = [ pkgs.rofi-games ]; })
       rmpc
+      (pkgs.rofi-wayland.override { plugins = [ pkgs.rofi-games ]; })
       rsync
       simplex-chat-desktop
       skim
       termusic
       tty-clock
       umu-launcher
+      waylock
       wget
       windsurf
       wlr-randr
@@ -128,7 +130,8 @@
 
     sessionVariables = rec {
       TERMINAL = "alacritty";
-      BROWSER = "com.google.Chrome";
+      BROWSER = "brave";
+      EDITOR = "nvim";
 
       XDG_DESKTOP_DIR = "$HOME/desktop";
       XDG_DOCUMENTS_DIR = "$HOME/docs";

@@ -96,27 +96,6 @@
     keyMap = "us";
   };
 
-  environment.sessionVariables = rec {
-    XDG_CACHE_HOME = "$HOME/.local/var/cache";
-    XDG_CONFIG_HOME = "$HOME/.local/etc";
-    XDG_DATA_HOME = "$HOME/.local/share";
-    XDG_STATE_HOME = "$HOME/.local/var/state";
-    ZDOTDIR = "$XDG_CONFIG_HOME/zsh";
-
-    XDG_BIN_HOME = "$HOME/.local/bin";
-    PATH = [
-      "${XDG_BIN_HOME}"
-    ];
-  };
-
-  ## hardware
-
-  #fileSystems."PATH" = {
-  #  device = "REMOTEPATH";
-  #  fsType = "nfs";
-  #  options = [ "x-systemd.automount" "noauto" ];
-  #};
-
   ## hardware
   hardware = {
     enableAllFirmware = true;
@@ -148,22 +127,7 @@
 
   powerManagement.enable = true;
 
-  ## services
   services = {
-    # dbus
-    dbus = {
-      enable = true;
-      implementation = "broker";
-    };
-
-    gvfs = {
-      enable = true;
-    };
-
-    xserver = {
-      videoDrivers = ["nvidia"];
-    };
-
     sunshine = {
       enable = true;
       autoStart = true;
@@ -171,61 +135,8 @@
       openFirewall = true;
     };
 
-    # Enable the OpenSSH daemon.
-    openssh = {
-      enable = true;
-      # require public key authentication for better security
-      settings = {
-        PasswordAuthentication = false;
-        KbdInteractiveAuthentication = false;
-        PermitRootLogin = "no";
-      };
-    };
-
-    # pipewire
-    pipewire = {
-      enable = true;
-
-      alsa = {
-        enable = true;
-        support32Bit = true;
-      };
-
-      pulse = {
-        enable = true;
-      };
-
-      wireplumber = {
-        enable = true;
-      };
-    };
-
-    greetd = {
-      enable = true;
-      settings = {
-        default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time";
-          user = "greeter";
-        };
-      };
-    };
-
-    udisks2 = {
-      enable = true;
-    };
-
-    upower = {
-      enable = true;
-    };
-
-    power-profiles-daemon = {
-      enable = true;
-    };
-
-    gnome = {
-      gnome-keyring = {
-        enable = true;
-      };
+    xserver = {
+      videoDrivers = ["nvidia"];
     };
   };
 
@@ -240,21 +151,6 @@
     nixos = {
       enable = false;
     };
-  };
-
-  # system packages
-  environment = {
-    systemPackages = with pkgs; [
-        bibata-cursors
-        inputs.nixvim.packages.${system}.default
-        linux-firmware
-        monocraft
-        nautilus
-        sushi
-        neofetch
-        starship
-        zsh
-      ];
   };
 
   programs = {
@@ -297,38 +193,6 @@
           binPath = "/home/anas/.nix-profile/bin/river";
         };
       };
-    };
-  };
-
-  # security
-  security = {
-    pam = {
-      services = {
-        su = {
-          requireWheel = true;
-        };
-
-        system-login = {
-          failDelay = {
-            enable = true;
-            delay = 4000000;
-          };
-        };
-
-        greetd = {
-          enableGnomeKeyring = true;
-        };
-      };
-    };
-
-    # polkit
-    polkit = {
-      enable = true;
-    };
-
-    # rtkit
-    rtkit = {
-      enable = true;
     };
   };
 
