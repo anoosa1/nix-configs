@@ -42,6 +42,10 @@
       flake = false;
     };
 
+    apkgs = {
+      url = "git+ssh://git@github.com/anoosa1/apkgs.git";
+    };
+
     # Stylix
     stylix = {
       url = "github:danth/stylix";
@@ -94,11 +98,15 @@
       };
     };
 
-    # Standalone home-manager configuration entrypoint
-    # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
       "anas" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
+
+        extraSpecialArgs = {
+          inherit inputs;
+          apkgs = inputs.apkgs.packages.${pkgs.system};
+        };
+
         modules = [
           ./home-manager/home.nix
           inputs.stylix.homeManagerModules.stylix

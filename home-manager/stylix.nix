@@ -1,4 +1,8 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  apkgs,
+  ... }:
 
 {
   stylix = {
@@ -15,14 +19,28 @@
       name = "Bibata-Modern-Ice";
     };
 
-    fonts = {
-      monospace = {
-        package = pkgs.monocraft;
-        name = "Monocraft";
-      };
+    iconTheme = {
+      enable = true;
+      light = "Adwaita";
+      dark = "Adwaita:dark";
+      package = pkgs.adwaita-icon-theme;
+    };
 
+    fonts = {
       serif = config.stylix.fonts.monospace;
       sansSerif = config.stylix.fonts.monospace;
+
+      sizes = {
+        applications = 16;
+        desktop = 12;
+        popups = 12;
+        terminal = 16;
+      };
+
+      monospace = {
+        name = "Comic Code";
+        package = apkgs.comic-code;
+      };
 
       emoji = {
         package = pkgs.noto-fonts-emoji;
@@ -31,8 +49,8 @@
     };
 
     opacity = {
-      desktop = 0.8;
-      terminal = 0.9;
+      terminal = 0.8;
+      popups = 0.8;
     };
 
     targets = {
@@ -44,10 +62,8 @@
         enable = true;
       };
 
-      bemenu = {
+      dunst = {
         enable = true;
-        alternate = true;
-        fontSize = 16;
       };
 
       gtk = {
@@ -79,6 +95,10 @@
       };
 
       sxiv = {
+        enable = true;
+      };
+
+      starship = {
         enable = true;
       };
 

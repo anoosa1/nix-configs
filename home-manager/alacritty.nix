@@ -24,23 +24,23 @@
         history = 5000;
       };
       font = {
-        normal = {
-          family = "Monocraft";
-          style = "Regular";
-	};
-        bold = {
-          family = "Monocraft";
-          style = "Bold";
-	};
-        italic = {
-          family = "Monocraft";
-          style = "Italic";
-	};
-        bold_italic = {
-          family = "Monocraft";
-          style = "Bold Italic";
-	};
-        size = 12;
+        #normal = {
+        #  family = "Monocraft";
+        #  style = "Regular";
+	#};
+        #bold = {
+        #  family = "Monocraft";
+        #  style = "Bold";
+	#};
+        #italic = {
+        #  family = "Monocraft";
+        #  style = "Italic";
+	#};
+        #bold_italic = {
+        #  family = "Monocraft";
+        #  style = "Bold Italic";
+	#};
+        #size = 16;
         offset = {
           x = 0;
           y = 1;

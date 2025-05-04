@@ -3,6 +3,7 @@
   lib,
   config,
   pkgs,
+  apkgs,
   ...
 }:
 {
@@ -24,9 +25,12 @@
   ];
 
   fonts.fontconfig.enable = true;
-  gtk.iconTheme = {
-    package = pkgs.adwaita-icon-theme;
-    name = "Adwaita";
+
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      allowUnfreePredicate = (pkg: true);
+    };
   };
 
   systemd.user.services = {
@@ -57,13 +61,6 @@
     };
   };
 
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-      allowUnfreePredicate = _: true;
-    };
-  };
-
   home = {
     username = "anas";
     homeDirectory = "/home/anas";
@@ -73,6 +70,7 @@
 
     packages = with pkgs; [
       bluetui
+      qutebrowser
       brave
       brightnessctl
       chafa

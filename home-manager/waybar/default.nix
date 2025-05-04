@@ -14,7 +14,8 @@
           position = "top";
           start_hidden = true;
           height = 36;
-          modules-left = [ "river/tags" "river/window" "mpris" ];
+          modules-left = [ "river/tags" "river/mode" ];
+          modules-center = [ "river/window" "mpris" ];
           modules-right = [ "tray" "network" "pulseaudio" "pulseaudio#mic" "battery" "custom/weather" "clock" ];
 
           "river/tags" = {
@@ -22,33 +23,11 @@
             tag-labels = [ "" "" "" "4" "5" "6" "7" "8" "9"];
           };
 
-          "hyprland/workspaces" = {
-            disable-scroll = true;
-            show-special = true;
-            special-visible-only = true;
-            all-outputs = false;
-            format = "{icon}";
-            format-icons = {
-              "1" = "";
-              "2" = "";
-              "3" = "";
-              "magic" = "";
-            };
-
-            persistent-workspaces = {
-              "*" = 3;
-            };
-          };
-
           "river/window" = {
             format = "{}";
             max-length = 25;
             on-scroll-up = "riverctl focus-view previous";
             on-scroll-down = "riverctl focus-view next";
-          };
-
-          "hyprland/window" = {
-            max-length = 25;
           };
 
           "custom/weather" = {
@@ -134,9 +113,9 @@
           };
 
           mpris = {
-            format = "{player_icon} - {status_icon} {title}";
-            format-paused = "{player_icon} - {status_icon} <i>{title}</i>";
-            format-stopped = "{status_icon}";
+            format = "{status_icon} {title} {player_icon}";
+            format-paused = "{status_icon} {title} {player_icon}";
+            format-stopped = "";
             title-len = 20;
             on-click = "alacritty -e rmpc";
             on-click-right = "playerctl play-pause";
