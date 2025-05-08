@@ -74,6 +74,7 @@
       brightnessctl
       chafa
       du-dust
+      codex
       eva
       eza
       fd
@@ -101,6 +102,7 @@
       waylock
       wget
       windsurf
+      vscode
       wlr-randr
       zathura
       #passExtensions.pass-audit
