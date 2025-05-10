@@ -62,8 +62,8 @@
       enable = true;
     };
 
-    #gotenberg = {
-    #  enable = true;
-    #};
+    gotenberg = {
+      enable = true;
+    };
   };
 }
