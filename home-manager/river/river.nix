@@ -24,6 +24,14 @@
         when-typing = true;
       };
 
+      keyboard-layout = {
+        us = {
+          options = [
+            "caps:swapescape"
+          ];
+        };
+      };
+
       declare-mode = [
         "locked"
         "normal"

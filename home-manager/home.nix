@@ -68,42 +68,39 @@
     ];
 
     packages = with pkgs; [
-      bluetui
+      airshipper
       apkgs.neovim
+      bluetui
       brave
       brightnessctl
       chafa
       du-dust
-      codex
       eva
       eza
       fd
       libsixel
-      lmstudio
       localsend
       monocraft
       mpv
-      mullvad-browser
       nsxiv
-      ollama
       pamixer
       playerctl
       pulsemixer
       qutebrowser
       ripgrep
       rmpc
-      (pkgs.rofi-wayland.override { plugins = [ pkgs.rofi-games ]; })
+      #(pkgs.rofi-wayland.override { plugins = [ pkgs.rofi-games ]; })
+      rofi-wayland
       rsync
       simplex-chat-desktop
       skim
-      termusic
       tty-clock
       umu-launcher
+      vscode
       waylock
       wget
-      windsurf
-      vscode
       wlr-randr
+      #xonotic
       zathura
       #passExtensions.pass-audit
       #passExtensions.pass-genphrase
