@@ -29,12 +29,13 @@
     transmission = {
       enable = true;
       webHome = pkgs.flood-for-transmission;
-      settings = {
-        umask = 007;
-      };
       package = pkgs.transmission_4;
       downloadDirPermissions = "770";
       credentialsFile = "/run/secrets/transmission/settings.json";
+
+      settings = {
+        umask = 007;
+      };
     };
   };
 }

@@ -46,6 +46,10 @@
       url = "git+ssh://git@github.com/anoosa1/apkgs.git";
     };
 
+    simple-nixos-mailserver = {
+      url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
+    };
+
     # Stylix
     stylix = {
       url = "github:danth/stylix";
@@ -92,6 +96,7 @@
 
         modules = [
           inputs.sops-nix.nixosModules.sops
+          inputs.simple-nixos-mailserver.nixosModule
           ./hosts/astra
 	  ./nixos
         ];

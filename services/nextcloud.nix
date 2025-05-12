@@ -47,6 +47,7 @@
       configureRedis = true;
       maxUploadSize = "16G";
       https = true;
+
       settings = {
         default_phone_region = "CA";
         overwriteprotocol = "https";

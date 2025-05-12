@@ -1,9 +1,4 @@
 {
-  pkgs,
-  ...
-}:
-
-{
   services = {
     nginx.virtualHosts = {
       "photos.asherif.xyz" = {

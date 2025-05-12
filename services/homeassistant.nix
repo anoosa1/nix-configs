@@ -1,10 +1,4 @@
 {
-  pkgs,
-  sops,
-  ...
-}:
-
-{
   services = {
     nginx.virtualHosts = {
       "home.asherif.xyz" = {
@@ -20,6 +14,7 @@
         '';
       };
     };
+
     postgresql = {
       ensureDatabases = [ "hass" ];
       ensureUsers = [{
@@ -27,13 +22,10 @@
         ensureDBOwnership = true;
       }];
     };
+
     home-assistant = {
       enable = true;
-      package = (pkgs.home-assistant.override {
-        extraPackages = py: with py; [ psycopg2 ];
-      }).overrideAttrs (oldAttrs: {
-        doInstallCheck = false;
-      });
+
       extraComponents = [
         "analytics"
         "auth"
@@ -52,17 +44,23 @@
         "tts"
         "websocket_api"
       ];
+
+      extraPackages = python3Packages: with python3Packages; [
+        psycopg2
+      ];
+
       config = {
         default_config = {};
+
         http = {
           server_host = "127.0.0.1";
           trusted_proxies = [ "127.0.0.1" ];
           use_x_forwarded_for = true;
         };
+
         recorder = {
           db_url = "postgresql://@/hass";
         };
-
       };
     };
   };

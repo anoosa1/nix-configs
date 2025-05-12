@@ -5,8 +5,10 @@
     ./transmission.nix
     ./homeassistant.nix
     ./soft-serve.nix
-    ./kasm.nix
     ./paperless.nix
+    ./mail.nix
+    #./kasm.nix
+    #./onlyoffice.nix
     #./code-server.nix
   ];
 }

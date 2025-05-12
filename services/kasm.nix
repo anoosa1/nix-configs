@@ -1,10 +1,4 @@
 {
-  pkgs,
-  sops,
-  ...
-}:
-
-{
   services = {
     nginx.virtualHosts = {
       "kasm.asherif.xyz" = {

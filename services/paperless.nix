@@ -1,11 +1,4 @@
 {
-  pkgs,
-  sops,
-  config,
-  ...
-}:
-
-{
   sops = {
     secrets = {
       "paperless/environment" = {
