@@ -25,6 +25,8 @@
       bibata-cursors
       linux-firmware
       monocraft
+      android-udev-rules
+      android-tools
       nautilus
       sushi
       neofetch

@@ -12,6 +12,10 @@
       enable = true;
     };
 
+    extraConfig = ''
+      riverctl keyboard-layout -options "caps:swapescape" us
+    '';
+
     settings = {
       border-width = 2;
       set-repeat = "50 300";
@@ -22,14 +26,6 @@
       hide-cursor = {
         timeout = 5000;
         when-typing = true;
-      };
-
-      keyboard-layout = {
-        us = {
-          options = [
-            "caps:swapescape"
-          ];
-        };
       };
 
       declare-mode = [

@@ -11,7 +11,7 @@
         isNormalUser = true;
         group = "anas";
         description = "Anas";
-        extraGroups = [ "wheel" "audio" "adbusers" "transmission" "immich"];
+        extraGroups = [ "wheel" "audio" "adbusers" "transmission" "immich" "kvm"];
         shell = pkgs.zsh;
         openssh.authorizedKeys.keys = [
           "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBP3tXTHU/cpty8I3avaU/WsND4/3FGxeRbjNvqlMlwLSMU9nPLWeNoWAowU2y7xNBXvDd0eWmeEOOG0KBtmOlSo="

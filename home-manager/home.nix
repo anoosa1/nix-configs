@@ -68,7 +68,6 @@
     ];
 
     packages = with pkgs; [
-      airshipper
       apkgs.neovim
       bluetui
       brave
@@ -100,7 +99,6 @@
       waylock
       wget
       wlr-randr
-      #xonotic
       zathura
       #passExtensions.pass-audit
       #passExtensions.pass-genphrase
