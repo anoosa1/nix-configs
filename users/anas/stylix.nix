@@ -1,16 +1,13 @@
 {
   config,
   pkgs,
-  apkgs,
-  ... }:
-
+  ...
+}:
 {
   stylix = {
     enable = true;
-
-    image = ../wallpaper.png;
+    image = ../../wallpaper.png;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
-
     polarity = "dark";
 
     cursor = {
@@ -39,7 +36,7 @@
 
       monospace = {
         name = "Comic Code";
-        package = apkgs.comic-code;
+        package = pkgs.comic-code;
       };
 
       emoji = {
@@ -74,26 +71,6 @@
         };
       };
 
-      hyprland = {
-        enable = true;
-
-        hyprpaper = {
-          enable = true;
-        };
-      };
-
-      hyprlock = {
-        enable = true;
-      };
-
-      hyprpaper = {
-        enable = true;
-      };
-
-      kitty = {
-        enable = true;
-      };
-
       sxiv = {
         enable = true;
       };
@@ -121,10 +98,6 @@
 
       waybar = {
         enable = false;
-      };
-
-      wezterm = {
-        enable = true;
       };
 
       zathura = {

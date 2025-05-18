@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   ...
 }:
 {
@@ -33,5 +32,11 @@
       starship
       zsh
     ];
+  };
+
+  programs = {
+    zsh = {
+      enable = true;
+    };
   };
 }

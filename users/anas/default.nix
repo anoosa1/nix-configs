@@ -1,10 +1,14 @@
 {
-  config,
-  inputs,
   pkgs,
   ...
 }:
 {
+  home-manager = {
+    users = {
+      anas = ./home.nix;
+    };
+  };
+
   users = {
     users = {
       anas = {
@@ -26,5 +30,4 @@
       };
     };
   };
-  programs.zsh.enable = true;
 }

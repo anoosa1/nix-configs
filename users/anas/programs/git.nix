@@ -1,17 +1,17 @@
-{ config, pkgs, ... }:
-
 {
   programs = {
     git = {
       enable = true;
       userName = "Anas";
       userEmail = "anas@asherif.xyz";
+
       aliases = {
         co = "checkout";
-        c = "commit";
+        c = "commit -a";
         a = "add -A";
         p = "push";
       };
+
       extraConfig = {
         commit.gpgsign = true;
         gpg.format = "ssh";

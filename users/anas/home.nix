@@ -1,36 +1,18 @@
 {
-  inputs,
-  lib,
-  config,
   pkgs,
   apkgs,
   ...
 }:
 {
-  imports =
-  [
-    ./alacritty.nix
-    ./bat.nix
-    ./git.nix
-    ./lf/lf.nix
-    ./services.nix
-    ./starship.nix
-    ./kitty.nix
-    ./stylix.nix
-    ./waybar
-    ./wezterm.nix
-    ./zsh.nix
+  imports = [
+    ./mail
+    ./programs
     ./river
+    ./services.nix
+    ./stylix.nix
   ];
 
   fonts.fontconfig.enable = true;
-
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-      allowUnfreePredicate = (pkg: true);
-    };
-  };
 
   systemd.user.services = {
     "wait-for-path" = {
@@ -68,7 +50,8 @@
     ];
 
     packages = with pkgs; [
-      apkgs.neovim
+      #grayjay
+      neovim
       bluetui
       brave
       brightnessctl
@@ -84,15 +67,14 @@
       nsxiv
       pamixer
       playerctl
+      prismlauncher
       pulsemixer
       qutebrowser
       ripgrep
       rmpc
-      #(pkgs.rofi-wayland.override { plugins = [ pkgs.rofi-games ]; })
       rofi-wayland
       rsync
       simplex-chat-desktop
-      skim
       tty-clock
       umu-launcher
       vscode
@@ -125,7 +107,7 @@
       '';
     };
 
-    sessionVariables = rec {
+    sessionVariables = {
       TERMINAL = "alacritty";
       BROWSER = "brave";
       EDITOR = "nvim";
@@ -158,8 +140,6 @@
       INPUTRC = "$XDG_CONFIG_HOME/sh/inputrc";
       KODI_DATA = "$XDG_DATA_HOME/kodi";
       MAIL = "$HOME/.local/var/spool/mail";
-      MBSYNCRC = "$XDG_CONFIG_HOME/mbsync/config";
-      NOTMUCH_CONFIG = "$XDG_CONFIG_HOME/notmuch-config";
       PASH_DIR = "$XDG_DATA_HOME/passwords";
       PASSWORD_STORE_DIR = "$XDG_DATA_HOME/passwords";
       PYTHONPYCACHEPREFIX = "$XDG_CACHE_HOME/python";
