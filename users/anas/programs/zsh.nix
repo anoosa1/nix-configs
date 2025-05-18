@@ -16,7 +16,6 @@
         highlighters = [
           "main"
           "brackets"
-          "line"
         ];
       };
 
