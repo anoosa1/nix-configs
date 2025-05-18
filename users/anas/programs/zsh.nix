@@ -78,8 +78,8 @@
         }
         zle -N zle-line-init
         echo -ne '\e[5 q' # Use beam shape cursor on startup.
-        preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
-
+        preexec() { echo -ne '\e[5 q' ;}
+        lfcd () { cd "$(command lf -print-last-dir "$@")" }
         bindkey -s '^o' '^ulfcd\n'
 
         bindkey -s '^a' '^ueva\n'

@@ -17,7 +17,7 @@
 
       extraConfig = ''
         #show-read-feeds no
-        #external-url-viewer "urlscan -dc -r 'linkhandler {}'"
+        #external-url-viewer "urlscan -dc -r 'linkhandler.sh {}'"
         #browser linkhandler
         
         bind-key j down
@@ -51,7 +51,7 @@
         macro a set browser "tsp yt-dlp --embed-metadata -xic -f bestaudio/best --restrict-filenames" ; open-in-browser ; set browser linkhandler
         macro v set browser "setsid -f mpv" ; open-in-browser ; set browser linkhandler
         macro w set browser "lynx" ; open-in-browser ; set browser linkhandler
-        macro d set browser "dmenuhandler" ; open-in-browser ; set browser linkhandler
+        macro d set browser "dmenuhandler.sh" ; open-in-browser ; set browser linkhandler
         macro c set browser "echo %u | xclip -r -sel c" ; open-in-browser ; set browser linkhandler
         macro C set browser "youtube-viewer --comments=%u" ; open-in-browser ; set browser linkhandler
         macro p set browser "peertubetorrent %u 480" ; open-in-browser ; set browser linkhandler
