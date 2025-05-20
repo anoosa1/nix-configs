@@ -1,4 +1,8 @@
 {
+  pkgs,
+  ...
+}:
+{
   programs = {
     newsboat = {
       enable = true;
@@ -13,12 +17,21 @@
             "podcasts"
           ];
         }
+        {
+          url = "https://videos.lukesmith.xyz/feeds/videos.xml?videoChannelId=2";
+          title = "Luke Smith";
+
+          tags = [
+            "videos"
+            "peertube"
+          ];
+        }
       ];
 
       extraConfig = ''
         #show-read-feeds no
-        #external-url-viewer "urlscan -dc -r 'linkhandler.sh {}'"
-        #browser linkhandler
+        #external-url-viewer "urlscan -dc -r '${pkgs.scripts.linkhandler}/bin/linkhandler.sh {}'"
+        browser ${pkgs.scripts.linkhandler}/bin/linkhandler.sh
         
         bind-key j down
         bind-key k up
@@ -47,15 +60,15 @@
         color article white default bold
         
         macro , open-in-browser
-        macro t set browser "qndl" ; open-in-browser ; set browser linkhandler
-        macro a set browser "tsp yt-dlp --embed-metadata -xic -f bestaudio/best --restrict-filenames" ; open-in-browser ; set browser linkhandler
-        macro v set browser "setsid -f mpv" ; open-in-browser ; set browser linkhandler
-        macro w set browser "lynx" ; open-in-browser ; set browser linkhandler
-        macro d set browser "dmenuhandler.sh" ; open-in-browser ; set browser linkhandler
-        macro c set browser "echo %u | xclip -r -sel c" ; open-in-browser ; set browser linkhandler
-        macro C set browser "youtube-viewer --comments=%u" ; open-in-browser ; set browser linkhandler
-        macro p set browser "peertubetorrent %u 480" ; open-in-browser ; set browser linkhandler
-        macro P set browser "peertubetorrent %u 1080" ; open-in-browser ; set browser linkhandler
+        macro t set browser "${pkgs.scripts.qndl}/bin/qndl.sh" ; open-in-browser ; set browser ${pkgs.scripts.linkhandler}/bin/linkhandler.sh
+        macro a set browser "tsp yt-dlp --embed-metadata -xic -f bestaudio/best --restrict-filenames" ; open-in-browser ; set browser ${pkgs.scripts.linkhandler}/bin/linkhandler.sh
+        macro v set browser "setsid -f mpv" ; open-in-browser ; set browser ${pkgs.scripts.linkhandler}/bin/linkhandler.sh
+        macro w set browser "lynx" ; open-in-browser ; set browser ${pkgs.scripts.linkhandler}/bin/linkhandler.sh
+        macro d set browser "${pkgs.scripts.dmenuhandler}/bin/dmenuhandler.sh" ; open-in-browser ; set browser ${pkgs.scripts.linkhandler}/bin/linkhandler.sh
+        macro c set browser "echo %u | xclip -r -sel c" ; open-in-browser ; set browser ${pkgs.scripts.linkhandler}/bin/linkhandler.sh
+        macro C set browser "youtube-viewer --comments=%u" ; open-in-browser ; set browser ${pkgs.scripts.linkhandler}/bin/linkhandler.sh
+        macro p set browser "peertubetorrent %u 480" ; open-in-browser ; set browser ${pkgs.scripts.linkhandler}/bin/linkhandler.sh
+        macro P set browser "peertubetorrent %u 1080" ; open-in-browser ; set browser ${pkgs.scripts.linkhandler}/bin/linkhandler.sh
         
         highlight all "---.*---" yellow
         highlight feedlist ".*(0/0))" black

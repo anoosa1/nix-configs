@@ -7,7 +7,8 @@
       fileWidgetCommand = "fd --type f";
 
       defaultOptions = [
-        "--prompt ⟫"
+        "--prompt >"
+        "--height 15"
       ];
     };
   };

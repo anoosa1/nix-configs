@@ -51,6 +51,8 @@
 
     packages = with pkgs; [
       #grayjay
+      scripts.se
+      scripts.dmenuhandler
       neovim
       bluetui
       brave
