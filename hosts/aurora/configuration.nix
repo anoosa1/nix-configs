@@ -168,8 +168,6 @@
       enable = true;
     };
 
-    adb.enable = true;
-
     gnupg = {
       agent = {
         enable = true;
