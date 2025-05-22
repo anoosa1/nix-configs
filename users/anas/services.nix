@@ -1,11 +1,14 @@
-{ config, pkgs, ... }:
-
+{
+  pkgs,
+  ...
+}:
 {
   programs = {
     gpg = {
       enable = true;
     };
   };
+
   services = {
     dunst = {
       enable = true;

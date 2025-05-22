@@ -1,9 +1,7 @@
 {
-
-  description = "PC configuration";
+  description = "Flake for my home-manager and computer configurations";
 
   inputs = {
-
     # Nixpkgs
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
@@ -17,11 +15,6 @@
           follows = "nixpkgs";
         };
       };
-    };
-
-    # Neovim
-    nixvim = {
-      url = "github:anoosa1/nvim-flake/main";
     };
 
     nixos-hardware = {
@@ -56,65 +49,40 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    ...
-  } @ inputs:
-
-  let
+  outputs = {nixpkgs, ...} @ inputs: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
-  in
-
-  {
+  in {
     nixosConfigurations = {
       aurora = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
+        specialArgs = {inherit inputs;};
 
         modules = [
-          inputs.stylix.nixosModules.stylix
-          ./nixos/stylix.nix
           ./hosts/aurora
-	  ./nixos
+          ./nixos
+          ./users
         ];
       };
+
       apollo = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
+        specialArgs = {inherit inputs;};
 
         modules = [
-          inputs.stylix.nixosModules.stylix
           inputs.nixos-hardware.nixosModules.apple-macbook-pro-11-1
-          ./nixos/stylix.nix
-	  ./hosts/apollo
+          ./hosts/apollo
           ./nixos
+          ./users
         ];
       };
+
       astra = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
+        specialArgs = {inherit inputs;};
 
         modules = [
           inputs.sops-nix.nixosModules.sops
           inputs.simple-nixos-mailserver.nixosModule
           ./hosts/astra
-	  ./nixos
-        ];
-      };
-    };
-
-    homeConfigurations = {
-      "anas" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-
-        extraSpecialArgs = {
-          inherit inputs;
-          apkgs = inputs.apkgs.packages.${pkgs.system};
-        };
-
-        modules = [
-          ./home-manager/home.nix
-          inputs.stylix.homeManagerModules.stylix
+          ./nixos
         ];
       };
     };

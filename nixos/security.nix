@@ -1,7 +1,4 @@
 {
-  ...
-}:
-{
   ## security
   security = {
     pam = {

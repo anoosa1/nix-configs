@@ -46,9 +46,9 @@
         normal = {
           "Super Return" = "spawn alacritty";
           "Super W" = "spawn brave";
-          "Super D" = "spawn 'rofi -show run'";
+          "Super D" = "spawn 'dmenu_run'";
           "Super B" = "spawn 'systemctl --user kill --signal=SIGUSR1 waybar.service'";
-          "Super Backspace" = "spawn 'waylock'";
+          "Super Backspace" = "spawn 'dmenupower.sh'";
 
           "Super Q" = "close";
           "Super+Shift Backspace" = "exit";

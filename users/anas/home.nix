@@ -1,36 +1,18 @@
 {
-  inputs,
-  lib,
-  config,
   pkgs,
-  apkgs,
+  config,
   ...
 }:
 {
-  imports =
-  [
-    ./alacritty.nix
-    ./bat.nix
-    ./git.nix
-    ./lf/lf.nix
-    ./services.nix
-    ./starship.nix
-    ./kitty.nix
-    ./stylix.nix
-    ./waybar
-    ./wezterm.nix
-    ./zsh.nix
+  imports = [
+    ./mail
+    ./programs
     ./river
+    ./services.nix
+    ./stylix.nix
   ];
 
   fonts.fontconfig.enable = true;
-
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-      allowUnfreePredicate = (pkg: true);
-    };
-  };
 
   systemd.user.services = {
     "wait-for-path" = {
@@ -68,7 +50,11 @@
     ];
 
     packages = with pkgs; [
-      apkgs.neovim
+      #grayjay
+      yt-dlp
+      scripts.se
+      scripts.dmenuhandler
+      neovim
       bluetui
       brave
       brightnessctl
@@ -84,15 +70,14 @@
       nsxiv
       pamixer
       playerctl
+      prismlauncher
       pulsemixer
       qutebrowser
       ripgrep
       rmpc
-      #(pkgs.rofi-wayland.override { plugins = [ pkgs.rofi-games ]; })
       rofi-wayland
       rsync
       simplex-chat-desktop
-      skim
       tty-clock
       umu-launcher
       vscode
@@ -125,24 +110,12 @@
       '';
     };
 
-    sessionVariables = rec {
+    sessionVariables = {
       TERMINAL = "alacritty";
       BROWSER = "brave";
       EDITOR = "nvim";
 
-      XDG_DESKTOP_DIR = "$HOME/desktop";
-      XDG_DOCUMENTS_DIR = "$HOME/docs";
-      XDG_DOWNLOAD_DIR = "$HOME/dls";
-      XDG_MUSIC_DIR = "$HOME/audio";
-      XDG_PICTURES_DIR = "$HOME/pics";
-      XDG_PUBLICSHARE_DIR = "$HOME/docs/public";
-      XDG_TEMPLATES_DIR = "$HOME/docs/templates";
-      XDG_VIDEOS_DIR = "$HOME/vids";
       XDG_APPLICATIONS_DIR = "$HOME/docs/apps";
-      XDG_CONFIG_HOME = "$HOME/.local/etc";
-      XDG_DATA_HOME = "$HOME/.local/share";
-      XDG_CACHE_HOME = "$HOME/.local/var/cache";
-      XDG_STATE_HOME = "$HOME/.local/var/state";
       XDG_BIN_HOME = "$HOME/.local/bin";
 
       __GL_SHADER_DISK_CACHE_PATH = "/tmp";
@@ -158,8 +131,6 @@
       INPUTRC = "$XDG_CONFIG_HOME/sh/inputrc";
       KODI_DATA = "$XDG_DATA_HOME/kodi";
       MAIL = "$HOME/.local/var/spool/mail";
-      MBSYNCRC = "$XDG_CONFIG_HOME/mbsync/config";
-      NOTMUCH_CONFIG = "$XDG_CONFIG_HOME/notmuch-config";
       PASH_DIR = "$XDG_DATA_HOME/passwords";
       PASSWORD_STORE_DIR = "$XDG_DATA_HOME/passwords";
       PYTHONPYCACHEPREFIX = "$XDG_CACHE_HOME/python";
@@ -195,9 +166,23 @@
   };
 
   xdg = {
-    cacheHome = "/home/anas/.local/var/cache";
-    configHome = "/home/anas/.local/etc";
-    stateHome = "/home/anas/.local/var/state";
+    cacheHome = "${config.home.homeDirectory}/.local/var/cache";
+    configHome = "${config.home.homeDirectory}/.local/etc";
+    stateHome = "${config.home.homeDirectory}/.local/var/state";
+    dataHome = "${config.home.homeDirectory}/.local/share";
+
+    userDirs = {
+      enable = true;
+      createDirectories = true;
+      desktop = "${config.home.homeDirectory}/desktop";
+      documents = "${config.home.homeDirectory}/docs";
+      download = "${config.home.homeDirectory}/dls";
+      music = "${config.home.homeDirectory}/audio";
+      pictures = "${config.home.homeDirectory}/pics";
+      videos = "${config.home.homeDirectory}/vids";
+      publicShare = "${config.xdg.userDirs.documents}/public";
+      templates = "${config.xdg.userDirs.documents}/templates";
+    };
 
     portal = {
       enable = true;

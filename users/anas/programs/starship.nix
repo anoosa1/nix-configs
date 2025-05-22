@@ -1,10 +1,13 @@
-{ config, pkgs, lib, ... }:
-
+{
+  lib,
+  ...
+}:
 {
   programs = {
     starship = {
       enable = true;
       enableZshIntegration = true;
+
       settings = {
         add_newline = false;
 	format = lib.concatStrings [
@@ -92,6 +95,7 @@
           "$shell"
           "$character"
 	];
+
 	username = {
           style_user = "fg:green bold";
           style_root = "fg:red bold";
@@ -99,12 +103,14 @@
           disabled = false;
           show_always = true;
 	};
+
         hostname = {
           ssh_only = false;
           format = "[@](fg:grey bold)[$hostname](fg:yellow bold) ";
           trim_at = ".";
           disabled = false;
         };
+
         character = {
           format = "$symbol ";
           success_symbol = "[i >](fg:green bold)";
@@ -115,41 +121,35 @@
           vimcmd_visual_symbol = "[v <](fg:yellow bold)";
           disabled = false;
         };
+
         directory = {
-          read_only = " ";
+          read_only = "";
           truncation_length = 10;
           truncate_to_repo = true;
           style = "fg:blue bold italic";
         };
+
         cmd_duration = {
           min_time = 4;
           show_milliseconds = false;
           disabled = false;
           style = "fg:#F2777A bold italic";
         };
-        aws = {
-          symbol = "  ";
-        };
+
         conda = {
-          symbol = " ";
+          symbol = "";
         };
+
         dart = {
-          symbol = " ";
+          symbol = "";
         };
-        #directory = {
-        #  read_only = " ";
-        #};
-        elixir = {
-          symbol = " ";
-        };
-        elm = {
-          symbol = " ";
-        };
+
         git_branch = {
-          symbol = " ";
+          symbol = "";
         };
+
         git_state = {
-          style =	"fg:#F2777A bold";
+          style = "fg:#F2777A bold";
           format = "[$state( $progress_current/$progress_total) ]($style)";
           rebase = "rebase";
           merge = "merge";
@@ -159,53 +159,29 @@
           am = "am";
           am_or_rebase = "am/rebase";
         };
+
         golang = {
-          symbol = " ";
+          symbol = "";
         };
-        hg_branch = {
-          symbol = " ";
-        };
+
         java = {
-          symbol = " ";
+          symbol = "";
         };
-        julia = {
-          symbol = " ";
-        };
-        haskell = {
-          symbol = "λ ";
-        };
+
         memory_usage = {
-          symbol = " ";
+          symbol = "";
         };
-        nim = {
-          symbol = " ";
-        };
+
         nix_shell = {
-          symbol = " ";
+          symbol = "";
         };
+
         package = {
-          symbol = " ";
+          symbol = "";
         };
-        perl = {
-          symbol = " ";
-        };
-        php = {
-          symbol = " ";
-        };
-        ruby = {
-          symbol = " ";
-        };
+
         rust = {
-          symbol = " ";
-        };
-        scala = {
-          symbol = " ";
-        };
-        shlvl = {
-          symbol = " ";
-        };
-        swift = {
-          symbol = "ﯣ ";
+          symbol = "";
         };
       };
     };

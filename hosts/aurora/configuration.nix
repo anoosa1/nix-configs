@@ -3,9 +3,9 @@
   lib,
   config,
   pkgs,
-  outputs,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
   ];
@@ -150,6 +150,7 @@
   };
 
   nixpkgs = {
+    overlays = [ inputs.apkgs.overlays.default ];
     config = {
       # allow unfree packages
       allowUnfree = true;
@@ -166,8 +167,6 @@
     dconf = {
       enable = true;
     };
-
-    adb.enable = true;
 
     gnupg = {
       agent = {
@@ -201,7 +200,7 @@
         sway = {
           prettyName = "River";
           comment = "River (UWSM)";
-          binPath = "/home/anas/.nix-profile/bin/river";
+          binPath = "/etc/profiles/per-user/anas/bin/river";
         };
       };
     };

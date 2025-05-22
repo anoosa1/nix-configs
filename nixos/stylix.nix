@@ -1,13 +1,18 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
+{
+  imports = [
+    inputs.stylix.nixosModules.stylix
+  ];
+
   stylix = {
     enable = true;
-
     image = ../wallpaper.png;
-
     base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
-
     polarity = "dark";
 
     cursor = {
@@ -17,13 +22,20 @@
     };
 
     fonts = {
-      monospace = {
-        package = pkgs.monocraft;
-        name = "Monocraft";
-      };
-
       serif = config.stylix.fonts.monospace;
       sansSerif = config.stylix.fonts.monospace;
+
+      sizes = {
+        applications = 16;
+        desktop = 12;
+        popups = 12;
+        terminal = 16;
+      };
+
+      monospace = {
+        name = "Comic Code";
+        package = pkgs.comic-code;
+      };
 
       emoji = {
         package = pkgs.noto-fonts-emoji;
@@ -32,22 +44,14 @@
     };
 
     opacity = {
-      desktop = 0.8;
-      terminal = 0.9;
+      terminal = 0.8;
+      popups = 0.8;
     };
 
     targets = {
       plymouth = {
         enable = true;
         logoAnimated = false;
-      };
-
-      nixvim = {
-        enable = true;
-
-        transparentBackground = {
-          main = true;
-        };
       };
     };
   };
