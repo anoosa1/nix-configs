@@ -51,6 +51,7 @@
 
     packages = with pkgs; [
       #grayjay
+      yt-dlp
       scripts.se
       scripts.dmenuhandler
       neovim

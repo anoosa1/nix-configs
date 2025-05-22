@@ -19,11 +19,38 @@
         }
         {
           url = "https://videos.lukesmith.xyz/feeds/videos.xml?videoChannelId=2";
-          title = "Luke Smith";
+          title = "Luke Smith on Peertube";
 
           tags = [
             "videos"
             "peertube"
+          ];
+        }
+        {
+          url = "https://odysee.com/$/rss/@AlphaNerd:8";
+          title = "Mental Outlaw on Odysee";
+
+          tags = [
+            "videos"
+            "odysee"
+          ];
+        }
+        {
+          url = "https://odysee.com/$/rss/@DistroTube:2";
+          title = "DistroTube on Odysee";
+
+          tags = [
+            "videos"
+            "odysee"
+          ];
+        }
+        {
+          url = "https://odysee.com/$/rss/@BrodieRobertson:5";
+          title = "Brodie Robertson on Odysee";
+
+          tags = [
+            "videos"
+            "odysee"
           ];
         }
       ];
