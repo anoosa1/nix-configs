@@ -1,6 +1,5 @@
 {
   pkgs,
-  sops,
   ...
 }:
 
@@ -39,6 +38,7 @@
         acmeRoot = null;
       };
     };
+
     nextcloud = {
       enable = true;
       package = pkgs.nextcloud31;
