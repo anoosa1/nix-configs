@@ -85,13 +85,6 @@
       wget
       wlr-randr
       zathura
-      #passExtensions.pass-audit
-      #passExtensions.pass-genphrase
-      #passExtensions.pass-import
-      #passExtensions.pass-otp
-      #passExtensions.pass-tomb
-      #passExtensions.pass-update
-      #(pass.withExtensions (ext: with ext; [ pass-audit pass-otp pass-import pass-genphrase pass-update pass-tomb ]))
 
       # # You can create simple shell scripts directly inside your
       # # configuration. For example, this adds a command 'my-hello' to your
@@ -131,8 +124,6 @@
       INPUTRC = "$XDG_CONFIG_HOME/sh/inputrc";
       KODI_DATA = "$XDG_DATA_HOME/kodi";
       MAIL = "$HOME/.local/var/spool/mail";
-      PASH_DIR = "$XDG_DATA_HOME/passwords";
-      PASSWORD_STORE_DIR = "$XDG_DATA_HOME/passwords";
       PYTHONPYCACHEPREFIX = "$XDG_CACHE_HOME/python";
       PYTHONUSERBASE = "$XDG_DATA_HOME/python";
       RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
