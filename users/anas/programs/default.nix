@@ -9,5 +9,6 @@
     ./starship.nix
     ./waybar
     ./zsh.nix
+    ./password-store.nix
   ];
 }
