@@ -56,6 +56,7 @@
         allow-preset-passphrase
       '';
     };
+
     gnome-keyring = {
       enable = true;
     };
@@ -81,24 +82,9 @@
     #unclutter = {
     #  enable = true;
     #};
-    #xsettingsd = {
-    #  enable = true;
-    #  settings = {
-    #    "Gtk/EnableAnimations" = "1";
-    #    "Gtk/DecorationLayout" = "icon:minimize,maximize,close";
-    #    "Gtk/PrimaryButtonWarpsSlider" = "0";
-    #    "Gtk/ToolbarStyle" = "3";
-    #    "Gtk/MenuImages" = "1";
-    #    "Gtk/ButtonImages" = "1";
-    #    "Gtk/CursorThemeSize" = "24";
-    #    "Gtk/CursorThemeName" = "Bibata-Modern-Ice";
-    #    "Gtk/FontName" = "Monocraft,  12";
-    #    "Net/ThemeName" = "adw-gtk3-dark";
-    #    "Xft/Hinting" = "1";
-    #    "Xft/HintStyle" = "hintslight";
-    #    "Xft/Antialias" = "1";
-    #    "Xft/RGBA" = "rgb";
-    #  };
-    #};
+
+    wpaperd = {
+      enable = true;
+    };
   };
 }
