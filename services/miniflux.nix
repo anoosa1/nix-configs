@@ -15,7 +15,6 @@
 
     miniflux = {
       enable = true;
-      adminCredentialsFile = "/testing";
       createDatabaseLocally = true;
 
       config = {

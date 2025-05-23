@@ -39,10 +39,6 @@
       url = "git+ssh://git@github.com/anoosa1/apkgs.git";
     };
 
-    simple-nixos-mailserver = {
-      url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
-    };
-
     # Stylix
     stylix = {
       url = "github:danth/stylix";
@@ -71,7 +67,6 @@
           inputs.nixos-hardware.nixosModules.apple-macbook-pro-11-1
           ./hosts/apollo
           ./nixos
-          ./users
         ];
       };
 
@@ -80,9 +75,9 @@
 
         modules = [
           inputs.sops-nix.nixosModules.sops
-          inputs.simple-nixos-mailserver.nixosModule
           ./hosts/astra
           ./nixos
+          ./users
         ];
       };
     };

@@ -131,6 +131,7 @@
   };
 
   nixpkgs = {
+    overlays = [ inputs.apkgs.overlays.default ];
     config = {
       # allow unfree packages
       allowUnfree = true;
@@ -150,7 +151,6 @@
         file
         git
         openjdk
-        inputs.nixvim.packages.${system}.default
         config.services.nextcloud.occ
         starship
         zsh
