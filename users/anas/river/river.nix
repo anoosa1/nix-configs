@@ -48,7 +48,7 @@
           "Super W" = "spawn brave";
           "Super D" = "spawn 'dmenu_run'";
           "Super B" = "spawn 'systemctl --user kill --signal=SIGUSR1 waybar.service'";
-          "Super Backspace" = "spawn 'dmenupower.sh'";
+          "Super Backspace" = "spawn '${pkgs.scripts.dmenupower}/bin/dmenupower.sh'";
 
           "Super Q" = "close";
           "Super+Shift Backspace" = "exit";

@@ -67,6 +67,7 @@
           inputs.nixos-hardware.nixosModules.apple-macbook-pro-11-1
           ./hosts/apollo
           ./nixos
+          ./users
         ];
       };
 
