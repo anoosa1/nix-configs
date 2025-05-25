@@ -45,28 +45,26 @@
   home = {
     username = "anas";
     homeDirectory = "/home/anas";
+    stateVersion = "24.11";
+
     sessionPath = [
       "$HOME/.local/bin"
     ];
 
     packages = with pkgs; [
-      #grayjay
-      yt-dlp
-      scripts.se
-      scripts.dmenuhandler
-      neovim
       bluetui
       brave
       brightnessctl
       chafa
       du-dust
+      dua
       eva
       eza
-      fd
       libsixel
       localsend
       monocraft
       mpv
+      neovim
       nsxiv
       pamixer
       playerctl
@@ -77,13 +75,17 @@
       rmpc
       rofi-wayland
       rsync
+      scripts.dmenuhandler
+      scripts.se
       simplex-chat-desktop
+      tokei
       tty-clock
       umu-launcher
       vscode
       waylock
       wget
       wlr-randr
+      yt-dlp
       zathura
 
       # # You can create simple shell scripts directly inside your
@@ -153,7 +155,50 @@
       WINIT_X11_SCALE_FACTOR = "1.0";
     };
 
-    stateVersion = "24.11";
+    shell = {
+      enableZshIntegration = true;
+      enableFishIntegration = true;
+    };
+
+    shellAliases = {
+      mount = "sudo mount";
+      umount = "sudo umount";
+
+      cp = "cp -iv";
+      mv = "mv -iv";
+      rm = "rm -vI";
+      rsync = "rsync -vrPlu";
+      mkd = "mkdir -pv";
+      yt = "yt-dlp --embed-metadata -i";
+      yta = "yt -x -f bestaudio/best";
+      ytt = "yt --skip-download --write-thumbnail";
+      ffmpeg = "ffmpeg -hide_banner";
+
+      ls = "eza -a --icons --color=always --group-directories-first";
+      ll = "eza -lahHmgb --icons --color=always --group-directories-first";
+      lt = "eza -aT --icons --color=always --group-directories-first";
+      grep = "grep --color=auto";
+      diff = "diff --color=auto";
+      ccat = "highlight --out-format=ansi";
+      ip = "ip -color=auto";
+
+      trem = "transmission-remote";
+      s = "systemctl";
+      j = "journalctl";
+      "..." = "cd ../..";
+
+      magit = "nvim -c MagitOnly";
+      weath = "less -S $XDG_CACHE_HOME/weatherreport";
+      se = "se.sh";
+      abook = "abook -C .local/etc/abook/abook.conf -f .local/share/abook/addressook";
+
+      z = "zathura";
+      e = "nvim";
+      k = "pkill";
+      g = "git";
+
+      astra = "ssh astra";
+    };
   };
 
   xdg = {
@@ -195,13 +240,11 @@
   };
 
   programs = {
-    home-manager = {
-      enable = true;
-    };
-
     zoxide = {
       enable = true;
       enableZshIntegration = true;
+      enableFishIntegration = true;
+
       options = [
         "--cmd cd"
       ];

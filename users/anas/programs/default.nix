@@ -2,13 +2,20 @@
   imports = [
     ./alacritty.nix
     ./bat.nix
+    ./evil-helix.nix
+    ./fd.nix
+    ./fish.nix
     ./git.nix
+    ./gitui.nix
     ./lf.nix
     ./newsboat.nix
+    ./password-store.nix
+    ./ripgrep-all.nix
     ./skim.nix
     ./starship.nix
     ./waybar
+    ./yazi.nix
+    ./zellij.nix
     ./zsh.nix
-    ./password-store.nix
   ];
 }

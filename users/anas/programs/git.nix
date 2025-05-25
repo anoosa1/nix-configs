@@ -17,6 +17,10 @@
         gpg.format = "ssh";
         user.signingkey = "~/.local/etc/ssh/id_ed25519.pub";
       };
+
+      delta = {
+        enable = true;
+      };
     };
   };
 }

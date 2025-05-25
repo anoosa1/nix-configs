@@ -96,6 +96,10 @@
         enable = true;
       };
 
+      helix = {
+        enable = true;
+      };
+
       waybar = {
         enable = false;
       };
