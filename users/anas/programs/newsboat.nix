@@ -8,54 +8,24 @@
       enable = true;
       autoReload = true;
 
-      urls = [
-        {
-          url = "https://notrelated.xyz/rss";
-          title = "Not Related!";
+      #urls = [
+      #  {
+      #    url = "https://videos.lukesmith.xyz/feeds/videos.xml?videoChannelId=2";
+      #    title = "Luke Smith on Peertube";
 
-          tags = [
-            "podcasts"
-          ];
-        }
-        {
-          url = "https://videos.lukesmith.xyz/feeds/videos.xml?videoChannelId=2";
-          title = "Luke Smith on Peertube";
-
-          tags = [
-            "videos"
-            "peertube"
-          ];
-        }
-        {
-          url = "https://odysee.com/$/rss/@AlphaNerd:8";
-          title = "Mental Outlaw on Odysee";
-
-          tags = [
-            "videos"
-            "odysee"
-          ];
-        }
-        {
-          url = "https://odysee.com/$/rss/@DistroTube:2";
-          title = "DistroTube on Odysee";
-
-          tags = [
-            "videos"
-            "odysee"
-          ];
-        }
-        {
-          url = "https://odysee.com/$/rss/@BrodieRobertson:5";
-          title = "Brodie Robertson on Odysee";
-
-          tags = [
-            "videos"
-            "odysee"
-          ];
-        }
-      ];
+      #    tags = [
+      #      "videos"
+      #      "peertube"
+      #    ];
+      #  }
+      #];
 
       extraConfig = ''
+        urls-source "ocnews"
+        ocnews-url "https://hub.asherif.xyz"
+        ocnews-login "anas"
+        ocnews-passwordeval "pa.sh s newsboat"
+
         #show-read-feeds no
         #external-url-viewer "urlscan -dc -r '${pkgs.scripts.linkhandler}/bin/linkhandler.sh {}'"
         browser ${pkgs.scripts.linkhandler}/bin/linkhandler.sh

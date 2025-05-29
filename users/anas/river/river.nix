@@ -55,15 +55,15 @@
           
           "Super J" = "focus-view next";
           "Super K" = "focus-view previous";
-          "Super+Control J" = "swap next";
-          "Super+Control K" = "swap previous";
+          "Super+Shift J" = "swap next";
+          "Super+Shift K" = "swap previous";
 
           "Super Period" = "focus-output next";
           "Super Comma" = "focus-output previous";
           "Super+Shift Period" = "send-to-output next";
           "Super+Shift Comma" = "send-to-output previous";
 
-          "Super Space" = "turn zoom";
+          "Super Space" = "zoom";
           "Super+Shift Space" = "toggle-float";
 
           "Super H" = "send-layout-cmd rivertile 'main-ratio -0.05'";
@@ -72,10 +72,10 @@
           "Super+Alt H" = "send-layout-cmd rivertile 'main-count +1'";
           "Super+Alt L" = "send-layout-cmd rivertile 'main-count -1'";
 
-          "Super+Shift H" = "move left 100";
-          "Super+Shift J" = "move down 100";
-          "Super+Shift K" = "move up 100";
-          "Super+Shift L" = "move right 100";
+          "Super+Control H" = "move left 100";
+          "Super+Control J" = "move down 100";
+          "Super+Control K" = "move up 100";
+          "Super+Control L" = "move right 100";
 
           "Super+Alt+Control H" = "snap left";
           "Super+Alt+Control J" = "snap down";

@@ -6,7 +6,7 @@
         "anas@waifu.club" = {
           address = "anas@waifu.club";
           userName = "anas@waifu.club";
-          passwordCommand = "testpass.sh";
+          passwordCommand = "pa.sh s mail.cock.li";
           primary = true;
           realName = "Anas";
 

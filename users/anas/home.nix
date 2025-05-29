@@ -57,12 +57,14 @@
       brightnessctl
       chafa
       du-dust
+      rustmission
       dua
       eva
       eza
       libsixel
       localsend
       monocraft
+      vimv-rs
       mpv
       neovim
       nsxiv
@@ -123,9 +125,10 @@
       GOBIN = "$XDG_BIN_HOME/go";
       GOMODCACHE = "$XDG_CACHE_HOME/go/mod";
       GOPATH = "$XDG_DATA_HOME/go";
+      PROTONPATH = "${pkgs.proton-ge-bin.steamcompattool}";
       INPUTRC = "$XDG_CONFIG_HOME/sh/inputrc";
       KODI_DATA = "$XDG_DATA_HOME/kodi";
-      MAIL = "$HOME/.local/var/spool/mail";
+      MAIL = "$HOME/.local/var/mail";
       PYTHONPYCACHEPREFIX = "$XDG_CACHE_HOME/python";
       PYTHONUSERBASE = "$XDG_DATA_HOME/python";
       RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
@@ -135,7 +138,6 @@
       STARSHIP_CACHE = "$XDG_CACHE_HOME/starship";
       STARSHIP_CONFIG = "$XDG_CONFIG_HOME/starship.toml";
       STEAM_EXTRA_COMPAT_TOOLS_PATHS = "$HOME/.steam/root/compatibilitytools.d";
-      TMUX_TMPDIR = "$XDG_RUNTIME_DIR";
       UNISON = "$XDG_DATA_HOME/unison";
       WGETRC = "$XDG_CONFIG_HOME/wget/wgetrc";
       WINEPREFIX = "$XDG_DATA_HOME/wineprefixes/default";
@@ -146,6 +148,7 @@
 
       _JAVA_AWT_WM_NONREPARENTING = "1";
       _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=\"$XDG_CONFIG_HOME/java\"";
+      PASH_DIR = "$XDG_DATA_HOME/passwords";
       AWT_TOOLKIT = "MToolkit wmname LG3D";
       DICS = "/usr/share/stardict/dic/";
       FZF_DEFAULT_OPTS = "--layout=reverse --height 40%";
