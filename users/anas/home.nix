@@ -53,6 +53,7 @@
 
     packages = with pkgs; [
       bluetui
+      waypipe
       brave
       brightnessctl
       chafa
