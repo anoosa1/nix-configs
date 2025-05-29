@@ -9,6 +9,7 @@
     image = ../../wallpaper.jpg;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/atelier-forest.yaml";
     polarity = "dark";
+    autoEnable = false;
 
     cursor = {
       package = pkgs.bibata-cursors;
@@ -65,10 +66,6 @@
 
       gtk = {
         enable = true;
-
-        flatpakSupport = {
-          enable = true;
-        };
       };
 
       sxiv = {

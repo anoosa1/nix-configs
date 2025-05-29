@@ -15,7 +15,7 @@
 
       settings = {
         global = {
-          browser = "$XDG_DATA_HOME/flatpak/exports/bin/io.gitlab.librewolf-community -new-tab";
+          browser = "$BROWSER";
           dmenu = "${pkgs.dmenu}/bin/dmenu";
           follow = "mouse";
           format = "<b>%s</b>\\n%b";

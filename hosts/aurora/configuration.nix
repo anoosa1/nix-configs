@@ -12,7 +12,7 @@
 
   ## boot
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_6_14;
     supportedFilesystems = ["ntfs"];
 
     plymouth = {
@@ -122,7 +122,7 @@
     # nvidia - gpu
     nvidia = {
       open = true;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
 
       powerManagement = {
         enable = true;

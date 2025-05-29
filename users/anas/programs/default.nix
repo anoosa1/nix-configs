@@ -13,6 +13,7 @@
     ./ripgrep-all.nix
     ./skim.nix
     ./starship.nix
+    ./tmux.nix
     ./waybar
     ./yazi.nix
     ./zellij.nix
