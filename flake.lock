@@ -6,11 +6,11 @@
         "nvf": "nvf"
       },
       "locked": {
-        "lastModified": 1748045678,
-        "narHash": "sha256-8xFtwEmhQrL9aHnQamQJZ4Qc7MXBBcL/OBYWeKkDcFk=",
+        "lastModified": 1748585366,
+        "narHash": "sha256-qu1v2x7RfpdhB0cikGeFzF0kCKJ/gHbAk5RGSDt4PNM=",
         "ref": "refs/heads/main",
-        "rev": "ac28d47f3e94a85cb9ebdda2bb9b6e83bbbf5bbd",
-        "revCount": 17,
+        "rev": "73245bf01e9d1fc618ea0ab1e43e34ebd3456197",
+        "revCount": 20,
         "type": "git",
         "url": "ssh://git@github.com/anoosa1/apkgs.git"
       },

@@ -78,7 +78,6 @@
       rmpc
       rofi-wayland
       rsync
-      scripts.dmenuhandler
       scripts.se
       simplex-chat-desktop
       tokei

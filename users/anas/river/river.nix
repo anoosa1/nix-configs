@@ -1,5 +1,7 @@
-{ config, pkgs, ... }:
-
+{
+  pkgs,
+...
+}:
 {
   wayland.windowManager.river = {
     enable = true;
@@ -133,6 +135,7 @@
           "Super F" = "toggle-fullscreen";
 
           "Super F11" = "enter-mode passthrough";
+          "None Print" = "spawn '${pkgs.scripts.dmenuscreenshot}/bin/dmenuscreenshot.sh'";
 
           "None XF86MonBrightnessUp" = "spawn 'brightnessctl set +5%'";
           "None XF86MonBrightnessDown" = "spawn 'brightnessctl set 5%-'";
