@@ -49,7 +49,7 @@
           "Super Return" = "spawn alacritty";
           "Super W" = "spawn brave";
           "Super D" = "spawn 'dmenu_run'";
-          "Super+Shift+Control B" = "spawn 'systemctl --user kill --signal=SIGUSR1 waybar.service'";
+          "Super+Shift D" = "spawn 'systemctl --user kill --signal=SIGUSR1 waybar.service'";
           "Super Backspace" = "spawn '${pkgs.scripts.dmenupower}/bin/dmenupower.sh'";
 
           "Super Q" = "close";
@@ -71,6 +71,7 @@
           "Super B" = "spawn 'bookmarks.sh --save'";
           "Super+Shift B" = "spawn 'bookmarks.sh --type'";
           "Super+Control B" = "spawn 'bookmarks.sh --copy'";
+          "Super+Shift+Control B" = "spawn 'bookmarks.sh --delete'";
 
           "Super H" = "send-layout-cmd rivertile 'main-ratio -0.05'";
           "Super L" = "send-layout-cmd rivertile 'main-ratio +0.05'";
