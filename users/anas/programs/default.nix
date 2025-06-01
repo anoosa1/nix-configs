@@ -11,6 +11,7 @@
     ./newsboat.nix
     ./password-store.nix
     ./ripgrep-all.nix
+    ./river.nix
     ./skim.nix
     ./starship.nix
     ./tmux.nix

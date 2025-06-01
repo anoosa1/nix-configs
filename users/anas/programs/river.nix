@@ -1,6 +1,6 @@
 {
   pkgs,
-...
+  ...
 }:
 {
   wayland.windowManager.river = {
@@ -49,7 +49,7 @@
           "Super Return" = "spawn alacritty";
           "Super W" = "spawn brave";
           "Super D" = "spawn 'dmenu_run'";
-          "Super B" = "spawn 'systemctl --user kill --signal=SIGUSR1 waybar.service'";
+          "Super+Shift+Control B" = "spawn 'systemctl --user kill --signal=SIGUSR1 waybar.service'";
           "Super Backspace" = "spawn '${pkgs.scripts.dmenupower}/bin/dmenupower.sh'";
 
           "Super Q" = "close";
@@ -67,6 +67,10 @@
 
           "Super Space" = "zoom";
           "Super+Shift Space" = "toggle-float";
+
+          "Super B" = "spawn 'bookmarks.sh --save'";
+          "Super+Shift B" = "spawn 'bookmarks.sh --type'";
+          "Super+Control B" = "spawn 'bookmarks.sh --copy'";
 
           "Super H" = "send-layout-cmd rivertile 'main-ratio -0.05'";
           "Super L" = "send-layout-cmd rivertile 'main-ratio +0.05'";

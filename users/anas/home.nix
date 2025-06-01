@@ -7,7 +7,6 @@
   imports = [
     ./mail
     ./programs
-    ./river
     ./services.nix
     ./stylix.nix
   ];
@@ -53,6 +52,8 @@
 
     packages = with pkgs; [
       bluetui
+      wtype
+      wl-clipboard
       waypipe
       brave
       brightnessctl
@@ -74,6 +75,7 @@
       prismlauncher
       pulsemixer
       qutebrowser
+      steamguard-cli
       ripgrep
       rmpc
       rofi-wayland
