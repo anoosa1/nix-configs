@@ -12,7 +12,7 @@
 
   ## boot
   boot = {
-    kernelPackages = pkgs.linuxPackages_6_14;
+    kernelPackages = pkgs.linuxPackages_latest;
     supportedFilesystems = ["ntfs"];
 
     plymouth = {
@@ -135,19 +135,6 @@
   };
 
   powerManagement.enable = true;
-
-  services = {
-    sunshine = {
-      enable = true;
-      autoStart = true;
-      capSysAdmin = true;
-      openFirewall = true;
-    };
-
-    xserver = {
-      videoDrivers = ["nvidia"];
-    };
-  };
 
   nixpkgs = {
     overlays = [ inputs.apkgs.overlays.default ];
