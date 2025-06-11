@@ -1,0 +1,19 @@
+{
+  imports = [
+    ./bat.nix
+    ./evil-helix.nix
+    ./fd.nix
+    ./fish.nix
+    ./git.nix
+    ./gitui.nix
+    ./lf.nix
+    ./newsboat.nix
+    ./password-store.nix
+    ./ripgrep-all.nix
+    ./skim.nix
+    ./starship.nix
+    ./tmux.nix
+    ./yazi.nix
+    ./zsh.nix
+  ];
+}

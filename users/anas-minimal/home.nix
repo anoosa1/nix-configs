@@ -7,8 +7,6 @@
   imports = [
     ./mail
     ./programs
-    ./services.nix
-    ./stylix.nix
   ];
 
   home = {
@@ -193,24 +191,6 @@
       videos = "${config.home.homeDirectory}/vids";
       publicShare = "${config.xdg.userDirs.documents}/public";
       templates = "${config.xdg.userDirs.documents}/templates";
-    };
-
-    portal = {
-      enable = true;
-      xdgOpenUsePortal = true;
-
-      config = {
-        river = {
-          default = [ "gtk" ];
-          "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
-          "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
-        };
-      };
-
-      extraPortals = [
-        pkgs.xdg-desktop-portal-wlr
-        pkgs.xdg-desktop-portal-gtk
-      ];
     };
   };
 

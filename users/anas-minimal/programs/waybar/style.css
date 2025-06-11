@@ -1,0 +1,58 @@
+* {
+  font-family: "Comic Code", "Font Awesome 5 Pro";
+  font-size: 14px;
+  min-height: 10px;
+  background: #202937;
+}
+
+#custom-weather,
+#mpd,
+#clock,
+#tray,
+#battery,
+#backlight,
+#pulseaudio,
+#network,
+#window,
+#mode {
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #ffffee;
+}
+
+#tags button {
+  color: #dfd2c4;
+  background: transparent;
+}
+
+#tags button.focused {
+  color: #cc4f5e;
+}
+
+#tags button:hover,
+#tags button.focused:hover {
+  box-shadow: inherit;
+  text-shadow: inherit;
+  color: #ffffee;
+  border-color: #ffffee;
+}
+
+#tags button.urgent {
+  border-top: 2px solid #fb4934;
+  border-bottom: 2px solid #fb4934;
+}
+
+#battery.charging, #battery.plugged {
+  color: #ffffee;
+  background-color: #9F9C9D;
+}
+
+#battery.critical:not(.charging) {
+    background-color: #9F9C9D;
+    color: #ffffee;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}

@@ -79,44 +79,33 @@
     #};
 
     # smb
-    #samba = {
-    #  enable = true;
-    #  openFirewall = true;
-    #  settings = {
-    #    default = {
-    #      "workgroup" = "WORKGROUP";
-    #      "server string" = "aurora";
-    #      "netbios name" = "aurora";
-    #      "security" = "user";
-    #      #"use sendfile" = "yes";
-    #      #"max protocol" = "smb2";
-    #      #"hosts allow" = "10.0.0.138 127.0.0.1 localhost";
-    #      #"hosts deny" = "0.0.0.0/0";
-    #      #"guest account" = "nobody";
-    #      "map to guest" = "bad user";
-    #    };
-    #    #public = {
-    #    #  path = "/mnt/Shares/Public";
-    #    #  browseable = "yes";
-    #    #  "read only" = "no";
-    #    #  "guest ok" = "yes";
-    #    #  "create mask" = "0644";
-    #    #  "directory mask" = "0755";
-    #    #  "force user" = "username";
-    #    #  "force group" = "groupname";
-    #    #};
-    #    #private = {
-    #    #  path = "/export/aa";
-    #    #  browseable = "yes";
-    #    #  "read only" = "no";
-    #    #  "guest ok" = "no";
-    #    #  "create mask" = "0600";
-    #    #  "directory mask" = "0700";
-    #    #  "force user" = "anas";
-    #    #  "force group" = "anas";
-    #    #};
-    #  };
-    #};
+    samba = {
+      enable = true;
+      openFirewall = true;
+      settings = {
+        default = {
+          "workgroup" = "WORKGROUP";
+          "server string" = "astra";
+          "netbios name" = "astra";
+          "security" = "user";
+          "use sendfile" = "yes";
+          "hosts allow" = "10.0.0.235 10.0.0.228 127.0.0.1 localhost";
+          "hosts deny" = "0.0.0.0/0";
+          "guest account" = "nobody";
+          "map to guest" = "bad user";
+        };
+        yousof = {
+          path = "/export/yousof";
+          browseable = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0600";
+          "directory mask" = "0700";
+          "force user" = "anas";
+          "force group" = "anas";
+        };
+      };
+    };
 
     tailscale = {
       enable = true;

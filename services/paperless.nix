@@ -30,7 +30,7 @@
         PAPERLESS_DISABLE_REGULAR_LOGIN = true;
         PAPERLESS_EMAIL_PARSE_DEFAULT_LAYOUT = 2;
         PAPERLESS_TIME_ZONE = "America/Toronto";
-        PAPERLESS_EMPTY_TRASH_DIR = "../media/trash";
+        #PAPERLESS_EMPTY_TRASH_DIR = "../media/trash";
         PAPERLESS_LOGOUT_REDIRECT_URL = "https://accounts.asherif.xyz/application/o/paperless-ngx/end-session/";
         PAPERLESS_OAUTH_CALLBACK_BASE_URL = "https://docs.asherif.xyz";
         PAPERLESS_REDIRECT_LOGIN_TO_SSO = true;

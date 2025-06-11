@@ -78,7 +78,8 @@
           inputs.sops-nix.nixosModules.sops
           ./hosts/astra
           ./nixos
-          ./users
+          ./users/home-manager.nix
+          ./users/anas-minimal
         ];
       };
     };
