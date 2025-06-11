@@ -36,6 +36,8 @@
         "homekit_controller"
         "http"
         "isal"
+        "media_player"
+        "media_source"
         "met"
         "mobile_app"
         "ollama"
