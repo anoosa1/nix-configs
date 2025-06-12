@@ -16,9 +16,6 @@
     ./starship.nix
     ./tmux.nix
     ./waybar
-    ./yazi.nix
-    ./zellij.nix
-    ./ollama.nix
     ./zsh.nix
   ];
 }

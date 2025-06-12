@@ -122,19 +122,15 @@
     # nvidia - gpu
     nvidia = {
       open = true;
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
 
       powerManagement = {
-        enable = true;
-      };
-
-      modesetting = {
         enable = true;
       };
     };
   };
 
   powerManagement.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   nixpkgs = {
     overlays = [ inputs.apkgs.overlays.default ];
