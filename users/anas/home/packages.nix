@@ -1,0 +1,42 @@
+{
+  pkgs,
+  ...
+}:
+{
+  home = {
+    packages = with pkgs; [
+      bluetui
+      brave
+      du-dust
+      dua
+      eva
+      eza
+      fd
+      gitui
+      libsixel
+      localsend
+      mpv
+      neovim
+      nsxiv
+      playerctl
+      pulsemixer
+      qutebrowser
+      ripgrep
+      rmpc
+      rsync
+      rustmission
+      scripts.se
+      simplex-chat-desktop
+      steamguard-cli
+      umu-launcher
+      vimv-rs
+      waylock
+      wl-clipboard
+      wlr-randr
+      wtype
+      yt-dlp
+      zathura
+    ];
+
+  };
+}

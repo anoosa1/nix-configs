@@ -80,25 +80,8 @@
         enable = true;
       };
 
-      qt = {
-        enable = false;
-        #platform = "qtct";
-      };
-
       river = {
         enable = true;
-      };
-
-      rofi = {
-        enable = true;
-      };
-
-      helix = {
-        enable = true;
-      };
-
-      waybar = {
-        enable = false;
       };
 
       wpaperd = {

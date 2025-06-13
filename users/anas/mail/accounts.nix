@@ -25,8 +25,8 @@
 
           mbsync = {
             enable = true;
-            create = "both";
-            expunge = "both";
+            create = "maildir";
+            expunge = "maildir";
           };
 
           msmtp = {
@@ -35,6 +35,15 @@
 
           neomutt = {
             enable = true;
+
+            extraMailboxes = [
+              "Archive"
+              "Drafts"
+              "Junk"
+              "Queue"
+              "Sent"
+              "Trash"
+            ];
           };
 
           notmuch = {

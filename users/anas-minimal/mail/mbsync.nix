@@ -1,7 +1,0 @@
-{
-  programs = {
-    mbsync = {
-      enable = true;
-    };
-  };
-}

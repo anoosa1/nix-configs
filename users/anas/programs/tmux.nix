@@ -1,8 +1,4 @@
 {
-  pkgs,
-  ...
-}:
-{
   programs = {
     tmux = {
       enable = true;
@@ -13,7 +9,6 @@
       keyMode = "vi";
       mouse = true;
       #sensibleOnTop = true;
-      shell = "${pkgs.fish}/bin/fish";
       shortcut = "Space";
       terminal = "screen-256color";
     };
