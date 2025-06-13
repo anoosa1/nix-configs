@@ -63,5 +63,16 @@
         };
       };
     };
+
+    music-assistant = {
+      enable = true;
+
+      providers = [
+        "hass"
+        "hass_players"
+        "jellyfin"
+        "ytmusic"
+      ];
+    };
   };
 }

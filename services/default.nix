@@ -6,6 +6,7 @@
     ./homeassistant.nix
     ./soft-serve.nix
     ./paperless.nix
+    ./zitadel.nix
     #./peertube.nix
     #./miniflux.nix
     #./mail.nix
