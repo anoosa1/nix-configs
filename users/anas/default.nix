@@ -5,7 +5,15 @@
 {
   home-manager = {
     users = {
-      anas = ./home.nix;
+      anas = {
+        imports = [
+          ./home
+          ./mail
+          ./programs
+          ./services
+          ./stylix.nix
+        ];
+      };
     };
   };
 

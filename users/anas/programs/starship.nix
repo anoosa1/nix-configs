@@ -7,7 +7,6 @@
     starship = {
       enable = true;
       enableZshIntegration = true;
-      enableFishIntegration = true;
 
       settings = {
         add_newline = false;
@@ -95,7 +94,7 @@
           "$container"
           "$shell"
           "$character"
-	];
+        ];
 
 	username = {
           style_user = "fg:green bold";

@@ -17,7 +17,11 @@
         };
 
         greetd = {
-          enableGnomeKeyring = true;
+          gnupg = {
+            enable = true;
+            storeOnly = true;
+            noAutostart = true;
+          };
         };
       };
     };
