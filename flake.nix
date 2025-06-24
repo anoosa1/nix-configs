@@ -17,10 +17,12 @@
       };
     };
 
+    # NixOS Hardware
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware/master";
     };
 
+    # Sops nix
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs = {
@@ -30,18 +32,31 @@
       };
     };
 
-    secrets = {
-      url = "git+ssh://git@github.com/anoosa1/secrets.git";
-      flake = false;
-    };
-
-    apkgs = {
-      url = "git+ssh://git@github.com/anoosa1/apkgs.git";
+    # Niri
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
     };
 
     # Stylix
     stylix = {
       url = "github:danth/stylix";
+    };
+
+    ## Personal flakes
+    # Secrets
+    secrets = {
+      url = "git+ssh://git@github.com/anoosa1/secrets.git";
+      flake = false;
+    };
+
+    # apkgs
+    apkgs = {
+      url = "git+ssh://git@github.com/anoosa1/apkgs.git";
     };
   };
 
@@ -78,8 +93,7 @@
           inputs.sops-nix.nixosModules.sops
           ./hosts/astra
           ./nixos
-          ./users/home-manager.nix
-          ./users/anas-minimal
+          ./users
         ];
       };
     };

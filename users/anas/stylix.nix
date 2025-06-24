@@ -68,6 +68,10 @@
         enable = true;
       };
 
+      niri = {
+        enable = true;
+      };
+
       sxiv = {
         enable = true;
       };

@@ -6,12 +6,13 @@
     ./gpg.nix
     ./lf.nix
     ./newsboat.nix
+    ./niri.nix
     ./password-store.nix
     ./river.nix
     ./skim.nix
     ./starship.nix
     ./tmux.nix
-    ./zsh.nix
     ./zoxide.nix
+    ./zsh.nix
   ];
 }

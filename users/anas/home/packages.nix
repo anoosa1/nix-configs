@@ -5,7 +5,9 @@
 {
   home = {
     packages = with pkgs; [
+      anki
       bluetui
+      bemenu
       brave
       du-dust
       dua
@@ -35,6 +37,7 @@
       wlr-randr
       wtype
       yt-dlp
+      xwayland-satellite
       zathura
     ];
 
