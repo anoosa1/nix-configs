@@ -8,7 +8,10 @@
         locations."/" = {
           proxyPass = "http://localhost:2283";
           proxyWebsockets = true;
-          extraConfig = "proxy_pass_header Authorization;";
+          extraConfig = ''
+            proxy_pass_header Authorization;
+            client_max_body_size 10G;
+          '';
         };
       };
     };
