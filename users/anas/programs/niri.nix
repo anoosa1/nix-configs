@@ -13,12 +13,18 @@
           slowdown = 0.7;
         };
 
-        spawn-at-startup = [
-          { command = [ "xwayland-satellite" ]; }
-        ];
+        cursor = {
+          hide-after-inactive-ms = 3000;
+          hide-when-typing = true;
+        };
 
         environment = {
           DISPLAY = ":0";
+        };
+
+        hotkey-overlay = {
+          #hide-not-bound = true;
+          skip-at-startup = true;
         };
 
         input = {
@@ -44,8 +50,12 @@
           };
         };
 
+        spawn-at-startup = [
+          { command = [ "xwayland-satellite" ]; }
+        ];
+
         binds = with config.lib.niri.actions; {
-          "Mod+Backspace".action.spawn = "waylock";
+          "Mod+Backspace".action.spawn = "swaylock";
           "Mod+Shift+Backspace".action = quit;
           "Mod+Ctrl+Backspace".action = power-off-monitors;
 
@@ -65,7 +75,13 @@
             action = close-window;
             repeat = false;
           };
+
           "Mod+Shift+Return" = {
+            action = toggle-overview;
+            repeat = false;
+          };
+
+          "Mod+Alt+Return" = {
             action = toggle-overview;
             repeat = false;
           };
@@ -81,9 +97,10 @@
 
           "Mod+H".action = set-column-width "-10%";
           "Mod+L".action = set-column-width "+10%";
-          "Mod+Shift+H".action = set-window-height "-10%";
-          "Mod+Shift+L".action = set-window-height "+10%";
+          "Mod+Shift+H".action = set-window-height "+10%";
+          "Mod+Shift+L".action = set-window-height "-10%";
           "Mod+Y".action = switch-preset-column-width;
+          "Mod+Shift+Y".action = toggle-column-tabbed-display;
 
           "Mod+Shift+Space".action = toggle-window-floating;
           "Mod+Escape" = {
@@ -114,27 +131,25 @@
           "Mod+Shift+8".action.move-column-to-workspace = 8;
           "Mod+Shift+9".action.move-column-to-workspace = 9;
 
-          #"Mod+J".action = focus-column-left;
-          #"Mod+H".action = focus-window-down;
-          #"Mod+L".action = focus-window-up;
-          #"Mod+K".action = focus-column-right;
-          #"Mod+Shift+J".action = move-column-left;
-          #"Mod+Shift+H".action = move-window-down;
-          #"Mod+Shift+L".action = move-window-up;
-          #"Mod+Shift+K".action = move-column-right;
-
-          "Mod+J".action = focus-window-up-or-column-left;
-          "Mod+K".action = focus-window-down-or-column-right;
-          "Mod+Shift+J".action = move-column-left;
-          "Mod+Shift+K".action = move-column-right;
-          "Mod+Alt+J".action = focus-workspace-down;
-          "Mod+Alt+K".action = focus-workspace-up;
-          "Mod+Alt+Shift+J".action = move-column-to-workspace-down;
-          "Mod+Alt+Shift+K".action = move-column-to-workspace-up;
+          "Mod+J".action = focus-column-left-or-last;
+          "Mod+K".action = focus-column-right-or-first;
+          "Mod+Shift+J".action = move-column-left-or-to-monitor-left;
+          "Mod+Shift+K".action = move-column-right-or-to-monitor-right;
+          "Mod+Alt+J".action = consume-or-expel-window-left;
+          "Mod+Alt+K".action = consume-or-expel-window-right;
+          "Mod+Ctrl+J".action = focus-window-or-workspace-down;
+          "Mod+Ctrl+K".action = focus-window-or-workspace-up;
+          "Mod+Ctrl+Shift+J".action = move-window-down-or-to-workspace-down;
+          "Mod+Ctrl+Shift+K".action = move-window-up-or-to-workspace-up;
         };
 
         layout = {
           gaps = 0;
+          default-column-display = "tabbed";
+
+          default-column-width = {
+            proportion = 0.5;
+          };
 
           preset-column-widths = [
             { proportion = 1. / 2.; }

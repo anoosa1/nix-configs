@@ -18,6 +18,7 @@
       libsixel
       localsend
       mpv
+      nb
       neovim
       nsxiv
       playerctl
@@ -32,7 +33,6 @@
       steamguard-cli
       umu-launcher
       vimv-rs
-      waylock
       wl-clipboard
       wlr-randr
       wtype

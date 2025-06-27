@@ -41,8 +41,8 @@
       };
 
       emoji = {
-        package = pkgs.noto-fonts-emoji;
-        name = "Noto Color Emoji";
+        package = pkgs.font-awesome-pro;
+        name = "Font Awesome 5 Pro Regular";
       };
     };
 
@@ -77,6 +77,10 @@
       };
 
       starship = {
+        enable = true;
+      };
+
+      swaylock = {
         enable = true;
       };
 

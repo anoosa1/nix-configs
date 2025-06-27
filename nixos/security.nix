@@ -3,7 +3,7 @@
   security = {
     pam = {
       services = {
-        waylock = {};
+        swaylock = {};
 
         su = {
           requireWheel = true;

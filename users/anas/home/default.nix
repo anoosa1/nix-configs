@@ -10,6 +10,18 @@
     ./variables.nix
   ];
 
+  fonts = {
+    fontconfig = {
+      enable = true;
+
+      defaultFonts = {
+        emoji = [
+          "Font Awesome 5 Pro Regular"
+        ];
+      };
+    };
+  };
+
   home = {
     username = "anas";
     homeDirectory = "/home/anas";

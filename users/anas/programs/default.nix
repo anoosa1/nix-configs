@@ -11,6 +11,7 @@
     ./river.nix
     ./skim.nix
     ./starship.nix
+    ./swaylock.nix
     ./tmux.nix
     ./zoxide.nix
     ./zsh.nix
