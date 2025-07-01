@@ -18,7 +18,6 @@
       libsixel
       localsend
       mpv
-      nb
       neovim
       nsxiv
       playerctl

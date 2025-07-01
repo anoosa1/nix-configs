@@ -88,6 +88,10 @@
         enable = true;
       };
 
+      qutebrowser = {
+        enable = true;
+      };
+
       river = {
         enable = true;
       };

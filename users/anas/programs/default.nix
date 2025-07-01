@@ -8,6 +8,7 @@
     ./newsboat.nix
     ./niri.nix
     ./password-store.nix
+    ./qutebrowser.nix
     ./river.nix
     ./skim.nix
     ./starship.nix
