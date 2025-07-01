@@ -49,7 +49,6 @@
           "Super Return" = "spawn alacritty";
           "Super W" = "spawn brave";
           "Super D" = "spawn 'dmenu_run'";
-          "Super+Shift D" = "spawn 'systemctl --user kill --signal=SIGUSR1 waybar.service'";
           "Super Backspace" = "spawn '${pkgs.scripts.dmenupower}/bin/dmenupower.sh'";
 
           "Super Q" = "close";
@@ -161,7 +160,6 @@
           "Super XF86AudioPrev" = "spawn 'rmpc prev'";
           "Super XF86AudioNext" = "spawn 'rmpc next'";
           "Super XF86AudioStop" = "spawn 'rmpc stop'";
-          "Super XF86AudioMedia" = "spawn 'alacritty -e termusic'";
         };
 
         passthrough = {

@@ -8,6 +8,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    inputs.niri.nixosModules.niri
   ];
 
   ## boot
@@ -118,16 +119,16 @@
       enable = true;
       powerOnBoot = true;
     };
-
-    facetimehd = {
-      enable = true;
-    };
   };
 
   powerManagement.enable = true;
 
   nixpkgs = {
-    overlays = [ inputs.apkgs.overlays.default ];
+    overlays = [
+      inputs.apkgs.overlays.default
+      inputs.niri.overlays.niri
+    ];
+
     config = {
       # allow unfree packages
       allowUnfree = true;
@@ -141,6 +142,10 @@
   };
 
   programs = {
+    niri = {
+      enable = true;
+    };
+
     dconf = {
       enable = true;
     };
@@ -156,10 +161,16 @@
       enable = true;
 
       waylandCompositors = {
-        sway = {
+        river = {
           prettyName = "River";
           comment = "River (UWSM)";
           binPath = "/etc/profiles/per-user/anas/bin/river";
+        };
+
+        niri = {
+          prettyName = "Niri";
+          comment = "Niri (UWSM)";
+          binPath = "/run/current-system/sw/bin/niri";
         };
       };
     };

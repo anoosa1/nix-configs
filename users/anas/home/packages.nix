@@ -22,7 +22,6 @@
       nsxiv
       playerctl
       pulsemixer
-      qutebrowser
       ripgrep
       rmpc
       rsync
