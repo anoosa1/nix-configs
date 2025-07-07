@@ -7,6 +7,7 @@
     ./lf.nix
     ./newsboat.nix
     ./niri.nix
+    ./kitty.nix
     ./password-store.nix
     ./qutebrowser.nix
     ./river.nix
