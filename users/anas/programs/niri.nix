@@ -60,7 +60,7 @@
           "Mod+Ctrl+Backspace".action = power-off-monitors;
 
           "Mod+D".action.spawn = "bemenu-run";
-          "Mod+Return".action.spawn = "alacritty";
+          "Mod+Return".action.spawn = "kitty";
           "Mod+Shift+Slash".action = show-hotkey-overlay;
 
           "Mod+C".action = center-column;

@@ -4,8 +4,8 @@
   ...
 }:
 {
-  home.packages = with pkgs; [
-    ctpv
+  home.packages = with pkgs; [    
+    ctpv                          
   ];
 
   xdg = {
