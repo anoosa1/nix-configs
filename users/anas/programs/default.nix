@@ -4,6 +4,7 @@
     ./bat.nix
     ./git.nix
     ./gpg.nix
+    ./kitty.nix
     ./lf.nix
     ./newsboat.nix
     ./niri.nix
