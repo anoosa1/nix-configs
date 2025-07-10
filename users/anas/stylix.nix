@@ -42,7 +42,7 @@
 
       emoji = {
         package = pkgs.font-awesome-pro;
-        name = "Font Awesome 5 Pro Regular";
+        name = "Font Awesome 6 Pro Regular";
       };
     };
 

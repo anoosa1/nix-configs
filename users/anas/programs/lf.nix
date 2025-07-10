@@ -29,20 +29,21 @@
           *.mom ✍
           *.me ✍
           *.ms ✍
-          *.png 
+          *.png 
           *.webp 
           *.ico 
-          *.jpg 
-          *.jpe 
-          *.jpeg 
-          *.gif 
-          *.svg 
+          *.jpg 
+          *.jpe 
+          *.jpeg 
+          *.gif 
+          *.svg 
           *.tif 
           *.tiff 
           *.xcf 🖌
           *.html 
           *.xml 
-          *.gpg 
+          *.gpg 
+          *.pgp 
           *.css 🎨
           *.pdf 
           *.djvu 
