@@ -10,27 +10,32 @@
     ./variables.nix
   ];
 
-  fonts = {
-    fontconfig = {
-      enable = true;
-
-      defaultFonts = {
-        emoji = [
-          "Font Awesome 5 Pro Regular"
-        ];
-      };
-    };
-  };
-
   home = {
     username = "anas";
     homeDirectory = "/home/anas";
+    preferXdgDirectories = true;
     stateVersion = "24.11";
+
+    pointerCursor = {
+      dotIcons = {
+        enable = false;
+      };
+    };
 
     #file = {
     #  ".screenrc".source = dotfiles/screenrc;
     #  ".screenrc".text = "";
     #};
+  };
+
+  gtk = {
+    gtk2 = {
+      configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+    };
+  };
+
+  xresources = {
+    path = "${config.xdg.configHome}/Xresources";
   };
 
   xdg = {
