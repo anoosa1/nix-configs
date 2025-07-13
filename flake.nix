@@ -92,6 +92,7 @@
           inputs.sops-nix.nixosModules.sops
           ./hosts/astra
           ./nixos
+          ./nixos/services
           ./users
         ];
       };

@@ -4,8 +4,7 @@
   config,
   pkgs,
   ...
-}:
-{
+}: {
   imports = [
     ./hardware-configuration.nix
     inputs.niri.nixosModules.niri
@@ -57,12 +56,6 @@
       auto-optimise-store = true;
       substituters = [
         "https://cache.nixos.org"
-        "https://hyprland.cachix.org"
-        "https://veloren-nix.cachix.org"
-      ];
-      trusted-public-keys = [
-        "veloren-nix.cachix.org-1:zokfKJqVsNV6kI/oJdLF6TYBdNPYGSb+diMVQPn/5Rc="
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       ];
     };
   };

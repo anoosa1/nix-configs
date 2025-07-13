@@ -1,6 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running `nixos-help`).
 {
   inputs,
   lib,
@@ -11,7 +8,7 @@
 }: {
   imports = [
     (modulesPath + "/virtualisation/proxmox-lxc.nix")
-    ../../services
+    inputs.niri.nixosModules.niri
   ];
 
   sops = {
@@ -25,20 +22,20 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   nix = {
-    # This will add each flake input as a registry
-    # To make nix3 commands consistent with your flake
+    enable = true;
     registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
-
-    # This will additionally add your inputs to the system's legacy channels
-    # Making legacy nix commands consistent as well, awesome!
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
       auto-optimise-store = true;
+      substituters = [
+        "https://cache.nixos.org"
+      ];
     };
   };
 
+  ## networking
   networking = {
     hostName = "astra";
     useDHCP = false;
@@ -120,7 +117,11 @@
   };
 
   nixpkgs = {
-    overlays = [ inputs.apkgs.overlays.default ];
+    overlays = [
+      inputs.apkgs.overlays.default
+      inputs.niri.overlays.niri
+    ];
+
     config = {
       # allow unfree packages
       allowUnfree = true;
@@ -141,7 +142,6 @@
         git
         openjdk
         config.services.nextcloud.occ
-        starship
         zsh
       ]);
   };

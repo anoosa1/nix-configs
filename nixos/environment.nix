@@ -27,7 +27,6 @@
       nautilus
       sushi
       neofetch
-      starship
       zsh
     ];
   };

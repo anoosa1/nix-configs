@@ -44,10 +44,6 @@
       };
     };
 
-    pulseaudio = {
-      extraClientConf = "cookie-file = ~/.local/var/state/pulse/cookie";
-    };
-
     greetd = {
       enable = true;
       settings = {
