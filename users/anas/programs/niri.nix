@@ -1,4 +1,5 @@
 {
+  pkgs,
   config,
   ...
 }:
@@ -130,6 +131,35 @@
           "Mod+Shift+7".action.move-column-to-workspace = 7;
           "Mod+Shift+8".action.move-column-to-workspace = 8;
           "Mod+Shift+9".action.move-column-to-workspace = 9;
+
+          "XF86MonBrightnessUp" = {
+            action = spawn "${pkgs.brightnessctl}/bin/brightnessctl" "--class=backlight" "set" "+10%";
+            allow-when-locked = true;
+          };
+          "XF86MonBrightnessDown" = {
+            action = spawn "${pkgs.brightnessctl}/bin/brightnessctl" "--class=backlight" "set" "10%-";
+            allow-when-locked = true;
+          };
+          "XF86KbdBrightnessUp" = {
+            action = spawn "${pkgs.brightnessctl}/bin/brightnessctl" "--device=smc::kbd_backlight" "set" "+10%";
+            allow-when-locked = true;
+          };
+          "XF86KbdBrightnessDown" = {
+            action = spawn "${pkgs.brightnessctl}/bin/brightnessctl" "--device=smc::kbd_backlight" "set" "10%-";
+            allow-when-locked = true;
+          };
+          "XF86AudioRaiseVolume" = {
+            action = spawn "${pkgs.pamixer}/bin/pamixer" "-i" "5";
+            allow-when-locked = true;
+          };
+          "XF86AudioLowerVolume" = {
+            action = spawn "${pkgs.pamixer}/bin/pamixer" "-d" "5";
+            allow-when-locked = true;
+          };
+          "XF86AudioMute" = {
+            action = spawn "${pkgs.pamixer}/bin/pamixer" "--toggle-mute";
+            allow-when-locked = true;
+          };
 
           "Mod+J".action = focus-column-left-or-last;
           "Mod+K".action = focus-column-right-or-first;

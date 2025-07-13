@@ -11,6 +11,10 @@
       #sensibleOnTop = true;
       shortcut = "Space";
       terminal = "screen-256color";
+
+      extraConfig = ''
+        set -g allow-passthrough on
+      '';
     };
   };
 }
