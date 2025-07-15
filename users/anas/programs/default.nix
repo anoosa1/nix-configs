@@ -6,6 +6,7 @@
     ./gpg.nix
     ./kitty.nix
     ./lf.nix
+    ./neomutt.nix
     ./newsboat.nix
     ./niri.nix
     ./password-store.nix
