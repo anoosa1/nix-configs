@@ -7,8 +7,8 @@
     users = {
       anas = {
         imports = [
+          ./accounts
           ./home
-          ./mail
           ./programs
           ./services
           ./stylix.nix

@@ -1,22 +1,33 @@
 {
   pkgs,
+  lib,
+  config,
   ...
 }:
 {
-  programs = {
-    bat = {
-      enable = true;
+  options.anoosa.bat.enable = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    description = "Enable bat";
+    example = true;
+  };
 
-      config = {
-        pager = "less -FR";
+  config = lib.mkIf config.anoosa.bat.enable {
+    programs = {
+      bat = {
+        enable = true;
+
+        config = {
+          pager = "less -FR";
+        };
+
+        extraPackages = with pkgs.bat-extras; [
+          batdiff
+          batman
+          batgrep
+          prettybat
+        ];
       };
-
-      extraPackages = with pkgs.bat-extras; [
-        batdiff
-        batman
-        batgrep
-        prettybat
-      ];
     };
   };
 }

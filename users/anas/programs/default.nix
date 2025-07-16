@@ -6,9 +6,11 @@
     ./gpg.nix
     ./kitty.nix
     ./lf.nix
+    ./mbsync.nix
     ./neomutt.nix
     ./newsboat.nix
     ./niri.nix
+    ./notmuch.nix
     ./password-store.nix
     ./qutebrowser.nix
     ./river.nix
@@ -20,4 +22,38 @@
     ./zoxide.nix
     ./zsh.nix
   ];
+
+  anoosa = {
+    alacritty = {
+      enable = true;
+    };
+
+    bat = {
+      enable = true;
+    };
+
+    git = {
+      enable = true;
+    };
+
+    gpg = {
+      enable = true;
+    };
+
+    kitty = {
+      enable = true;
+    };
+
+    lf = {
+      enable = true;
+    };
+
+    mbsync = {
+      enable = true;
+    };
+
+    neomutt = {
+      enable = true;
+    };
+  };
 }
