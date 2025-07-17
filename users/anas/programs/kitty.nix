@@ -1,16 +1,30 @@
 {
-  programs = {
-    kitty = {
-      enable = true;
-      themeFile = "gruvbox-dark-hard";
+  lib,
+  config,
+  ...
+}:
+{
+  options.anoosa.kitty.enable = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    description = "Enable kitty";
+    example = true;
+  };
 
-      shellIntegration = {
-        enableZshIntegration = true;
-      };
+  config = lib.mkIf config.anoosa.kitty.enable {
+    programs = {
+      kitty = {
+        enable = true;
+        themeFile = "gruvbox-dark-hard";
 
-      settings = {
-        window_padding_width = 10;
-        scrollback_lines = 5000;
+        shellIntegration = {
+          enableZshIntegration = true;
+        };
+
+        settings = {
+          window_padding_width = 10;
+          scrollback_lines = 5000;
+        };
       };
     };
   };

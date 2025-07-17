@@ -110,11 +110,6 @@
   hardware = {
     enableAllFirmware = true;
 
-    facetimehd = {
-      enable = true;
-      withCalibration = true;
-    };
-
     graphics = {
       enable = true;
     };
