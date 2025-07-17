@@ -26,7 +26,7 @@
         };
 
         "lf/icons" = {
-          test = ''
+          text = ''
             di 
             fi 
             tw 🤝
