@@ -65,6 +65,7 @@
           "Mod+Shift+Slash".action = show-hotkey-overlay;
 
           "Mod+C".action = center-column;
+          "Mod+B".action = spawn "battery.sh";
           "Mod+Ctrl+C".action = center-visible-columns;
 
           "Mod+F".action = maximize-column;

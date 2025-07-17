@@ -25,10 +25,10 @@
           ln 
           or ❌
           ex 
-          *.txt ✍
-          *.mom ✍
-          *.me ✍
-          *.ms ✍
+          *.txt 
+          *.mom 
+          *.me 
+          *.ms 
           *.png 
           *.webp 
           *.ico 
@@ -39,12 +39,12 @@
           *.svg 
           *.tif 
           *.tiff 
-          *.xcf 🖌
+          *.xcf 
           *.html 
           *.xml 
           *.gpg 
           *.pgp 
-          *.css 🎨
+          *.css 
           *.pdf 
           *.djvu 
           *.epub 
@@ -52,49 +52,49 @@
           *.xlsx 
           *.tex 
           *.md 
-          *.r     📊
-          *.R     📊
-          *.rmd 📊
-          *.Rmd 📊
-          *.m     📊
-          *.mp3 
+          *.r 
+          *.R 
+          *.rmd 
+          *.Rmd 
+          *.m 
+          *.mp3 
           *.opus 
           *.ogg 
           *.m4a 
           *.flac 
           *.wav 
           *.mkv 
-          *.mp4 
+          *.mp4 
           *.webm 
           *.mpeg 
           *.avi 
-          *.mov 
+          *.mov 
           *.mpg 
           *.wmv 
           *.m4b 
           *.flv 
-          *.zip 
+          *.zip 
           *.rar 
           *.7z 
           *.tar 
-          *.z64 🎮
-          *.v64 🎮
-          *.n64 🎮
-          *.gba 🎮
-          *.nes 🎮
-          *.gdi 🎮
-          *.1     ℹ
-          *.nfo ℹ
-          *.info ℹ
-          *.log 📙
+          *.z64 
+          *.v64 
+          *.n64 
+          *.gba 
+          *.nes 
+          *.gdi 
+          *.1 
+          *.nfo 
+          *.info 
+          *.log 
           *.iso 
           *.img 
           *.bib   🎓
           *.ged   👪
-          *.part  💔
-          *.torrent 🔽
-          *.jar   ♨
-          *.java ♨
+          *.part 
+          *.torrent 
+          *.jar 
+          *.java 
         '';
       };
     };
