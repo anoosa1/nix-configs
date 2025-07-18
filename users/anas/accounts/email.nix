@@ -40,18 +40,18 @@
             };
           };
 
-          #msmtp = {
-          #  enable = true;
+          msmtp = {
+            enable = true;
 
-          #  extraConfig = {
-          #    protocol = "smtp";
-          #    tls = "on";
-          #    tls_starttls = "on";
-          #    auth = "xoauth2";
-          #    user = "anas_sherif1@outlook.com";
-          #    passwordeval = "mutt_oauth2.py ~/.local/share/passwords/outlook.com.gpg";
-          #  };
-          #};
+            extraConfig = {
+              protocol = "smtp";
+              tls = "on";
+              tls_starttls = "on";
+              auth = "xoauth2";
+              user = "anas_sherif1@outlook.com";
+              passwordeval = "mutt_oauth2.py ~/.local/share/passwords/outlook.com.gpg";
+            };
+          };
 
           neomutt = {
             enable = true;
@@ -122,9 +122,9 @@
             expunge = "maildir";
           };
 
-          #msmtp = {
-          #  enable = true;
-          #};
+          msmtp = {
+            enable = true;
+          };
 
           neomutt = {
             enable = true;
