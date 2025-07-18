@@ -1,12 +1,19 @@
 {
-  programs = {
-    zoxide = {
-      enable = true;
-      enableZshIntegration = true;
+  config,
+  lib,
+  ...
+}:
+{
+  config = lib.mkIf config.anoosa.zsh.enable {
+    programs = {
+      zoxide = {
+        enable = true;
+        enableZshIntegration = true;
 
-      options = [
-        "--cmd cd"
-      ];
+        options = [
+          "--cmd cd"
+        ];
+      };
     };
   };
 }

@@ -30,7 +30,6 @@
       simplex-chat-desktop
       steamguard-cli
       umu-launcher
-      vimv-rs
       wl-clipboard
       wlr-randr
       wtype
@@ -38,6 +37,5 @@
       xwayland-satellite
       zathura
     ];
-
   };
 }
