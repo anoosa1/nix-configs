@@ -3,14 +3,9 @@
   lib,
   config,
   pkgs,
-  modulesPath,
   ...
-}: {
-  imports = [
-    (modulesPath + "/virtualisation/proxmox-lxc.nix")
-    inputs.niri.nixosModules.niri
-  ];
-
+}:
+{
   sops = {
     defaultSopsFile = "${inputs.secrets}/secrets.yaml";
     defaultSopsFormat = "yaml";
@@ -20,20 +15,6 @@
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-
-  nix = {
-    enable = true;
-    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
-    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
-
-    settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      auto-optimise-store = true;
-      substituters = [
-        "https://cache.nixos.org"
-      ];
-    };
-  };
 
   ## networking
   networking = {

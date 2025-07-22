@@ -21,17 +21,17 @@
           apollo = {
             identityFile = "${config.xdg.configHome}/ssh/id_ed25519";
             hostname = "apollo.asherif.xyz";
-            user = "anas";
+            user = "${config.home.username}";
           };
           astra = {
             identityFile = "${config.xdg.configHome}/ssh/id_ed25519";
             hostname = "astra.asherif.xyz";
-            user = "anas";
+            user = "${config.home.username}";
           };
           aurora = {
             identityFile = "${config.xdg.configHome}/ssh/id_ed25519";
             hostname = "aurora.asherif.xyz";
-            user = "anas";
+            user = "${config.home.username}";
           };
         };
       };

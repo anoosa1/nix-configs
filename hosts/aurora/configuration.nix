@@ -1,15 +1,9 @@
 {
   inputs,
-  lib,
-  config,
   pkgs,
   ...
-}: {
-  imports = [
-    ./hardware-configuration.nix
-    inputs.niri.nixosModules.niri
-  ];
-
+}:
+{
   ## boot
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -44,20 +38,6 @@
       "rd.udev.log_level=3"
       "udev.log_priority=3"
     ];
-  };
-
-  nix = {
-    enable = true;
-    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
-    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
-
-    settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      auto-optimise-store = true;
-      substituters = [
-        "https://cache.nixos.org"
-      ];
-    };
   };
 
   ## networking
@@ -123,8 +103,11 @@
     };
   };
 
-  powerManagement.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
+
+  powerManagement = {
+    enable = true;
+  };
 
   nixpkgs = {
     overlays = [
@@ -192,27 +175,6 @@
           prettyName = "Niri";
           comment = "Niri (UWSM)";
           binPath = "/run/current-system/sw/bin/niri";
-        };
-      };
-    };
-  };
-
-  systemd = {
-    user = {
-      services = {
-        polkit-gnome-authentication-agent-1 = {
-          description = "polkit-gnome-authentication-agent-1";
-          wantedBy = [ "graphical-session.target" ];
-          wants = [ "graphical-session.target" ];
-          after = [ "graphical-session.target" ];
-
-          serviceConfig = {
-            Type = "simple";
-            ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-            Restart = "on-failure";
-            RestartSec = 1;
-            TimeoutStopSec = 10;
-          };
         };
       };
     };

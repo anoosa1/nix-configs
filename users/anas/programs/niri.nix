@@ -60,6 +60,18 @@
             };
           };
 
+          outputs = {
+            "HDMI-A-1" = {
+              variable-refresh-rate = true;
+
+              mode = {
+                width = 1920;
+                height = 1080;
+                refresh = 100.0;
+              };
+            };
+          };
+
           spawn-at-startup = [
             { command = [ "xwayland-satellite" ]; }
           ];

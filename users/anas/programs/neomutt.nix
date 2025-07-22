@@ -27,8 +27,8 @@
         };
 
         extraConfig = ''
-          macro index,pager i1 '<sync-mailbox><change-folder>/home/anas/.local/var/mail/anas@waifu.club/Inbox<enter>;<check-stats>'
-          macro index,pager i2 '<sync-mailbox><change-folder>/home/anas/.local/var/mail/anas_sherif1@outlook.com/Inbox<enter>;<check-stats>'
+          macro index,pager i1 '<sync-mailbox><change-folder>$MAIL/anas@waifu.club/Inbox<enter>;<check-stats>'
+          macro index,pager i2 '<sync-mailbox><change-folder>$MAIL/anas_sherif1@outlook.com/Inbox<enter>;<check-stats>'
 
           set mail_check_stats
           set send_charset="us-ascii:utf-8"

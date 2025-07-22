@@ -69,6 +69,7 @@
         specialArgs = {inherit inputs;};
 
         modules = [
+          inputs.niri.nixosModules.niri
           ./hosts/aurora
           ./nixos
           ./users
@@ -79,6 +80,7 @@
         specialArgs = {inherit inputs;};
 
         modules = [
+          inputs.niri.nixosModules.niri
           ./hosts/apollo
           ./nixos
           ./users

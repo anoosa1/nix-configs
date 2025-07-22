@@ -18,18 +18,6 @@
         enable = true;
         autoReload = true;
 
-        #urls = [
-        #  {
-        #    url = "https://videos.lukesmith.xyz/feeds/videos.xml?videoChannelId=2";
-        #    title = "Luke Smith on Peertube";
-
-        #    tags = [
-        #      "videos"
-        #      "peertube"
-        #    ];
-        #  }
-        #];
-
         extraConfig = ''
           urls-source "ocnews"
           ocnews-url "https://hub.asherif.xyz"
