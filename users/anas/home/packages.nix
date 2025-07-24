@@ -7,7 +7,6 @@
     packages = with pkgs; [
       anki
       bluetui
-      bemenu
       brave
       du-dust
       dua
@@ -30,11 +29,7 @@
       simplex-chat-desktop
       steamguard-cli
       umu-launcher
-      wl-clipboard
-      wlr-randr
-      wtype
       yt-dlp
-      xwayland-satellite
       zathura
     ];
   };

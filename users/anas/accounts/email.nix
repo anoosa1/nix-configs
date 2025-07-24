@@ -57,6 +57,11 @@
             enable = true;
             mailboxName = "Inbox";
 
+            extraConfig = ''
+              macro index,pager i1 '<sync-mailbox><change-folder>$MAIL/anas@waifu.club/Inbox<enter>;<check-stats>'
+              macro index,pager i2 '<sync-mailbox><change-folder>$MAIL/anas_sherif1@outlook.com/Inbox<enter>;<check-stats>'
+            '';
+
             extraMailboxes = [
               "Archive"
               "Drafts"
@@ -129,6 +134,11 @@
           neomutt = {
             enable = true;
             mailboxName = "Inbox";
+
+            extraConfig = ''
+              macro index,pager i1 '<sync-mailbox><change-folder>$MAIL/anas@waifu.club/Inbox<enter>;<check-stats>'
+              macro index,pager i2 '<sync-mailbox><change-folder>$MAIL/anas_sherif1@outlook.com/Inbox<enter>;<check-stats>'
+            '';
 
             extraMailboxes = [
               "Archive"

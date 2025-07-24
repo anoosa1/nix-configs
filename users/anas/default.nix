@@ -9,7 +9,6 @@
         imports = [
           ./accounts
           ./home
-          ./programs
           ./services
           ./stylix.nix
         ];

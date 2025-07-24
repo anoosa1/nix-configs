@@ -5,18 +5,34 @@
   ...
 }:
 {
-  options.anoosa.niri.enable = lib.mkOption {
-    type = lib.types.bool;
-    default = false;
-    description = "Enable niri";
-    example = true;
+  options.anoosa.niri = {
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable niri";
+      example = true;
+    };
+
+    screenshot-path = lib.mkOption {
+      type = lib.types.string;
+      default = "~/pics/Screenshots/Screenshot_%Y%m%d-%H%M%S";
+      description = "Screenshot path";
+      example = "~/Pictures/Screenshots";
+    };
   };
 
   config = lib.mkIf config.anoosa.niri.enable {
+    home.packages = with pkgs; [
+      bemenu
+      wl-clipboard
+      wtype
+      xwayland-satellite
+    ];
+
     programs = {
       niri = {
         settings = {
-          screenshot-path = "~/pics/Screenshots/Screenshot_%Y%m%d-%H%M%S";
+          screenshot-path = config.anoosa.niri.screenshot-path;
           prefer-no-csd = true;
 
           animations = {
@@ -33,7 +49,7 @@
           };
 
           hotkey-overlay = {
-            #hide-not-bound = true;
+            hide-not-bound = true;
             skip-at-startup = true;
           };
 

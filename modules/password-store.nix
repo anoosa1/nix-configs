@@ -5,11 +5,20 @@
   ...
 }:
 {
-  options.anoosa.password-store.enable = lib.mkOption {
-    type = lib.types.bool;
-    default = false;
-    description = "Enable pass";
-    example = true;
+  options.anoosa.password-store = {
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable pass";
+      example = true;
+    };
+
+    directory = lib.mkOption {
+      type = lib.types.string;
+      default = "${config.xdg.dataHome}/passwords";
+      description = "Password store directory";
+      example = "${config.xdg.dataHome}/passwords";
+    };
   };
 
   config = lib.mkIf config.anoosa.password-store.enable {
