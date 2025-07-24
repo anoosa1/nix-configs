@@ -132,6 +132,9 @@
   # programs.mtr.enable = true;
 
   programs = {
+    dconf = {
+      enable = true;
+    };
   };
 
   # security settings

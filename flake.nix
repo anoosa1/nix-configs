@@ -91,6 +91,7 @@
         specialArgs = {inherit inputs;};
 
         modules = [
+          inputs.niri.nixosModules.niri
           inputs.sops-nix.nixosModules.sops
           ./hosts/astra
           ./nixos

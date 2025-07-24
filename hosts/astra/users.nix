@@ -3,10 +3,6 @@
     users = {
       anas = {
         anoosa = {
-          alacritty = {
-            enable = true;
-          };
-
           bat = {
             enable = true;
           };
@@ -39,19 +35,11 @@
             enable = true;
           };
 
-          niri = {
-            enable = true;
-          };
-
           notmuch = {
             enable = true;
           };
 
           password-store = {
-            enable = true;
-          };
-
-          qutebrowser = {
             enable = true;
           };
 
