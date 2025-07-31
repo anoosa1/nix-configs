@@ -9,6 +9,7 @@
 
           git = {
             enable = true;
+            userEmail = "anas@asherif.xyz";
           };
 
           gpg = {

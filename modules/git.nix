@@ -13,13 +13,13 @@
     };
 
     userName = lib.mkOption {
-      type = lib.types.string;
-      default = null;
+      type = lib.types.nullOr lib.types.str;
+      default = config.home.username;
       description = "Default user name to use";
     };
 
     userEmail = lib.mkOption {
-      type = lib.types.string;
+      type = lib.types.nullOr lib.types.str;
       default = null;
       description = "Default user email to use";
     };
@@ -42,6 +42,7 @@
         signing = {
           format = "ssh";
           signByDefault = true;
+          key = "~/.local/etc/ssh/id_ed25519.pub";
         };
 
         delta = {
