@@ -3,16 +3,13 @@
     users = {
       anas = {
         anoosa = {
-          alacritty = {
-            enable = true;
-          };
-
           bat = {
             enable = true;
           };
 
           git = {
             enable = true;
+            userEmail = "anas@asherif.xyz";
           };
 
           gpg = {

@@ -14,7 +14,7 @@
     };
 
     screenshot-path = lib.mkOption {
-      type = lib.types.string;
+      type = lib.types.str;
       default = "~/pics/Screenshots/Screenshot_%Y%m%d-%H%M%S";
       description = "Screenshot path";
       example = "~/Pictures/Screenshots";
@@ -49,7 +49,6 @@
           };
 
           hotkey-overlay = {
-            hide-not-bound = true;
             skip-at-startup = true;
           };
 

@@ -14,7 +14,7 @@
     };
 
     directory = lib.mkOption {
-      type = lib.types.string;
+      type = lib.types.str;
       default = "${config.xdg.dataHome}/passwords";
       description = "Password store directory";
       example = "${config.xdg.dataHome}/passwords";
