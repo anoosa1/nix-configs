@@ -1,6 +1,5 @@
 {
   imports = [
-    ./immich.nix
     ./nextcloud.nix
     ./transmission.nix
     ./homeassistant.nix

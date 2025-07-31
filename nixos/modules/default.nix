@@ -14,6 +14,7 @@
 
   imports = [
     ./soft-serve.nix
+    ./immich.nix
   ];
 }
 

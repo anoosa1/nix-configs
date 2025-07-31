@@ -23,7 +23,7 @@
 
           ssh = {
             listen_addr = ":23231";
-            public_url = "ssh://" + config.anoosa.domain + ":23231";
+            public_url = "ssh://${config.anoosa.domain}:23231";
             max_timeout = 30;
             idle_timeout = 120;
           };
