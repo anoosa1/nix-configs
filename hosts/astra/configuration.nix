@@ -101,6 +101,7 @@
     overlays = [
       inputs.apkgs.overlays.default
       inputs.niri.overlays.niri
+      inputs.nix-minecraft.overlay
     ];
 
     config = {

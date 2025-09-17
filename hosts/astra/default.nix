@@ -8,5 +8,6 @@
     ./configuration.nix
     ./users.nix
     ./local-config.nix
+    ./minecraft.nix
   ];
 }

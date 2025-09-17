@@ -30,7 +30,7 @@
 
           locations = {
             "/" = {
-              proxyPass = "http://localhost:" + config.services.immich.port;
+              proxyPass = "http://localhost:${toString config.services.immich.port}";
               proxyWebsockets = true;
 
               extraConfig = ''

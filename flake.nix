@@ -58,6 +58,10 @@
     apkgs = {
       url = "git+ssh://git@github.com/anoosa1/apkgs.git";
     };
+
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+    };
   };
 
   outputs = {nixpkgs, ...} @ inputs: let
