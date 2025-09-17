@@ -17,7 +17,7 @@
         enable = true;
         enableCompletion = true;
         autocd = true;
-        dotDir = ".local/etc/zsh";
+        dotDir = "${config.xdg.configHome}/zsh";
 
         autosuggestion = {
           enable = true;

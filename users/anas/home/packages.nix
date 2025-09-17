@@ -18,6 +18,7 @@
       localsend
       mpv
       neovim
+      prismlauncher
       nsxiv
       playerctl
       pulsemixer
