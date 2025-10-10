@@ -165,12 +165,6 @@
       enable = true;
 
       waylandCompositors = {
-        river = {
-          prettyName = "River";
-          comment = "River (UWSM)";
-          binPath = "/etc/profiles/per-user/anas/bin/river";
-        };
-
         niri = {
           prettyName = "Niri";
           comment = "Niri (UWSM)";

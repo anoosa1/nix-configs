@@ -209,7 +209,6 @@
           open = ''
             ''${{
             case $(${pkgs.file}/bin/file --mime-type "$(${pkgs.toybox}/bin/readlink -f $f)" -b) in
-                application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) localc $fx ;;
                 image/vnd.djvu|application/pdf|application/octet-stream|application/postscript) ${pkgs.util-linuxMinimal}/bin/setsid -f ${pkgs.zathura}/bin/zathura $fx >/dev/null 2>&1 ;;
                 text/*|application/json|inode/x-empty|application/x-subrip) $EDITOR $fx;;
                 image/svg+xml) ${pkgs.imagemagick_light}/bin/display -- $f ;;
@@ -224,7 +223,6 @@
                 video/*) ${pkgs.util-linuxMinimal}/bin/setsid -f ${pkgs.mpv}/bin/mpv $f -quiet >/dev/null 2>&1 ;;
                 application/pdf|application/vnd.djvu|application/epub*) ${pkgs.util-linuxMinimal}/bin/setsid -f ${pkgs.zathura}/bin/zathura $fx >/dev/null 2>&1 ;;
                 application/pgp-encrypted) $EDITOR $fx ;;
-                application/vnd.openxmlformats-officedocument.wordprocessingml.document|application/vnd.oasis.opendocument.text|application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|application/octet-stream|application/vnd.oasis.opendocument.spreadsheet|application/vnd.oasis.opendocument.spreadsheet-template|application/vnd.openxmlformats-officedocument.presentationml.presentation|application/vnd.oasis.opendocument.presentation-template|application/vnd.oasis.opendocument.presentation|application/vnd.ms-powerpoint|application/vnd.oasis.opendocument.graphics|application/vnd.oasis.opendocument.graphics-template|application/vnd.oasis.opendocument.formula|application/vnd.oasis.opendocument.database) ${pkgs.toybox}/bin/ssetsid -f ${pkgs.libreoffice}/bin/libreoffice $fx >/dev/null 2>&1 ;;
                 *) for f in $fx; do ${pkgs.util-linuxMinimal}/bin/setsid -f $OPENER $f >/dev/null 2>&1; done;;
             esac
             }}
