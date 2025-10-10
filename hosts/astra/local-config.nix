@@ -7,5 +7,13 @@
     immich = {
       enable = true;
     };
+
+    tailscale = {
+      enable = true;
+    };
+
+    paperless = {
+      enable = false;
+    };
   };
 }

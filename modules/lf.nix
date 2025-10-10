@@ -211,7 +211,6 @@
             case $(${pkgs.file}/bin/file --mime-type "$(${pkgs.toybox}/bin/readlink -f $f)" -b) in
                 image/vnd.djvu|application/pdf|application/octet-stream|application/postscript) ${pkgs.util-linuxMinimal}/bin/setsid -f ${pkgs.zathura}/bin/zathura $fx >/dev/null 2>&1 ;;
                 text/*|application/json|inode/x-empty|application/x-subrip) $EDITOR $fx;;
-                image/svg+xml) ${pkgs.imagemagick_light}/bin/display -- $f ;;
                 image/*) rotdir.sh $f | ${pkgs.toybox}/bin/grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|avif\|tif\|ico\)\(_large\)*$" |
                         ${pkgs.util-linuxMinimal}/bin/setsid -f ${pkgs.nsxiv}/bin/nsxiv -aio 2>/dev/null | while read -r file; do
                                 [ -z "$file" ] && continue

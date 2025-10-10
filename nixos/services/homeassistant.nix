@@ -39,7 +39,6 @@
         "met"
         "mobile_app"
         "music_assistant"
-        "ollama"
         "radio_browser"
         "tts"
         "websocket_api"

@@ -15,6 +15,8 @@
   imports = [
     ./soft-serve.nix
     ./immich.nix
+    ./tailscale.nix
+    ./paperless.nix
   ];
 }
 
