@@ -7,6 +7,7 @@
           address = "anas_sherif1@outlook.com";
           userName = "anas_sherif1@outlook.com";
           passwordCommand = "mutt_oauth2.py ~/.local/share/passwords/outlook.com.gpg";
+          primary = true;
           realName = "Anas";
 
           signature = {
@@ -58,8 +59,8 @@
             mailboxName = "Inbox";
 
             extraConfig = ''
-              macro index,pager i1 '<sync-mailbox><change-folder>$MAIL/anas@waifu.club/Inbox<enter>;<check-stats>'
-              macro index,pager i2 '<sync-mailbox><change-folder>$MAIL/anas_sherif1@outlook.com/Inbox<enter>;<check-stats>'
+              macro index,pager i2 '<sync-mailbox><enter-command>source ~/.local/etc/neomutt/anas@waifu.club<enter><change-folder>!<enter>'
+              macro index,pager i1 '<sync-mailbox><enter-command>source ~/.local/etc/neomutt/anas_sherif1@outlook.com<enter><change-folder>!<enter>'
             '';
 
             extraMailboxes = [
@@ -105,7 +106,6 @@
           address = "anas@waifu.club";
           userName = "anas@waifu.club";
           passwordCommand = "pa.sh s mail.cock.li";
-          primary = true;
           realName = "Anas";
 
           signature = {
@@ -136,8 +136,8 @@
             mailboxName = "Inbox";
 
             extraConfig = ''
-              macro index,pager i1 '<sync-mailbox><change-folder>$MAIL/anas@waifu.club/Inbox<enter>;<check-stats>'
-              macro index,pager i2 '<sync-mailbox><change-folder>$MAIL/anas_sherif1@outlook.com/Inbox<enter>;<check-stats>'
+              macro index,pager i2 '<sync-mailbox><enter-command>source ~/.local/etc/neomutt/anas@waifu.club<enter><change-folder>!<enter>'
+              macro index,pager i1 '<sync-mailbox><enter-command>source ~/.local/etc/neomutt/anas_sherif1@outlook.com<enter><change-folder>!<enter>'
             '';
 
             extraMailboxes = [

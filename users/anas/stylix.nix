@@ -96,10 +96,6 @@
         enable = true;
       };
 
-      river = {
-        enable = true;
-      };
-
       wpaperd = {
         enable = true;
       };

@@ -186,15 +186,15 @@
               allow-when-locked = true;
             };
             "XF86AudioRaiseVolume" = {
-              action = spawn "${pkgs.pamixer}/bin/pamixer" "-i" "5";
+              action = spawn "${pkgs.pulsemixer}/bin/pulsemixer" "--change-volume" "+5";
               allow-when-locked = true;
             };
             "XF86AudioLowerVolume" = {
-              action = spawn "${pkgs.pamixer}/bin/pamixer" "-d" "5";
+              action = spawn "${pkgs.pulsemixer}/bin/pulsemixer" "--change-volume" "-5";
               allow-when-locked = true;
             };
             "XF86AudioMute" = {
-              action = spawn "${pkgs.pamixer}/bin/pamixer" "--toggle-mute";
+              action = spawn "${pkgs.pulsemixer}/bin/pulsemixer" "--toggle-mute";
               allow-when-locked = true;
             };
 

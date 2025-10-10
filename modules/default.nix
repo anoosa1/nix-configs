@@ -13,7 +13,6 @@
     ./notmuch.nix
     ./password-store.nix
     ./qutebrowser.nix
-    ./river.nix
     ./ssh.nix
     ./skim.nix
     ./starship.nix
