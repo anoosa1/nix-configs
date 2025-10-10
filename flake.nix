@@ -74,6 +74,7 @@
 
         modules = [
           inputs.niri.nixosModules.niri
+          inputs.sops-nix.nixosModules.sops
           ./hosts/aurora
           ./nixos
           ./users
@@ -85,6 +86,7 @@
 
         modules = [
           inputs.niri.nixosModules.niri
+          inputs.sops-nix.nixosModules.sops
           ./hosts/apollo
           ./nixos
           ./users
