@@ -71,6 +71,10 @@
           zsh = {
             enable = true;
           };
+
+          rclone = {
+            enable = true;
+          };
         };
       };
     };

@@ -13,6 +13,7 @@
     ./notmuch.nix
     ./password-store.nix
     ./qutebrowser.nix
+    ./rclone.nix
     ./ssh.nix
     ./skim.nix
     ./starship.nix
