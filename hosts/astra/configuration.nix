@@ -3,37 +3,10 @@
   lib,
   config,
   pkgs,
-  modulesPath,
   ...
-}: {
-  imports = [
-    (modulesPath + "/virtualisation/proxmox-lxc.nix")
-    inputs.niri.nixosModules.niri
-  ];
-
-  sops = {
-    defaultSopsFile = "${inputs.secrets}/secrets.yaml";
-    defaultSopsFormat = "yaml";
-    age = {
-      keyFile = "/home/anas/.local/etc/sops/age/keys.txt";
-    };
-  };
-
+}:
+{
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-
-  nix = {
-    enable = true;
-    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
-    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
-
-    settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      auto-optimise-store = true;
-      substituters = [
-        "https://cache.nixos.org"
-      ];
-    };
-  };
 
   ## networking
   networking = {
@@ -120,6 +93,7 @@
     overlays = [
       inputs.apkgs.overlays.default
       inputs.niri.overlays.niri
+      inputs.nix-minecraft.overlay
     ];
 
     config = {
@@ -151,6 +125,9 @@
   # programs.mtr.enable = true;
 
   programs = {
+    dconf = {
+      enable = true;
+    };
   };
 
   # security settings
@@ -194,16 +171,5 @@
     };
   };
 
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  #system.copySystemConfiguration = true;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It's perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "25.05";
 }

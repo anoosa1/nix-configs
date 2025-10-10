@@ -21,17 +21,26 @@
           apollo = {
             identityFile = "${config.xdg.configHome}/ssh/id_ed25519";
             hostname = "apollo.asherif.xyz";
-            user = "anas";
+            user = "${config.home.username}";
           };
+
+          git = {
+            identityFile = "${config.xdg.configHome}/ssh/id_ed25519";
+            hostname = "astra.asherif.xyz";
+            user = "${config.home.username}";
+            port = 23231;
+          };
+
           astra = {
             identityFile = "${config.xdg.configHome}/ssh/id_ed25519";
             hostname = "astra.asherif.xyz";
-            user = "anas";
+            user = "${config.home.username}";
           };
+
           aurora = {
             identityFile = "${config.xdg.configHome}/ssh/id_ed25519";
             hostname = "aurora.asherif.xyz";
-            user = "anas";
+            user = "${config.home.username}";
           };
         };
       };

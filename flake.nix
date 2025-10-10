@@ -58,6 +58,10 @@
     apkgs = {
       url = "git+ssh://git@github.com/anoosa1/apkgs.git";
     };
+
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+    };
   };
 
   outputs = {nixpkgs, ...} @ inputs: let
@@ -69,6 +73,8 @@
         specialArgs = {inherit inputs;};
 
         modules = [
+          inputs.niri.nixosModules.niri
+          inputs.sops-nix.nixosModules.sops
           ./hosts/aurora
           ./nixos
           ./users
@@ -79,6 +85,8 @@
         specialArgs = {inherit inputs;};
 
         modules = [
+          inputs.niri.nixosModules.niri
+          inputs.sops-nix.nixosModules.sops
           ./hosts/apollo
           ./nixos
           ./users
@@ -89,6 +97,7 @@
         specialArgs = {inherit inputs;};
 
         modules = [
+          inputs.niri.nixosModules.niri
           inputs.sops-nix.nixosModules.sops
           ./hosts/astra
           ./nixos

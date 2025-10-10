@@ -21,13 +21,8 @@
 
     # system packages
     systemPackages = with pkgs; [
-      bibata-cursors
       linux-firmware
-      monocraft
-      nautilus
-      sushi
       neofetch
-      zsh
     ];
   };
 

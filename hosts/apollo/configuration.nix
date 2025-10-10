@@ -1,16 +1,9 @@
 {
   inputs,
-  lib,
-  config,
   pkgs,
   ...
 }:
 {
-  imports = [
-    ./hardware-configuration.nix
-    inputs.niri.nixosModules.niri
-  ];
-
   ## boot
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -45,26 +38,6 @@
       "rd.udev.log_level=3"
       "udev.log_priority=3"
     ];
-  };
-
-  nix = {
-    enable = true;
-    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
-    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
-
-    settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      auto-optimise-store = true;
-      substituters = [
-        "https://cache.nixos.org"
-        "https://hyprland.cachix.org"
-        "https://veloren-nix.cachix.org"
-      ];
-      trusted-public-keys = [
-        "veloren-nix.cachix.org-1:zokfKJqVsNV6kI/oJdLF6TYBdNPYGSb+diMVQPn/5Rc="
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      ];
-    };
   };
 
   ## networking
@@ -165,37 +138,10 @@
       enable = true;
 
       waylandCompositors = {
-        river = {
-          prettyName = "River";
-          comment = "River (UWSM)";
-          binPath = "/etc/profiles/per-user/anas/bin/river";
-        };
-
         niri = {
           prettyName = "Niri";
           comment = "Niri (UWSM)";
           binPath = "/run/current-system/sw/bin/niri";
-        };
-      };
-    };
-  };
-
-  systemd = {
-    user = {
-      services = {
-        polkit-gnome-authentication-agent-1 = {
-          description = "polkit-gnome-authentication-agent-1";
-          wantedBy = [ "graphical-session.target" ];
-          wants = [ "graphical-session.target" ];
-          after = [ "graphical-session.target" ];
-
-          serviceConfig = {
-            Type = "simple";
-            ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-            Restart = "on-failure";
-            RestartSec = 1;
-            TimeoutStopSec = 10;
-          };
         };
       };
     };

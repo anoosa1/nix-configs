@@ -62,16 +62,28 @@
       xdgOpenUsePortal = true;
 
       config = {
-        river = {
-          default = [ "gtk" ];
-          "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
-          "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
+        preferred = {
+          default = [
+            "gnome"
+            "gtk"
+          ];
+
+          "org.freedesktop.impl.portal.Access" = [
+            "gtk"
+          ];
+
+          "org.freedesktop.impl.portal.Notification" = [
+            "gtk"
+          ];
+
+          "org.freedesktop.impl.portal.Secret" = [
+            "gnome-keyring"
+          ];
         };
       };
 
       extraPortals = [
-        pkgs.xdg-desktop-portal-wlr
-        pkgs.xdg-desktop-portal-gtk
+        pkgs.xdg-desktop-portal-gnome
       ];
     };
   };

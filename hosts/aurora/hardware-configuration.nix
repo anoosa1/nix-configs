@@ -23,7 +23,7 @@
       fsType = "vfat";
     };
 
-  fileSystems."/home/anas/.local/media/Data" = {
+  fileSystems."/home/anas/.local/media/data" = {
     device = "/dev/disk/by-uuid/01DA2B0CD38FCEB0";
     fsType = "ntfs3";
 

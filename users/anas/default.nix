@@ -9,9 +9,9 @@
         imports = [
           ./accounts
           ./home
-          ./programs
           ./services
           ./stylix.nix
+          ../../modules
         ];
       };
     };
@@ -23,7 +23,7 @@
         isNormalUser = true;
         group = "anas";
         description = "Anas";
-        extraGroups = [ "wheel" "audio" "adbusers" "transmission" "immich" "kvm"];
+        extraGroups = [ "wheel" "audio" "adbusers" "transmission" "immich" "kvm" "minecraft" "music-assistant" ];
         shell = pkgs.zsh;
         openssh.authorizedKeys.keys = [
           "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBP3tXTHU/cpty8I3avaU/WsND4/3FGxeRbjNvqlMlwLSMU9nPLWeNoWAowU2y7xNBXvDd0eWmeEOOG0KBtmOlSo="

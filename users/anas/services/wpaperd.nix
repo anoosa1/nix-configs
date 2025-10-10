@@ -4,7 +4,7 @@
   ...
 }:
 {
-  config = lib.mkIf (config.anoosa.niri.enable || config.anoosa.river.enable) {
+  config = lib.mkIf config.anoosa.niri.enable {
     services = {
       wpaperd = {
         enable = true;

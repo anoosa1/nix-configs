@@ -5,18 +5,34 @@
   ...
 }:
 {
-  options.anoosa.niri.enable = lib.mkOption {
-    type = lib.types.bool;
-    default = false;
-    description = "Enable niri";
-    example = true;
+  options.anoosa.niri = {
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable niri";
+      example = true;
+    };
+
+    screenshot-path = lib.mkOption {
+      type = lib.types.str;
+      default = "~/pics/Screenshots/Screenshot_%Y%m%d-%H%M%S";
+      description = "Screenshot path";
+      example = "~/Pictures/Screenshots";
+    };
   };
 
   config = lib.mkIf config.anoosa.niri.enable {
+    home.packages = with pkgs; [
+      bemenu
+      wl-clipboard
+      wtype
+      xwayland-satellite
+    ];
+
     programs = {
       niri = {
         settings = {
-          screenshot-path = "~/pics/Screenshots/Screenshot_%Y%m%d-%H%M%S";
+          screenshot-path = config.anoosa.niri.screenshot-path;
           prefer-no-csd = true;
 
           animations = {
@@ -33,7 +49,6 @@
           };
 
           hotkey-overlay = {
-            #hide-not-bound = true;
             skip-at-startup = true;
           };
 
@@ -57,6 +72,18 @@
             mouse = {
               accel-profile = "flat";
               accel-speed = -0.3;
+            };
+          };
+
+          outputs = {
+            "HDMI-A-1" = {
+              variable-refresh-rate = true;
+
+              mode = {
+                width = 1920;
+                height = 1080;
+                refresh = 100.0;
+              };
             };
           };
 
@@ -159,15 +186,15 @@
               allow-when-locked = true;
             };
             "XF86AudioRaiseVolume" = {
-              action = spawn "${pkgs.pamixer}/bin/pamixer" "-i" "5";
+              action = spawn "${pkgs.pulsemixer}/bin/pulsemixer" "--change-volume" "+5";
               allow-when-locked = true;
             };
             "XF86AudioLowerVolume" = {
-              action = spawn "${pkgs.pamixer}/bin/pamixer" "-d" "5";
+              action = spawn "${pkgs.pulsemixer}/bin/pulsemixer" "--change-volume" "-5";
               allow-when-locked = true;
             };
             "XF86AudioMute" = {
-              action = spawn "${pkgs.pamixer}/bin/pamixer" "--toggle-mute";
+              action = spawn "${pkgs.pulsemixer}/bin/pulsemixer" "--toggle-mute";
               allow-when-locked = true;
             };
 

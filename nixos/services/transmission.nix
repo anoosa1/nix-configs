@@ -18,10 +18,15 @@
         forceSSL = true;
         enableACME = true;
         acmeRoot = null;
-        locations."/" = {
-          proxyPass = "http://localhost:9091";
-          proxyWebsockets = true;
-          extraConfig = "proxy_pass_header Authorization;";
+        locations = {
+          "/" = {
+            proxyPass = "http://localhost:9091";
+            proxyWebsockets = true;
+
+            extraConfig = ''
+              proxy_pass_header Authorization;
+            '';
+          };
         };
       };
     };
