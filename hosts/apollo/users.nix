@@ -1,18 +1,25 @@
 {
+  anoosa = {
+    tailscale = {
+      enable = true;
+    };
+  };
+
   home-manager = {
     users = {
       anas = {
         anoosa = {
-          alacritty = {
+          bat = {
             enable = true;
           };
 
-          bat = {
+          direnv = {
             enable = true;
           };
 
           git = {
             enable = true;
+            userEmail = "anas@asherif.xyz";
           };
 
           gpg = {
@@ -68,6 +75,10 @@
           };
 
           zsh = {
+            enable = true;
+          };
+
+          rclone = {
             enable = true;
           };
         };

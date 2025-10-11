@@ -1,4 +1,10 @@
 {
+  anoosa = {
+    tailscale = {
+      enable = true;
+    };
+  };
+
   home-manager = {
     users = {
       anas = {

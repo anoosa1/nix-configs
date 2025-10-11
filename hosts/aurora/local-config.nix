@@ -1,7 +1,0 @@
-{
-  anoosa = {
-    tailscale = {
-      enable = true;
-    };
-  };
-}
