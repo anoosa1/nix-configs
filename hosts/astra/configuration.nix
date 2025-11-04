@@ -42,11 +42,15 @@
 
   services = {
     # nfs
-    #nfs = {
-    #  server = {
-    #    enable = true;
-    #  };
-    #};
+    nfs = {
+      server = {
+        enable = true;
+
+        exports = ''
+          /home/anas         100.85.223.95(rw,fsid=0,uid=1000,gid=1000,umask=0077,no_subtree_check,rsize=1048576,wsize=1048576,nconnect=8,async,relatime) 10.0.0.225(rw,fsid=0,uid=1000,gid=1000,umask=0077,no_subtree_check,rsize=1048576,wsize=1048576,nconnect=8,async,relatime)
+        '';
+      };
+    };
 
     # smb
     samba = {
