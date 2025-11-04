@@ -13,7 +13,7 @@
         settings = {
           add_newline = false;
           format = lib.concatStrings [
-            "$username"
+            #"$username"
             "$hostname"
             "$localip"
             "$shlvl"
@@ -108,7 +108,8 @@
 
           hostname = {
             ssh_only = false;
-            format = "[@](fg:grey bold)[$hostname](fg:yellow bold) ";
+            format = "[$hostname](fg:yellow bold) ";
+            #format = "[@](fg:grey bold) [$hostname](fg:yellow bold) ";
             trim_at = ".";
             disabled = false;
           };

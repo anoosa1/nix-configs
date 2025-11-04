@@ -35,7 +35,6 @@
       STARSHIP_CACHE = "$XDG_CACHE_HOME/starship";
       STEAM_EXTRA_COMPAT_TOOLS_PATHS = "$HOME/.steam/root/compatibilitytools.d";
       UNISON = "$XDG_DATA_HOME/unison";
-      WGETRC = "$XDG_CONFIG_HOME/wget/wgetrc";
       WINEPREFIX = "$XDG_DATA_HOME/wineprefixes/default";
       XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
       XINITRC = "$XDG_CONFIG_HOME/X11/xsession.sh";

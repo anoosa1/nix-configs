@@ -56,10 +56,6 @@
         enable = true;
       };
 
-      bat = {
-        enable = true;
-      };
-
       dunst = {
         enable = true;
       };
