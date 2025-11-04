@@ -15,7 +15,7 @@
       bluetui
       brave
 
-      du-dust
+      dust
       dua
       eva
       eza
