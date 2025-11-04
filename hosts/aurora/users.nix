@@ -9,10 +9,6 @@
     users = {
       anas = {
         anoosa = {
-          bat = {
-            enable = true;
-          };
-
           direnv = {
             enable = true;
           };

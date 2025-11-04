@@ -17,6 +17,8 @@
       yta = "yt -x -f bestaudio/best";
       ytt = "yt --skip-download --write-thumbnail";
       ffmpeg = "ffmpeg -hide_banner";
+      man = "batman";
+      cat = "bat";
 
       ls = "eza -a --icons --color=always --group-directories-first";
       ll = "eza -lahHmgb --icons --color=always --group-directories-first";

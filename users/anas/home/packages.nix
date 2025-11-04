@@ -6,8 +6,15 @@
   home = {
     packages = with pkgs; [
       anki
+
+      bat
+      bat-extras.batdiff
+      bat-extras.batgrep
+      bat-extras.batman
+      bat-extras.prettybat
       bluetui
       brave
+
       du-dust
       dua
       eva
@@ -18,6 +25,7 @@
       localsend
       mpv
       neovim
+      komikku
       prismlauncher
       nsxiv
       playerctl

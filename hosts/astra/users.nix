@@ -3,10 +3,6 @@
     users = {
       anas = {
         anoosa = {
-          bat = {
-            enable = true;
-          };
-
           git = {
             enable = true;
             userEmail = "anas@asherif.xyz";
