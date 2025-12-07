@@ -15,9 +15,22 @@
     programs = {
       ssh = {
         enable = true;
-        userKnownHostsFile = "${config.xdg.dataHome}/ssh/known_hosts.d/%k";
+        enableDefaultConfig = false;
 
         matchBlocks = {
+          "*" = {
+            addKeysToAgent = "no";
+            compression = false;
+            controlMaster = "no";
+            controlPath = "${config.xdg.dataHome}/ssh/master-%r@%n:%p";
+            controlPersist = "no";
+            forwardAgent = false;
+            hashKnownHosts = false;
+            serverAliveCountMax = 3;
+            serverAliveInterval = 0;
+            userKnownHostsFile = "${config.xdg.dataHome}/ssh/known_hosts.d/%k";
+          };
+
           apollo = {
             identityFile = "${config.xdg.configHome}/ssh/id_ed25519";
             hostname = "apollo.asherif.xyz";

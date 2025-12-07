@@ -22,8 +22,11 @@
     # system packages
     systemPackages = with pkgs; [
       linux-firmware
+      ffmpeg
       neofetch
     ];
+
+    pathsToLink = [ "/share/applications" "/share/xdg-desktop-portal" ];
   };
 
   programs = {

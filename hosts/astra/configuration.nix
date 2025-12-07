@@ -11,15 +11,16 @@
   ## networking
   networking = {
     hostName = "astra";
+    nameservers = [ "100.100.100.100" "1.1.1.1" "1.0.0.1" ];
+    search = [ "tail999916.ts.net" ];
     useDHCP = false;
+
     interfaces."eth0@if200" = {
       ipv4.addresses = [{
         address = "10.0.0.244";
         prefixLength = 24;
       }];
     };
-    nameservers = [ "100.100.100.100" "1.1.1.1" "1.0.0.1" ];
-    search = [ "tail999916.ts.net" ];
   };
 
   # Set your time zone.
@@ -41,17 +42,6 @@
   };
 
   services = {
-    # nfs
-    nfs = {
-      server = {
-        enable = true;
-
-        exports = ''
-          /home/anas         100.85.223.95(rw,fsid=0,uid=1000,gid=1000,umask=0077,no_subtree_check,rsize=1048576,wsize=1048576,nconnect=8,async,relatime) 10.0.0.225(rw,fsid=0,uid=1000,gid=1000,umask=0077,no_subtree_check,rsize=1048576,wsize=1048576,nconnect=8,async,relatime)
-        '';
-      };
-    };
-
     # smb
     samba = {
       enable = true;
@@ -83,7 +73,7 @@
 
     tailscale = {
       enable = true;
-      useRoutingFeatures = "server";
+      useRoutingFeatures = "both";
       openFirewall = true;
       interfaceName = "userspace-networking"; 
     };
@@ -115,13 +105,13 @@
   # system packages
   environment = {
     systemPackages = 
-      (with pkgs; [
+      with pkgs; [
         file
         git
         openjdk
         config.services.nextcloud.occ
         zsh
-      ]);
+      ];
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -163,14 +153,12 @@
     #  PermitRootLogin = "no";
     #};
   };
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
+
   networking = {
     firewall = {
       enable = false;
-      allowedTCPPorts = [2049 2222];
+      allowedTCPPorts = [ 111  2049 2222 4000 4001 4002 20048 ];
+      allowedUDPPorts = [ 111 2049 4000 4001  4002 20048 ];
       allowPing = true;
     };
   };

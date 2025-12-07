@@ -12,16 +12,18 @@
       example = true;
     };
 
-    userName = lib.mkOption {
-      type = lib.types.nullOr lib.types.str;
-      default = config.home.username;
-      description = "Default user name to use";
-    };
+    user = {
+      name = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = config.home.username;
+        description = "Default user name to use";
+      };
 
-    userEmail = lib.mkOption {
-      type = lib.types.nullOr lib.types.str;
-      default = null;
-      description = "Default user email to use";
+      email = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+        description = "Default user email to use";
+      };
     };
   };
 
@@ -29,24 +31,24 @@
     programs = {
       git = {
         enable = true;
-        userName = config.anoosa.git.userName;
-        userEmail = config.anoosa.git.userEmail;
 
-        aliases = {
-          co = "checkout";
-          c = "commit -a";
-          a = "add -A";
-          p = "push";
+        settings = {
+          aliases = {
+            co = "checkout";
+            c = "commit -a";
+            a = "add -A";
+            p = "push";
+          };
+
+          user = {
+            inherit (config.anoosa.git.user) name email;
+          };
         };
 
         signing = {
           format = "ssh";
           signByDefault = true;
           key = "~/.local/etc/ssh/id_ed25519.pub";
-        };
-
-        delta = {
-          enable = true;
         };
 
         lfs = {

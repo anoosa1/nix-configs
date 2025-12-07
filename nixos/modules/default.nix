@@ -13,10 +13,16 @@
   };
 
   imports = [
-    ./soft-serve.nix
+    ./docling.nix
     ./immich.nix
-    ./tailscale.nix
+    ./nextcloud.nix
+    ./open-webui.nix
     ./paperless.nix
+    ./searx.nix
+    ./soft-serve.nix
+    ./tailscale.nix
+    ./vaultwarden.nix
+    ./website.nix
   ];
 }
 

@@ -10,6 +10,7 @@
     ./newsboat.nix
     ./niri.nix
     ./notmuch.nix
+    ./ollama.nix
     ./password-store.nix
     ./qutebrowser.nix
     ./rclone.nix

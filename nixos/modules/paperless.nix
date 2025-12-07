@@ -57,6 +57,7 @@
           PAPERLESS_OAUTH_CALLBACK_BASE_URL = "https://docs.asherif.xyz";
           PAPERLESS_REDIRECT_LOGIN_TO_SSO = true;
           PAPERLESS_SOCIAL_ACCOUNT_SYNC_GROUPS = true;
+          PAPERLESS_DATE_ORDER = "DMY";
           PAPERLESS_SOCIAL_AUTO_SIGNUP = true;
           PAPERLESS_TIKA_ENABLED = true;
           PAPERLESS_URL = "https://docs.asherif.xyz";

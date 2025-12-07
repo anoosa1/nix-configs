@@ -1,10 +1,27 @@
 {
+  nixpkgs.config.allowBroken = true;
   anoosa = {
-    soft-serve = {
+    immich = {
       enable = true;
     };
 
-    immich = {
+    nextcloud = {
+      enable = true;
+    };
+
+    open-webui = {
+      enable = true;
+    };
+
+    paperless = {
+      enable = true;
+    };
+
+    searx = {
+      enable = true;
+    };
+
+    soft-serve = {
       enable = true;
     };
 
@@ -12,8 +29,12 @@
       enable = true;
     };
 
-    paperless = {
-      enable = false;
+    vaultwarden = {
+      enable = true;
+    };
+
+    website = {
+      enable = true;
     };
   };
 }

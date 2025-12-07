@@ -1,6 +1,5 @@
 {
   imports = [
-    ./nextcloud.nix
     ./transmission.nix
     ./homeassistant.nix
     #./zitadel.nix

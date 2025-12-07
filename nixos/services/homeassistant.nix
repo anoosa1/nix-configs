@@ -38,7 +38,6 @@
         "media_player"
         "met"
         "mobile_app"
-        "music_assistant"
         "radio_browser"
         "tts"
         "websocket_api"
@@ -61,17 +60,6 @@
           db_url = "postgresql://@/hass";
         };
       };
-    };
-
-    music-assistant = {
-      enable = true;
-
-      providers = [
-        "hass"
-        "hass_players"
-        "jellyfin"
-        "ytmusic"
-      ];
     };
   };
 }
