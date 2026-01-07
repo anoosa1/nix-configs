@@ -32,22 +32,6 @@
             };
 
             mounts = {
-              "/home/anas" = {
-                enable = true;
-                mountPoint = "${config.home.homeDirectory}/.local/media/astra";
-
-                options = {
-                  uid = 1000;
-                  gid = 1000;
-                  umask = 0077;
-                  default-permissions = true;
-                  vfs-cache-mode = "writes";
-                  buffer-size = "64M";
-                  multi-thread-streams = 4;
-                  multi-thread-cutoff = "250M";
-                };
-              };
-
               "/home/anas/docs" = {
                 enable = true;
                 mountPoint = "${config.xdg.userDirs.documents}";

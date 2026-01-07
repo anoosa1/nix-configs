@@ -146,7 +146,7 @@
               action = toggle-keyboard-shortcuts-inhibit;
             };
 
-            #"Print".action = screenshot;
+            "Print".action.screenshot = [];
             "Ctrl+Print".action.screenshot-screen = [];
             "Shift+Print".action.screenshot-window = [];
 

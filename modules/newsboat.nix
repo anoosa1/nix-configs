@@ -25,8 +25,8 @@
           ocnews-passwordeval "pa.sh s newsboat"
 
           #show-read-feeds no
-          #external-url-viewer "urlscan -dc -r '${pkgs.scripts.linkhandler}/bin/linkhandler.sh {}'"
-          browser ${pkgs.scripts.linkhandler}/bin/linkhandler.sh
+          #external-url-viewer "urlscan -dc -r '${pkgs.handler}/bin/handler.sh {}'"
+          browser "${pkgs.handler}/bin/handler.sh --menu"
           
           bind-key j down
           bind-key k up
@@ -55,15 +55,14 @@
           color article white default bold
           
           macro , open-in-browser
-          macro t set browser "${pkgs.scripts.qndl}/bin/qndl.sh" ; open-in-browser ; set browser ${pkgs.scripts.linkhandler}/bin/linkhandler.sh
-          macro a set browser "tsp yt-dlp --embed-metadata -xic -f bestaudio/best --restrict-filenames" ; open-in-browser ; set browser ${pkgs.scripts.linkhandler}/bin/linkhandler.sh
-          macro v set browser "setsid -f mpv" ; open-in-browser ; set browser ${pkgs.scripts.linkhandler}/bin/linkhandler.sh
-          macro w set browser "lynx" ; open-in-browser ; set browser ${pkgs.scripts.linkhandler}/bin/linkhandler.sh
-          macro d set browser "${pkgs.scripts.dmenuhandler}/bin/dmenuhandler.sh" ; open-in-browser ; set browser ${pkgs.scripts.linkhandler}/bin/linkhandler.sh
-          macro c set browser "echo %u | xclip -r -sel c" ; open-in-browser ; set browser ${pkgs.scripts.linkhandler}/bin/linkhandler.sh
-          macro C set browser "youtube-viewer --comments=%u" ; open-in-browser ; set browser ${pkgs.scripts.linkhandler}/bin/linkhandler.sh
-          macro p set browser "peertubetorrent %u 480" ; open-in-browser ; set browser ${pkgs.scripts.linkhandler}/bin/linkhandler.sh
-          macro P set browser "peertubetorrent %u 1080" ; open-in-browser ; set browser ${pkgs.scripts.linkhandler}/bin/linkhandler.sh
+          macro t set browser "${pkgs.handler}/handler.sh --qndl" ; open-in-browser ; set browser ${pkgs.handler}/handler.sh
+          macro a set browser "tsp yt-dlp --embed-metadata -xic -f bestaudio/best --restrict-filenames" ; open-in-browser ; set browser ${pkgs.handler}/handler.sh
+          macro v set browser "setsid -f mpv" ; open-in-browser ; set browser ${pkgs.handler}/handler.sh
+          macro w set browser "elinks" ; open-in-browser ; set browser ${pkgs.handler}/handler.sh
+          macro d set browser "${pkgs.handler}/handler.sh --menu" ; open-in-browser ; set browser ${pkgs.handler}/handler.sh
+          macro c set browser "echo %u | xclip -r -sel c" ; open-in-browser ; set browser ${pkgs.handler}/handler.sh
+          macro C set browser "youtube-viewer --comments=%u" ; open-in-browser ; set browser ${pkgs.handler}/handler.sh
+          macro p set browser "peertubetorrent %u 1080" ; open-in-browser ; set browser ${pkgs.handler}/handler.sh
           
           highlight all "---.*---" yellow
           highlight feedlist ".*(0/0))" black
