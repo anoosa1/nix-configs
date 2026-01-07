@@ -6,7 +6,7 @@
 {
   ## boot
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
     supportedFilesystems = ["ntfs"];
 
     plymouth = {
@@ -51,6 +51,7 @@
       allowPing = true;
 
       allowedTCPPorts = [
+        "11434"
       ];
     };
 
@@ -113,6 +114,7 @@
     overlays = [
       inputs.apkgs.overlays.default
       inputs.niri.overlays.niri
+      inputs.nix-cachyos-kernel.overlays.default
     ];
 
     config = {

@@ -3,7 +3,6 @@
     ./direnv.nix
     ./git.nix
     ./gpg.nix
-    ./kitty.nix
     ./lf.nix
     ./mbsync.nix
     ./neomutt.nix

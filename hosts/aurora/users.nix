@@ -5,6 +5,14 @@
     };
   };
 
+  #fileSystems = {
+  #  "/home/anas/.local/media/astra" = {
+  #    device = "astra:/";
+  #    fsType = "nfs";
+  #    options = [ "x-systemd.automount" "noauto" ];
+  #  };
+  #};
+
   home-manager = {
     users = {
       anas = {
@@ -22,10 +30,6 @@
           };
 
           gpg = {
-            enable = true;
-          };
-
-          kitty = {
             enable = true;
           };
 
@@ -50,6 +54,10 @@
           };
 
           notmuch = {
+            enable = true;
+          };
+
+          ollama = {
             enable = true;
           };
 

@@ -25,10 +25,6 @@
             enable = true;
           };
 
-          kitty = {
-            enable = true;
-          };
-
           lf = {
             enable = true;
           };
