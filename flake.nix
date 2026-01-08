@@ -10,6 +10,17 @@
     # Home manager
     home-manager = {
       url = "github:nix-community/home-manager/master";
+
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+    };
+
+    nix-cachyos-kernel = {
+      url = "github:xddxdd/nix-cachyos-kernel/release";
+
       inputs = {
         nixpkgs = {
           follows = "nixpkgs";
@@ -20,6 +31,7 @@
     # Sops nix
     sops-nix = {
       url = "github:Mic92/sops-nix";
+
       inputs = {
         nixpkgs = {
           follows = "nixpkgs";

@@ -15,28 +15,39 @@
       bluetui
       brave
 
-      dust
       dua
+      dust
+
       eva
       eza
+
       fd
+
       gitui
+
+      kitty
+
       libsixel
       localsend
+
       mpv
+
       neovim
-      komikku
-      prismlauncher
       nsxiv
+
       playerctl
+      prismlauncher
       pulsemixer
+
       ripgrep
       rmpc
       rsync
       rustmission
-      scripts.se
+
+      se
       simplex-chat-desktop
       steamguard-cli
+
       umu-launcher
       yt-dlp
       zathura
