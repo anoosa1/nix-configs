@@ -6,7 +6,6 @@
     ./security.nix
     ./services.nix
     ./stylix.nix
-    ./modules
     ./sops.nix
   ];
 }

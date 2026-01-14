@@ -89,6 +89,7 @@
           inputs.sops-nix.nixosModules.sops
           ./hosts/aurora
           ./nixos
+          ./modules
           ./users
         ];
       };
@@ -101,6 +102,7 @@
           inputs.sops-nix.nixosModules.sops
           ./hosts/apollo
           ./nixos
+          ./modules
           ./users
         ];
       };
@@ -113,7 +115,7 @@
           inputs.sops-nix.nixosModules.sops
           ./hosts/astra
           ./nixos
-          ./nixos/services
+          ./modules
           ./users
         ];
       };

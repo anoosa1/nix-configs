@@ -57,6 +57,7 @@
           EMAIL_EXPIRATION_TIME = "300";
           ROCKET_PORT = "29486";
           SIGNUPS_ALLOWED = "false";
+          SIGNUPS_DOMAINS_WHITELIST = "asherif.xyz";
           SMTP_PORT = "587";
           SMTP_SECURITY = "starttls";
           SSO_CLIENT_CACHE_EXPIRATION = "0";

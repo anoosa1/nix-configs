@@ -1,24 +1,32 @@
 {
+  lib,
+  ...
+}:
+{
+  options.anoosa = {
+    domain = lib.mkOption {
+      type = lib.types.str;
+      default = "asherif.xyz";
+      description = "Domain name for services";
+      example = "example.org";
+    };
+  };
+
   imports = [
-    ./direnv.nix
-    ./git.nix
-    ./gpg.nix
-    ./lf.nix
-    ./mbsync.nix
-    ./neomutt.nix
-    ./newsboat.nix
-    ./niri.nix
-    ./notmuch.nix
-    ./ollama.nix
-    ./password-store.nix
-    ./qutebrowser.nix
-    ./rclone.nix
-    ./ssh.nix
-    ./skim.nix
-    ./starship.nix
-    ./swaylock.nix
-    ./tmux.nix
-    ./zoxide.nix
-    ./zsh.nix
+    ./code-server.nix
+    ./docling.nix
+    ./home-assistant.nix
+    ./home-manager
+    ./immich.nix
+    ./nextcloud.nix
+    ./open-webui.nix
+    ./paperless.nix
+    ./searx.nix
+    ./soft-serve.nix
+    ./transmission.nix
+    ./tailscale.nix
+    ./vaultwarden.nix
+    ./website.nix
   ];
 }
+

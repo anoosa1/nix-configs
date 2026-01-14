@@ -11,7 +11,6 @@
           ./home
           ./services
           ./stylix.nix
-          ../../modules
         ];
       };
     };
