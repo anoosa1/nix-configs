@@ -31,7 +31,7 @@
     # NixOS Hardware
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware/master";
-    };
+   };
 
     # Sops nix
     sops-nix = {
