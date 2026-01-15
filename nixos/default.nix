@@ -226,4 +226,8 @@
       };
     };
   };
+  
+  users = {
+    defaultUserShell = pkgs.zsh;
+  }
 }

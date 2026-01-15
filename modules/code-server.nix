@@ -60,6 +60,11 @@
             ms-python.python
           ];
         };
+
+        extraPackages = [
+          pkgs.gemini-cli
+          pkgs.neovim
+        ];
       };
     };
   };

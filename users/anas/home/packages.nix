@@ -48,6 +48,7 @@
       se
       simplex-chat-desktop
       steamguard-cli
+      swayimg
 
       umu-launcher
       yt-dlp
