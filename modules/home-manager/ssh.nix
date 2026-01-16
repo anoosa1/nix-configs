@@ -15,30 +15,46 @@
     programs = {
       ssh = {
         enable = true;
-        userKnownHostsFile = "${config.xdg.dataHome}/ssh/known_hosts.d/%k";
+        enableDefaultConfig = false;
 
         matchBlocks = {
-          apollo = {
+          "*" = {
+            addKeysToAgent = "no";
+            compression = false;
+            controlMaster = "no";
+            controlPath = "${config.xdg.dataHome}/ssh/master-%r@%n:%p";
+            controlPersist = "no";
+            forwardAgent = false;
+            hashKnownHosts = false;
+            serverAliveCountMax = 3;
+            serverAliveInterval = 0;
+            userKnownHostsFile = "${config.xdg.dataHome}/ssh/known_hosts.d/%k";
             identityFile = "${config.xdg.configHome}/ssh/id_ed25519";
+          };
+
+          apollo = {
             hostname = "apollo.asherif.xyz";
             user = "${config.home.username}";
           };
 
           git = {
-            identityFile = "${config.xdg.configHome}/ssh/id_ed25519";
-            hostname = "astra.asherif.xyz";
+            hostname = "git.asherif.xyz";
+            user = "${config.home.username}";
+            port = 23231;
+          };
+
+          gitlocal = {
+            hostname = "localhost";
             user = "${config.home.username}";
             port = 23231;
           };
 
           astra = {
-            identityFile = "${config.xdg.configHome}/ssh/id_ed25519";
             hostname = "astra.asherif.xyz";
             user = "${config.home.username}";
           };
 
           aurora = {
-            identityFile = "${config.xdg.configHome}/ssh/id_ed25519";
             hostname = "aurora.asherif.xyz";
             user = "${config.home.username}";
           };

@@ -23,7 +23,10 @@
 
           git = {
             enable = true;
-            userEmail = "anas@asherif.xyz";
+
+            user = {
+              email = "anas@asherif.xyz";
+            };
           };
 
           gpg = {

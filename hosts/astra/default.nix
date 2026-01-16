@@ -7,6 +7,5 @@
     (modulesPath + "/virtualisation/proxmox-lxc.nix")
     ./configuration.nix
     ./users.nix
-    ./local-config.nix
   ];
 }
