@@ -19,6 +19,7 @@
     ./home-assistant.nix
     ./home-manager
     ./immich.nix
+    ./lobechat.nix
     ./nextcloud.nix
     ./open-webui.nix
     ./paperless.nix
