@@ -35,6 +35,7 @@
       neovim
       nsxiv
 
+      pop
       playerctl
       prismlauncher
       pulsemixer
