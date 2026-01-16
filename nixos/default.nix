@@ -178,7 +178,7 @@
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
         PermitRootLogin = "no";
-        AllowUsers = [ "anas" ]
+        AllowUsers = [ "anas" ];
       };
     };
 

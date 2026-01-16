@@ -81,7 +81,7 @@
     };
 
     open-webui = {
-      enable = true;
+      enable = false;
     };
 
     paperless = {
