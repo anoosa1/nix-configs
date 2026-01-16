@@ -6,7 +6,7 @@
 {
   ## boot
   boot = {
-    kernelPackages = pkgs.linuxPackages_6_16;
+    kernelPackages = pkgs.linuxPackages_6_12;
     supportedFilesystems = ["ntfs"];
 
     plymouth = {
@@ -107,7 +107,7 @@
       allowUnfree = true;
 
       permittedInsecurePackages = [
-        "broadcom-sta-6.30.223.271-57-6.16.11"
+        "broadcom-sta-6.30.223.271-59-6.12.63"
       ];
     };
   };

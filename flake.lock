@@ -640,7 +640,6 @@
         "niri": "niri",
         "nix-cachyos-kernel": "nix-cachyos-kernel",
         "nix-minecraft": "nix-minecraft",
-        "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_4",
         "secrets": "secrets",
         "sops-nix": "sops-nix",
