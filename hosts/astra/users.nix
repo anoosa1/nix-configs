@@ -60,6 +60,10 @@
   };
 
   anoosa = {
+    "4get" = {
+      enable = true;
+    };
+
     code-server = {
       enable = true;
     };

@@ -6,17 +6,17 @@
         "nvf": "nvf"
       },
       "locked": {
-        "lastModified": 1767749108,
-        "narHash": "sha256-UvtmFoqY85myBHO3Msy2SiNZh5vtZixNHA2OoE4fwKs=",
+        "lastModified": 1768474924,
+        "narHash": "sha256-UzFnpbOYKHguvTOATRX1Hfef0x+9lS3xQwqjr2mavgw=",
         "ref": "refs/heads/main",
-        "rev": "6f397dc4ba2e2ec3e2a4017965942c3a114bbe5b",
-        "revCount": 41,
+        "rev": "27bcb410f62f30947f1cd322d1e0391c71d5d49e",
+        "revCount": 43,
         "type": "git",
-        "url": "ssh://git@github.com/anoosa1/apkgs.git"
+        "url": "ssh://git.asherif.xyz:23231/apkgs.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@github.com/anoosa1/apkgs.git"
+        "url": "ssh://git.asherif.xyz:23231/apkgs.git"
       }
     },
     "base16": {

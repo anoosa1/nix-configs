@@ -25,8 +25,8 @@
         extraGroups = [ "wheel" "audio" "adbusers" "transmission" "immich" "kvm" "minecraft" "open-webui" ];
         shell = pkgs.zsh;
         openssh.authorizedKeys.keys = [
-          "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBP3tXTHU/cpty8I3avaU/WsND4/3FGxeRbjNvqlMlwLSMU9nPLWeNoWAowU2y7xNBXvDd0eWmeEOOG0KBtmOlSo="
-          "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDEsspc9jtsL2rrPUiKnuOZ9WEd5OA9M5JXfICnyJnLbJFo/uoT4pLvT+SryMm96XE3FD8LznRS9XGRR2Zn5sOdr8tEwq9vM+qSrt5pY5xLjlQYRc2KBR8H040lf86ztvIxFqozCHbv0yTtnnnjiOZ1DZNA1Rr+t9a6LoGsdNdrZ4eYAyBSwBA6zqV4BcysFCT1O9tbpwTNY4St1/6MenGRp/QVZ8mrsfAW3RiPC65YXfX+Ydb96OZ/H0h7vdBTJwA1kXHTGNt9Lfiwu5TFDOK2LgkjmZXsGlWz7I7kHGP6pXssn4Er+b+MTiPqvNyfJcXYNIIoo1vgEn8Jz8o7nrTnWQdx8veB0mg3ag88eysrOXo1bau5vPWViE/Rj5NjQepn1IH1Kx0HIsNYn9ngqRG9gn0Jx4RQe7NxL5oqIaS3iodfFLnLHPyI5AQSISP8R4omEZjFZQ0K8T8o1u++FOY9mJeNRiNHykm0SjAk22cDtg5WrEzcBeK9x7CBmU2koRwL5wJ+yDgEHDmBBu/1cX5F7CzvfxR2GMph2BRpnNeE991Tz8YL4Xk0xUJ7WQaOO0WqSoMa/QJx6EiRcK17i25TUZbnNH/ALxQB211KgO4dnwyLXhcKl+G48KwD1kwKdAxF427m6LDBtHJFvRG0cBlA9VxfFap5QJTplfODthBaWw== anas"
+          "ecdsa-sha2-nistp256 aaaae2vjzhnhlxnoytitbmlzdhayntyaaaaibmlzdhayntyaaabbbp3txthu/cpty8i3avau/wsnd4/3fgxerbjnvqlmlwlsmu9nplwenowaowu2y7xnbxvdd0ewmeeoog0kbtmolso="
+          "ssh-rsa aaaab3nzac1yc2eaaaadaqabaaacaqdesspc9jtsl2rrpuiknuoz9wed5oa9m5jxficnyjnlbjfo/uot4plvt+srymm96xe3fd8lznrs9xgrr2zn5sodr8tewq9vm+qsrt5py5xljlqyrc2kbr8h040lf86ztvixfqozchbv0yttnnnjioz1dzna1rr+t9a6logsdndrz4eyaybswba6zqv4bcysfct1o9tbpwtny4st1/6mengrp/qvz8mrsfaw3ripc65yxfx+ydb96oz/h0h7vdbtjwa1kxhtgnt9lfiwu5tfdok2lgkjmzxsglwz7i7khgp6pxssn4er+b+mtipqvnyfjcxyniioo1vgen8jz8o7nrtnwqdx8veb0mg3ag88eysroxo1bau5vpwvie/rj5njqepn1ih1kx0hisnyn9ngqrg9gn0jx4rqe7nxl5oqias3iodfflnlhpyi5aqsisp8r4omezjfzq0k8t8o1u++foy9mjenrinhykm0sjak22cdtg5wrezcbek9x7cbmu2korwl5wj+ydgehdmbbu/1cx5f7czvfxr2gmph2brpnnee991tz8yl4xk0xuj7wqaoo0wqsoma/qjx6eirck17i25tuzbnnh/alxqb211kgo4dnwylxhckl+g48kwd1kwkdaxf427m6ldbthjfvrg0cbla9vxffap5qjtplfodthbaww== anas"
         ];
       };
     };

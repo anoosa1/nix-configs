@@ -13,6 +13,7 @@
   };
 
   imports = [
+    ./4get.nix
     ./code-server.nix
     ./docling.nix
     ./home-assistant.nix

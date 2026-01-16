@@ -18,6 +18,12 @@
       };
     };
 
+    # NixOS Hardware
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/master";
+    };
+
+    # Nix cachyos kernel
     nix-cachyos-kernel = {
       url = "github:xddxdd/nix-cachyos-kernel/release";
 
@@ -27,11 +33,6 @@
         };
       };
     };
-
-    # NixOS Hardware
-    nixos-hardware = {
-      url = "github:NixOS/nixos-hardware/master";
-   };
 
     # Sops nix
     sops-nix = {
@@ -68,7 +69,7 @@
 
     # apkgs
     apkgs = {
-      url = "git+ssh://git@github.com/anoosa1/apkgs.git";
+      url = "git+ssh://git.asherif.xyz:23231/apkgs.git";
     };
 
     nix-minecraft = {

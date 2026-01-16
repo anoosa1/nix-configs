@@ -16,7 +16,7 @@
     useDHCP = false;
 
     hosts = {
-      "10.0.0.244" = [ "search.asherif.xyz" "hub.asherif.xyz" "accounts.asherif.xyz" ];
+      "10.0.0.244" = [ "search.asherif.xyz" "hub.asherif.xyz" "accounts.asherif.xyz" "git.asherif.xyz" ];
     };
 
     interfaces."eth0@if200" = {
@@ -146,17 +146,6 @@
   };
 
   # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  services.openssh = {
-    enable = true;
-    # require public key authentication for better security
-    #settings = {
-    #  PasswordAuthentication = false;
-    #  KbdInteractiveAuthentication = false;
-    #  PermitRootLogin = "no";
-    #};
-  };
 
   networking = {
     firewall = {

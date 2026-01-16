@@ -172,11 +172,13 @@
     # Enable the OpenSSH daemon.
     openssh = {
       enable = true;
+
       # require public key authentication for better security
       settings = {
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
         PermitRootLogin = "no";
+        AllowUsers = [ "anas" ]
       };
     };
 
@@ -229,5 +231,5 @@
   
   users = {
     defaultUserShell = pkgs.zsh;
-  }
+  };
 }
