@@ -67,6 +67,17 @@
       };
     };
 
+    # authentik-nix
+    authentik-nix = {
+      url = "github:nix-community/authentik-nix";
+
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+    };
+
     # Stylix
     stylix = {
       url = "github:danth/stylix";
@@ -126,6 +137,7 @@
         modules = [
           inputs.niri.nixosModules.niri
           inputs.copyparty.nixosModules.default
+          inputs.authentik-nix.nixosModules.default
           inputs.sops-nix.nixosModules.sops
           ./hosts/astra
           ./nixos
