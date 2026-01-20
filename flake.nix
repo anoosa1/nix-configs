@@ -34,11 +34,6 @@
       };
     };
 
-    # NixOS Hardware
-    nixos-hardware = {
-      url = "github:NixOS/nixos-hardware/master";
-   };
-
     # Sops nix
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -53,6 +48,18 @@
     # Niri
     niri = {
       url = "github:sodiboo/niri-flake";
+
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+    };
+
+    # Copyparty
+    copyparty = {
+      url = "github:9001/copyparty";
+
       inputs = {
         nixpkgs = {
           follows = "nixpkgs";
@@ -118,6 +125,7 @@
 
         modules = [
           inputs.niri.nixosModules.niri
+          inputs.copyparty.nixosModules.default
           inputs.sops-nix.nixosModules.sops
           ./hosts/astra
           ./nixos

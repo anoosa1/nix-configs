@@ -68,6 +68,14 @@
       enable = true;
     };
 
+    copyparty = {
+      enable = true;
+    };
+
+    gitea = {
+      enable = true;
+    };
+
     home-assistant = {
       enable = true;
     };
@@ -76,7 +84,15 @@
       enable = true;
     };
 
+    lobechat = {
+      enable = false;
+    };
+
     nextcloud = {
+      enable = true;
+    };
+
+    nitter = {
       enable = true;
     };
 
@@ -89,7 +105,7 @@
     };
 
     searx = {
-      enable = true;
+      enable = false;
     };
 
     soft-serve = {

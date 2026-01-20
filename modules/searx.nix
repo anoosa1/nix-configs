@@ -14,9 +14,9 @@
 
     subdomain = lib.mkOption {
       type = lib.types.str;
-      default = "search";
+      default = "searx";
       description = "Subdomain to host searx at";
-      example = "search";
+      example = "searx";
     };
   };
 

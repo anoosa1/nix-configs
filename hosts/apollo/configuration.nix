@@ -96,22 +96,6 @@
 
   powerManagement.enable = true;
 
-  nixpkgs = {
-    overlays = [
-      inputs.apkgs.overlays.default
-      inputs.niri.overlays.niri
-    ];
-
-    config = {
-      # allow unfree packages
-      allowUnfree = true;
-
-      permittedInsecurePackages = [
-        "broadcom-sta-6.30.223.271-59-6.12.63"
-      ];
-    };
-  };
-
   documentation = {
     nixos = {
       enable = false;

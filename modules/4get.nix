@@ -15,13 +15,22 @@
 
     subdomain = lib.mkOption {
       type = lib.types.str;
-      default = "search2";
+      default = "search";
       description = "Subdomain to host 4get at";
       example = "search";
     };
   };
 
   config = lib.mkIf config.anoosa."4get".enable {
+    systemd.services."phpfpm-4get".serviceConfig = {
+      ReadOnlyPaths = [ "/nix/store" ];
+      ReadWritePaths = [ "/var/lib/4get" ];
+
+      BindPaths = [
+        "/var/lib/4get/icons:${pkgs."4get"}/share/4get/icons"
+      ];
+    };
+
     services = {
       nginx.virtualHosts = {
         "${config.anoosa."4get".subdomain}.${config.anoosa.domain}" = {
@@ -36,6 +45,11 @@
               tryFiles = "$uri $uri/ $uri.php$is_args$query_string";
             };
 
+            "/icons/" = {
+              alias = "/var/lib/4get/icons/";
+              extraConfig = "allow all;";
+            };
+
             "~ \\.php$" = {
               tryFiles = "$uri $uri/ $uri.php$is_args$query_string";
 
@@ -44,6 +58,9 @@
                 
                 fastcgi_pass unix:${config.services.phpfpm.pools."4get".socket};
                 fastcgi_index index.php;
+                fastcgi_buffer_size 128k;
+                fastcgi_buffers 4 256k;
+                fastcgi_busy_buffers_size 256k;
                 include ${pkgs.nginx}/conf/fastcgi_params;
               '';
             };
@@ -70,6 +87,8 @@
         ]);
 
         settings = {
+          "listen.owner" = "nginx";
+          "listen.group" = "nginx";
           "pm" = "dynamic";
           "pm.max_children" = 32;
           "pm.start_servers" = 2;

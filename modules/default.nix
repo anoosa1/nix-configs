@@ -15,12 +15,15 @@
   imports = [
     ./4get.nix
     ./code-server.nix
+    ./copyparty.nix
     ./docling.nix
+    ./gitea.nix
     ./home-assistant.nix
     ./home-manager
     ./immich.nix
     ./lobechat.nix
     ./nextcloud.nix
+    ./nitter.nix
     ./open-webui.nix
     ./paperless.nix
     ./searx.nix

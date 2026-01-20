@@ -16,7 +16,7 @@
     useDHCP = false;
 
     hosts = {
-      "10.0.0.244" = [ "search.asherif.xyz" "hub.asherif.xyz" "accounts.asherif.xyz" "git.asherif.xyz" ];
+      "10.0.0.244" = [ "search.asherif.xyz" "hub.asherif.xyz" "accounts.asherif.xyz" "git.asherif.xyz" "x.asherif.xyz" ];
     };
 
     interfaces."eth0@if200" = {
@@ -86,26 +86,6 @@
       enable = true;
     };
   };
-
-  nixpkgs = {
-    overlays = [
-      inputs.apkgs.overlays.default
-      inputs.niri.overlays.niri
-      inputs.nix-minecraft.overlay
-    ];
-
-    config = {
-      # allow unfree packages
-      allowUnfree = true;
-    };
-  };
-
-  #virtualisation = {
-  #  docker = {
-  #    enable = true;
-  #  };
-  #};
-
   # system packages
   environment = {
     systemPackages = 
@@ -117,10 +97,6 @@
         zsh
       ];
   };
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
 
   programs = {
     dconf = {
@@ -150,8 +126,6 @@
   networking = {
     firewall = {
       enable = false;
-      allowedTCPPorts = [ 111  2049 2222 4000 4001 4002 20048 ];
-      allowedUDPPorts = [ 111 2049 4000 4001  4002 20048 ];
       allowPing = true;
     };
   };
