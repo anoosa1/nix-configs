@@ -68,7 +68,7 @@
 
     # apkgs
     apkgs = {
-      url = "git+ssh://git@github.com/anoosa1/apkgs.git";
+      url = "git+ssh://git.asherif.xyz:23231/apkgs.git";
     };
 
     nix-minecraft = {

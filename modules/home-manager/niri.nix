@@ -61,7 +61,6 @@
 
               xkb = {
                 layout = "us";
-                options = "caps:swapescape";
               };
             };
 
@@ -102,6 +101,8 @@
 
             "Mod+C".action = center-column;
             "Mod+B".action = spawn "battery.sh";
+            "Mod+N".action = spawn "logseq";
+            "Mod+Shift+N".action = spawn "obsidian";
             "Mod+Ctrl+C".action = center-visible-columns;
 
             "Mod+F".action = maximize-column;

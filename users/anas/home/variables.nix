@@ -31,7 +31,6 @@
       PYTHONUSERBASE = "$XDG_DATA_HOME/python";
       RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
       SSH_HOME = "$XDG_CONFIG_HOME/ssh";
-      XKB_DEFAULT_OPTIONS = "caps:swapescape";
       STARSHIP_CACHE = "$XDG_CACHE_HOME/starship";
       STEAM_EXTRA_COMPAT_TOOLS_PATHS = "$HOME/.steam/root/compatibilitytools.d";
       UNISON = "$XDG_DATA_HOME/unison";

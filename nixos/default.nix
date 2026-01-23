@@ -64,28 +64,7 @@
   };
 
   ## security
-  sops = {
-    secrets = {
-      "cloudflare" = {
-        owner = "acme";
-      };
-    };
-  };
-
   security = {
-    acme = {
-      acceptTerms = true;
-      defaults = {
-        email = "anas@asherif.xyz";
-        dnsProvider = "cloudflare";
-        dnsResolver = "1.1.1.1:53";
-        dnsPropagationCheck = true;
-        credentialFiles = {
-          "CF_DNS_API_TOKEN_FILE" = "/run/secrets/cloudflare";
-        };
-      };
-    };
-
     pam = {
       services = {
         swaylock = {};
@@ -124,41 +103,21 @@
 
   ## services
   services = {
-    nginx = {
-      recommendedTlsSettings = true;
-      recommendedProxySettings = true;
+    # keyd
+    keyd = {
+      enable = true;
 
-      virtualHosts = {
-        "accounts.asherif.xyz" = {
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
-          locations = {
-            "/" = {
-              proxyPass = "https://10.0.0.2:9443";
-              proxyWebsockets = true;
-            };
-            "~ (/authentik)?/api" = {
-              proxyPass = "https://10.0.0.2:9443";
-              proxyWebsockets = true;
-            };
-          };
-        };
-
-        "p1.asherif.xyz" = {
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
-          locations = {
-            "/" = {
-              proxyPass = "https://10.0.0.10:8006";
-              proxyWebsockets = true;
+      keyboards = {
+        default = {
+          ids = [ "*" ];
+          settings = {
+            main = {
+              capslock = "overload(control, esc)";
             };
           };
         };
       };
     };
-
     # dbus
     dbus = {
       enable = true;
@@ -229,5 +188,5 @@
   
   users = {
     defaultUserShell = pkgs.zsh;
-  }
+  };
 }
