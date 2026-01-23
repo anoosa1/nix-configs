@@ -100,6 +100,10 @@
       enable = true;
     };
 
+    rtorrent = {
+      enable = true;
+    };
+
     searx = {
       enable = false;
     };
