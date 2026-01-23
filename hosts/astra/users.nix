@@ -80,10 +80,6 @@
       enable = true;
     };
 
-    lobechat = {
-      enable = false;
-    };
-
     nextcloud = {
       enable = true;
     };
@@ -97,10 +93,6 @@
     };
 
     paperless = {
-      enable = true;
-    };
-
-    rtorrent = {
       enable = true;
     };
 

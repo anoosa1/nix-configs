@@ -24,7 +24,6 @@
     ./nitter.nix
     ./open-webui.nix
     ./paperless.nix
-    ./rtorrent.nix
     ./searx.nix
     ./soft-serve.nix
     ./transmission.nix
