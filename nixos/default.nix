@@ -29,6 +29,12 @@
         "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
       ];
     };
+
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
   };
 
   nixpkgs = {
@@ -42,7 +48,7 @@
       allowUnfree = true;
 
       permittedInsecurePackages = [
-        "broadcom-sta-6.30.223.271-59-6.12.63"
+        "broadcom-sta-6.30.223.271-59-6.12.66"
       ];
     };
   };
@@ -67,7 +73,7 @@
     systemPackages = with pkgs; [
       linux-firmware
       ffmpeg
-      neofetch
+      fastfetch
     ];
 
     pathsToLink = ["/share/applications" "/share/xdg-desktop-portal"];
@@ -80,28 +86,7 @@
   };
 
   ## security
-  sops = {
-    secrets = {
-      "cloudflare" = {
-        owner = "acme";
-      };
-    };
-  };
-
   security = {
-    acme = {
-      acceptTerms = true;
-      defaults = {
-        email = "anas@asherif.xyz";
-        dnsProvider = "cloudflare";
-        dnsResolver = "1.1.1.1:53";
-        dnsPropagationCheck = true;
-        credentialFiles = {
-          "CF_DNS_API_TOKEN_FILE" = "/run/secrets/cloudflare";
-        };
-      };
-    };
-
     pam = {
       services = {
         swaylock = {};
@@ -140,45 +125,26 @@
 
   ## services
   services = {
-    nginx = {
-      recommendedTlsSettings = true;
-      recommendedProxySettings = true;
-
-      virtualHosts = {
-        "accounts.asherif.xyz" = {
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
-          locations = {
-            "/" = {
-              proxyPass = "https://10.0.0.2:9443";
-              proxyWebsockets = true;
-            };
-            "~ (/authentik)?/api" = {
-              proxyPass = "https://10.0.0.2:9443";
-              proxyWebsockets = true;
-            };
-          };
-        };
-
-        "p1.asherif.xyz" = {
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
-          locations = {
-            "/" = {
-              proxyPass = "https://10.0.0.10:8006";
-              proxyWebsockets = true;
-            };
-          };
-        };
-      };
-    };
-
     # dbus
     dbus = {
       enable = true;
       implementation = "broker";
+    };
+
+    # keyd
+    keyd = {
+      enable = true;
+
+      keyboards = {
+        default = {
+          ids = [ "*" ];
+          settings = {
+            main = {
+              capslock = "overload(control, esc)";
+            };
+          };
+        };
+      };
     };
 
     gvfs = {

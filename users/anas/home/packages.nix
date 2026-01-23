@@ -6,6 +6,9 @@
   home = {
     packages = with pkgs; [
       anki
+      obsidian
+      logseq
+      gemini-cli
 
       bat
       bat-extras.batdiff

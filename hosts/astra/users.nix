@@ -68,10 +68,6 @@
       enable = true;
     };
 
-    copyparty = {
-      enable = true;
-    };
-
     gitea = {
       enable = true;
     };
@@ -101,6 +97,10 @@
     };
 
     paperless = {
+      enable = true;
+    };
+
+    rtorrent = {
       enable = true;
     };
 

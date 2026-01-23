@@ -8,80 +8,30 @@
     };
 
     # Home manager
-    home-manager = {
-      url = "github:nix-community/home-manager/master";
-
-      inputs = {
-        nixpkgs = {
-          follows = "nixpkgs";
-        };
-      };
-    };
+    home-manager.url = "github:nix-community/home-manager/master";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # NixOS Hardware
-    nixos-hardware = {
-      url = "github:NixOS/nixos-hardware/master";
-    };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     # Nix cachyos kernel
-    nix-cachyos-kernel = {
-      url = "github:xddxdd/nix-cachyos-kernel/release";
-
-      inputs = {
-        nixpkgs = {
-          follows = "nixpkgs";
-        };
-      };
-    };
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+    nix-cachyos-kernel.inputs.nixpkgs.follows = "nixpkgs";
 
     # Sops nix
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-
-      inputs = {
-        nixpkgs = {
-          follows = "nixpkgs";
-        };
-      };
-    };
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     # Niri
-    niri = {
-      url = "github:sodiboo/niri-flake";
-
-      inputs = {
-        nixpkgs = {
-          follows = "nixpkgs";
-        };
-      };
-    };
-
-    # Copyparty
-    copyparty = {
-      url = "github:9001/copyparty";
-
-      inputs = {
-        nixpkgs = {
-          follows = "nixpkgs";
-        };
-      };
-    };
+    niri.url = "github:sodiboo/niri-flake";
+    niri.inputs.nixpkgs.follows = "nixpkgs";
 
     # authentik-nix
-    authentik-nix = {
-      url = "github:nix-community/authentik-nix";
-
-      inputs = {
-        nixpkgs = {
-          follows = "nixpkgs";
-        };
-      };
-    };
+    authentik-nix.url = "github:nix-community/authentik-nix";
+    authentik-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     # Stylix
-    stylix = {
-      url = "github:danth/stylix";
-    };
+    stylix.url = "github:danth/stylix";
 
     ## Personal flakes
     # Secrets
@@ -93,11 +43,15 @@
     # apkgs
     apkgs = {
       url = "git+ssh://git.asherif.xyz:23231/apkgs.git";
+
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
     };
 
-    nix-minecraft = {
-      url = "github:Infinidoge/nix-minecraft";
-    };
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
 
   outputs = {nixpkgs, ...} @ inputs: let
@@ -136,7 +90,6 @@
 
         modules = [
           inputs.niri.nixosModules.niri
-          inputs.copyparty.nixosModules.default
           inputs.authentik-nix.nixosModules.default
           inputs.sops-nix.nixosModules.sops
           ./hosts/astra
