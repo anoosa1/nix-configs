@@ -17,7 +17,7 @@
       name = "Bibata-Modern-Ice";
     };
 
-    iconTheme = {
+    icons = {
       enable = true;
       light = "Adwaita";
       dark = "Adwaita:dark";

@@ -61,7 +61,6 @@
 
               xkb = {
                 layout = "us";
-                options = "caps:swapescape";
               };
             };
 
