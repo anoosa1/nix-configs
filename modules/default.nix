@@ -13,12 +13,15 @@
   };
 
   imports = [
+    ./4get.nix
     ./code-server.nix
     ./docling.nix
+    ./gitea.nix
     ./home-assistant.nix
     ./home-manager
     ./immich.nix
     ./nextcloud.nix
+    ./nitter.nix
     ./open-webui.nix
     ./paperless.nix
     ./searx.nix

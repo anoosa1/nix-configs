@@ -29,6 +29,28 @@
         "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
       ];
     };
+
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+  };
+
+  nixpkgs = {
+    overlays = [
+      inputs.apkgs.overlays.default
+      inputs.niri.overlays.niri
+    ];
+
+    config = {
+      # allow unfree packages
+      allowUnfree = true;
+
+      permittedInsecurePackages = [
+        "broadcom-sta-6.30.223.271-59-6.12.66"
+      ];
+    };
   };
 
   ## environment
@@ -51,7 +73,7 @@
     systemPackages = with pkgs; [
       linux-firmware
       ffmpeg
-      neofetch
+      fastfetch
     ];
 
     pathsToLink = ["/share/applications" "/share/xdg-desktop-portal"];
@@ -103,6 +125,12 @@
 
   ## services
   services = {
+    # dbus
+    dbus = {
+      enable = true;
+      implementation = "broker";
+    };
+
     # keyd
     keyd = {
       enable = true;
@@ -118,11 +146,6 @@
         };
       };
     };
-    # dbus
-    dbus = {
-      enable = true;
-      implementation = "broker";
-    };
 
     gvfs = {
       enable = true;
@@ -131,11 +154,13 @@
     # Enable the OpenSSH daemon.
     openssh = {
       enable = true;
+
       # require public key authentication for better security
       settings = {
         PasswordAuthentication = false;
-        KbdInteractiveAuthentication = false;
         PermitRootLogin = "no";
+        KbdInteractiveAuthentication = false;
+        AllowUsers = [ "anas" ];
       };
     };
 

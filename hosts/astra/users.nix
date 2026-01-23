@@ -60,7 +60,15 @@
   };
 
   anoosa = {
+    "4get" = {
+      enable = true;
+    };
+
     code-server = {
+      enable = true;
+    };
+
+    gitea = {
       enable = true;
     };
 
@@ -72,7 +80,15 @@
       enable = true;
     };
 
+    lobechat = {
+      enable = false;
+    };
+
     nextcloud = {
+      enable = true;
+    };
+
+    nitter = {
       enable = true;
     };
 
@@ -85,7 +101,7 @@
     };
 
     searx = {
-      enable = true;
+      enable = false;
     };
 
     soft-serve = {

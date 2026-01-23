@@ -22,6 +22,18 @@
   };
 
   config = lib.mkIf config.anoosa.code-server.enable {
+    users = {
+      users = {
+        code-server = {
+          homeMode = "700";
+
+          openssh.authorizedKeys.keys = [
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHhK2hN/aKRr12GA6dklSQbL+jG5iQ9OuvXzprvzfGc8 anas@apollo"
+          ];
+        };
+      };
+    };
+
     services = {
       nginx.virtualHosts = {
         "${config.anoosa.code-server.subdomain}.${config.anoosa.domain}" = {

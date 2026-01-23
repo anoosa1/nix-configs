@@ -16,7 +16,7 @@
     useDHCP = false;
 
     hosts = {
-      "10.0.0.244" = [ "search.asherif.xyz" "hub.asherif.xyz" "accounts.asherif.xyz" ];
+      "10.0.0.244" = [ "search.asherif.xyz" "hub.asherif.xyz" "accounts.asherif.xyz" "git.asherif.xyz" "x.asherif.xyz" ];
     };
 
     interfaces."eth0@if200" = {
@@ -86,26 +86,6 @@
       enable = true;
     };
   };
-
-  nixpkgs = {
-    overlays = [
-      inputs.apkgs.overlays.default
-      inputs.niri.overlays.niri
-      inputs.nix-minecraft.overlay
-    ];
-
-    config = {
-      # allow unfree packages
-      allowUnfree = true;
-    };
-  };
-
-  #virtualisation = {
-  #  docker = {
-  #    enable = true;
-  #  };
-  #};
-
   # system packages
   environment = {
     systemPackages = 
@@ -118,10 +98,6 @@
       ];
   };
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-
   programs = {
     dconf = {
       enable = true;
@@ -130,15 +106,49 @@
 
   # security settings
   security = {
-    pam = {
-      services = {
-        su = {
-          requireWheel = true;
+    acme = {
+      acceptTerms = true;
+      defaults = {
+        email = "anas@asherif.xyz";
+        dnsProvider = "cloudflare";
+        dnsResolver = "1.1.1.1:53";
+        dnsPropagationCheck = true;
+        credentialFiles = {
+          "CF_DNS_API_TOKEN_FILE" = "/run/secrets/cloudflare";
         };
-        system-login = {
-          failDelay = {
-            enable = true;
-            delay = 4000000;
+      };
+    };
+  };
+
+  services.nginx = {
+    recommendedTlsSettings = true;
+    recommendedProxySettings = true;
+
+    virtualHosts = {
+      "accounts.asherif.xyz" = {
+        forceSSL = true;
+        enableACME = true;
+        acmeRoot = null;
+        locations = {
+          "/" = {
+            proxyPass = "https://10.0.0.2:9443";
+            proxyWebsockets = true;
+          };
+          "~ (/authentik)?/api" = {
+            proxyPass = "https://10.0.0.2:9443";
+            proxyWebsockets = true;
+          };
+        };
+      };
+
+      "p1.asherif.xyz" = {
+        forceSSL = true;
+        enableACME = true;
+        acmeRoot = null;
+        locations = {
+          "/" = {
+            proxyPass = "https://10.0.0.10:8006";
+            proxyWebsockets = true;
           };
         };
       };
@@ -147,22 +157,9 @@
 
   # List services that you want to enable:
 
-  # Enable the OpenSSH daemon.
-  services.openssh = {
-    enable = true;
-    # require public key authentication for better security
-    #settings = {
-    #  PasswordAuthentication = false;
-    #  KbdInteractiveAuthentication = false;
-    #  PermitRootLogin = "no";
-    #};
-  };
-
   networking = {
     firewall = {
       enable = false;
-      allowedTCPPorts = [ 111  2049 2222 4000 4001 4002 20048 ];
-      allowedUDPPorts = [ 111 2049 4000 4001  4002 20048 ];
       allowPing = true;
     };
   };

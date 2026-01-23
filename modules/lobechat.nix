@@ -28,6 +28,39 @@
       };
     };
 
+    boot.kernel.sysctl = {
+      "net.ipv4.ip_unprivileged_port_start" = 0;
+    };
+
+    virtualisation = {
+      docker = {
+        enable = true;
+      };
+
+      oci-containers = {
+        backend = "docker";
+
+        containers = {
+          lobechat = {
+            image = "lobehub/lobe-chat:latest";
+ 
+            environment = {
+              OPENAI_PROXY_URL = "https://generativelanguage.googleapis.com/v1beta/openai";
+              APP_URL = "https://chat.asherif.xyz";
+            };
+ 
+            environmentFiles = [
+              /run/secrets/lobechat
+            ];
+ 
+            ports = [
+              "127.0.0.1:3210:3210"
+            ];
+          };
+        };
+      };
+    };
+ 
     services = {
       nginx.virtualHosts = {
         "${config.anoosa.lobechat.subdomain}.${config.anoosa.domain}" = {
@@ -37,37 +70,8 @@
 
           locations = {
             "/" = {
-              proxyPass = "http://localhost:${toString config.services.lobechat.port}";
+              proxyPass = "http://localhost:3210";
               proxyWebsockets = true;
-            };
-          };
-        };
-      };
-
-      virtualisation = {
-        docker = {
-          enable = true;
-        };
-
-        oci-containers = {
-          backend = "docker";
-
-          containers = {
-            lobechat = {
-              image = "lobehub/lobe-chat";
-              hostname = "lobechat";
-
-              environment = {
-                OPENAI_PROXY_URL = "https://generativelanguage.googleapis.com/v1beta/openai";
-              };
-
-              environmentFiles = [
-                /run/secrets/lobechat
-              ];
-
-              ports = [
-                "3210:3210"
-              ];
             };
           };
         };
