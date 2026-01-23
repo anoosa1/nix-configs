@@ -42,7 +42,6 @@
 
         settings = {
           server = {
-            SSH_PORT = 222;
             PROTOCOL = "http+unix";
             ROOT_URL = "https://${config.anoosa.gitea.subdomain}.${config.anoosa.domain}";
             DOMIAIN = "${config.anoosa.gitea.subdomain}.${config.anoosa.domain}";
