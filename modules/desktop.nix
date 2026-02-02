@@ -272,6 +272,51 @@
     };
 
     programs = {
+      kitty = {
+        enable = true;
+
+        font = {
+          name = "Comic Code";
+          size = 16;
+        };
+
+        settings = {
+          #background_opacity = "0.8";
+          scrollback_lines = 5000;
+          window_padding_width = 10;
+      
+          background = "#1d2021";
+          foreground = "#ebdbb2";
+          selection_foreground = "#ebdbb2";
+          selection_background = "#d65d0e";
+          cursor = "#bdae93";
+          cursor_text_color = "#665c54";
+          url_color = "#458588";
+      
+          active_tab_foreground = "#eeeeee";
+          active_tab_background = "#d65d0e";
+          inactive_tab_foreground = "#ebdbb2";
+          inactive_tab_background = "#171a1a";
+      
+          color0 = "#3c3836";
+          color1 = "#cc241d";
+          color2 = "#98971a";
+          color3 = "#d79921";
+          color4 = "#458588";
+          color5 = "#b16286";
+          color6 = "#689d6a";
+          color7 = "#a89984";
+          color8 = "#928374";
+          color9 = "#fb4934";
+          color10 = "#b8bb26";
+          color11 = "#fabd2f";
+          color12 = "#83a598";
+          color13 = "#d3869b";
+          color14 = "#8ec07c";
+          color15 = "#fbf1c7";
+        };
+      };
+
       niri = {
         settings = {
           screenshot-path = "~/pics/Screenshots/Screenshot_%Y%m%d-%H%M%S";

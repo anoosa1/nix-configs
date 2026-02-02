@@ -7,7 +7,13 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
-    import-tree.url = "github:vic/import-tree";
+    import-tree = {
+      url = "github:vic/import-tree";
+    };
+
+    nvf = {
+      url = "github:notashelf/nvf";
+    };
 
     # flake-parts
     flake-parts = {
