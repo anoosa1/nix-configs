@@ -2,36 +2,85 @@
   description = "Flake for my home-manager and computer configurations";
 
   inputs = {
-    # Nixpkgs
+    # nixpkgs
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
-    # Home manager
-    home-manager.url = "github:nix-community/home-manager/master";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    import-tree.url = "github:vic/import-tree";
 
-    # NixOS Hardware
+    # flake-parts
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+    };
+
+    # home-manager
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+    };
+
+    # nixos-hardware
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    # Nix cachyos kernel
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
-    nix-cachyos-kernel.inputs.nixpkgs.follows = "nixpkgs";
+    # nix-cachyos-kernel
+    nix-cachyos-kernel = {
+      url = "github:xddxdd/nix-cachyos-kernel/release";
 
-    # Sops nix
-    sops-nix.url = "github:Mic92/sops-nix";
-    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+    };
 
-    # Niri
-    niri.url = "github:sodiboo/niri-flake";
-    niri.inputs.nixpkgs.follows = "nixpkgs";
+    # sops-nix
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+    };
+
+    # niri
+    niri = {
+      url = "github:sodiboo/niri-flake";
+
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+    };
 
     # authentik-nix
-    authentik-nix.url = "github:nix-community/authentik-nix";
-    authentik-nix.inputs.nixpkgs.follows = "nixpkgs";
+    authentik-nix = {
+      url = "github:nix-community/authentik-nix";
 
-    # Stylix
-    stylix.url = "github:danth/stylix";
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+    };
+
+    # stylix
+    stylix = {
+      url = "github:danth/stylix";
+    };
+
+    # nix-minecraft
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+    };
 
     ## Personal flakes
     # Secrets
@@ -50,54 +99,10 @@
         };
       };
     };
-
-    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
 
-  outputs = {nixpkgs, ...} @ inputs: let
-    system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
-  in {
-    nixosConfigurations = {
-      aurora = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
-
-        modules = [
-          inputs.niri.nixosModules.niri
-          inputs.sops-nix.nixosModules.sops
-          ./hosts/aurora
-          ./nixos
-          ./modules
-          ./users
-        ];
-      };
-
-      apollo = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
-
-        modules = [
-          inputs.niri.nixosModules.niri
-          inputs.sops-nix.nixosModules.sops
-          ./hosts/apollo
-          ./nixos
-          ./modules
-          ./users
-        ];
-      };
-
-      astra = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
-
-        modules = [
-          inputs.niri.nixosModules.niri
-          inputs.authentik-nix.nixosModules.default
-          inputs.sops-nix.nixosModules.sops
-          ./hosts/astra
-          ./nixos
-          ./modules
-          ./users
-        ];
-      };
-    };
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+    systems = [ "x86_64-linux" ]; 
+    imports = [ (inputs.import-tree ./modules) ];
   };
 }
