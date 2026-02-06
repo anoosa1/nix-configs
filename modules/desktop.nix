@@ -17,7 +17,7 @@
       overlays = [
         # self.overlays.default
         inputs.niri.overlays.niri
-        inputs.nix-cachyos-kernel.overlays.default
+        inputs.nix-cachyos-kernel.overlays.pinned
       ];
   
       config = {
@@ -25,7 +25,7 @@
         allowUnfree = true;
   
         permittedInsecurePackages = [
-          "broadcom-sta-6.30.223.271-59-6.12.66"
+          "broadcom-sta-6.30.223.271-59-6.12.68"
         ];
       };
     };
@@ -124,11 +124,14 @@
           x11Support = false;
     
           settings = {
-            animation = "none";
+	    lang = "en";
+            animation = "doom";
             auth_fails = 3;
             battery_id = "BAT0";
             bigclock = "en";
             bigclock_seconds = true;
+            brightness_down_key = "F1";
+            brightness_up_key = "F2";
             clock = "%a %b %d-%m-%Y";
             gameoflife_entropy_interval = 25;
             hibernate_cmd = "/run/current-system/sw/bin/systemctl hibernate";
@@ -140,10 +143,7 @@
             restart_key = "F12";
             save = true;
             session_log = ".local/var/stately-session.log";
-            text_in_center = true;
             vi_mode = true;
-            brightness_down_key = "F1";
-            brightness_up_key = "F2";
           };
         };
       };

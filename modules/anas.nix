@@ -62,6 +62,8 @@
       preferXdgDirectories = true;
 
       packages = with pkgs; [
+        self.packages.${pkgs.system}.neovim
+        antigravity
         anki
         obsidian
         logseq
@@ -83,7 +85,6 @@
         libsixel
         localsend
         mpv
-        neovim
         nsxiv
         pop
         playerctl
