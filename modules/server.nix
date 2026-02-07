@@ -1,11 +1,10 @@
 {
   inputs,
   self,
-  pkgs,
   ...
 }:
 {
-  flake.nixosModules.server = {
+  flake.nixosModules.server = { pkgs, ... }: {
     imports = [
       inputs.sops-nix.nixosModules.sops
     ];
@@ -19,6 +18,10 @@
       };
 
       secrets = {
+        "cloudflare" = {
+          owner = "acme";
+        };
+
         "librechat" = {
           owner = "librechat";
         };
@@ -50,7 +53,7 @@
       ReadWritePaths = [ "/var/lib/4get" ];
 
       BindPaths = [
-        "/var/lib/4get/icons:${pkgs."4get"}/share/4get/icons"
+        "/var/lib/4get/icons:${self.packages.${pkgs.system}."4get"}/share/4get/icons"
       ];
     };
 
@@ -272,8 +275,9 @@
         };
       };
 
-      mongodb-ce = {
+      mongodb = {
         enable = true;
+        package = pkgs.mongodb-ce;
       };
 
       nextcloud = {
@@ -297,166 +301,200 @@
         };
       };
 
-      nginx.virtualHosts = {
-        "chat.asherif.xyz" = {
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
-          locations."/" = {
-            proxyPass = "http://localhost:3080";
-            proxyWebsockets = true;
+      nginx = {
+        recommendedTlsSettings = true;
+        recommendedProxySettings = true;
+
+        virtualHosts = {
+          "p1.asherif.xyz" = {
+            forceSSL = true;
+            enableACME = true;
+            acmeRoot = null;
+            locations = {
+              "/" = {
+                proxyPass = "https://10.0.0.10:8006";
+                proxyWebsockets = true;
+              };
+            };
+          };
+
+          "accounts.asherif.xyz" = {
+            forceSSL = true;
+            enableACME = true;
+            acmeRoot = null;
+            locations = {
+              "/" = {
+                proxyPass = "https://10.0.0.2:9443";
+                proxyWebsockets = true;
+              };
+
+              "~ (/authentik)?/api" = {
+                proxyPass = "https://10.0.0.2:9443";
+                proxyWebsockets = true;
+              };
+            };
+          };
+
+          "chat.asherif.xyz" = {
+            forceSSL = true;
+            enableACME = true;
+            acmeRoot = null;
+            locations."/" = {
+              proxyPass = "http://localhost:3080";
+              proxyWebsockets = true;
+              extraConfig = ''
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+              '';
+            };
+          };
+
+          "code.asherif.xyz" = {
+            forceSSL = true;
+            enableACME = true;
+            acmeRoot = null;
+            locations."/" = {
+              proxyPass = "http://unix:/run/code-server/code-server.sock:/";
+              proxyWebsockets = true;
+              extraConfig = "proxy_pass_header Authorization;";
+            };
+          };
+
+          "docs.asherif.xyz" = {
+            forceSSL = true;
+            enableACME = true;
+            acmeRoot = null;
+            locations."/" = {
+              proxyPass = "http://localhost:28981";
+              proxyWebsockets = true;
+              extraConfig = "proxy_set_header Host $host;";
+            };
+          };
+
+          "git.asherif.xyz" = {
+            forceSSL = true;
+            enableACME = true;
+            acmeRoot = null;
+
+            locations = {
+              "/" = {
+                proxyPass = "http://unix:/run/gitea/gitea.sock:/";
+              };
+            };
+          };
+
+          "home.asherif.xyz" = {
+            forceSSL = true;
+            enableACME = true;
+            acmeRoot = null;
+            locations."/" = {
+              proxyPass = "http://localhost:8123";
+              proxyWebsockets = true;
+            };
+
             extraConfig = ''
-              proxy_set_header Host $host;
-              proxy_set_header X-Real-IP $remote_addr;
-              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-              proxy_set_header X-Forwarded-Proto $scheme;
+              proxy_buffering off;
             '';
           };
-        };
 
-        "code.asherif.xyz" = {
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
-          locations."/" = {
-            proxyPass = "http://unix:/run/code-server/code-server.sock:/";
-            proxyWebsockets = true;
-            extraConfig = "proxy_pass_header Authorization;";
+          "hub.asherif.xyz" = {
+            forceSSL = true;
+            enableACME = true;
+            acmeRoot = null;
           };
-        };
 
-        "docs.asherif.xyz" = {
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
-          locations."/" = {
-            proxyPass = "http://localhost:28981";
-            proxyWebsockets = true;
-            extraConfig = "proxy_set_header Host $host;";
-          };
-        };
+          "passwords.asherif.xyz" = {
+            forceSSL = true;
+            enableACME = true;
+            acmeRoot = null;
 
-        "git.asherif.xyz" = {
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
-
-          locations = {
-            "/" = {
-              proxyPass = "http://unix:/run/gitea/gitea.sock:/";
+            locations = {
+              "/" = {
+                proxyPass = "http://localhost:8222";
+                proxyWebsockets = true;
+              };
             };
           };
-        };
 
-        "home.asherif.xyz" = {
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
-          locations."/" = {
-            proxyPass = "http://localhost:8123";
-            proxyWebsockets = true;
-          };
+          "photos.asherif.xyz" = {
+            forceSSL = true;
+            enableACME = true;
+            acmeRoot = null;
 
-          extraConfig = ''
-            proxy_buffering off;
-          '';
-        };
+            locations = {
+              "/" = {
+                proxyPass = "http://localhost:2283";
+                proxyWebsockets = true;
 
-        "hub.asherif.xyz" = {
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
-        };
-
-        "passwords.asherif.xyz" = {
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
-
-          locations = {
-            "/" = {
-              proxyPass = "http://localhost:8222";
-              proxyWebsockets = true;
+                extraConfig = ''
+                  proxy_pass_header Authorization;
+                  client_max_body_size 10G;
+                '';
+              };
             };
           };
-        };
 
-        "photos.asherif.xyz" = {
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
+          "search.asherif.xyz" = {
+            root = "${self.packages.${pkgs.system}."4get"}/share/4get";
+            forceSSL = true;
+            enableACME = true;
+            acmeRoot = null;
 
-          locations = {
-            "/" = {
-              proxyPass = "http://localhost:2283";
-              proxyWebsockets = true;
+            locations = {
+              "/" = {
+                index = "index.php";
+                tryFiles = "$uri $uri/ $uri.php$is_args$query_string";
+              };
 
-              extraConfig = ''
-                proxy_pass_header Authorization;
-                client_max_body_size 10G;
-              '';
+              "/icons/" = {
+                alias = "/var/lib/4get/icons/";
+                extraConfig = "allow all;";
+              };
+
+              "~ \\.php$" = {
+                tryFiles = "$uri $uri/ $uri.php$is_args$query_string";
+
+                extraConfig = ''
+                  fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                  
+                  fastcgi_pass unix:/run/phpfpm/4get.sock;
+                  fastcgi_index index.php;
+                  fastcgi_buffer_size 128k;
+                  fastcgi_buffers 4 256k;
+                  fastcgi_busy_buffers_size 256k;
+                  include ${pkgs.nginx}/conf/fastcgi_params;
+                '';
+              };
             };
           };
-        };
 
-        "search.asherif.xyz" = {
-          root = "${self.packages.${pkgs.system}."4get"}/share/4get";
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
+          "torrent.asherif.xyz" = {
+            forceSSL = true;
+            enableACME = true;
+            acmeRoot = null;
+            locations = {
+              "/" = {
+                proxyPass = "http://localhost:9091";
+                proxyWebsockets = true;
 
-          locations = {
-            "/" = {
-              index = "index.php";
-              tryFiles = "$uri $uri/ $uri.php$is_args$query_string";
-            };
-
-            "/icons/" = {
-              alias = "/var/lib/4get/icons/";
-              extraConfig = "allow all;";
-            };
-
-            "~ \\.php$" = {
-              tryFiles = "$uri $uri/ $uri.php$is_args$query_string";
-
-              extraConfig = ''
-                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-                
-                fastcgi_pass unix:/run/phpfpm/4get.sock;
-                fastcgi_index index.php;
-                fastcgi_buffer_size 128k;
-                fastcgi_buffers 4 256k;
-                fastcgi_busy_buffers_size 256k;
-                include ${pkgs.nginx}/conf/fastcgi_params;
-              '';
+                extraConfig = ''
+                  proxy_pass_header Authorization;
+                '';
+              };
             };
           };
-        };
 
-        "torrent.asherif.xyz" = {
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
-          locations = {
-            "/" = {
-              proxyPass = "http://localhost:9091";
-              proxyWebsockets = true;
+          "x.asherif.xyz" = {
+            forceSSL = true;
+            enableACME = true;
+            acmeRoot = null;
 
-              extraConfig = ''
-                proxy_pass_header Authorization;
-              '';
-            };
-          };
-        };
-
-        "x.asherif.xyz" = {
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
-
-          locations = {
-            "/" = {
-              proxyPass = "http://localhost:59181";
+            locations = {
+              "/" = {
+                proxyPass = "http://localhost:59181";
+              };
             };
           };
         };

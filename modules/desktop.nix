@@ -1,39 +1,25 @@
 {
   self,
-  lib,
   inputs,
   ...
 }:
 {
-  flake.nixosModules.desktop = {
+  flake.nixosModules.desktop = { lib, ... }: {
     imports = [
       inputs.niri.nixosModules.niri
     ];
 
-    ## nixpkgs
-    nixpkgs = {
-      hostPlatform = lib.mkDefault "x86_64-linux";
-
-      overlays = [
-        # self.overlays.default
-        inputs.niri.overlays.niri
-        inputs.nix-cachyos-kernel.overlays.pinned
-      ];
-  
-      config = {
-        # allow unfree packages
-        allowUnfree = true;
-  
-        permittedInsecurePackages = [
-          "broadcom-sta-6.30.223.271-59-6.12.68"
-        ];
-      };
-    };
-
-
     home-manager = {
       users = {
         anas = {
+          home = {
+            pointerCursor = {
+              dotIcons = {
+                enable = false;
+              };
+            };
+          };
+
           imports = [
             self.homeModules.stylix
             self.homeModules.email
@@ -45,11 +31,53 @@
 
     ## boot
     boot = {
+      consoleLogLevel = 0;
+      initrd.verbose = false;
+
+      loader = {
+        timeout = 0;
+  
+        systemd-boot = {
+          enable = true;
+          editor = false;
+        };
+  
+        efi = {
+          canTouchEfiVariables = true;
+        };
+      };
+  
       plymouth = {
         enable = true;
       };
+
+      kernelParams = [
+        "quiet"
+        "splash"
+        "boot.shell_on_fail"
+        "loglevel=3"
+        "rd.systemd.show_status=false"
+        "rd.udev.log_level=3"
+        "udev.log_priority=3"
+      ];
     };
-    
+  
+    ## networking
+    networking = {
+      useDHCP = lib.mkDefault true;
+  
+      # firewall
+      firewall = {
+        enable = true;
+        allowPing = false;
+      };
+  
+      # networkmanager
+      networkmanager = {
+        enable = true;
+      };
+    };
+  
     ## hardware
     hardware = {
       graphics = {
@@ -82,11 +110,6 @@
           };
         };
       };
-    };
-    
-    ## environment
-    environment = {
-      pathsToLink = ["/share/applications" "/share/xdg-desktop-portal"];
     };
     
     ## security

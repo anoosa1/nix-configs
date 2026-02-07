@@ -1,41 +1,17 @@
 { inputs, self, ... }: {
   flake.nixosConfigurations.astra = inputs.nixpkgs.lib.nixosSystem {
     modules = [
+      self.nixosModules.anas
       self.nixosModules.astra
-      self.nixosModules.desktop
       self.nixosModules.nixos
       self.nixosModules.server
+      self.nixosModules.ssh
 
       (inputs.nixpkgs + "/nixos/modules/virtualisation/proxmox-lxc.nix")
     ];
   };
 
   flake.nixosModules.astra = {
-    sops = {
-      secrets = {
-        "cloudflare" = {
-          owner = "acme";
-        };
-      };
-    };
-
-    anoosa = {
-      "4get".enable = true;
-      code-server.enable = true;
-      gitea.enable = true;
-      home-assistant.enable = true;
-      immich.enable = true;
-      librechat.enable = true;
-      nextcloud.enable = true;
-      nitter.enable = true;
-      paperless.enable = true;
-      searx.enable = true;
-      soft-serve.enable = true;
-      ssh.enable = true;
-      transmission.enable = true;
-      vaultwarden.enable = true;
-    };
-
     ## networking
     networking = {
       hostName = "astra";
@@ -56,41 +32,6 @@
     };
 
     services = {
-      nginx = {
-        recommendedTlsSettings = true;
-        recommendedProxySettings = true;
-
-        virtualHosts = {
-          "accounts.asherif.xyz" = {
-            forceSSL = true;
-            enableACME = true;
-            acmeRoot = null;
-            locations = {
-              "/" = {
-                proxyPass = "https://10.0.0.2:9443";
-                proxyWebsockets = true;
-              };
-              "~ (/authentik)?/api" = {
-                proxyPass = "https://10.0.0.2:9443";
-                proxyWebsockets = true;
-              };
-            };
-          };
-
-          "p1.asherif.xyz" = {
-            forceSSL = true;
-            enableACME = true;
-            acmeRoot = null;
-            locations = {
-              "/" = {
-                proxyPass = "https://10.0.0.10:8006";
-                proxyWebsockets = true;
-              };
-            };
-          };
-        };
-      };
-
       # smb
       samba = {
         enable = true;

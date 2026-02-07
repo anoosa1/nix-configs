@@ -102,12 +102,6 @@
         zathura
       ];
 
-      pointerCursor = {
-        dotIcons = {
-          enable = false;
-        };
-      };
-
       sessionPath = [
         "$HOME/.local/bin"
       ];

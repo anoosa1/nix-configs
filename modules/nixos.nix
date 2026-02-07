@@ -1,52 +1,29 @@
 {
-  flake.nixosModules.nixos = { config, lib, pkgs, ... }: {
-    nixpkgs.config.allowUnfree = true;
+  inputs,
+  ...
+}:
+{
+  flake.nixosModules.nixos = { lib, pkgs, ... }: {
+    ## nixpkgs
+    nixpkgs = {
+      hostPlatform = lib.mkDefault "x86_64-linux";
 
-    ## boot
-    boot = {
-      loader = {
-        timeout = 0;
-  
-        systemd-boot = {
-          enable = true;
-          editor = false;
-        };
-  
-        efi = {
-          canTouchEfiVariables = true;
-        };
-      };
-  
-      # Enable "Silent Boot"
-      consoleLogLevel = 0;
-      initrd.verbose = false;
-      kernelParams = [
-        "quiet"
-        "splash"
-        "boot.shell_on_fail"
-        "loglevel=3"
-        "rd.systemd.show_status=false"
-        "rd.udev.log_level=3"
-        "udev.log_priority=3"
+      overlays = [
+        # self.overlays.default
+        inputs.niri.overlays.niri
+        inputs.nix-cachyos-kernel.overlays.pinned
       ];
-    };
   
-    ## networking
-    networking = {
-      useDHCP = lib.mkDefault true;
+      config = {
+        # allow unfree packages
+        allowUnfree = true;
   
-      # firewall
-      firewall = {
-        enable = true;
-        allowPing = false;
-      };
-  
-      # networkmanager
-      networkmanager = {
-        enable = true;
+        permittedInsecurePackages = [
+          "broadcom-sta-6.30.223.271-59-6.12.68"
+        ];
       };
     };
-  
+
     # time
     time = {
       # timezone
@@ -91,6 +68,8 @@
   
     ## environment
     environment = {
+      pathsToLink = ["/share/applications" "/share/xdg-desktop-portal"];
+    
       # variables
       sessionVariables = rec {
         XDG_BIN_HOME = "$HOME/.local/bin";
@@ -171,6 +150,7 @@
       tailscale = {
         enable = true;
         useRoutingFeatures = "both";
+        interfaceName = "userspace-networking";
       };
     };
     
