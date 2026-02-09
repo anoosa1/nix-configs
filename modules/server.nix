@@ -236,6 +236,10 @@
           };
 
           endpoints = {
+            agents = {
+              capabilities = [ "context" "ocr" ];
+            };
+
             custom = [
               {
                 name = "OpenRouter";

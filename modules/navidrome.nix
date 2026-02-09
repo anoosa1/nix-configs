@@ -3,11 +3,6 @@
     services = {
       navidrome = {
         enable = true;
-        group = "anas";
-
-        settings = {
-          MusicFolder = "/home/anas/audio";
-        };
       };
 
       nginx.virtualHosts."music.asherif.xyz" = {

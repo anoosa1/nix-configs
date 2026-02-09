@@ -10,7 +10,7 @@
           PasswordAuthentication = false;
           PermitRootLogin = "no";
           KbdInteractiveAuthentication = false;
-          AllowUsers = [ "anas" ];
+          AllowUsers = [ "anas" "gitea" ];
         };
       };
     };
