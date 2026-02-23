@@ -163,18 +163,18 @@
 
         commands = {
           #on-quit = "%${pkgs.ctpv}/bin/ctpv -e $id";
-          copyto = ''
-            ''${{
-            clear; ${pkgs.ncurses}/bin/tput cup $(($(${pkgs.ncurses}/bin/tput lines)/3)); ${pkgs.ncurses}/bin/tput bold
-            set -f
-            clear; echo "Copy to where?"
-            dest="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${config.xdg.configHome}/bm-dirs | ${pkgs.skim}/bin/sk | sed 's|~|$HOME|')" &&
-            for x in $fx; do
-                    eval cp -ivr \"$x\" \"$dest\"
-            done &&
-            notify-send "📋 File(s) copied." "File(s) copies to $dest."
-            }}
-          '';
+          #copyto = ''
+          #  ''${{
+          #  clear; ${pkgs.ncurses}/bin/tput cup $(($(${pkgs.ncurses}/bin/tput lines)/3)); ${pkgs.ncurses}/bin/tput bold
+          #  set -f
+          #  clear; echo "Copy to where?"
+          #  dest="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${config.xdg.configHome}/bm-dirs | ${pkgs.skim}/bin/sk | sed 's|~|$HOME|')" &&
+          #  for x in $fx; do
+          #          eval cp -ivr \"$x\" \"$dest\"
+          #  done &&
+          #  notify-send "📋 File(s) copied." "File(s) copies to $dest."
+          #  }}
+          #'';
           bulkrename = ''
             ''${{
             tmpfile_old="$(${pkgs.mktemp}/bin/mktemp)"
@@ -267,16 +267,16 @@
           "a" = "&xdg-open \"$f\"";
           "B" = "bulkrename";
           "b" = "$setbg.sh $f";
-          "C" = "copyto";
+          #"C" = "copyto";
           "c" = "push A<c-u>";
           "D" = "delete";
           "E" = "extract";
           "<c-e>" = "down";
-          "<c-f>" = "$lf -remote \"send $id select \"$(${pkgs.skim}/bin/sk)\"\"";
+          #"<c-f>" = "$lf -remote \"send $id select \"$(${pkgs.skim}/bin/sk)\"\"";
           "g" = "top";
           "I" = ":rename; cmd-home";
           "i" = ":rename; cmd-right";
-          "J" = "$lf -remote \"send $id cd $(sed -e 's/\\s*#.*//' -e '/^$/d' -e 's/^\\S*\\s*//' ${config.xdg.configHome}/bm-dirs | ${pkgs.skim}/bin/sk)\"";
+          #"J" = "$lf -remote \"send $id cd $(sed -e 's/\\s*#.*//' -e '/^$/d' -e 's/^\\S*\\s*//' ${config.xdg.configHome}/bm-dirs | ${pkgs.skim}/bin/sk)\"";
           "M" = "moveto";
           "<c-n>" = "push :mkdir<space>";
           "<c-r>" = "reload";
@@ -297,17 +297,17 @@
         '';
       };
 
-      skim = {
-        enable = true;
-        enableZshIntegration = true;
-        changeDirWidgetCommand = "fd --type d";
-        fileWidgetCommand = "fd --type f";
+      #skim = {
+      #  enable = true;
+      #  enableZshIntegration = true;
+      #  changeDirWidgetCommand = "fd --type d";
+      #  fileWidgetCommand = "fd --type f";
 
-        defaultOptions = [
-          "--prompt >"
-          "--height 15"
-        ];
-      };
+      #  defaultOptions = [
+      #    "--prompt >"
+      #    "--height 15"
+      #  ];
+      #};
 
       starship = {
         enable = true;
