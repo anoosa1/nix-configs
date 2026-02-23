@@ -7,6 +7,8 @@
   flake.nixosModules.server = { pkgs, ... }: {
     imports = [
       inputs.sops-nix.nixosModules.sops
+      self.nixosModules.music
+      self.nixosModules.ai
     ];
 
     ## sops
@@ -20,10 +22,6 @@
       secrets = {
         "cloudflare" = {
           owner = "acme";
-        };
-
-        "librechat" = {
-          owner = "librechat";
         };
 
         "nextcloud/admin/password" = {
@@ -162,124 +160,6 @@
         enable = true;
       };
 
-      librechat = {
-        enable = true;
-        enableLocalDB = true;
-        credentialsFile = "/run/secrets/librechat";
-
-        env = {
-          HOST = "localhost";
-          PORT = "3080";
-          ALLOW_EMAIL_LOGIN = false;
-          ALLOW_REGISTRATION = false;
-          ALLOW_SOCIAL_LOGIN = true;
-          ALLOW_SOCIAL_REGISTRATION = true;
-          DEEPSEEK_API_KEY = "user_provided";
-          OPENROUTER_API_KEY = "user_provided";
-          DOMAIN_CLIENT = "https://chat.asherif.xyz";
-          DOMAIN_SERVER = "https://chat.asherif.xyz";
-          ENDPOINTS = "agents,gptPlugins,google,deepseek,custom";    
-          GOOGLE_KEY = "user_provided";    
-          GOOGLE_MODELS = "gemini-3-pro-preview,gemini-3-pro-image-preview,gemini-3-flash-preview";    
-          OPENID_ADMIN_ROLE = "admin";    
-          OPENID_ADMIN_ROLE_TOKEN_KIND = "access";    
-          OPENID_AUTO_REDIRECT = true;    
-          OPENID_CALLBACK_URL = "/oauth/openid/callback";    
-          OPENID_GENERATE_NONCE = true;    
-          OPENID_JWKS_URL_CACHE_ENABLED = true;    
-          OPENID_REUSE_TOKENS = true;
-          OPENID_SCOPE = "openid profile email offline_access";
-          OPENID_USE_END_SESSION_ENDPOINT = true;
-          SEARXNG_INSTANCE_URL = "https://search.asherif.xyz";
-        };
-
-        settings = {
-          version = "1.0.8";
-
-          webSearch = {
-            searchProvider = "searxng";
-          };
-
-          memory = {
-            disabled = false;
-            personalize = true;
-            tokenLimit = 32000;
-            messageWindowSize = 5;
-
-            agent = {
-              provider = "Google";
-              model = "gemini-3-flash-preview";
-            };
-          };
-
-          mcpServers = {
-            nixos = {
-              command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
-              args = [
-                "-t"
-                "stdio"
-              ];
-            };
-
-            gitea = {
-              command = "${pkgs.gitea-mcp-server}/bin/gitea-mcp";
-
-              args = [
-                "-t"
-                "stdio"
-                "--host"
-                "https://git.asherif.xyz"
-                "--token"
-                "caf6a3dacae1e3ce2688471d9e4f7d7b6cd6a820"
-              ];
-            };
-          };
-
-          endpoints = {
-            custom = [
-              {
-                name = "OpenRouter";
-                apiKey = "\${OPENROUTER_API_KEY}";
-                baseURL = "https://openrouter.ai/api/v1";
-                titleConvo = true;
-                titleModel = "moonshotai/kimi-k2.5";
-                modelDisplayLabel = "OpenRouter";
-
-                models = {
-                  default = [
-                    "moonshotai/kimi-k2.5"
-                    "deepseek/deepseek-v3.2"
-                  ];
-                  fetch = true;
-                };
-              }
-              {
-                name = "Deepseek";
-                apiKey = "\${DEEPSEEK_API_KEY}";
-                baseURL = "https://api.deepseek.com/v1";
-                titleConvo = true;
-                titleModel = "deepseek-chat";
-                modelDisplayLabel = "Deepseek";
-
-                models = {
-                  fetch = true;
-
-                  default = [
-                    "deepseek-chat"
-                    "deepseek-reasoner"
-                  ];
-                };
-              }
-            ];
-          };
-        };
-      };
-
-      mongodb = {
-        enable = true;
-        package = pkgs.mongodb-ce;
-      };
-
       nextcloud = {
         enable = true;
         package = pkgs.nextcloud32;
@@ -332,22 +212,6 @@
                 proxyPass = "https://10.0.0.2:9443";
                 proxyWebsockets = true;
               };
-            };
-          };
-
-          "chat.asherif.xyz" = {
-            forceSSL = true;
-            enableACME = true;
-            acmeRoot = null;
-            locations."/" = {
-              proxyPass = "http://localhost:3080";
-              proxyWebsockets = true;
-              extraConfig = ''
-                proxy_set_header Host $host;
-                proxy_set_header X-Real-IP $remote_addr;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header X-Forwarded-Proto $scheme;
-              '';
             };
           };
 
@@ -406,16 +270,8 @@
           };
 
           "passwords.asherif.xyz" = {
-            forceSSL = true;
             enableACME = true;
             acmeRoot = null;
-
-            locations = {
-              "/" = {
-                proxyPass = "http://localhost:8222";
-                proxyWebsockets = true;
-              };
-            };
           };
 
           "photos.asherif.xyz" = {
@@ -591,17 +447,11 @@
       postgresql = {
         ensureDatabases = [
           "hass"
-          "vaultwarden"
         ];
 
         ensureUsers = [
           {
             name = "hass";
-            ensureDBOwnership = true;
-          }
-
-          {
-            name = "vaultwarden";
             ensureDBOwnership = true;
           }
         ];
@@ -622,14 +472,14 @@
       vaultwarden = {
         enable = true;
         dbBackend = "postgresql";
+        domain = "passwords.asherif.xyz";
+        configurePostgres = true;
+        configureNginx = true;
         environmentFile = "/run/secrets/vaultwarden";
 
         config = {
-          DATABASE_URL = "postgresql://vaultwarden@/vaultwarden";
-          DOMAIN = "https://passwords.asherif.xyz";
           EMAIL_CHANGE_ALLOWED = "false";
           EMAIL_EXPIRATION_TIME = "300";
-          ROCKET_PORT = "29486";
           SIGNUPS_ALLOWED = "false";
           SIGNUPS_DOMAINS_WHITELIST = "asherif.xyz";
           SMTP_PORT = "587";
