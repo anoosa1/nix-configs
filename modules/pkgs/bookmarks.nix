@@ -1,8 +1,8 @@
-# modules/pkgs/handler.nix
+# modules/pkgs/bookmarks.nix
 {
   perSystem = { pkgs, lib, ... }: {
-    packages.handler = pkgs.stdenvNoCC.mkDerivation {
-      pname = "handler";
+    packages.bookmarks = pkgs.stdenvNoCC.mkDerivation {
+      pname = "bookmarks";
       version = "1.0";
 
       nativeBuildInputs = [
@@ -24,7 +24,7 @@
       dontUnpack = true;
 
       installPhase = ''
-        local name="handler.sh"
+        local name="bookmarks.sh"
 
         install -D $src/$name $out/bin/$name
 
@@ -32,11 +32,11 @@
           --replace-warn "/bin/sh" "${pkgs.dash}/bin/dash"
 
         wrapProgram $out/bin/$name \
-          --prefix PATH : "${lib.makeBinPath [ pkgs.dash pkgs.yt-dlp pkgs.libnotify pkgs.wl-clipboard pkgs.curlMinimal pkgs.mpv pkgs.nsxiv pkgs.elinks pkgs.zathura pkgs.ts ]}"
+          --prefix PATH : "${lib.makeBinPath [ pkgs.dash pkgs.libnotify pkgs.wl-clipboard pkgs.bemenu ]}"
       '';
 
       meta = with lib; {
-        description = "Queue and download";
+        description = "Bookmark stuff with bemenu";
         homepage = "https://git.asherif.xyz/anoosa1/scripts";
         license = lib.licenses.gpl3;
         platforms = lib.platforms.all;

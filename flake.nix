@@ -97,7 +97,7 @@
 
     # apkgs
     apkgs = {
-      url = "git+ssh://git.asherif.xyz:23231/apkgs.git";
+      url = "git+ssh://gitea@git.asherif.xyz/anoosa/apkgs.git";
 
       inputs = {
         nixpkgs = {

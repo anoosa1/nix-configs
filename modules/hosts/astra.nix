@@ -6,7 +6,7 @@
       self.nixosModules.nixos
       self.nixosModules.server
       self.nixosModules.ssh
-      self.nixosModules.music
+      self.nixosModules.minecraft
 
       (inputs.nixpkgs + "/nixos/modules/virtualisation/proxmox-lxc.nix")
     ];
