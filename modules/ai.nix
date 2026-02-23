@@ -27,7 +27,7 @@
           DOMAIN_SERVER = "https://chat.asherif.xyz";
           ENDPOINTS = "agents,gptPlugins,google,deepseek,custom";    
           GOOGLE_KEY = "user_provided";    
-          GOOGLE_MODELS = "gemini-3-pro-preview,gemini-3-pro-image-preview,gemini-3-flash-preview";    
+          GOOGLE_MODELS = "gemini-3.1-pro-preview,gemini-3-pro-image-preview,gemini-3-flash-preview";    
           OPENID_ADMIN_ROLE = "admin";    
           OPENID_ADMIN_ROLE_TOKEN_KIND = "access";    
           OPENID_AUTO_REDIRECT = true;    

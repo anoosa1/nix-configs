@@ -92,7 +92,7 @@
 
         settings = {
           server = {
-            SSH_PORT = 222;
+            SSH_PORT = 22;
             PROTOCOL = "http+unix";
             ROOT_URL = "https://git.asherif.xyz";
             DOMIAIN = "git.asherif.xyz";
