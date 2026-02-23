@@ -63,7 +63,10 @@
 
       packages = with pkgs; [
         self.packages.${pkgs.system}.neovim
-        antigravity
+        qwen-code
+        google-chrome
+        gamescope
+        antigravity-fhs
         anki
         obsidian
         logseq

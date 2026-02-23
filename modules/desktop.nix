@@ -4,7 +4,7 @@
   ...
 }:
 {
-  flake.nixosModules.desktop = { lib, ... }: {
+  flake.nixosModules.desktop = { lib, pkgs, ... }: {
     imports = [
       inputs.niri.nixosModules.niri
     ];
@@ -117,14 +117,6 @@
       pam = {
         services = {
           swaylock = {};
-    
-          ly = {
-            gnupg = {
-              enable = true;
-              storeOnly = true;
-              noAutostart = true;
-            };
-          };
         };
       };
     
@@ -141,36 +133,18 @@
     
     ## services
     services = {
-      displayManager = {
-        ly = {
-          enable = true;
-          x11Support = false;
-    
-          settings = {
-	    lang = "en";
-            animation = "doom";
-            auth_fails = 3;
-            battery_id = "BAT0";
-            bigclock = "en";
-            bigclock_seconds = true;
-            brightness_down_key = "F1";
-            brightness_up_key = "F2";
-            clock = "%a %b %d-%m-%Y";
-            gameoflife_entropy_interval = 25;
-            hibernate_cmd = "/run/current-system/sw/bin/systemctl hibernate";
-            hibernate_key = "F11";
-            hide_version_string = true;
-            inactivity_cmd = "/run/current-system/sw/bin/systemctl suspend";
-            inactivity_delay = 30;
-            numlock = true;
-            restart_key = "F12";
-            save = true;
-            session_log = ".local/var/stately-session.log";
-            vi_mode = true;
+      greetd = {
+        enable = true;
+        useTextGreeter = true;
+
+        settings = {
+          default_session = {
+            command = "${pkgs.tuigreet}/bin/tuigreet --time";
+            user = "greeter";
           };
         };
       };
-    
+
       # keyd
       keyd = {
         enable = true;
@@ -291,6 +265,14 @@
 
       wpaperd = {
         enable = true;
+
+        settings = {
+          default = {
+            duration = "10m";
+            sorting = "ascending";
+            path = "/home/anas/pics/saved pics/wallpapers";
+          };
+        };
       };
     };
 
@@ -342,7 +324,7 @@
 
       niri = {
         settings = {
-          screenshot-path = "~/pics/Screenshots/Screenshot_%Y%m%d-%H%M%S";
+          screenshot-path = "~/pics/screenshots/Screenshot_%Y%m%d-%H%M%S";
           prefer-no-csd = true;
 
           animations = {
@@ -398,6 +380,7 @@
 
           spawn-at-startup = [
             { command = [ "xwayland-satellite" ]; }
+            { command = [ "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP" "DISPLAY" ]; }
           ];
 
           binds = with config.lib.niri.actions; {
@@ -458,6 +441,7 @@
             };
 
             "Print".action.screenshot = [];
+            "Mod+XF86AudioRaiseVolume".action.screenshot = [];
             "Ctrl+Print".action.screenshot-screen = [];
             "Shift+Print".action.screenshot-window = [];
 

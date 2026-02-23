@@ -33,6 +33,7 @@
     };
 
     services = {
+      tailscale.interfaceName = "userspace-networking";
       # smb
       samba = {
         enable = true;

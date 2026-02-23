@@ -12,9 +12,9 @@
 
   flake.nixosModules.apollo = { pkgs, ... }: {
     boot = {
-      kernelPackages = pkgs.linuxPackages_6_12;
-      kernelModules = [ "kvm-intel" "wl" ];
-      extraModulePackages = [ pkgs.linuxPackages_6_12.broadcom_sta ];
+      kernelPackages = pkgs.linuxPackages_latest;
+      kernelModules = [ "kvm-intel" ];
+      extraModulePackages = [ ];
 
       initrd = {
         availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];

@@ -27,7 +27,6 @@
   flake.homeModules.stylix = { pkgs, ... }: {
     stylix = {
       enable = true;
-      image = ../wallpaper.jpg;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
       polarity = "dark";
       autoEnable = false;
@@ -89,7 +88,6 @@
         swaylock.enable = true;
         sxiv.enable = true;
         tmux.enable = true;
-        wpaperd.enable = true;
         zathura.enable = true;
       };
     };
