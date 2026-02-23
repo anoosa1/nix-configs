@@ -31,20 +31,6 @@
       };
     };
 
-    # nixos-hardware
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-
-    # nix-cachyos-kernel
-    nix-cachyos-kernel = {
-      url = "github:xddxdd/nix-cachyos-kernel/release";
-
-      inputs = {
-        nixpkgs = {
-          follows = "nixpkgs";
-        };
-      };
-    };
-
     # sops-nix
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -67,17 +53,6 @@
       };
     };
 
-    # authentik-nix
-    authentik-nix = {
-      url = "github:nix-community/authentik-nix";
-
-      inputs = {
-        nixpkgs = {
-          follows = "nixpkgs";
-        };
-      };
-    };
-
     # stylix
     stylix = {
       url = "github:danth/stylix";
@@ -91,19 +66,8 @@
     ## Personal flakes
     # Secrets
     secrets = {
-      url = "git+ssh://git@github.com/anoosa1/secrets.git";
+      url = "git+ssh://gitea@git.asherif.xyz/anoosa/secrets.git";
       flake = false;
-    };
-
-    # apkgs
-    apkgs = {
-      url = "git+ssh://gitea@git.asherif.xyz/anoosa/apkgs.git";
-
-      inputs = {
-        nixpkgs = {
-          follows = "nixpkgs";
-        };
-      };
     };
   };
 

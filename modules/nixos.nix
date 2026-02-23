@@ -11,7 +11,6 @@
       overlays = [
         # self.overlays.default
         inputs.niri.overlays.niri
-        inputs.nix-cachyos-kernel.overlays.pinned
       ];
   
       config = {

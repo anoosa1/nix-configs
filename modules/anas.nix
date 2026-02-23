@@ -76,7 +76,6 @@
         bat-extras.batgrep
         bat-extras.batman
         bat-extras.prettybat
-        bluetui
         brave
         dua
         dust

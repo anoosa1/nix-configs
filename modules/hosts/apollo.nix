@@ -49,12 +49,6 @@
 
     hardware = {
       cpu.intel.updateMicrocode = true;
-
-      # bluetooth
-      bluetooth = {
-        enable = true;
-        powerOnBoot = true;
-      };
     };
   };
 }

@@ -94,10 +94,6 @@
         enable = true;
       };
     
-      dconf = {
-        enable = true;
-      };
-    
       # uwsm
       uwsm = {
         enable = true;
@@ -133,18 +129,6 @@
     
     ## services
     services = {
-      greetd = {
-        enable = true;
-        useTextGreeter = true;
-
-        settings = {
-          default_session = {
-            command = "${pkgs.tuigreet}/bin/tuigreet --time";
-            user = "greeter";
-          };
-        };
-      };
-
       # keyd
       keyd = {
         enable = true;
@@ -159,16 +143,6 @@
             };
           };
         };
-      };
-    
-      gnome = {
-        gnome-keyring = {
-          enable = true;
-        };
-      };
-    
-      gvfs = {
-        enable = true;
       };
     
       # pipewire
@@ -189,26 +163,16 @@
         };
       };
     
-      power-profiles-daemon = {
+      greetd = {
         enable = true;
-      };
-    
-      #greetd = {
-      #  enable = true;
-      #  settings = {
-      #    default_session = {
-      #      command = "${pkgs.tuigreet}/bin/tuigreet --time";
-      #      user = "greeter";
-      #    };
-      #  };
-      #};
-    
-      udisks2 = {
-        enable = true;
-      };
-    
-      upower = {
-        enable = true;
+        useTextGreeter = true;
+
+        settings = {
+          default_session = {
+            command = "${pkgs.tuigreet}/bin/tuigreet --time";
+            user = "greeter";
+          };
+        };
       };
     };
   };
@@ -219,6 +183,8 @@
       wl-clipboard
       wtype
       xwayland-satellite
+      libnotify
+      rbw
     ];
 
     services = {
@@ -379,7 +345,6 @@
           };
 
           spawn-at-startup = [
-            { command = [ "xwayland-satellite" ]; }
             { command = [ "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP" "DISPLAY" ]; }
           ];
 
@@ -389,13 +354,13 @@
             "Mod+Ctrl+Backspace".action = power-off-monitors;
 
             "Mod+D".action.spawn = "bemenu-run";
+            "Mod+R".action.spawn = "kitty -e lf";
             "Mod+Return".action.spawn = "kitty";
             "Mod+Shift+Slash".action = show-hotkey-overlay;
 
             "Mod+C".action = center-column;
             "Mod+B".action = spawn "battery.sh";
             "Mod+N".action = spawn "logseq";
-            "Mod+Shift+N".action = spawn "obsidian";
             "Mod+Ctrl+C".action = center-visible-columns;
 
             "Mod+F".action = maximize-column;
@@ -465,31 +430,31 @@
             "Mod+Shift+9".action.move-column-to-workspace = 9;
 
             "XF86MonBrightnessUp" = {
-              action = spawn "${pkgs.brightnessctl}/bin/brightnessctl" "--class=backlight" "set" "+10%";
+              action = spawn "brightnessctl" "--class=backlight" "set" "+10%";
               allow-when-locked = true;
             };
             "XF86MonBrightnessDown" = {
-              action = spawn "${pkgs.brightnessctl}/bin/brightnessctl" "--class=backlight" "set" "10%-";
+              action = spawn "brightnessctl" "--class=backlight" "set" "10%-";
               allow-when-locked = true;
             };
             "XF86KbdBrightnessUp" = {
-              action = spawn "${pkgs.brightnessctl}/bin/brightnessctl" "--device=smc::kbd_backlight" "set" "+10%";
+              action = spawn "brightnessctl" "--device=smc::kbd_backlight" "set" "+10%";
               allow-when-locked = true;
             };
             "XF86KbdBrightnessDown" = {
-              action = spawn "${pkgs.brightnessctl}/bin/brightnessctl" "--device=smc::kbd_backlight" "set" "10%-";
+              action = spawn "brightnessctl" "--device=smc::kbd_backlight" "set" "10%-";
               allow-when-locked = true;
             };
             "XF86AudioRaiseVolume" = {
-              action = spawn "${pkgs.pulsemixer}/bin/pulsemixer" "--change-volume" "+5";
+              action = spawn "pulsemixer" "--change-volume" "+5";
               allow-when-locked = true;
             };
             "XF86AudioLowerVolume" = {
-              action = spawn "${pkgs.pulsemixer}/bin/pulsemixer" "--change-volume" "-5";
+              action = spawn "pulsemixer" "--change-volume" "-5";
               allow-when-locked = true;
             };
             "XF86AudioMute" = {
-              action = spawn "${pkgs.pulsemixer}/bin/pulsemixer" "--toggle-mute";
+              action = spawn "pulsemixer" "--toggle-mute";
               allow-when-locked = true;
             };
 
@@ -534,7 +499,7 @@
 
       password-store = {
         enable = true;
-        package = pkgs.pass-wayland.withExtensions (ext: with ext; [ pass-audit pass-otp pass-import pass-genphrase pass-update pass-tomb ]);
+        package = pkgs.pass-wayland.withExtensions (ext: with ext; [ pass-otp pass-import pass-genphrase ]);
 
         settings = {
           PASSWORD_STORE_DIR = "${config.xdg.dataHome}/passwords";
