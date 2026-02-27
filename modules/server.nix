@@ -52,6 +52,7 @@
 
       BindPaths = [
         "/var/lib/4get/icons:${self.packages.${pkgs.system}."4get"}/share/4get/icons"
+        "/var/lib/4get/data/config.php:${self.packages.${pkgs.system}."4get"}/share/4get/data/config.php"
       ];
     };
 
@@ -71,10 +72,11 @@
         package = pkgs.vscode-with-extensions.override {
           vscode = pkgs.code-server;
           vscodeExtensions = with pkgs.vscode-extensions; [
+            Google.gemini-cli-vscode-ide-companion
             asvetliakov.vscode-neovim
             bbenoist.nix
-            Google.gemini-cli-vscode-ide-companion
-            jdinhlife.gruvbox
+            catppuccin.catppuccin-vsc
+            catppuccin.catppuccin-vsc-icons
             llvm-vs-code-extensions.vscode-clangd
             ms-dotnettools.csharp
             ms-python.python
@@ -104,6 +106,11 @@
 
           service = {
             DISABLE_REGISTRATION = true;
+          };
+
+          ui = {
+            THEMES = "catppuccin-rosewater-auto,catppuccin-flamingo-auto,catppuccin-pink-auto,catppuccin-mauve-auto,catppuccin-red-auto,catppuccin-maroon-auto,catppuccin-peach-auto,catppuccin-yellow-auto,catppuccin-green-auto,catppuccin-teal-auto,catppuccin-sky-auto,catppuccin-sapphire-auto,catppuccin-blue-auto,catppuccin-lavender-auto";
+            DEFAULT_THEME = "catppuccin-pink-auto";
           };
         };
 
@@ -241,6 +248,11 @@
             forceSSL = true;
             enableACME = true;
             acmeRoot = null;
+
+            extraConfig = ''
+              proxy_hide_header X-Frame-Options;
+              add_header Content-Security-Policy "frame-ancestors 'self' https://*.asherif.xyz;" always;
+            '';
 
             locations = {
               "/" = {
