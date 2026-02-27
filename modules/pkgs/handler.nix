@@ -18,7 +18,7 @@
         owner = "anoosa";
         repo = "scripts";
         rev = "master"; 
-        sha256 = "sha256-M0e22mU09+rddCbZxK8GxVZ1WOL45IlKqzi2MCqMXkA=";
+        sha256 = "sha256-SQWrFl26jALAmjGsAGMmybbo9R6tqYQ/xRDpUIZb7Lk=";
       };
 
       dontUnpack = true;
@@ -32,7 +32,7 @@
           --replace-warn "/bin/sh" "${pkgs.dash}/bin/dash"
 
         wrapProgram $out/bin/$name \
-          --prefix PATH : "${lib.makeBinPath [ pkgs.dash pkgs.yt-dlp pkgs.libnotify pkgs.wl-clipboard pkgs.curlMinimal pkgs.mpv pkgs.nsxiv pkgs.elinks pkgs.zathura pkgs.ts ]}"
+          --prefix PATH : "${lib.makeBinPath [ pkgs.dash pkgs.yt-dlp pkgs.libnotify pkgs.wl-clipboard pkgs.curlMinimal pkgs.mpv pkgs.imv pkgs.elinks pkgs.zathura pkgs.ts ]}"
       '';
 
       meta = with lib; {

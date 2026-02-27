@@ -4,30 +4,14 @@
   ...
 }:
 {
-  flake.nixosModules.stylix = { pkgs, ... }: {
+  flake.homeModules.stylix = { pkgs, ... }: {
     imports = [
-      inputs.stylix.nixosModules.stylix
+      inputs.stylix.homeModules.stylix
     ];
 
     stylix = {
       enable = true;
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
-      polarity = "dark";
-      autoEnable = false;
-
-      targets = {
-        plymouth = {
-          enable = true;
-          logoAnimated = false;
-        };
-      };
-    };
-  };
-
-  flake.homeModules.stylix = { pkgs, ... }: {
-    stylix = {
-      enable = true;
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
       polarity = "dark";
       autoEnable = false;
 
@@ -39,9 +23,9 @@
 
       icons = {
         enable = true;
-        light = "Adwaita";
-        dark = "Adwaita:dark";
-        package = pkgs.adwaita-icon-theme;
+        light = "Papirus-Light";
+        dark = "Papirus-Dark";
+        package = pkgs.catppuccin-papirus-folders.override { flavor = "mocha"; accent = "pink"; };
       };
 
       fonts = {
@@ -82,7 +66,7 @@
         dunst.enable = true;
         gtk.enable = true;
         kitty.enable = true;
-        niri.enable = true;
+        #niri.enable = true;
         qutebrowser.enable = true;
         starship.enable = true;
         swaylock.enable = true;

@@ -118,8 +118,8 @@
 
               theme = {
                 enable = true;
-                name = "nord";
-                style = "dark";
+                name = "catppuccin";
+                style = "mocha";
                 transparent = true;
               };
 

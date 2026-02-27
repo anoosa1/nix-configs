@@ -6,7 +6,6 @@
       self.nixosModules.desktop
       self.nixosModules.nixos
       self.nixosModules.ssh
-      self.nixosModules.stylix
     ];
   };
 

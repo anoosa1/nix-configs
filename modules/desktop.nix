@@ -49,6 +49,11 @@
   
       plymouth = {
         enable = true;
+        theme = "catppuccin-mocha";
+
+        themePackages = [
+          ( pkgs.catppuccin-plymouth.override { variant = "mocha"; })
+        ];
       };
 
       kernelParams = [
@@ -62,6 +67,17 @@
       ];
     };
   
+    ## environment
+    environment = {
+      pathsToLink = ["/share/applications" "/share/xdg-desktop-portal"];
+
+      # system packages
+      systemPackages = [
+        pkgs.waylock
+        pkgs.brightnessctl
+      ];
+    };
+
     ## networking
     networking = {
       useDHCP = lib.mkDefault true;
@@ -110,12 +126,6 @@
     
     ## security
     security = {
-      pam = {
-        services = {
-          swaylock = {};
-        };
-      };
-    
       # polkit
       polkit = {
         enable = true;
@@ -143,6 +153,42 @@
             };
           };
         };
+      };
+
+      # kmscon
+      kmscon = {
+        enable = true;
+        hwRender = true;
+
+        extraConfig = ''
+          font-size=24
+          palette=custom
+          palette-black=30,30,46
+          palette-red=243,139,168
+          palette-green=166,227,161
+          palette-yellow=249,226,175
+          palette-blue=137,180,250
+          palette-magenta=245,194,231
+          palette-cyan=148,226,213
+          palette-light-grey=186,194,222
+          palette-dark-grey=88,91,112
+          palette-light-red=243,139,168
+          palette-light-green=166,227,161
+          palette-light-yellow=249,226,175
+          palette-light-blue=137,180,250
+          palette-light-magenta=245,194,231
+          palette-light-cyan=148,226,213
+          palette-white=166,173,200
+          palette-foreground=186,194,222
+          palette-background=30,30,46
+        '';
+
+        fonts = [
+          {
+            name = "Comic Code";
+            package = self.packages.${pkgs.system}.comic-code;
+          }
+        ];
       };
     
       # pipewire
@@ -174,81 +220,81 @@
           };
         };
       };
+
+      upower = {
+        enable = true;
+      };
+
+      tuned = {
+        enable = true;
+      };
     };
   };
 
   flake.homeModules.desktop = { config, pkgs, ... }: {
-    home.packages = with pkgs; [
-      bemenu
-      wl-clipboard
-      wtype
-      xwayland-satellite
-      libnotify
-      rbw
+    imports = [
+      inputs.noctalia.homeModules.default
     ];
 
-    services = {
-      dunst = {
-        enable = true;
+    home.packages = with pkgs; [
+      self.packages.${pkgs.system}.bookmarks
+      antigravity-fhs
+      brave
+      gamescope
+      google-chrome
+      imv
+      kitty
+      libnotify
+      logseq
+      prismlauncher
+      rbw
+      wl-clipboard
+      wtype
+      zathura
+    ];
 
-        settings = {
-          global = {
-            browser = "$BROWSER";
-            follow = "mouse";
-            format = "<b>%s</b>\\n%b";
-            frame_width = 2;
-            width = "370";
-            height = "350";
-            offset = "10x10";
-            horizontal_padding = 8;
-            icon_position = "off";
-            line_height = 0;
-            markup = "full";
-            padding = 8;
-            separator_height = 2;
-            transparency = 10;
-            word_wrap = true;
-          };
-
-          urgency_low = {
-            timeout = 10;
-          };
-
-          urgency_normal = {
-            timeout = 15;
-          };
-
-          urgency_critical = {
-            timeout = 0;
-          };
-        };
+    home.file.".local/var/cache/noctalia/wallpapers.json" = {
+      text = builtins.toJSON {
+        defaultWallpaper = "/home/anas/pics/saved\ pics/wallpapers/catppuccin/wheat.png";
       };
+    };
 
+    services = {
       pass-secret-service = {
         enable = true;
         storePath = "${config.xdg.dataHome}/passwords";
       };
-
-      wpaperd = {
-        enable = true;
-
-        settings = {
-          default = {
-            duration = "10m";
-            sorting = "ascending";
-            path = "/home/anas/pics/saved pics/wallpapers";
-          };
-        };
-      };
     };
 
     programs = {
+      bemenu = {
+        enable = true;
+
+        settings = {
+          ignorecase = true;
+          fb = "#1e1e2e";
+          ff = "#cdd6f4";
+          nb = "#1e1e2e";
+          nf = "#cdd6f4";
+          tb = "#1e1e2e";
+          hb = "#1e1e2e";
+          tf = "#f38ba8";
+          hf = "#f9e2af";
+          af = "#cdd6f4";
+          ab = "#1e1e2e";
+        };
+      };
+
       kitty = {
         enable = true;
 
         font = {
           name = "Comic Code";
           size = 16;
+        };
+
+        shellIntegration = {
+          enableZshIntegration = true;
         };
 
         settings = {
@@ -292,6 +338,10 @@
         settings = {
           screenshot-path = "~/pics/screenshots/Screenshot_%Y%m%d-%H%M%S";
           prefer-no-csd = true;
+
+          debug = {
+            honor-xdg-activation-with-invalid-serial = [];
+          };
 
           animations = {
             slowdown = 0.7;
@@ -346,22 +396,28 @@
 
           spawn-at-startup = [
             { command = [ "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP" "DISPLAY" ]; }
+            { command = [ "noctalia-shell" ]; }
           ];
 
           binds = with config.lib.niri.actions; {
-            "Mod+Backspace".action.spawn = "swaylock";
+            "Mod+Backspace".action.spawn = [ "noctalia-shell" "ipc" "call" "lockScreen" "lock" ];
             "Mod+Shift+Backspace".action = quit;
             "Mod+Ctrl+Backspace".action = power-off-monitors;
 
             "Mod+D".action.spawn = "bemenu-run";
+            "Mod+Shift+D".action.spawn = [ "noctalia-shell" "ipc" "call" "launcher" "toggle" ];
             "Mod+R".action.spawn = "kitty -e lf";
             "Mod+Return".action.spawn = "kitty";
             "Mod+Shift+Slash".action = show-hotkey-overlay;
 
-            "Mod+C".action = center-column;
+            "Mod+Shift+B".action = center-column;
             "Mod+B".action = spawn "battery.sh";
             "Mod+N".action = spawn "logseq";
             "Mod+Ctrl+C".action = center-visible-columns;
+
+            "Mod+C".action = spawn "bookmarks.sh" "--save";
+            "Mod+Shift+C".action = spawn "bookmarks.sh" "--copy";
+            "Mod+V".action = spawn "bookmarks.sh" "--type";
 
             "Mod+F".action = maximize-column;
             "Mod+Shift+F".action = fullscreen-window;
@@ -445,18 +501,21 @@
               action = spawn "brightnessctl" "--device=smc::kbd_backlight" "set" "10%-";
               allow-when-locked = true;
             };
-            "XF86AudioRaiseVolume" = {
-              action = spawn "pulsemixer" "--change-volume" "+5";
-              allow-when-locked = true;
-            };
-            "XF86AudioLowerVolume" = {
-              action = spawn "pulsemixer" "--change-volume" "-5";
-              allow-when-locked = true;
-            };
-            "XF86AudioMute" = {
-              action = spawn "pulsemixer" "--toggle-mute";
-              allow-when-locked = true;
-            };
+            #"XF86AudioRaiseVolume" = {
+            #  action = spawn "pulsemixer" "--change-volume" "+5";
+            #  allow-when-locked = true;
+            #};
+            #"XF86AudioLowerVolume" = {
+            #  action = spawn "pulsemixer" "--change-volume" "-5";
+            #  allow-when-locked = true;
+            #};
+            #"XF86AudioMute" = {
+            #  action = spawn "pulsemixer" "--toggle-mute";
+            #  allow-when-locked = true;
+            #};
+            "XF86AudioLowerVolume".action.spawn = [ "noctalia-shell" "ipc" "call" "volume" "decrease" ];
+            "XF86AudioRaiseVolume".action.spawn = [ "noctalia-shell" "ipc" "call" "volume" "increase" ];
+            "XF86AudioMute".action.spawn = [ "noctalia-shell" "ipc" "call" "volume" "muteOutput" ];
 
             "Mod+J".action = focus-column-left-or-last;
             "Mod+K".action = focus-column-right-or-first;
@@ -470,9 +529,33 @@
             "Mod+Ctrl+Shift+K".action = move-window-up-or-to-workspace-up;
           };
 
+          window-rules = [
+            {
+              geometry-corner-radius = {
+                bottom-left = 20.0;
+                bottom-right = 20.0;
+                top-left = 20.0;
+                top-right = 20.0;
+              };
+              clip-to-geometry = true;
+            }
+          ];
+
           layout = {
             gaps = 0;
-            default-column-display = "tabbed";
+
+            border = {
+              enable = true;
+              width = 3;
+
+              active = {
+                color = "#F4B8E4";
+              };
+
+              inactive = {
+                color = "#626880";
+              };
+            };
 
             default-column-width = {
               proportion = 0.5;
@@ -493,6 +576,235 @@
               right = 0;
               top = 0;
             };
+          };
+        };
+      };
+
+      noctalia-shell = {
+        enable = true;
+
+        settings = {
+          appLauncher = {
+            autoPasteClipboard = true;
+            enableClipboardHistory = true;
+            showCategories = false;
+            terminalCommand = "kitty -e";
+
+            pinnedApps = [
+              "Logseq"
+              "kitty"
+              "org.qutebrowser.qutebrowser"
+            ];
+          };
+
+          audio = {
+            volumeOverdrive = false;
+            preferredPlayer = "mpv";
+            #volumeFeedback = false;
+            #volumeFeedbackSoundFile = "";
+          };
+
+          bar = {
+            position = "top";
+            showOutline = true;
+            showCapsule = true;
+            widgetSpacing = 6;
+            contentPadding = 4;
+            outerCorners = false;
+            hideOnOverview = true;
+            displayMode = "auto_hide";
+            autoShowDelay = 100;
+            showOnWorkspaceSwitch = true;
+            widgets = {
+              left = [
+                {
+                  colorizeDistroLogo = false;
+                  colorizeSystemIcon = "none";
+                  enableColorization = true;
+                  icon = "noctalia";
+                  id = "ControlCenter";
+                  useDistroLogo = true;
+                }
+                {
+                  id = "Workspace";
+                  pillSize = 0.5;
+                }
+                {
+                  colorizeIcons = true;
+                  hideMode = "hidden";
+                  id = "Taskbar";
+                }
+              ];
+              center = [
+                {
+                  colorizeIcons = true;
+                  hideMode = "hidden";
+                  id = "ActiveWindow";
+                }
+                {
+                  hideMode = "hidden";
+                  hideWhenIdle = false;
+                  id = "MediaMini";
+                  panelShowAlbumArt = true;
+                  panelShowVisualizer = true;
+                  scrollingMode = "hover";
+                  showAlbumArt = true;
+                  showArtistFirst = false;
+                  showProgressRing = true;
+                  showVisualizer = true;
+                }
+              ];
+              right = [
+                {
+                  displayMode = "alwaysShow";
+                  id = "Volume";
+                  middleClickCommand = "pulsemixer --toggle-mute";
+                }
+                {
+                  displayMode = "alwaysShow";
+                  id = "Microphone";
+                  middleClickCommand = "pulsemixer --id source-53 --toggle-mute";
+                }
+                {
+                  displayMode = "alwaysShow";
+                  id = "Brightness";
+                }
+                {
+                  id = "Network";
+                }
+                {
+                  displayMode = "icon-always";
+                  id = "Battery";
+                  showNoctaliaPerformance = true;
+                  showPowerProfiles = true;
+                }
+                {
+                  hideWhenZero = false;
+                  hideWhenZeroUnread = false;
+                  iconColor = "none";
+                  id = "NotificationHistory";
+                }
+                {
+                  colorizeIcons = true;
+                  drawerEnabled = true;
+                  id = "Tray";
+                }
+                {
+                  formatHorizontal = "HH:mm:ss";
+                  id = "Clock";
+                }
+                {
+                  iconColor = "error";
+                  id = "SessionMenu";
+                }
+              ];
+            };
+          };
+
+          brightness = {
+            enforceMinimum = false;
+          };
+
+          colorSchemes = {
+            useWallpaperColors = false;
+            predefinedScheme = "Catppuccin";
+            darkMode = true;
+          };
+
+          controlCenter = {
+            shortcuts = {
+              left = [
+                {
+                  id = "Network";
+                }
+                {
+                  id = "AirplaneMode";
+                }
+                {
+                  id = "WallpaperSelector";
+                }
+                {
+                  id = "Notifications";
+                }
+              ];
+
+              right = [
+                {
+                  id = "NoctaliaPerformance";
+                }
+                {
+                  id = "PowerProfile";
+                }
+                {
+                  id = "KeepAwake";
+                }
+                {
+                  id = "NightLight";
+                }
+              ];
+            };
+          };
+
+          desktopWidgets = {
+            enabled = false;
+          };
+
+          dock = {
+            enabled = false;
+          };
+
+          general = {
+            animationSpeed = 1.75;
+            avatarImage = "/home/anas/pics/saved\ pics/avatars/433397787_2224237877924749_1519880664654280686_n.jpg";
+            clockFormat = "hh:mm:ss";
+            clockStyle = "custom";
+            dimmerOpacity = 0.1;
+            enableShadows = false;
+            lockOnSuspend = true;
+            lockScreenAnimations = true;
+            lockScreenBlur = 0.2;
+            showChangelogOnStartup = true;
+            showHibernateOnLockScreen = true;
+            showSessionButtonsOnLockScreen = true;
+          };
+
+          location = {
+            name = "Milton, Ontario";
+            showWeekNumberInCalendar = true;
+          };
+
+          nightLight = {
+            enabled = true;
+            autoSchedule = true;
+            nightTemp = "1000";
+          };
+
+          notifications = {
+            clearDismissed = false;
+            density = "compact";
+            enableMarkdown = true;
+          };
+
+          osd = {
+            autoHideMs = 1000;
+          };
+
+          sessionMenu = {
+            enableCountdown = false;
+            largeButtonsStyle = false;
+          };
+
+          ui = {
+            fontDefault = "Comic Code";
+            fontFixed = "Comic Code";
+            panelBackgroundOpacity = 0.75;
+          };
+
+          wallpaper = {
+            directory = "/home/anas/pics/saved pics/wallpapers/catppuccin";
+            overviewBlur = 0;
+            overviewEnabled = true;
+            overviewTint = 0.1;
           };
         };
       };
@@ -518,10 +830,6 @@
         searchEngines = {
           g = "https://www.google.com/search?hl=en&q={}";
         };
-      };
-
-      swaylock = {
-        enable = true;
       };
     };
   };

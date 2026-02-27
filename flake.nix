@@ -15,6 +15,15 @@
       url = "github:notashelf/nvf";
     };
 
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+    };
+
     # flake-parts
     flake-parts = {
       url = "github:hercules-ci/flake-parts";

@@ -18,7 +18,7 @@
         pkgs.file
         pkgs.fzf
         pkgs.p7zip
-        pkgs.renameutils
+        #pkgs.renameutils
         pkgs.unrar
         pkgs.unzip
         self.packages.${pkgs.system}.handler
@@ -233,12 +233,20 @@
             case $(file --mime-type "$(readlink -f $f)" -b) in
                 image/vnd.djvu|application/pdf|application/octet-stream|application/postscript) setsid -f zathura $fx >/dev/null 2>&1 ;;
                 text/*|application/json|inode/x-empty|application/x-subrip) $EDITOR $fx;;
-                image/*) rotdir.sh $f |
-                  grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|avif\|tif\|ico\)\(_large\)*$" | 
-                  setsid -f nsxiv -aio 2>/dev/null | while read -r file; do
-                    [ -z "$file" ] && continue
-                    lf -remote "send select \"$file\""
-                    lf -remote "send toggle"
+                #image/*) rotdir.sh $f |
+                #  grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|avif\|tif\|ico\)\(_large\)*$" | 
+                #  setsid -f nsxiv -aio 2>/dev/null | while read -r file; do
+                #    [ -z "$file" ] && continue
+                #    lf -remote "send select \"$file\""
+                #    lf -remote "send toggle"
+                #  done & ;;
+                image/*)
+                  ls | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|avif\|tif\|ico\)\(_large\)*$" | \
+                  imv -n "$(basename "$f")" -c 'bind <Return> exec echo $imv_current_file' - 2>/dev/null | \
+                  while read -r file; do
+                      [ -z "$file" ] && continue
+                      lf -remote "send select \"$file\""
+                      lf -remote "send toggle"
                   done & ;;
                 audio/*|video/x-ms-asf) mpv --audio-display=no $f ;;
                 video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
@@ -601,6 +609,15 @@
         extraConfig = ''
           set -g allow-passthrough on
         '';
+
+        plugins = [
+          {
+            plugin = pkgs.tmuxPlugins.catppuccin;
+            extraConfig = ''
+              set -g @catppuccin_window_current_number_color "#{@thm_pink}"
+            '';
+          }
+        ];
       };
     };
     

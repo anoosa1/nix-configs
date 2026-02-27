@@ -4,7 +4,6 @@
       self.nixosModules.aurora
       self.nixosModules.desktop
       self.nixosModules.nixos
-      self.nixosModules.stylix
     ];
   };
 

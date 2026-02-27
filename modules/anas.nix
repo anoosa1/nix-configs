@@ -63,45 +63,26 @@
 
       packages = with pkgs; [
         self.packages.${pkgs.system}.neovim
-        qwen-code
-        google-chrome
-        gamescope
-        antigravity-fhs
-        anki
-        obsidian
-        logseq
         gemini-cli
         bat
         bat-extras.batdiff
         bat-extras.batgrep
         bat-extras.batman
         bat-extras.prettybat
-        brave
         dua
         dust
         eva
         eza
         fd
         gitui
-        kitty
-        libsixel
-        localsend
         mpv
-        nsxiv
-        pop
-        playerctl
-        prismlauncher
         pulsemixer
         ripgrep
         rmpc
         rsync
         rustmission
-        simplex-chat-desktop
         steamguard-cli
-        swayimg
-        umu-launcher
         yt-dlp
-        zathura
       ];
 
       sessionPath = [
