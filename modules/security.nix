@@ -26,8 +26,7 @@
         default_2fa_method = "totp";
 
         server = {
-          host = "127.0.0.1";
-          port = 9092;
+          address = "tcp://127.0.0.1:9092/";
           headers = {
             csp_template = "default-src 'self'; style-src 'self' 'nonce-\${NONCE}' 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=' 'unsafe-inline' theme-park.dev raw.githubusercontent.com use.fontawesome.com; img-src 'self' theme-park.dev raw.githubusercontent.com data:; script-src 'self' 'unsafe-inline'; object-src 'none'; form-action 'self'; frame-ancestors 'self'; font-src use.fontawesome.com;";
           };
@@ -55,10 +54,15 @@
 
         session = {
           name = "authelia_session";
-          domain = "asherif.xyz";
+          cookies = [
+            {
+              domain = "asherif.xyz";
+              authelia_url = "https://auth.asherif.xyz";
+            }
+          ];
           expiration = "1h";
           inactivity = "5m";
-          remember_me_duration = "1M";
+          remember_me = "1M";
         };
 
         regulation = {
@@ -69,7 +73,7 @@
 
         storage = {
           postgres = {
-            host = "/run/postgresql";
+            address = "unix:///run/postgresql";
             database = "authelia";
             username = "authelia-main";
             # Peer authentication is used by default for local PostgreSQL connections on NixOS
