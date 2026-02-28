@@ -48,6 +48,11 @@
 
     hardware = {
       cpu.intel.updateMicrocode = true;
+
+      facetimehd = {
+        enable = true;
+        withCalibration = true;
+      };
     };
   };
 }
