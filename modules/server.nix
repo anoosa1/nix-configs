@@ -205,7 +205,22 @@
             };
           };
 
+          "accounts.asherif.xyz" = {
+            forceSSL = true;
+            enableACME = true;
+            acmeRoot = null;
+            locations = {
+              "/" = {
+                proxyPass = "https://10.0.0.2:9443";
+                proxyWebsockets = true;
+              };
 
+              "~ (/authentik)?/api" = {
+                proxyPass = "https://10.0.0.2:9443";
+                proxyWebsockets = true;
+              };
+            };
+          };
 
           "code.asherif.xyz" = {
             forceSSL = true;

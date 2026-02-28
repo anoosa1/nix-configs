@@ -56,9 +56,20 @@
             ];
           };
 
+          storage = {
+            local = {
+              path = "/var/lib/authelia-main/db.sqlite3";
+            };
+          };
+
           session = {
             name = "authelia_session";
-            domain = "asherif.xyz";
+            cookies = [
+              {
+                domain = "asherif.xyz";
+                authelia_url = "https://auth.asherif.xyz";
+              }
+            ];
             expiration = "1h";
             inactivity = "5m";
             remember_me = "1M";
@@ -68,15 +79,6 @@
             max_retries = 3;
             find_time = "2m";
             ban_time = "5m";
-          };
-
-          storage = {
-            postgres = {
-              address = "unix:///run/postgresql";
-              database = "authelia";
-              username = "authelia";
-              # Peer authentication is used by default for local PostgreSQL connections on NixOS
-            };
           };
 
           notifier = {
@@ -101,16 +103,6 @@
             sub_filter_once on;
           '';
         };
-      };
-
-      postgresql = {
-        ensureDatabases = [ "authelia" ];
-        ensureUsers = [
-          {
-            name = "authelia";
-            ensureDBOwnership = true;
-          }
-        ];
       };
     };
   };
