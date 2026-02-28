@@ -1,7 +1,11 @@
 {
-  flake.nixosModules.security = {
+  flake.nixosModules.security = { config, ... }: {
     sops = {
       secrets = {
+        "authelia/anas" = {
+          owner = "authelia-main";
+        };
+
         "authelia/jwt" = {
           owner = "authelia-main";
         };
@@ -13,6 +17,19 @@
         "authelia/storage" = {
           owner = "authelia-main";
         };
+      };
+
+      templates."users_database.yml" = {
+        owner = "authelia-main";
+        content = ''
+          users:
+            anas:
+              displayname: "Anas"
+              password: "''${config.sops.placeholder."authelia/anas"}"
+              email: "anas@asherif.xyz"
+              groups:
+                - admins
+        '';
       };
     };
 
@@ -42,7 +59,7 @@
 
           authentication_backend = {
             file = {
-              path = "/var/lib/authelia-main/users_database.yml";
+              path = config.sops.templates."users_database.yml".path;
             };
           };
 
