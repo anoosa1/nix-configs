@@ -7,7 +7,6 @@
   flake.nixosModules.server = { pkgs, ... }: {
     imports = [
       inputs.sops-nix.nixosModules.sops
-      self.nixosModules.music
       self.nixosModules.ai
       self.nixosModules.security
     ];
@@ -170,7 +169,7 @@
 
       nextcloud = {
         enable = true;
-        package = pkgs.nextcloud32;
+        package = pkgs.nextcloud33;
         hostName = "hub.asherif.xyz";
         database.createLocally = true;
         configureRedis = true;
@@ -223,6 +222,12 @@
             forceSSL = true;
             enableACME = true;
             acmeRoot = null;
+
+            extraConfig = ''
+              proxy_hide_header X-Frame-Options;
+              add_header Content-Security-Policy "frame-ancestors 'self' https://hub.asherif.xyz;" always;
+            '';
+
             locations."/" = {
               proxyPass = "http://localhost:28981";
               proxyWebsockets = true;
@@ -237,7 +242,7 @@
 
             extraConfig = ''
               proxy_hide_header X-Frame-Options;
-              add_header Content-Security-Policy "frame-ancestors 'self' https://*.asherif.xyz;" always;
+              add_header Content-Security-Policy "frame-ancestors 'self' https://hub.asherif.xyz;" always;
             '';
 
             locations = {
@@ -258,6 +263,9 @@
 
             extraConfig = ''
               proxy_buffering off;
+              proxy_hide_header X-Frame-Options;
+              add_header Content-Security-Policy "frame-ancestors 'self' https://hub.asherif.xyz;" always;
+
             '';
           };
 

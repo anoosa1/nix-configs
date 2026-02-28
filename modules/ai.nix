@@ -73,13 +73,13 @@
           };
 
           mcpServers = {
-            nixos = {
-              command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
-              args = [
-                "-t"
-                "stdio"
-              ];
-            };
+            #nixos = {
+            #  command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
+            #  args = [
+            #    "-t"
+            #    "stdio"
+            #  ];
+            #};
 
             gitea = {
               command = "${pkgs.gitea-mcp-server}/bin/gitea-mcp";

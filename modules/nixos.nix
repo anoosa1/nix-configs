@@ -107,6 +107,7 @@
         pkgs.fastfetch
         pkgs.ffmpeg
         pkgs.linux-firmware
+        pkgs.kitty
       ];
     };
   
