@@ -253,12 +253,6 @@
       zathura
     ];
 
-    home.file.".local/var/cache/noctalia/wallpapers.json" = {
-      text = builtins.toJSON {
-        defaultWallpaper = "/home/anas/pics/saved\ pics/wallpapers/catppuccin/wheat.png";
-      };
-    };
-
     services = {
       pass-secret-service = {
         enable = true;
@@ -801,7 +795,7 @@
           };
 
           wallpaper = {
-            directory = "/home/anas/pics/saved pics/wallpapers/catppuccin";
+            directory = "/home/anas/pics/saved pics/wallpapers";
             overviewBlur = 0;
             overviewEnabled = true;
             overviewTint = 0.1;

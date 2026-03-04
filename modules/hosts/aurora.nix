@@ -2,12 +2,14 @@
   flake.nixosConfigurations.aurora = inputs.nixpkgs.lib.nixosSystem {
     modules = [
       self.nixosModules.aurora
+      self.nixosModules.anas
       self.nixosModules.desktop
       self.nixosModules.nixos
+      self.nixosModules.ssh
     ];
   };
 
-  flake.nixosModules.aurora = { pkgs }: {
+  flake.nixosModules.aurora = { pkgs, ... }: {
     programs = {
       gamescope = {
         enable = true;
@@ -44,6 +46,7 @@
       "/boot" = {
         device = "/dev/disk/by-uuid/06DB-D2D6";
         fsType = "vfat";
+        options = [ "fmask=0077" "dmask=0077" ];
       };
 
       "/home/anas/.local/media/data" = {
