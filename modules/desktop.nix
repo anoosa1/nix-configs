@@ -330,7 +330,7 @@
 
       niri = {
         settings = {
-          screenshot-path = "~/pics/screenshots/Screenshot_%Y%m%d-%H%M%S";
+          screenshot-path = "~/pics/screenshots/Screenshot_%Y%m%d-%H%M%S.png";
           prefer-no-csd = true;
 
           debug = {

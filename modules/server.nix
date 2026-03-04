@@ -7,7 +7,8 @@
   flake.nixosModules.server = { pkgs, ... }: {
     imports = [
       inputs.sops-nix.nixosModules.sops
-      self.nixosModules.ai
+      #self.nixosModules.ai
+      self.nixosModules.media
       self.nixosModules.security
     ];
 
@@ -24,24 +25,12 @@
           owner = "acme";
         };
 
-        "nextcloud/admin/password" = {
-          owner = "nextcloud";
-        };
-
         "nitter" = {
           mode = "0444";
         };
 
-        "paperless/environment" = {
+        "paperless" = {
           owner = "paperless";
-        };
-
-        "transmission/settings.json" = {
-          owner = "transmission";
-        };
-
-        "vaultwarden" = {
-          owner = "vaultwarden";
         };
       };
     };
@@ -59,15 +48,15 @@
     services = {
       code-server = {
         enable = true;
-        userDataDir = "/home/code-server";
-        socketMode = "777";
-        socket = "/run/code-server/code-server.sock";
-        hashedPassword = "$argon2i$v=19$m=4096,t=3,p=1$MkI1SVNweE9YSFZwcmhLSmpVU0VwdnlpcE0wPQ$d7GsnTEdz2npQoZqTgjodvAGz9aPMNsRorbbL+421JY";
-        proxyDomain = "code.asherif.xyz";
-        disableWorkspaceTrust = true;
-        disableUpdateCheck = true;
-        disableTelemetry = true;
+        auth = "none";
         disableGettingStartedOverride = true;
+        disableTelemetry = true;
+        disableUpdateCheck = true;
+        disableWorkspaceTrust = true;
+        proxyDomain = "code.asherif.xyz";
+        socket = "/run/code-server/code-server.sock";
+        socketMode = "777";
+        #user = "anas";
 
         package = pkgs.vscode-with-extensions.override {
           vscode = pkgs.code-server;
@@ -98,6 +87,11 @@
             PROTOCOL = "http+unix";
             ROOT_URL = "https://git.asherif.xyz";
             DOMIAIN = "git.asherif.xyz";
+            LANDING_PAGE = "/anoosa";
+          };
+
+          admin = {
+            EXTERNAL_USER_DISABLED_FEATURES = "manage_mfa,manage_credentials";
           };
 
           session = {
@@ -105,12 +99,22 @@
           };
 
           service = {
+            ALLOW_ONLY_EXTERNAL_REGISTRATION = true;
             DISABLE_REGISTRATION = true;
+            ENABLE_BASIC_AUTHENTICATION = false;
+            ENABLE_PASSWORD_SIGNIN_FORM = false;
+            SHOW_REGISTRATION_BUTTON = false;
+          };
+
+          openid = {
+            ENABLE_OPENID_SIGNIN = false;
+            ENABLE_OPENID_SIGNUP = true;
+            WHITELISTED_URIS = "auth.asherif.xyz";
           };
 
           ui = {
-            THEMES = "catppuccin-rosewater-auto,catppuccin-flamingo-auto,catppuccin-pink-auto,catppuccin-mauve-auto,catppuccin-red-auto,catppuccin-maroon-auto,catppuccin-peach-auto,catppuccin-yellow-auto,catppuccin-green-auto,catppuccin-teal-auto,catppuccin-sky-auto,catppuccin-sapphire-auto,catppuccin-blue-auto,catppuccin-lavender-auto";
-            DEFAULT_THEME = "catppuccin-pink-auto";
+            DEFAULT_THEME = "catppuccin-mocha-pink";
+            THEMES = "catppuccin-latte-rosewater,catppuccin-latte-flamingo,catppuccin-latte-pink,catppuccin-latte-mauve,catppuccin-latte-red,catppuccin-latte-maroon,catppuccin-latte-peach,catppuccin-latte-yellow,catppuccin-latte-green,catppuccin-latte-teal,catppuccin-latte-sky,catppuccin-latte-sapphire,catppuccin-latte-blue,catppuccin-latte-lavender,catppuccin-frappe-rosewater,catppuccin-frappe-flamingo,catppuccin-frappe-pink,catppuccin-frappe-mauve,catppuccin-frappe-red,catppuccin-frappe-maroon,catppuccin-frappe-peach,catppuccin-frappe-yellow,catppuccin-frappe-green,catppuccin-frappe-teal,catppuccin-frappe-sky,catppuccin-frappe-sapphire,catppuccin-frappe-blue,catppuccin-frappe-lavender,catppuccin-macchiato-rosewater,catppuccin-macchiato-flamingo,catppuccin-macchiato-pink,catppuccin-macchiato-mauve,catppuccin-macchiato-red,catppuccin-macchiato-maroon,catppuccin-macchiato-peach,catppuccin-macchiato-yellow,catppuccin-macchiato-green,catppuccin-macchiato-teal,catppuccin-macchiato-sky,catppuccin-macchiato-sapphire,catppuccin-macchiato-blue,catppuccin-macchiato-lavender,catppuccin-mocha-rosewater,catppuccin-mocha-flamingo,catppuccin-mocha-pink,catppuccin-mocha-mauve,catppuccin-mocha-red,catppuccin-mocha-maroon,catppuccin-mocha-peach,catppuccin-mocha-yellow,catppuccin-mocha-green,catppuccin-mocha-teal,catppuccin-mocha-sky,catppuccin-mocha-sapphire,catppuccin-mocha-blue,catppuccin-mocha-lavender";
           };
         };
 
@@ -163,28 +167,28 @@
         };
       };
 
-      immich = {
-        enable = true;
-      };
-
       nextcloud = {
         enable = true;
-        package = pkgs.nextcloud33;
-        hostName = "hub.asherif.xyz";
-        database.createLocally = true;
         configureRedis = true;
-        maxUploadSize = "16G";
+        database.createLocally = true;
+        hostName = "hub.asherif.xyz";
         https = true;
+        maxUploadSize = "16G";
+        package = pkgs.nextcloud33;
 
         settings = {
           default_phone_region = "CA";
           overwriteprotocol = "https";
+
+          user_oidc_default = {
+            token_endpoint_auth_method = "client_secret_post";
+          };
         };
 
         config = {
+          adminpassFile = null;
+          adminuser = null;
           dbtype = "pgsql";
-          adminuser = "admin";
-          adminpassFile = "/run/secrets/nextcloud/admin/password";
         };
       };
 
@@ -226,10 +230,12 @@
             forceSSL = true;
             enableACME = true;
             acmeRoot = null;
-            locations."/" = {
-              proxyPass = "http://unix:/run/code-server/code-server.sock:/";
-              proxyWebsockets = true;
-              extraConfig = "proxy_pass_header Authorization;";
+
+            locations = {
+              "/" = {
+                proxyPass = "http://unix:/run/code-server/code-server.sock:/";
+                proxyWebsockets = true;
+              };
             };
           };
 
@@ -290,29 +296,6 @@
             acmeRoot = null;
           };
 
-          "passwords.asherif.xyz" = {
-            enableACME = true;
-            acmeRoot = null;
-          };
-
-          "photos.asherif.xyz" = {
-            forceSSL = true;
-            enableACME = true;
-            acmeRoot = null;
-
-            locations = {
-              "/" = {
-                proxyPass = "http://localhost:2283";
-                proxyWebsockets = true;
-
-                extraConfig = ''
-                  proxy_pass_header Authorization;
-                  client_max_body_size 10G;
-                '';
-              };
-            };
-          };
-
           "search.asherif.xyz" = {
             root = "${self.packages.${pkgs.system}."4get"}/share/4get";
             forceSSL = true;
@@ -342,22 +325,6 @@
                   fastcgi_buffers 4 256k;
                   fastcgi_busy_buffers_size 256k;
                   include ${pkgs.nginx}/conf/fastcgi_params;
-                '';
-              };
-            };
-          };
-
-          "torrent.asherif.xyz" = {
-            forceSSL = true;
-            enableACME = true;
-            acmeRoot = null;
-            locations = {
-              "/" = {
-                proxyPass = "http://localhost:9091";
-                proxyWebsockets = true;
-
-                extraConfig = ''
-                  proxy_pass_header Authorization;
                 '';
               };
             };
@@ -397,7 +364,7 @@
 
       paperless = {
         enable = true;
-        environmentFile = "/run/secrets/paperless/environment";
+        environmentFile = "/run/secrets/paperless";
 
         settings = {
           PAPERLESS_APPS = "allauth.socialaccount.providers.openid_connect";
@@ -477,47 +444,13 @@
           }
         ];
       };
-
-      transmission = {
-        enable = true;
-        webHome = pkgs.flood-for-transmission;
-        package = pkgs.transmission_4;
-        downloadDirPermissions = "770";
-        credentialsFile = "/run/secrets/transmission/settings.json";
-
-        settings = {
-          umask = 007;
-        };
-      };
-
-      vaultwarden = {
-        enable = true;
-        dbBackend = "postgresql";
-        domain = "passwords.asherif.xyz";
-        configurePostgres = true;
-        configureNginx = true;
-        environmentFile = "/run/secrets/vaultwarden";
-
-        config = {
-          EMAIL_CHANGE_ALLOWED = "false";
-          EMAIL_EXPIRATION_TIME = "300";
-          SIGNUPS_ALLOWED = "false";
-          SIGNUPS_DOMAINS_WHITELIST = "asherif.xyz";
-          SMTP_PORT = "587";
-          SMTP_SECURITY = "starttls";
-          SSO_CLIENT_CACHE_EXPIRATION = "0";
-          SSO_ENABLED = "true";
-          SSO_ONLY = "true";
-          SSO_SCOPES="openid email profile offline_access";
-        };
-      };
     };
 
     users = {
       users = {
         code-server = {
           homeMode = "700";
-
+  
           openssh.authorizedKeys.keys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHhK2hN/aKRr12GA6dklSQbL+jG5iQ9OuvXzprvzfGc8 anas@apollo"
           ];

@@ -21,7 +21,7 @@
       useDHCP = false;
 
       hosts = {
-        "10.0.0.244" = [ "search.asherif.xyz" "hub.asherif.xyz" "accounts.asherif.xyz" "git.asherif.xyz" "x.asherif.xyz" ];
+        "10.0.0.244" = [ "search.asherif.xyz" "hub.asherif.xyz" "accounts.asherif.xyz" "git.asherif.xyz" "x.asherif.xyz" "auth.asherif.xyz" ];
       };
 
       interfaces."eth0@if200" = {

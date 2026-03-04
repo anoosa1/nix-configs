@@ -106,8 +106,9 @@
       systemPackages = [
         pkgs.fastfetch
         pkgs.ffmpeg
-        pkgs.linux-firmware
         pkgs.kitty
+        pkgs.linux-firmware
+        pkgs.sops
       ];
     };
   

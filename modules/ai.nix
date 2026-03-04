@@ -35,9 +35,10 @@
           OPENID_GENERATE_NONCE = true;    
           OPENID_JWKS_URL_CACHE_ENABLED = true;    
           OPENID_REUSE_TOKENS = true;
-          OPENID_SCOPE = "openid profile email offline_access";
+          OPENID_SCOPE = "openid profile email";
           OPENID_USE_END_SESSION_ENDPOINT = true;
-          SEARXNG_INSTANCE_URL = "https://search.asherif.xyz";
+          OPENID_CLIENT_ID = "librechat";
+          OPENID_ISSUER = "https://auth.asherif.xyz/.well-known/openid-configuration";
         };
 
         settings = {
