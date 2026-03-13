@@ -11,30 +11,30 @@
         {
           config = {
             vim = {
-              notes = {
-                obsidian = {
-                  enable = true;
+              #notes = {
+              #  obsidian = {
+              #    enable = true;
 
-                  setupOpts = {
-                    legacy_commands = false;
+              #    setupOpts = {
+              #      legacy_commands = false;
 
-                    workspaces = [
-                      {
-                        name = "notes";
-                        path = "~/docs/notes";
-                      }
-                    ];
-                    completion = {
-                      nvim-cmp = true;
-                    };
+              #      workspaces = [
+              #        {
+              #          name = "notes";
+              #          path = "~/docs/notes";
+              #        }
+              #      ];
+              #      completion = {
+              #        nvim-cmp = true;
+              #      };
 
-                    daily_notes = {
-                      date_format = "%Y-%m-%d";
-                      folder = "journals";
-                    };
-                  };
-                };
-              };
+              #      daily_notes = {
+              #        date_format = "%Y-%m-%d";
+              #        folder = "journals";
+              #      };
+              #    };
+              #  };
+              #};
 
               keymaps = [
                 {
@@ -57,10 +57,10 @@
               };
 
               extraPlugins = {
-                #vimwiki = {
-                #  package = pkgs.vimPlugins.vimwiki;
-                #  setup = "vim.g.vimwiki_list = {{path = '~/docs/notes', syntax = 'markdown', ext = 'md'}}";
-                #};
+                vimwiki = {
+                  package = pkgs.vimPlugins.vimwiki;
+                  setup = "vim.g.vimwiki_list = {{path = '~/docs/notes', syntax = 'markdown', ext = 'md'}}";
+                };
 
                 goyo = {
                   package = pkgs.vimPlugins.goyo-vim;
