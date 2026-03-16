@@ -37,7 +37,7 @@
     };
 
     fonts = {
-      packages = [ self.packages.${pkgs.system}.comic-code ];
+      packages = [ self.packages.${pkgs.stdenv.hostPlatform.system}.comic-code ];
     };
   
     console = {

@@ -7,16 +7,52 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
+    # import-tree
     import-tree = {
       url = "github:vic/import-tree";
     };
 
+    # nvf
     nvf = {
       url = "github:notashelf/nvf";
     };
 
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
+    # quickshell
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/quickshell/quickshell";
+
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+    };
+
+    # dms
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell";
+
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+    };
+
+    # dgop
+    dgop = {
+      url = "github:AvengeMedia/dgop";
+
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+    };
+
+    # danksearch
+    danksearch = {
+      url = "github:AvengeMedia/danksearch";
 
       inputs = {
         nixpkgs = {

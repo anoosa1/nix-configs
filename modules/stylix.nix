@@ -31,12 +31,12 @@
       fonts = {
         serif = {
           name = "Comic Code";
-          package = self.packages.${pkgs.system}.comic-code;
+          package = self.packages.${pkgs.stdenv.hostPlatform.system}.comic-code;
         };
 
         sansSerif = {
           name = "Comic Code";
-          package = self.packages.${pkgs.system}.comic-code;
+          package = self.packages.${pkgs.stdenv.hostPlatform.system}.comic-code;
         };
 
         sizes = {
@@ -48,7 +48,7 @@
 
         monospace = {
           name = "Comic Code";
-          package = self.packages.${pkgs.system}.comic-code;
+          package = self.packages.${pkgs.stdenv.hostPlatform.system}.comic-code;
         };
 
         emoji = {

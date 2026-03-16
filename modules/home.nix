@@ -21,7 +21,7 @@
         #pkgs.renameutils
         pkgs.unrar
         pkgs.unzip
-        self.packages.${pkgs.system}.handler
+        self.packages.${pkgs.stdenv.hostPlatform.system}.handler
       ];
     };
 

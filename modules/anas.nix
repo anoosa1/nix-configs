@@ -62,7 +62,7 @@
       preferXdgDirectories = true;
 
       packages = with pkgs; [
-        self.packages.${pkgs.system}.neovim
+        self.packages.${pkgs.stdenv.hostPlatform.system}.neovim
         gemini-cli
         bat
         bat-extras.batdiff

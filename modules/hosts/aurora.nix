@@ -166,8 +166,8 @@
                         ];
                       };
 
-                      "/nix/persist" = {
-                        mountpoint = "/persist";
+                      "/persist" = {
+                        mountpoint = "/nix/persist";
 
                         mountOptions = [
                           "compress=zstd"
@@ -190,22 +190,7 @@
       };
     };
 
-    #fileSystems = {
-    #  "/" = {
-    #    device = "/dev/disk/by-uuid/830590b1-805d-4037-9224-4bf48598df66";
-    #    fsType = "ext4";
-    #  };
-
-    #  "/boot" = {
-    #    device = "/dev/disk/by-uuid/06DB-D2D6";
-    #    fsType = "vfat";
-    #    options = [ "fmask=0077" "dmask=0077" ];
-    #  };
-    #};
-
-    #swapDevices = [
-    #  { device = "/dev/disk/by-uuid/510dd866-22e0-41e0-a2ae-254596d098b6"; }
-    #];
+    fileSystems."/nix/persist".neededForBoot = true;
 
     networking = {
       hostName = "aurora";
@@ -218,7 +203,7 @@
     ## environment
     environment = {
       persistence = {
-        "/persistent" = {
+        "/nix/persist" = {
           enable = true;
           hideMounts = true;
 
