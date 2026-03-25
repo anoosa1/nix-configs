@@ -50,10 +50,10 @@
       };
     };
 
-    # danksearch
-    danksearch = {
-      url = "github:AvengeMedia/danksearch";
-
+    # wrappers
+    wrappers = {
+      url = "github:BirdeeHub/nix-wrapper-modules";
+    
       inputs = {
         nixpkgs = {
           follows = "nixpkgs";
@@ -143,7 +143,11 @@
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-    systems = [ "x86_64-linux" ]; 
-    imports = [ (inputs.import-tree ./modules) ];
+    perSystem = { pkgs, ... }: {
+      wrappers.pkgs = pkgs; # choose a different `pkgs`
+      wrappers.control_type = "exclude"; # | "build" (default: "exclude")
+    };
+    systems = inputs.nixpkgs.lib.platforms.all;
+    imports = [ inputs.wrappers.flakeModules.wrappers (inputs.import-tree ./modules) ];
   };
 }

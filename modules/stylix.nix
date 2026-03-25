@@ -63,15 +63,9 @@
       };
 
       targets = {
-        dunst.enable = true;
         gtk.enable = true;
-        kitty.enable = true;
-        #niri.enable = true;
         qutebrowser.enable = true;
         starship.enable = true;
-        swaylock.enable = true;
-        sxiv.enable = true;
-        tmux.enable = true;
         zathura.enable = true;
       };
     };

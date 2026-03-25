@@ -68,26 +68,6 @@
         "type": "github"
       }
     },
-    "danksearch": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1771867960,
-        "narHash": "sha256-7VK/R3ZkrSlk8WQlQxjP2BJl5PGNkgbPnd9jh/7xbTw=",
-        "owner": "AvengeMedia",
-        "repo": "danksearch",
-        "rev": "55c58870c666a45eeb2fe34180eb886c34e68d0c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "AvengeMedia",
-        "repo": "danksearch",
-        "type": "github"
-      }
-    },
     "dgop": {
       "inputs": {
         "nixpkgs": [
@@ -653,7 +633,6 @@
     },
     "root": {
       "inputs": {
-        "danksearch": "danksearch",
         "dgop": "dgop",
         "disko": "disko",
         "dms": "dms",
@@ -668,7 +647,8 @@
         "quickshell": "quickshell_2",
         "secrets": "secrets",
         "sops-nix": "sops-nix",
-        "stylix": "stylix"
+        "stylix": "stylix",
+        "wrappers": "wrappers"
       }
     },
     "secrets": {
@@ -862,6 +842,26 @@
       "original": {
         "owner": "tinted-theming",
         "repo": "base16-zed",
+        "type": "github"
+      }
+    },
+    "wrappers": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1774228760,
+        "narHash": "sha256-nDoBIe5Y9Rfc1sJT0odFgN502ZNtOrcWoqnDyM8jBAU=",
+        "owner": "BirdeeHub",
+        "repo": "nix-wrapper-modules",
+        "rev": "ded9a992dc4142b8269cebbcdadd56fe3886c899",
+        "type": "github"
+      },
+      "original": {
+        "owner": "BirdeeHub",
+        "repo": "nix-wrapper-modules",
         "type": "github"
       }
     },

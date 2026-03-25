@@ -61,30 +61,6 @@
       homeDirectory = "/home/anas";
       preferXdgDirectories = true;
 
-      packages = with pkgs; [
-        self.packages.${pkgs.stdenv.hostPlatform.system}.neovim
-        gemini-cli
-        bat
-        bat-extras.batdiff
-        bat-extras.batgrep
-        bat-extras.batman
-        bat-extras.prettybat
-        dua
-        dust
-        eva
-        eza
-        fd
-        gitui
-        mpv
-        pulsemixer
-        ripgrep
-        rmpc
-        rsync
-        rustmission
-        steamguard-cli
-        yt-dlp
-      ];
-
       sessionPath = [
         "$HOME/.local/bin"
       ];
@@ -161,6 +137,17 @@
     gtk = {
       gtk2 = {
         configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+      };
+    };
+
+    programs = {
+      newsboat = {
+        extraConfig = ''
+          urls-source "ocnews"
+          ocnews-url "https://hub.asherif.xyz"
+          ocnews-login "anas"
+          ocnews-passwordeval "pass newsboat"
+        '';
       };
     };
 

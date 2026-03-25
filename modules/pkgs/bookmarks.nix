@@ -38,6 +38,7 @@
       meta = with lib; {
         description = "Bookmark stuff with bemenu";
         homepage = "https://git.asherif.xyz/anoosa1/scripts";
+        mainProgram = "bookmarks.sh";
         license = lib.licenses.gpl3;
         platforms = lib.platforms.all;
         maintainers = with maintainers; [ anoosa ];
