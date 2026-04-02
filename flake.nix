@@ -39,17 +39,6 @@
       };
     };
 
-    # dgop
-    dgop = {
-      url = "github:AvengeMedia/dgop";
-
-      inputs = {
-        nixpkgs = {
-          follows = "nixpkgs";
-        };
-      };
-    };
-
     # wrappers
     wrappers = {
       url = "github:BirdeeHub/nix-wrapper-modules";
@@ -105,17 +94,6 @@
     # sops-nix
     sops-nix = {
       url = "github:Mic92/sops-nix";
-
-      inputs = {
-        nixpkgs = {
-          follows = "nixpkgs";
-        };
-      };
-    };
-
-    # niri
-    niri = {
-      url = "github:sodiboo/niri-flake";
 
       inputs = {
         nixpkgs = {

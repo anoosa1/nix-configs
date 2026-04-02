@@ -1,5 +1,4 @@
 {
-  inputs,
   self,
   ...
 }:
@@ -8,11 +7,6 @@
     ## nixpkgs
     nixpkgs = {
       hostPlatform = lib.mkDefault "x86_64-linux";
-
-      overlays = [
-        # self.overlays.default
-        inputs.niri.overlays.niri
-      ];
   
       config = {
         # allow unfree packages
@@ -112,9 +106,9 @@
         self.packages.${pkgs.stdenv.hostPlatform.system}.comic-code
         self.packages.${pkgs.stdenv.hostPlatform.system}.tmux
         self.packages.${pkgs.stdenv.hostPlatform.system}.yazi
+        self.packages.${pkgs.stdenv.hostPlatform.system}.kitty
         pkgs.fastfetch
         pkgs.ffmpeg
-        pkgs.kitty
         pkgs.linux-firmware
         pkgs.sops
       ];
