@@ -1,7 +1,6 @@
 {
   inputs,
   self,
-  self',
   ...
 }:
 {
@@ -38,7 +37,7 @@
     };
 
     fonts = {
-      packages = [ self'.packages.comic-code ];
+      packages = [ self.packages.${pkgs.stdenv.hostPlatform.system}.comic-code ];
     };
   
     console = {
@@ -110,9 +109,9 @@
   
       # system packages
       systemPackages = [
-        self'.packages.comic-code
-        self'.packages.tmux
-        self'.packages.yazi
+        self.packages.${pkgs.stdenv.hostPlatform.system}.comic-code
+        self.packages.${pkgs.stdenv.hostPlatform.system}.tmux
+        self.packages.${pkgs.stdenv.hostPlatform.system}.yazi
         pkgs.fastfetch
         pkgs.ffmpeg
         pkgs.kitty

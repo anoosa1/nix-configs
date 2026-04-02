@@ -40,8 +40,8 @@
       ReadWritePaths = [ "/var/lib/4get" ];
 
       BindPaths = [
-        "/var/lib/4get/icons:${self.packages.${pkgs.stdenv.hostPlatform}."4get"}/share/4get/icons"
-        "/var/lib/4get/data/config.php:${self.packages.${pkgs.stdenv.hostPlatform}."4get"}/share/4get/data/config.php"
+        "/var/lib/4get/icons:${self.packages.${pkgs.stdenv.hostPlatform.system}."4get"}/share/4get/icons"
+        "/var/lib/4get/data/config.php:${self.packages.${pkgs.stdenv.hostPlatform.system}."4get"}/share/4get/data/config.php"
       ];
     };
 
@@ -297,7 +297,7 @@
           };
 
           "search.asherif.xyz" = {
-            root = "${self.packages.${pkgs.stdenv.hostPlatform}."4get"}/share/4get";
+            root = "${self.packages.${pkgs.stdenv.hostPlatform.system}."4get"}/share/4get";
             forceSSL = true;
             enableACME = true;
             acmeRoot = null;

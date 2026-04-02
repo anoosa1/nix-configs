@@ -10,7 +10,7 @@
         owner = "lolcat";
         repo = "4get";
         rev = "master"; 
-        sha256 = "sha256-tzTJAuH9i8h6VMyFI+xZ2xNMk8xYg0X2GRAt5WKj1as=";
+        sha256 = "sha256-69tRhKJ9Ubfxs+zSyVJ1bDUhULg0XdqajO+oYMC15AI=";
       };
     
       dontUnpack = true;
