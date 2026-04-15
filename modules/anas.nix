@@ -250,6 +250,8 @@
             };
 
             notmuch = {
+              enable = true;
+
               neomutt = {
                 enable = true;
 
