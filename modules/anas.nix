@@ -102,6 +102,7 @@
         cp = "cp -iv";
         mv = "mv -iv";
         rm = "rm -vI";
+        lf = "yazi";
         rsync = "rsync -vrPlu";
         mkd = "mkdir -pv";
         yt = "yt-dlp --embed-metadata -i";
@@ -164,6 +165,7 @@
       userDirs = {
         enable = true;
         createDirectories = false;
+        setSessionVariables = false;
         desktop = "${config.home.homeDirectory}/desktop";
         documents = "${config.home.homeDirectory}/docs";
         download = "${config.home.homeDirectory}/dls";
@@ -206,7 +208,7 @@
             };
 
             smtp = {
-              host = "smtp-mail.office365.com";
+              host = "smtp-mail.outlook.com";
               port = 587;
               
               tls = {
@@ -220,24 +222,14 @@
               expunge = "maildir";
 
               extraConfig = {
-                account = {
-                  User = "anas_sherif1@outlook.com";
-                  AuthMechs = "XOAUTH2";
+                remote = {
+                  UseNamespace = "no";
                 };
               };
             };
 
             msmtp = {
               enable = true;
-
-              extraConfig = {
-                protocol = "smtp";
-                tls = "on";
-                tls_starttls = "on";
-                auth = "xoauth2";
-                user = "anas_sherif1@outlook.com";
-                passwordeval = "mutt_oauth2.py ~/.local/share/passwords/outlook.com.gpg";
-              };
             };
 
             neomutt = {
@@ -258,8 +250,6 @@
             };
 
             notmuch = {
-              enable = true;
-
               neomutt = {
                 enable = true;
 
@@ -288,10 +278,11 @@
               };
             };
           };
+
           "anas@waifu.club" = {
             address = "anas@waifu.club";
             userName = "anas@waifu.club";
-            passwordCommand = "pa.sh s mail.cock.li";
+            passwordCommand = "pass mail.cock.li";
             realName = "Anas";
 
             signature = {

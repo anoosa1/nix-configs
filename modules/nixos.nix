@@ -31,7 +31,12 @@
     };
 
     fonts = {
-      packages = [ self.packages.${pkgs.stdenv.hostPlatform.system}.comic-code ];
+      packages = [
+        self.packages.${pkgs.stdenv.hostPlatform.system}.comic-code
+        pkgs.noto-fonts
+        pkgs.noto-fonts-cjk-sans
+        pkgs.noto-fonts-color-emoji
+      ];
     };
   
     console = {

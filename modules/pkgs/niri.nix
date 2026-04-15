@@ -34,7 +34,7 @@
       };
 
       input = {
-        focus-follows-mouse = null;
+        focus-follows-mouse = _: {};
 
         keyboard = {
           numlock = true;
@@ -56,7 +56,7 @@
       outputs = {
         HDMI-A-1 = {
           mode = "1920x1080@100.00";
-          variable-refresh-rate = null;
+          variable-refresh-rate = _: {};
         };
       };
 
@@ -67,9 +67,13 @@
       binds = {
         "Mod+Backspace".spawn = [ "dms" "ipc" "lock" "lock" ];
         "Mod+Shift+Backspace".spawn = [ "dms" "ipc" "powermenu" "toggle" ];
-        "Mod+Ctrl+Backspace".power-off-monitors = null;
+        "Mod+Ctrl+Backspace" = _: {
+          content = {
+            power-off-monitors = {};
+          };
+        };
 
-        "Mod+D".spawn = [ "${self.packages.${pkgs.system}.bemenu}/bin/bemenu-run" ];
+        "Mod+D".spawn = [ "${self.packages.${pkgs.stdenv.hostPlatform.system}.bemenu}/bin/bemenu-run" ];
         "Mod+Shift+D".spawn = [ "dms" "ipc" "spotlight" "toggle" ];
         "Mod+R".spawn = [ "kitty -e lf" ];
         "Mod+Return".spawn = [ "kitty" ];
@@ -81,34 +85,69 @@
         "Mod+Shift+C".spawn = [ "bookmarks.sh" "--copy" ];
         "Mod+V".spawn = [ "bookmarks.sh" "--type" ];
 
-        "Mod+Shift+B".center-column = null;
-        "Mod+Ctrl+C".center-visible-columns = null;
-        "Mod+F".maximize-column = null;
-        "Mod+Shift+F".fullscreen-window = null;
-        "Mod+Ctrl+F".expand-column-to-available-width = null;
-        "Mod+Shift+Slash".show-hotkey-overlay = null;
+        "Mod+Shift+B" = _: {
+          content = {
+            center-column = {};
+          };
+        };
+
+        "Mod+Ctrl+C" = _: {
+          content = {
+            center-visible-columns = {};
+          };
+        };
+
+        "Mod+F" = _: {
+          content = {
+            maximize-column = {};
+          };
+        };
+
+        "Mod+Shift+F" = _: {
+          content = {
+            fullscreen-window = {};
+          };
+        };
+
+        "Mod+Ctrl+F" = _: {
+          content = {
+            expand-column-to-available-width = {};
+          };
+        };
+
+        "Mod+Shift+Slash" = _: {
+          content = {
+            show-hotkey-overlay = {};
+          };
+        };
 
         "Mod+W".spawn = [ "brave" ];
-        "Mod+Q" = {
-          close-window = null;
+        "Mod+Q" = _: {
+          content = {
+            close-window = {};
+          };
 
-          _attrs = {
+          props = {
             repeat = false;
           };
         };
 
-        "Mod+Shift+Return" = {
-          toggle-overview = null;
+        "Mod+Shift+Return" = _: {
+          content = {
+            toggle-overview = {};
+          };
 
-          _attrs = {
+          props = {
             repeat = false;
           };
         };
 
-        "Mod+Escape" = {
-          toggle-keyboard-shortcuts-inhibit = null;
+        "Mod+Escape" = _: {
+          content = {
+            toggle-keyboard-shortcuts-inhibit = {};
+          };
 
-          _attrs = {
+          props = {
             allow-inhibiting = false;
           };
         };
@@ -118,23 +157,78 @@
         "Ctrl+Print".screenshot-screen = [];
         "Shift+Print".screenshot-window = [];
 
-        "Mod+Left".focus-monitor-left = null;
-        "Mod+Down".focus-monitor-down = null;
-        "Mod+Up".focus-monitor-up = null;
-        "Mod+Right".focus-monitor-right = null;
-        "Mod+Shift+Left".move-column-to-monitor-left = null;
-        "Mod+Shift+Down".move-column-to-monitor-down = null;
-        "Mod+Shift+Up".move-column-to-monitor-up = null;
-        "Mod+Shift+Right".move-column-to-monitor-right = null;
+        "Mod+Left" = _: {
+          content = {
+            focus-monitor-left = {};
+          };
+        };
+
+        "Mod+Down" = _: {
+          content = {
+            focus-monitor-down = {};
+          };
+        };
+
+        "Mod+Up" = _: {
+          content = {
+            focus-monitor-up = {};
+          };
+        };
+
+        "Mod+Right" = _: {
+          content = {
+            focus-monitor-right = {};
+          };
+        };
+
+        "Mod+Shift+Left" = _: {
+          content = {
+            move-column-to-monitor-left = {};
+          };
+        };
+
+        "Mod+Shift+Down" = _: {
+          content = {
+            move-column-to-monitor-down = {};
+          };
+        };
+
+        "Mod+Shift+Up" = _: {
+          content = {
+            move-column-to-monitor-up = {};
+          };
+        };
+
+        "Mod+Shift+Right" = _: {
+          content = {
+            move-column-to-monitor-right = {};
+          };
+        };
+
 
         "Mod+H".set-column-width = "-10%";
         "Mod+L".set-column-width = "+10%";
         "Mod+Shift+H".set-window-height = "+10%";
         "Mod+Shift+L".set-window-height = "-10%";
-        "Mod+Y".switch-preset-column-width = null;
-        "Mod+Shift+Y".toggle-column-tabbed-display = null;
+        "Mod+Y" = _: {
+          content = {
+            switch-preset-column-width = {};
+          };
+        };
 
-        "Mod+Shift+Space".toggle-window-floating = null;
+        "Mod+Shift+Y" = _: {
+          content = {
+            toggle-column-tabbed-display = {};
+          };
+        };
+
+
+        "Mod+Shift+Space" = _: {
+          content = {
+            toggle-window-floating = {};
+          };
+        };
+
         "Mod+1".focus-workspace = 1;
         "Mod+2".focus-workspace = 2;
         "Mod+3".focus-workspace = 3;
@@ -153,63 +247,127 @@
         "Mod+Shift+7".move-column-to-workspace = 7;
         "Mod+Shift+8".move-column-to-workspace = 8;
         "Mod+Shift+9".move-column-to-workspace = 9;
-        "Mod+J".focus-column-left-or-last = null;
-        "Mod+K".focus-column-right-or-first = null;
-        "Mod+Shift+J".move-column-left-or-to-monitor-left = null;
-        "Mod+Shift+K".move-column-right-or-to-monitor-right = null;
-        "Mod+Alt+J".consume-or-expel-window-left = null;
-        "Mod+Alt+K".consume-or-expel-window-right = null;
-        "Mod+Ctrl+J".focus-window-or-workspace-down = null;
-        "Mod+Ctrl+K".focus-window-or-workspace-up = null;
-        "Mod+Ctrl+Shift+J".move-window-down-or-to-workspace-down = null;
-        "Mod+Ctrl+Shift+K".move-window-up-or-to-workspace-up = null;
+        "Mod+J" = _: {
+          content = {
+            focus-column-left-or-last = {};
+          };
+        };
 
-        "XF86MonBrightnessUp" = {
-          spawn = [ "brightnessctl" "--class=backlight" "set" "+10%" ];
+        "Mod+K" = _: {
+          content = {
+            focus-column-right-or-first = {};
+          };
+        };
 
-          _attrs = {
+        "Mod+Shift+J" = _: {
+          content = {
+            move-column-left-or-to-monitor-left = {};
+          };
+        };
+
+        "Mod+Shift+K" = _: {
+          content = {
+            move-column-right-or-to-monitor-right = {};
+          };
+        };
+
+        "Mod+Alt+J" = _: {
+          content = {
+            consume-or-expel-window-left = {};
+          };
+        };
+
+        "Mod+Alt+K" = _: {
+          content = {
+            consume-or-expel-window-right = {};
+          };
+        };
+
+        "Mod+Ctrl+J" = _: {
+          content = {
+            focus-window-or-workspace-down = {};
+          };
+        };
+
+        "Mod+Ctrl+K" = _: {
+          content = {
+            focus-window-or-workspace-up = {};
+          };
+        };
+
+        "Mod+Ctrl+Shift+J" = _: {
+          content = {
+            move-window-down-or-to-workspace-down = {};
+          };
+        };
+
+        "Mod+Ctrl+Shift+K" = _: {
+          content = {
+            move-window-up-or-to-workspace-up = {};
+          };
+        };
+
+
+        "XF86MonBrightnessUp" = _: {
+          content = {
+            spawn = [ "brightnessctl" "--class=backlight" "set" "+10%" ];
+          };
+
+          props = {
             allow-when-locked = true;
           };
         };
-        "XF86MonBrightnessDown" = {
-          spawn = [ "brightnessctl" "--class=backlight" "set" "10%-" ];
+        "XF86MonBrightnessDown" = _: {
+          content = {
+            spawn = [ "brightnessctl" "--class=backlight" "set" "10%-" ];
+          };
 
-          _attrs = {
+          props = {
             allow-when-locked = true;
           };
         };
-        "XF86KbdBrightnessUp" = {
-          spawn = [ "brightnessctl" "--device=smc::kbd_backlight" "set" "+10%" ];
+        "XF86KbdBrightnessUp" = _: {
+          content = {
+            spawn = [ "brightnessctl" "--device=smc::kbd_backlight" "set" "+10%" ];
+          };
 
-          _attrs = {
+          props = {
             allow-when-locked = true;
           };
         };
-        "XF86KbdBrightnessDown" = {
-          spawn = [ "brightnessctl" "--device=smc::kbd_backlight" "set" "10%-" ];
+        "XF86KbdBrightnessDown" = _: {
+          content = {
+            spawn = [ "brightnessctl" "--device=smc::kbd_backlight" "set" "10%-" ];
+          };
 
-          _attrs = {
+          props = {
             allow-when-locked = true;
           };
         };
-        "XF86AudioRaiseVolume" = {
-          spawn = [ "pulsemixer" "--change-volume" "+5" ];
+        "XF86AudioRaiseVolume" = _: {
+          content = {
+            spawn = [ "pulsemixer" "--change-volume" "+5" ];
+          };
 
-          _attrs = {
+          props = {
             allow-when-locked = true;
           };
         };
-        "XF86AudioLowerVolume" = {
-          spawn = [ "pulsemixer" "--change-volume" "-5" ];
+        "XF86AudioLowerVolume" = _: {
+          content = {
+            spawn = [ "pulsemixer" "--change-volume" "-5" ];
+          };
 
-          _attrs = {
+          props = {
             allow-when-locked = true;
           };
         };
-        "XF86AudioMute" = {
-          spawn = [ "pulsemixer" "--toggle-mute" ];
+        "XF86AudioMute" = _: {
+          content = {
+            spawn = [ "pulsemixer" "--toggle-mute" ];
+          };
 
-          _attrs = {
+          props = {
             allow-when-locked = true;
           };
         };

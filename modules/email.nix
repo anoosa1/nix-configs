@@ -10,6 +10,10 @@
         package = pkgs.isync.override { withCyrusSaslXoauth2 = true; };
       };
 
+      msmtp = {
+        enable = true;
+      };
+
       neomutt = {
         enable = true;
         sort = "reverse-date";
@@ -665,9 +669,26 @@
       notmuch = {
         enable = true;
 
+        new.tags = [ "new" "unread" "inbox" ];
+
         hooks = {
-          preNew = "mbsync --all";
+          postNew = ''
+            COUNT=$(notmuch count tag:new)
+            if [ "$COUNT" -gt 0 ]; then
+              notify-send "New Mail" "You have $COUNT new messages."
+            fi
+          '';
         };
+      };
+    };
+
+    services = {
+      mbsync = {
+        enable = true;
+
+        postExec = ''
+          notmuch new
+        '';
       };
     };
   };
