@@ -2,148 +2,30 @@
   flake.nixosModules.ai = { pkgs, ... }: {
     sops = {
       secrets = {
-        librechat = {
-          owner = "librechat";
+        open-webui = {
+          owner = "open-webui";
         };
       };
     };
 
     services = {
-      librechat = {
+      open-webui = {
         enable = true;
-        enableLocalDB = true;
-        credentialsFile = "/run/secrets/librechat";
+        environmentFile = "/run/secrets/open-webui";
 
-        env = {
-          HOST = "localhost";
+        environment = {
+          WEBUI_URL = "https://chat.asherif.xyz";
           PORT = "3080";
-          ALLOW_EMAIL_LOGIN = false;
-          ALLOW_REGISTRATION = false;
-          ALLOW_SOCIAL_LOGIN = true;
-          ALLOW_SOCIAL_REGISTRATION = true;
-          DEEPSEEK_API_KEY = "user_provided";
-          OPENROUTER_API_KEY = "user_provided";
-          DOMAIN_CLIENT = "https://chat.asherif.xyz";
-          DOMAIN_SERVER = "https://chat.asherif.xyz";
-          ENDPOINTS = "agents,gptPlugins,google,deepseek,custom";    
-          GOOGLE_KEY = "user_provided";    
-          GOOGLE_MODELS = "gemini-3.1-pro-preview,gemini-3-pro-image-preview,gemini-3-flash-preview";    
-          OPENID_ADMIN_ROLE = "admin";    
-          OPENID_ADMIN_ROLE_TOKEN_KIND = "access";    
-          OPENID_AUTO_REDIRECT = true;    
-          OPENID_CALLBACK_URL = "/oauth/openid/callback";    
-          OPENID_GENERATE_NONCE = true;    
-          OPENID_JWKS_URL_CACHE_ENABLED = true;    
-          OPENID_REUSE_TOKENS = true;
-          OPENID_SCOPE = "openid profile email";
-          OPENID_USE_END_SESSION_ENDPOINT = true;
-          OPENID_CLIENT_ID = "librechat";
-          OPENID_ISSUER = "https://auth.asherif.xyz/.well-known/openid-configuration";
+          ENABLE_OAUTH_SIGNUP = "true";
+          OAUTH_MERGE_ACCOUNTS_BY_EMAIL = "true";
+          OPENID_PROVIDER_URL = "https://auth.asherif.xyz/.well-known/openid-configuration";
+          OAUTH_PROVIDER_NAME = "asherif.xyz";
+          OAUTH_SCOPES = "openid email profile groups";
+          ENABLE_OAUTH_ROLE_MANAGEMENT = "true";
+          OAUTH_ADMIN_ROLES = "admin";
+          OAUTH_ROLES_CLAIM = "groups";
+          OAUTH_CODE_CHALLENGE_METHOD = "S256";
         };
-
-        settings = {
-          version = "1.0.8";
-
-          webSearch = {
-            searchProvider = "searxng";
-          };
-
-          #speech = {
-          #  tts = {
-          #    localai = {
-          #      url = "http://localhost:5300/v1/audio/synthesize";
-          #      backend = "coqui";
-
-          #      voices = [
-          #        "tts_models/en/ljspeech/tacotron2-DDC"
-          #      ];
-          #    };
-          #  };
-          #};
-
-          memory = {
-            disabled = false;
-            personalize = true;
-            tokenLimit = 32000;
-            messageWindowSize = 5;
-
-            agent = {
-              provider = "Google";
-              model = "gemini-3-flash-preview";
-            };
-          };
-
-          mcpServers = {
-            #nixos = {
-            #  command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
-            #  args = [
-            #    "-t"
-            #    "stdio"
-            #  ];
-            #};
-
-            gitea = {
-              command = "${pkgs.gitea-mcp-server}/bin/gitea-mcp";
-
-              args = [
-                "-t"
-                "stdio"
-                "--host"
-                "https://git.asherif.xyz"
-                "--token"
-                "caf6a3dacae1e3ce2688471d9e4f7d7b6cd6a820"
-              ];
-            };
-          };
-
-          endpoints = {
-            agents = {
-              capabilities = [ "context" "ocr" ];
-            };
-
-            custom = [
-              {
-                name = "OpenRouter";
-                apiKey = "\${OPENROUTER_API_KEY}";
-                baseURL = "https://openrouter.ai/api/v1";
-                titleConvo = true;
-                titleModel = "moonshotai/kimi-k2.5";
-                modelDisplayLabel = "OpenRouter";
-
-                models = {
-                  default = [
-                    "moonshotai/kimi-k2.5"
-                    "deepseek/deepseek-v3.2"
-                    "z-ai/glm-5"
-                  ];
-                  fetch = true;
-                };
-              }
-              {
-                name = "Deepseek";
-                apiKey = "\${DEEPSEEK_API_KEY}";
-                baseURL = "https://api.deepseek.com/v1";
-                titleConvo = true;
-                titleModel = "deepseek-chat";
-                modelDisplayLabel = "Deepseek";
-
-                models = {
-                  fetch = true;
-
-                  default = [
-                    "deepseek-chat"
-                    "deepseek-reasoner"
-                  ];
-                };
-              }
-            ];
-          };
-        };
-      };
-
-      mongodb = {
-        enable = true;
-        package = pkgs.mongodb-ce;
       };
       
       nginx = {

@@ -24,44 +24,6 @@
         eula = true;
 
         servers = {
-            #skyfactory = {
-            #  enable = true;
-            #  autoStart = true;
-            #  openFirewall = true;
-            #  jvmOpts = "-Xms2048M -Xmx6144M";
-            #  package = pkgs.neoforgeServers.neoforge-1_20_1;
-
-            #  whitelist = {
-            #    Anoosa1 = "4f339de8-4752-4c63-8aa8-ee40d94418bd";
-            #    River353 = "4bf17825-eb64-4927-ae16-e3260f782929";
-            #    TrapGodGG_ = "62d9d598-95ae-4fc8-9597-4de604beb482";
-            #    trxye = "a44337a9-834e-442d-8d08-470c3d690361";
-            #  };
-
-            #  serverProperties = {
-            #    difficulty = 3;
-            #    motd = "Anoosa's SkyFactory";
-            #    pause-when-empty-seconds = 30;
-            #    region-file-compression = "lz4";
-            #    require-resource-pack = true;
-            #    resource-pack = "https://cdn.modrinth.com/data/2YyNMled/versions/Y8mjFzcP/Dramatic%20Skys%20Demo%201.5.3.36.2.zip";
-            #    resource-pack-sha1 = "483049f9e82cfaedb51748124ea92237c9c28371";
-            #    server-port = 25565;
-            #    simulation-distance = 16;
-            #    spawn-protection = 0;
-            #    view-distance = 16;
-            #    white-list = true;
-            #  };
-
-            #  symlinks = {
-            #    "mods" = "${modpack}/mods";
-            #  };
-
-            #  files = {
-            #    "config" = "${modpack}/config";
-            #  };
-            #};
-
           hardcore = {
             enable = true;
             autoStart = true;

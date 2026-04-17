@@ -30,7 +30,7 @@
           isNormalUser = true;
           group = "anas";
           description = "Anas";
-          extraGroups = [ "wheel" "audio" "adbusers" "transmission" "immich" "kvm" "minecraft" "open-webui" ];
+          extraGroups = [ "wheel" "audio" "immich" ];
           openssh = {
             authorizedPrincipals = [
               "anas@astra"

@@ -263,6 +263,7 @@
 
             extraConfig = ''
               proxy_hide_header X-Frame-Options;
+              client_max_body_size 0;
               add_header Content-Security-Policy "frame-ancestors 'self' https://hub.asherif.xyz;" always;
             '';
 

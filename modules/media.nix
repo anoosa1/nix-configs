@@ -1,9 +1,9 @@
 {
-  flake.nixosModules.media = { pkgs, ... }: {
+  flake.nixosModules.media = {
     sops = {
       secrets = {
-        "transmission" = {
-          owner = "transmission";
+        "qui" = {
+          owner = "qui";
         };
       };
     };
@@ -27,10 +27,20 @@
 
                 extraConfig = ''
                   client_max_body_size 10G;
-                  proxy_set_header Accept-Encoding "";
-                  sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/transmission/catppuccin-mocha.css"></head>';
-                  sub_filter_once on;
                 '';
+              };
+            };
+          };
+
+          "qbit.asherif.xyz" = {
+            forceSSL = true;
+            enableACME = true;
+            acmeRoot = null;
+
+            locations = {
+              "/" = {
+                proxyPass = "http://localhost:9251";
+                proxyWebsockets = true;
               };
             };
           };
@@ -42,7 +52,7 @@
 
             locations = {
               "/" = {
-                proxyPass = "http://localhost:9091";
+                proxyPass = "http://localhost:7476";
                 proxyWebsockets = true;
               };
             };
@@ -50,17 +60,14 @@
         };
       };
 
-      transmission = {
+      qbittorrent = {
         enable = true;
-        credentialsFile = "/run/secrets/transmission";
-        downloadDirPermissions = "750";
-        package = pkgs.transmission_4;
+        webuiPort = 9251;
+      };
 
-        settings = {
-          umask = 027;
-          rpc-username = "anas";
-          rpc-authentication-required = true;
-        };
+      qui = {
+        enable = true;
+        secretFile = "/run/secrets/qui";
       };
     };
   };

@@ -71,13 +71,24 @@
 
           server = {
             address = "tcp://127.0.0.1:9092/";
-            headers = {
-              csp_template = "default-src 'self'; style-src 'self' 'nonce-\${NONCE}' 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=' 'unsafe-inline' theme-park.dev raw.githubusercontent.com use.fontawesome.com; img-src 'self' theme-park.dev raw.githubusercontent.com data:; script-src 'self' 'unsafe-inline'; object-src 'none'; form-action 'self'; frame-ancestors 'self'; font-src use.fontawesome.com;";
-            };
           };
 
           identity_providers = {
             oidc = {
+              claims_policies = {
+                cloudflare = {
+                  id_token = [
+                    "rat"
+                    "groups"
+                    "email"
+                    "email_verified"
+                    "alt_emails"
+                    "preferred_username"
+                    "name"
+                  ];
+                };
+              };
+
               lifespans = {
                 access_token = "1h";
                 authorize_code = "1m";
@@ -148,6 +159,10 @@
                 domain = "asherif.xyz";
                 authelia_url = "https://auth.asherif.xyz";
               }
+              {
+                domain = "astra.dragon-armadillo.ts.net";
+                authelia_url = "https://astra.dragon-armadillo.ts.net";
+              }
             ];
             expiration = "1h";
             inactivity = "5m";
@@ -179,12 +194,6 @@
             "/" = {
               proxyPass = "http://127.0.0.1:9092";
               proxyWebsockets = true;
-
-              extraConfig = ''
-                proxy_set_header Accept-Encoding "";
-                sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/authelia/catppuccin-mocha.css"></head>';
-                sub_filter_once on;
-              '';
             };
           };
         };

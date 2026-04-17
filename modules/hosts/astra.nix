@@ -6,7 +6,6 @@
       self.nixosModules.nixos
       self.nixosModules.server
       self.nixosModules.ssh
-      self.nixosModules.minecraft
 
       (inputs.nixpkgs + "/nixos/modules/virtualisation/proxmox-lxc.nix")
     ];
@@ -21,7 +20,7 @@
       useDHCP = false;
 
       hosts = {
-        "10.0.0.244" = [ "search.asherif.xyz" "hub.asherif.xyz" "accounts.asherif.xyz" "git.asherif.xyz" "x.asherif.xyz" "auth.asherif.xyz" ];
+        "10.0.0.244" = [ "search.asherif.xyz" "hub.asherif.xyz" "accounts.asherif.xyz" "git.asherif.xyz" "x.asherif.xyz" "auth.asherif.xyz" "qbit.asherif.xyz" ];
       };
 
       interfaces."eth0@if200" = {
