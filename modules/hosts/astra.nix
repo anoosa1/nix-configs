@@ -12,6 +12,77 @@
   };
 
   flake.nixosModules.astra = {
+    imports = [
+      inputs.disko.nixosModules.disko
+    ];
+
+    disko = {
+      devices = {
+        disk = {
+          main = {
+            type = "disk";
+            device = "/dev/disk/by-id/ata-Axiom_C560_Series_SSD_AX170303100342E79";
+
+            content = {
+              type = "gpt";
+
+              partitions = {
+                ESP = {
+                  priority = 1;
+                  name = "ESP";
+                  start = "1M";
+                  end = "128M";
+                  type = "EF00";
+
+                  content = {
+                    type = "filesystem";
+                    format = "vfat";
+                    mountpoint = "/boot";
+                    mountOptions = [ "umask=0077" ];
+                  };
+                };
+
+                root = {
+                  size = "100%";
+
+                  content = {
+                    extraArgs = [ "-f" ]; # Override existing partition
+                    type = "btrfs";
+
+                    subvolumes = {
+                      "/root" = {
+                        mountpoint = "/";
+
+                        mountOptions = [
+                          "compress=zstd"
+                          "noatime"
+                        ];
+                      };
+
+                      "/nix" = {
+                        mountpoint = "/nix";
+
+                        mountOptions = [
+                          "compress=zstd"
+                          "noatime"
+                        ];
+                      };
+                    };
+
+                    swap = {
+                      swapfile = {
+                        size = "16G";
+                      };
+                    };
+                  };
+                };
+              };
+            };
+          };
+        };
+      };
+    };
+
     ## networking
     networking = {
       hostName = "astra";
