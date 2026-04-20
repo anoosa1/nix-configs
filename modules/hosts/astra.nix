@@ -6,15 +6,33 @@
       self.nixosModules.nixos
       self.nixosModules.server
       self.nixosModules.ssh
-
-      (inputs.nixpkgs + "/nixos/modules/virtualisation/proxmox-lxc.nix")
     ];
   };
 
-  flake.nixosModules.astra = {
+  flake.nixosModules.astra = { lib, ... }: {
     imports = [
       inputs.disko.nixosModules.disko
     ];
+
+    boot = {
+      kernelModules = [ "kvm-intel" ];
+      extraModulePackages = [ ];
+      supportedFilesystems = [  ];
+
+      loader = {
+        timeout = 0;
+  
+        systemd-boot = {
+          enable = true;
+          editor = false;
+        };
+  
+        efi = {
+          canTouchEfiVariables = true;
+        };
+      };
+  
+    };
 
     disko = {
       devices = {
@@ -67,11 +85,46 @@
                           "noatime"
                         ];
                       };
-                    };
 
-                    swap = {
-                      swapfile = {
-                        size = "16G";
+                      "/swap" = {
+                        mountpoint = "/.swap";
+
+                        swap = {
+                          swapfile = {
+                            size = "16G";
+                          };
+                        };
+                      };
+                    };
+                  };
+                };
+              };
+            };
+          };
+
+          data = {
+            type = "disk";
+            device = "/dev/disk/by-id/ata-ST500DM002-1BD142_Z6EEASRB";
+
+            content = {
+              type = "gpt";
+
+              partitions = {
+                data = {
+                  size = "100%";
+
+                  content = {
+                    extraArgs = [ "-f" ];
+                    type = "btrfs";
+
+                    subvolumes = {
+                      "/data" = {
+                        mountpoint = "/data";
+
+                        mountOptions = [
+                          "compress=zstd"
+                          "noatime"
+                        ];
                       };
                     };
                   };
@@ -88,17 +141,17 @@
       hostName = "astra";
       nameservers = [ "100.100.100.100" "1.1.1.1" "1.0.0.1" ];
       search = [ "tail999916.ts.net" ];
-      useDHCP = false;
+      useNetworkd = true;
+      useDHCP = lib.mkDefault true;
 
       hosts = {
-        "10.0.0.244" = [ "search.asherif.xyz" "hub.asherif.xyz" "accounts.asherif.xyz" "git.asherif.xyz" "x.asherif.xyz" "auth.asherif.xyz" "qbit.asherif.xyz" ];
+        "127.0.0.1" = [ "search.asherif.xyz" "hub.asherif.xyz" "accounts.asherif.xyz" "git.asherif.xyz" "x.asherif.xyz" "auth.asherif.xyz" "qbit.asherif.xyz" ];
       };
 
-      interfaces."eth0@if200" = {
-        ipv4.addresses = [{
-          address = "10.0.0.244";
-          prefixLength = 24;
-        }];
+      # firewall
+      firewall = {
+        enable = true;
+        allowPing = false;
       };
     };
 
