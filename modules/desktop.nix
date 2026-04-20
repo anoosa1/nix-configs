@@ -129,6 +129,18 @@
       rtkit = {
         enable = true;
       };
+
+      pam = {
+        services = {
+          greetd = {
+            gnupg = {
+              enable = true;
+              noAutostart = true;
+              storeOnly = true;
+            };
+          };
+        };
+      };
     };
     
     ## services

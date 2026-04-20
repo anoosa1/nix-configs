@@ -645,6 +645,11 @@
         extraConfig = ''
           allow-preset-passphrase
         '';
+
+        pinentry = {
+          package = pkgs.pinentry-bemenu;
+          program = "pinentry-bemenu";
+        };
       };
     };
 

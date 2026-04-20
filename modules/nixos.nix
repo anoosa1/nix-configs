@@ -70,14 +70,6 @@
     };
   
     programs = {
-      # gpg
-      gnupg = {
-        agent = {
-          enable = true;
-          #enableSSHSupport = true;
-        };
-      };
-  
       # zsh
       zsh = {
         enable = true;
