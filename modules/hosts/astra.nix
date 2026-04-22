@@ -120,37 +120,6 @@
                     subvolumes = {
                       "/data" = {
                         mountpoint = "/data";
-
-                        mountOptions = [
-                          "compress=zstd"
-                          "noatime"
-                        ];
-                      };
-                    };
-                  };
-                };
-              };
-            };
-          };
-
-          data = {
-            type = "disk";
-            device = "/dev/disk/by-id/ata-ST500DM002-1BD142_Z6EEASRB";
-
-            content = {
-              type = "gpt";
-
-              partitions = {
-                data = {
-                  size = "100%";
-
-                  content = {
-                    extraArgs = [ "-f" ];
-                    type = "btrfs";
-
-                    subvolumes = {
-                      "/data" = {
-                        mountpoint = "/data";
                         mountOptions = [
                           "compress=zstd"
                           "noatime"
@@ -163,13 +132,6 @@
             };
           };
         };
-      };
-    };
-
-    fileSystems = {
-      "/data" = {
-        device = "/dev/disk/";
-        fsType = "ext4";
       };
     };
 

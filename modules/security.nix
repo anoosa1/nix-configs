@@ -214,18 +214,18 @@
         environmentFile = "/run/secrets/vaultwarden";
 
         config = {
-          EMAIL_CHANGE_ALLOWED = "false";
-          EMAIL_EXPIRATION_TIME = "300";
-          SIGNUPS_ALLOWED = "false";
+          EMAIL_CHANGE_ALLOWED = false;
+          EMAIL_EXPIRATION_TIME = 300;
+          SIGNUPS_ALLOWED = false;
           SIGNUPS_DOMAINS_WHITELIST = "asherif.xyz";
-          SMTP_PORT = "587";
+          SMTP_PORT = 587;
           SMTP_SECURITY = "starttls";
           SSO_AUTHORITY = "https://auth.asherif.xyz";
-          SSO_AUTH_ONLY_NOT_SESSION = true;
+          SSO_AUTH_ONLY_NOT_SESSION = false;
           SSO_CLIENT_ID = "vaultwarden";
-          SSO_ENABLED = "true";
-          SSO_ONLY = "true";
-          SSO_SCOPES = "email profile offline_access";
+          SSO_ENABLED = true;
+          SSO_ONLY = true;
+          SSO_SCOPES = "openid profile email offline_access";
         };
       };
     };
