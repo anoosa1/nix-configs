@@ -2,19 +2,37 @@
   flake.nixosModules.media = {
     sops = {
       secrets = {
-        "qui" = {
-          owner = "qui";
+        "kavita" = {
+          owner = "kavita";
         };
       };
     };
 
     services = {
+      kavita = {
+        enable = true;
+        tokenKeyFile = "/run/secrets/kavita";
+      };
+
       immich = {
         enable = true;
       };
 
       nginx = {
         virtualHosts = {
+          "books.asherif.xyz" = {
+            forceSSL = true;
+            enableACME = true;
+            acmeRoot = null;
+
+            locations = {
+              "/" = {
+                proxyPass = "http://localhost:5000";
+                proxyWebsockets = true;
+              };
+            };
+          };
+
           "photos.asherif.xyz" = {
             forceSSL = true;
             enableACME = true;
@@ -32,7 +50,7 @@
             };
           };
 
-          "qbit.asherif.xyz" = {
+          "torrent.asherif.xyz" = {
             forceSSL = true;
             enableACME = true;
             acmeRoot = null;
@@ -44,30 +62,12 @@
               };
             };
           };
-
-          "torrent.asherif.xyz" = {
-            forceSSL = true;
-            enableACME = true;
-            acmeRoot = null;
-
-            locations = {
-              "/" = {
-                proxyPass = "http://localhost:7476";
-                proxyWebsockets = true;
-              };
-            };
-          };
         };
       };
 
       qbittorrent = {
         enable = true;
         webuiPort = 9251;
-      };
-
-      qui = {
-        enable = true;
-        secretFile = "/run/secrets/qui";
       };
     };
   };

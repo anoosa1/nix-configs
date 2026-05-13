@@ -14,7 +14,6 @@
       stateVersion = "24.11";
 
       packages = [
-        self.packages.${pkgs.stdenv.hostPlatform.system}.handler
         self.packages.${pkgs.stdenv.hostPlatform.system}.neovim
         #pkgs.renameutils
         pkgs.bat

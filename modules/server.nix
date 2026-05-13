@@ -56,7 +56,8 @@
         proxyDomain = "code.asherif.xyz";
         socket = "/run/code-server/code-server.sock";
         socketMode = "777";
-        #user = "anas";
+        user = "anas";
+        group = "anas";
 
         package = pkgs.vscode-with-extensions.override {
           vscode = pkgs.code-server;
@@ -128,44 +129,44 @@
         };
       };
 
-      home-assistant = {
-        enable = true;
+      #home-assistant = {
+      #  enable = true;
 
-        extraComponents = [
-          "analytics"
-          "auth"
-          "backup"
-          "esphome"
-          "ffmpeg"
-          "homekit_controller"
-          "http"
-          "isal"
-          "media_player"
-          "met"
-          "mobile_app"
-          "radio_browser"
-          "tts"
-          "websocket_api"
-        ];
+      #  extraComponents = [
+      #    "analytics"
+      #    "auth"
+      #    "backup"
+      #    "esphome"
+      #    "ffmpeg"
+      #    "homekit_controller"
+      #    "http"
+      #    "isal"
+      #    "media_player"
+      #    "met"
+      #    "mobile_app"
+      #    "radio_browser"
+      #    "tts"
+      #    "websocket_api"
+      #  ];
 
-        extraPackages = python3Packages: with python3Packages; [
-          psycopg2
-        ];
+      #  extraPackages = python3Packages: with python3Packages; [
+      #    psycopg2
+      #  ];
 
-        config = {
-          default_config = {};
+      #  config = {
+      #    default_config = {};
 
-          http = {
-            server_host = "127.0.0.1";
-            trusted_proxies = [ "127.0.0.1" ];
-            use_x_forwarded_for = true;
-          };
+      #    http = {
+      #      server_host = "127.0.0.1";
+      #      trusted_proxies = [ "127.0.0.1" ];
+      #      use_x_forwarded_for = true;
+      #    };
 
-          recorder = {
-            db_url = "postgresql://@/hass";
-          };
-        };
-      };
+      #    recorder = {
+      #      db_url = "postgresql://@/hass";
+      #    };
+      #  };
+      #};
 
       nextcloud = {
         enable = true;
@@ -274,22 +275,22 @@
             };
           };
 
-          "home.asherif.xyz" = {
-            forceSSL = true;
-            enableACME = true;
-            acmeRoot = null;
-            locations."/" = {
-              proxyPass = "http://localhost:8123";
-              proxyWebsockets = true;
-            };
+          #"home.asherif.xyz" = {
+          #  forceSSL = true;
+          #  enableACME = true;
+          #  acmeRoot = null;
+          #  locations."/" = {
+          #    proxyPass = "http://localhost:8123";
+          #    proxyWebsockets = true;
+          #  };
 
-            extraConfig = ''
-              proxy_buffering off;
-              proxy_hide_header X-Frame-Options;
-              add_header Content-Security-Policy "frame-ancestors 'self' https://hub.asherif.xyz;" always;
+          #  extraConfig = ''
+          #    proxy_buffering off;
+          #    proxy_hide_header X-Frame-Options;
+          #    add_header Content-Security-Policy "frame-ancestors 'self' https://hub.asherif.xyz;" always;
 
-            '';
-          };
+          #  '';
+          #};
 
           "hub.asherif.xyz" = {
             forceSSL = true;
@@ -447,16 +448,16 @@
       };
     };
 
-    users = {
-      users = {
-        code-server = {
-          homeMode = "700";
-  
-          openssh.authorizedKeys.keys = [
-            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHhK2hN/aKRr12GA6dklSQbL+jG5iQ9OuvXzprvzfGc8 anas@apollo"
-          ];
-        };
-      };
-    };
+    #users = {
+    #  users = {
+    #    code-server = {
+    #      homeMode = "700";
+
+    #      openssh.authorizedKeys.keys = [
+    #        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHhK2hN/aKRr12GA6dklSQbL+jG5iQ9OuvXzprvzfGc8 anas@apollo"
+    #      ];
+    #    };
+    #  };
+    #};
   };
 }

@@ -222,6 +222,7 @@
     ];
 
     home.packages = with pkgs; [
+      self.packages.${pkgs.stdenv.hostPlatform.system}.handler
       antigravity-fhs
       brave
       gamescope
