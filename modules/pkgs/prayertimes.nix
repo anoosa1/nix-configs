@@ -5,7 +5,7 @@
       appName = "prayertimes";
       appVersion = "1.0.0";
       url = "https://git.asherif.xyz/anoosa/prayertimes/archive/main.tar.gz";
-      sha256 = "sha256-jn+U6pEqp3STTBf/Eugz+4xivjFpYI0jCfUnv5dnrgc=";
+      sha256 = "sha256-7VvVU6A4CeULrCrxgKlqMpPKZW8OceI8A3RB8bNMDoQ=";
       license = "agpl3Plus";
       unpack = true;
       description = "Nextcloud Prayer Times App";
