@@ -103,6 +103,10 @@
     };
     
     programs = {
+      wireshark = {
+        enable = true;
+      };
+
       dsearch = {
         enable = true;
 

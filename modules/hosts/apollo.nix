@@ -1,7 +1,7 @@
 { inputs, self, ... }: {
-  flake.nixosConfigurations.apollo = inputs.nixpkgs.lib.nixosSystem {
+  flake.nixosConfigurations.shafq = inputs.nixpkgs.lib.nixosSystem {
     modules = [
-      self.nixosModules.apollo
+      self.nixosModules.shafq
       self.nixosModules.anas
       self.nixosModules.desktop
       self.nixosModules.nixos
@@ -9,7 +9,7 @@
     ];
   };
 
-  flake.nixosModules.apollo = { pkgs, ... }: {
+  flake.nixosModules.shafq = { pkgs, ... }: {
     boot = {
       kernelPackages = pkgs.linuxPackages_latest;
       kernelModules = [ "kvm-intel" ];
@@ -39,7 +39,7 @@
     ];
 
     networking = {
-      hostName = "apollo";
+      hostName = "shafq";
     };
 
     console = {
@@ -49,10 +49,10 @@
     hardware = {
       cpu.intel.updateMicrocode = true;
 
-      facetimehd = {
-        enable = true;
-        withCalibration = true;
-      };
+      #facetimehd = {
+      #  enable = true;
+      #  withCalibration = true;
+      #};
     };
   };
 }

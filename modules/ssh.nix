@@ -37,24 +37,24 @@
             identityFile = "${config.xdg.configHome}/ssh/id_ed25519";
           };
 
-          apollo = {
-            hostname = "apollo.asherif.xyz";
+          shafq = {
+            hostname = "shafq";
             user = "${config.home.username}";
           };
 
           git = {
-            hostname = "git.asherif.xyz";
+            hostname = "astra";
             user = "${config.home.username}";
             port = 23231;
           };
 
           astra = {
-            hostname = "astra.asherif.xyz";
+            hostname = "astra";
             user = "${config.home.username}";
           };
 
           aurora = {
-            hostname = "aurora.asherif.xyz";
+            hostname = "aurora";
             user = "${config.home.username}";
           };
         };

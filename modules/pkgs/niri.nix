@@ -74,6 +74,7 @@
         };
 
         "Mod+D".spawn = [ "${self.packages.${pkgs.stdenv.hostPlatform.system}.bemenu}/bin/bemenu-run" ];
+        "Mod+Ctrl+D".spawn = [ "${self.packages.${pkgs.stdenv.hostPlatform.system}.define}/bin/define.sh" ];
         "Mod+Shift+D".spawn = [ "dms" "ipc" "spotlight" "toggle" ];
         "Mod+R".spawn = [ "kitty -e lf" ];
         "Mod+Return".spawn = [ "kitty" ];
@@ -81,9 +82,9 @@
         "Mod+B".spawn = [ "battery.sh" ];
         "Mod+N".spawn = [ "logseq" ];
 
-        "Mod+C".spawn = [ "bookmarks.sh" "--save" ];
-        "Mod+Shift+C".spawn = [ "bookmarks.sh" "--copy" ];
-        "Mod+V".spawn = [ "bookmarks.sh" "--type" ];
+        "Mod+C".spawn = [ "${self.packages.${pkgs.stdenv.hostPlatform.system}.bookmarks}/bin/bookmarks.sh" "--save" ];
+        "Mod+Shift+C".spawn = [ "${self.packages.${pkgs.stdenv.hostPlatform.system}.bookmarks}/bin/bookmarks.sh" "--copy" ];
+        "Mod+V".spawn = [ "${self.packages.${pkgs.stdenv.hostPlatform.system}.bookmarks}/bin/bookmarks.sh" "--type" ];
 
         "Mod+Shift+B" = _: {
           content = {

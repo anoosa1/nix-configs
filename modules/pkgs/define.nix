@@ -1,8 +1,8 @@
-# modules/pkgs/handler.nix
+# modules/pkgs/define.nix
 {
   perSystem = { pkgs, lib, ... }: {
-    packages.handler = pkgs.stdenvNoCC.mkDerivation {
-      pname = "handler";
+    packages.define = pkgs.stdenvNoCC.mkDerivation {
+      pname = "define";
       version = "1.0";
 
       nativeBuildInputs = [
@@ -24,7 +24,7 @@
       dontUnpack = true;
 
       installPhase = ''
-        local name="handler.sh"
+        local name="define.sh"
 
         install -D $src/$name $out/bin/$name
 
@@ -32,12 +32,13 @@
           --replace-warn "/bin/sh" "${pkgs.dash}/bin/dash"
 
         wrapProgram $out/bin/$name \
-          --prefix PATH : "${lib.makeBinPath [ pkgs.dash pkgs.yt-dlp pkgs.libnotify pkgs.wl-clipboard pkgs.curlMinimal pkgs.mpv pkgs.imv pkgs.elinks pkgs.zathura pkgs.ts ]}"
+          --prefix PATH : "${lib.makeBinPath [ pkgs.dash pkgs.libnotify pkgs.wl-clipboard pkgs.jq pkgs.curl ]}"
       '';
 
       meta = with lib; {
-        description = "Queue and download";
+        description = "Define words";
         homepage = "https://git.asherif.xyz/anoosa1/scripts";
+        mainProgram = "define.sh";
         license = lib.licenses.gpl3;
         platforms = lib.platforms.all;
         maintainers = with maintainers; [ anoosa ];
