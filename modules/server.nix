@@ -177,6 +177,10 @@
         maxUploadSize = "16G";
         package = pkgs.nextcloud33;
 
+        extraApps = {
+          prayertimes = self.packages.${pkgs.stdenv.hostPlatform.system}.prayertimes;
+        };
+
         settings = {
           default_phone_region = "CA";
           overwriteprotocol = "https";
