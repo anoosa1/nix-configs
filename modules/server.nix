@@ -332,6 +332,18 @@
             };
           };
 
+          "sunshine.asherif.xyz" = {
+            forceSSL = true;
+            enableACME = true;
+            acmeRoot = null;
+
+            locations = {
+              "/" = {
+                proxyPass = "http://localhost:47990";
+              };
+            };
+          };
+
           "x.asherif.xyz" = {
             forceSSL = true;
             enableACME = true;

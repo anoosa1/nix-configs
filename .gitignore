@@ -1,2 +1,3 @@
 secrets/
 .sops.yaml
+.antigravitycli/

@@ -105,6 +105,7 @@
     programs = {
       wireshark = {
         enable = true;
+        package = pkgs.wireshark;
       };
 
       dsearch = {
@@ -227,7 +228,7 @@
 
     home.packages = with pkgs; [
       self.packages.${pkgs.stdenv.hostPlatform.system}.handler
-      antigravity-fhs
+      self.packages.${pkgs.stdenv.hostPlatform.system}.antigravity-fhs
       brave
       gamescope
       imv

@@ -98,21 +98,21 @@
                 nix = {
                   enable = true;
 
-                  lsp = {
-                    enable = true;
-                  };
+                  #lsp = {
+                  #  enable = true;
+                  #};
 
-                  extraDiagnostics = {
-                    enable = true;
-                  };
+                  #extraDiagnostics = {
+                  #  enable = true;
+                  #};
 
                   format = {
                     enable = true;
                   };
 
-                  treesitter = {
-                    enable = true;
-                  };
+                  #treesitter = {
+                  #  enable = true;
+                  #};
                 };
               };
 
