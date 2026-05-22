@@ -14,7 +14,7 @@
     modeKeys = "vi";
     mouse = true;
     plugins = [ pkgs.tmuxPlugins.catppuccin ];
-    prefix = "Space";
+    prefix = "C-Space";
     terminal = "screen-256color";
   };
 }

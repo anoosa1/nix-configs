@@ -102,6 +102,12 @@
       };
     };
 
+    # rust-overlay
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # stylix
     stylix = {
       url = "github:danth/stylix";
@@ -121,7 +127,15 @@
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-    perSystem = { pkgs, ... }: {
+    perSystem = { pkgs, system, ... }: {
+      _module.args.pkgs = import inputs.nixpkgs {
+        inherit system;
+        overlays = [
+          inputs.rust-overlay.overlays.default
+        ];
+        config.allowUnfree = true;
+      };
+
       wrappers.pkgs = pkgs; # choose a different `pkgs`
       wrappers.control_type = "exclude"; # | "build" (default: "exclude")
     };
