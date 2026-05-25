@@ -17,6 +17,17 @@
       url = "github:notashelf/nvf";
     };
 
+    # hermes
+    hermes-agent = {
+      url = "git+https://git.asherif.xyz/anoosa/hermes-agent";
+
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+    };
+
     # quickshell
     quickshell = {
       url = "git+https://git.outfoxxed.me/quickshell/quickshell";

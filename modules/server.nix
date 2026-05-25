@@ -7,6 +7,7 @@
   flake.nixosModules.server = { pkgs, ... }: {
     imports = [
       inputs.sops-nix.nixosModules.sops
+      inputs.hermes-agent.nixosModules.default
       #self.nixosModules.ai
       self.nixosModules.media
       self.nixosModules.security
@@ -32,6 +33,10 @@
         "paperless" = {
           owner = "paperless";
         };
+
+        "hermes" = {
+          owner = "hermes";
+        };
       };
     };
 
@@ -46,6 +51,58 @@
     };
 
     services = {
+      hermes-agent = {
+        enable = true;
+        environmentFiles = [ "/run/secrets/hermes" ];
+        addToSystemPackages = true;
+        extraDependencyGroups = [ "messaging" ];
+
+        environment = {
+          DISCORD_ALLOW_ANY_ATTACHMENT = "true";
+          DISCORD_ALLOWED_USERS = "786606848601751562,404099093435121667";
+          DISCORD_ALLOW_MENTION_EVERYONE = "true";
+          DISCORD_ALLOW_MENTION_ROLES = "true";
+          DISCORD_FREE_RESPONSE_CHANNELS = "1217976674516471878";
+          DISCORD_HOME_CHANNEL = "1217976674516471878";
+          DISCORD_REQUIRE_MENTION = "true";
+          WHATSAPP_ENABLED = "true";
+          WHATSAPP_MODE = "self-chat";
+          WHATSAPP_REPLY_PREFIX = "'*Anoosa*\n────────────\n'";
+        };
+
+        #container = {
+        #  enable = true;
+        #  backend = "podman";
+        #  hostUsers = [ "anas" ];
+        #};
+
+        settings = {
+          toolsets = [ "all" ];
+        
+          model = {
+	    provider = "deepseek";
+	    default = "deepseek-v4-flash";
+	  };
+
+          terminal = {
+            backend = "local";
+            timeout = 180;
+          };
+          display = {
+            compact = false;
+            personality = "kawaii";
+          };
+        
+          whatsapp = {
+            unauthorized_dm_behavior = "ignore";
+          };
+          memory = {
+            memory_enabled = true;
+            user_profile_enabled = true;
+          };
+        };
+      };
+
       code-server = {
         enable = true;
         auth = "none";
@@ -67,9 +124,6 @@
             bbenoist.nix
             catppuccin.catppuccin-vsc
             catppuccin.catppuccin-vsc-icons
-            llvm-vs-code-extensions.vscode-clangd
-            ms-dotnettools.csharp
-            ms-python.python
           ];
         };
 
@@ -212,6 +266,18 @@
                 proxyPass = "http://unix:/run/code-server/code-server.sock:/";
                 proxyWebsockets = true;
               };
+            };
+          };
+
+          "anoosa.asherif.xyz" = {
+            forceSSL = true;
+            enableACME = true;
+            acmeRoot = null;
+
+            locations."/" = {
+              proxyPass = "http://localhost:9119";
+              proxyWebsockets = true;
+              extraConfig = "proxy_set_header Host $host;";
             };
           };
 
@@ -380,14 +446,6 @@
         exporter = {
           enable = true;
         };
-      };
-
-      tika = {
-        enable = true;
-      };
-
-      gotenberg = {
-        enable = true;
       };
 
       phpfpm.pools."4get" = {
