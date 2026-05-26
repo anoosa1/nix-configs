@@ -17,6 +17,7 @@
     sops = {
       defaultSopsFile = "${inputs.secrets}/secrets.yaml";
       defaultSopsFormat = "yaml";
+
       age = {
         keyFile = "/home/anas/.local/etc/sops/age/keys.txt";
       };
@@ -78,11 +79,11 @@
 
         settings = {
           toolsets = [ "all" ];
-        
+
           model = {
-	    provider = "deepseek";
-	    default = "deepseek-v4-flash";
-	  };
+            provider = "deepseek";
+            default = "deepseek-v4-flash";
+          };
 
           terminal = {
             backend = "local";
@@ -93,7 +94,7 @@
             compact = false;
             personality = "kawaii";
           };
-        
+
           whatsapp = {
             unauthorized_dm_behavior = "ignore";
           };
@@ -369,7 +370,6 @@
 
                 extraConfig = ''
                   fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-                  
                   fastcgi_pass unix:/run/phpfpm/4get.sock;
                   fastcgi_index index.php;
                   fastcgi_buffer_size 128k;
@@ -393,6 +393,27 @@
             };
           };
 
+          "tty.asherif.xyz" = {
+            forceSSL = true;
+            enableACME = true;
+            acmeRoot = null;
+
+            locations."/" = {
+              proxyPass = "http://localhost:7681";
+              proxyWebsockets = true;
+              extraConfig = ''
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+
+                # only allow the specific Tailscale user
+                if ($auth_user != "anas@asherif.xyz") {
+                  return 403;
+                }
+              '';
+            };
+          };
           "x.asherif.xyz" = {
             forceSSL = true;
             enableACME = true;
@@ -405,6 +426,20 @@
             };
           };
         };
+
+        tailscaleAuth = {
+          enable = true;
+          virtualHosts = [ "tty.asherif.xyz" ];
+        };
+      };
+
+      ttyd = {
+        enable = true;
+        interface = "127.0.0.1";
+        user = "anas";
+        writeable = true;
+        maxClients = 3;
+        entrypoint = [ "${pkgs.zsh}/bin/zsh" ];
       };
 
       nitter = {
@@ -460,19 +495,23 @@
         user = "nginx";
         group = "nginx";
 
-        phpPackage = pkgs.php83.withExtensions ({ all, ... }: with all; [
-          apcu
-          fileinfo
-          curl
-          gd
-          mbstring
-          opcache
-          imagick
-          zlib
-          openssl
-          sodium
-          filter
-        ]);
+        phpPackage = pkgs.php83.withExtensions (
+          { all, ... }:
+          with all;
+          [
+            apcu
+            fileinfo
+            curl
+            gd
+            mbstring
+            opcache
+            imagick
+            zlib
+            openssl
+            sodium
+            filter
+          ]
+        );
 
         settings = {
           "listen.owner" = "nginx";
