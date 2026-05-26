@@ -410,8 +410,8 @@
                 '';
               };
 
-              "/static/fonts/ComicCodeLigatures.otf" = {
-                alias = pkgs.fetchurl { url = "https://git.asherif.xyz/anoosa/comic-code/raw/branch/master/Comic%20Code%20Ligatures.otf"; sha256 = "39f01d14b3209eaef33b4ab3cb3eef503a756ce6490270497d1a90749b5ee29b"; };
+              "= /static/fonts/ComicCodeLigatures.otf" = {
+                alias = "${self.packages.${pkgs.stdenv.hostPlatform.system}.comic-code}/share/fonts/opentype/Comic Code Ligatures.otf";
                 extraConfig = ''
                   add_header Cache-Control "public, max-age=31536000, immutable";
                 '';
