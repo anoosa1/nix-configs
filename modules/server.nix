@@ -405,7 +405,7 @@
                 extraConfig = ''
                   # Inject font + hide scrollbar via sub_filter
                   sub_filter_types text/html;
-                  sub_filter '</head>' '<style>@font-face { font-family: "Comic Code Ligatures"; src: url(/static/fonts/ComicCodeLigatures.otf) format("opentype"); } .xterm-viewport::-webkit-scrollbar { display: none !important; } .xterm-viewport { scrollbar-width: none !important; -ms-overflow-style: none !important; }</style></head>';
+                  sub_filter '</head>' '<style>@font-face { font-family: "Comic Code Ligatures"; src: url(/static/fonts/ComicCodeLigatures.otf) format("opentype"); } .xterm .xterm-viewport::-webkit-scrollbar { width: 0 !important; height: 0 !important; display: none !important; } .xterm .xterm-viewport { scrollbar-width: none !important; -ms-overflow-style: none !important; overflow-y: hidden !important; }</style></head>';
                   sub_filter_once on;
                 '';
               };
