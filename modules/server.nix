@@ -405,7 +405,7 @@
                 extraConfig = ''
                   # Inject font + hide scrollbar via sub_filter
                   sub_filter_types text/html;
-                  sub_filter '</head>' '<style>@font-face { font-family: "Comic Code Ligatures"; src: url(/static/fonts/ComicCodeLigatures.otf) format("opentype"); } .xterm-viewport::-webkit-scrollbar { display: none; } .xterm-viewport { scrollbar-width: none; }</style></head>';
+                  sub_filter '</head>' '<style>@font-face { font-family: "Comic Code Ligatures"; src: url(/static/fonts/ComicCodeLigatures.otf) format("opentype"); } .xterm-viewport::-webkit-scrollbar { display: none !important; } .xterm-viewport { scrollbar-width: none !important; -ms-overflow-style: none !important; }</style></head>';
                   sub_filter_once on;
                 '';
               };
@@ -448,7 +448,7 @@
         entrypoint = [ "${pkgs.zsh}/bin/zsh" ];
         clientOptions = {
           fontFamily = "\"Comic Code Ligatures\", monospace";
-          fontSize = "14";
+          fontSize = "16";
         };
       };
 
