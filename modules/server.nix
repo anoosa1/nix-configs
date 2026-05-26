@@ -445,7 +445,8 @@
         user = "anas";
         writeable = true;
         maxClients = 3;
-        entrypoint = [ "tmux" "new" "-As0" ];
+        entrypoint = [ "${self.packages.${pkgs.stdenv.hostPlatform.system}.tmux}/bin/tmux" "new" "-As0" ];
+
         clientOptions = {
           fontFamily = "\"Comic Code Ligatures\", monospace";
           fontSize = "16";
