@@ -88,6 +88,7 @@
             backend = "local";
             timeout = 180;
           };
+
           display = {
             compact = false;
             personality = "kawaii";
@@ -96,6 +97,14 @@
           whatsapp = {
             unauthorized_dm_behavior = "ignore";
           };
+
+          mcp_servers = {
+	    nix = {
+	      command = "nix";
+	      args = [ "run" "github:utensils/mcp-nixos" "--" ];
+	    };
+	  };
+
           memory = {
             memory_enabled = true;
             user_profile_enabled = true;
@@ -103,35 +112,34 @@
         };
       };
 
-      code-server = {
-        enable = true;
-        auth = "none";
-        disableGettingStartedOverride = true;
-        disableTelemetry = true;
-        disableUpdateCheck = true;
-        disableWorkspaceTrust = true;
-        proxyDomain = "code.asherif.xyz";
-        socket = "/run/code-server/code-server.sock";
-        socketMode = "777";
-        user = "anas";
-        group = "anas";
+      #code-server = {
+      #  enable = true;
+      #  auth = "none";
+      #  disableGettingStartedOverride = true;
+      #  disableTelemetry = true;
+      #  disableUpdateCheck = true;
+      #  disableWorkspaceTrust = true;
+      #  proxyDomain = "code.asherif.xyz";
+      #  socket = "/run/code-server/code-server.sock";
+      #  socketMode = "777";
+      #  user = "anas";
+      #  group = "anas";
 
-        package = pkgs.vscode-with-extensions.override {
-          vscode = pkgs.code-server;
-          vscodeExtensions = with pkgs.vscode-extensions; [
-            Google.gemini-cli-vscode-ide-companion
-            asvetliakov.vscode-neovim
-            bbenoist.nix
-            catppuccin.catppuccin-vsc
-            catppuccin.catppuccin-vsc-icons
-          ];
-        };
+      #  package = pkgs.vscode-with-extensions.override {
+      #    vscode = pkgs.code-server;
+      #    vscodeExtensions = with pkgs.vscode-extensions; [
+      #      Google.gemini-cli-vscode-ide-companion
+      #      asvetliakov.vscode-neovim
+      #      bbenoist.nix
+      #      catppuccin.catppuccin-vsc
+      #      catppuccin.catppuccin-vsc-icons
+      #    ];
+      #  };
 
-        extraPackages = [
-          pkgs.gemini-cli
-          pkgs.neovim
-        ];
-      };
+      #  extraPackages = [
+      #    pkgs.gemini-cli
+      #  ];
+      #};
 
       gitea = {
         enable = true;

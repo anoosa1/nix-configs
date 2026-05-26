@@ -101,11 +101,12 @@
   
       # system packages
       systemPackages = [
+        self.packages.${pkgs.stdenv.hostPlatform.system}.antigravity-cli
         self.packages.${pkgs.stdenv.hostPlatform.system}.comic-code
+        self.packages.${pkgs.stdenv.hostPlatform.system}.kitty
+        self.packages.${pkgs.stdenv.hostPlatform.system}.neovim
         self.packages.${pkgs.stdenv.hostPlatform.system}.tmux
         self.packages.${pkgs.stdenv.hostPlatform.system}.yazi
-        self.packages.${pkgs.stdenv.hostPlatform.system}.kitty
-        self.packages.${pkgs.stdenv.hostPlatform.system}.antigravity-cli
         pkgs.fastfetch
         pkgs.ffmpeg
         pkgs.linux-firmware
