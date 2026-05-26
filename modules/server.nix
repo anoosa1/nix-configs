@@ -398,7 +398,6 @@
             enableACME = true;
             acmeRoot = null;
 
-<<<<<<< HEAD
             locations = {
               "/" = {
                 proxyPass = "http://localhost:7681";
