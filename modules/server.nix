@@ -398,20 +398,24 @@
             enableACME = true;
             acmeRoot = null;
 
-            locations."/" = {
-              proxyPass = "http://localhost:7681";
-              proxyWebsockets = true;
-              extraConfig = ''
-                proxy_set_header Host $host;
-                proxy_set_header X-Real-IP $remote_addr;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header X-Forwarded-Proto $scheme;
+            locations = {
+              "/" = {
+                proxyPass = "http://localhost:7681";
+                proxyWebsockets = true;
+                extraConfig = ''
+                  # Inject font + hide scrollbar via sub_filter
+                  sub_filter_types text/html;
+                  sub_filter '</head>' '<style>@font-face { font-family: "Comic Code Ligatures"; src: url(/static/fonts/ComicCodeLigatures.otf) format("opentype"); } .xterm-viewport::-webkit-scrollbar { display: none; } .xterm-viewport { scrollbar-width: none; }</style></head>';
+                  sub_filter_once on;
+                '';
+              };
 
-                # only allow the specific Tailscale user
-                if ($auth_user != "anas@asherif.xyz") {
-                  return 403;
-                }
-              '';
+              "/static/fonts/ComicCodeLigatures.otf" = {
+                alias = pkgs.fetchurl { url = "https://git.asherif.xyz/anoosa/comic-code/raw/branch/master/Comic%20Code%20Ligatures.otf"; sha256 = "39f01d14b3209eaef33b4ab3cb3eef503a756ce6490270497d1a90749b5ee29b"; };
+                extraConfig = ''
+                  add_header Cache-Control "public, max-age=31536000, immutable";
+                '';
+              };
             };
           };
           "x.asherif.xyz" = {
@@ -440,6 +444,10 @@
         writeable = true;
         maxClients = 3;
         entrypoint = [ "${pkgs.zsh}/bin/zsh" ];
+        clientOptions = {
+          fontFamily = "\"Comic Code Ligatures\", monospace";
+          fontSize = "14";
+        };
       };
 
       nitter = {
