@@ -199,11 +199,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772408722,
-        "narHash": "sha256-rHuJtdcOjK7rAHpHphUb1iCvgkU3GpfvicLMwwnfMT0=",
+        "lastModified": 1778716662,
+        "narHash": "sha256-m1Yf0wZ8j1OHjTc2UwHwyQRSnNeSgLJOd7q5Y45hzi4=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "f20dc5d9b8027381c474144ecabc9034d6a839a3",
+        "rev": "f7c1a2d347e4c52d5fb8d10cb4d94b5884e546fb",
         "type": "github"
       },
       "original": {
@@ -299,11 +299,11 @@
         "uv2nix": "uv2nix_2"
       },
       "locked": {
-        "lastModified": 1779744245,
-        "narHash": "sha256-UEhE85IwSWlvDyIGKgKWR9uPUESuCzUQSEKn/tK4ecQ=",
+        "lastModified": 1779818221,
+        "narHash": "sha256-JL1BOnA5YDinl9OKGV9ihwj7nKcSDUmV0XMvciQSmIk=",
         "ref": "refs/heads/main",
-        "rev": "df4c387bdb3d5b3650c4b9dfd5cda26180651f41",
-        "revCount": 9542,
+        "rev": "ded9122b3308edb82a38ac6130cf8fbc41174403",
+        "revCount": 9543,
         "type": "git",
         "url": "https://git.asherif.xyz/anoosa/hermes-agent"
       },
@@ -586,11 +586,11 @@
         "uv2nix": "uv2nix"
       },
       "locked": {
-        "lastModified": 1772555609,
-        "narHash": "sha256-3BA3HnUvJSbHJAlJj6XSy0Jmu7RyP2gyB/0fL7XuEDo=",
+        "lastModified": 1779676664,
+        "narHash": "sha256-MbXylBTkWqVm8/VYjoULtMoVRgWBN1gSHbeRKsOsPlU=",
         "owner": "pyproject-nix",
         "repo": "build-system-pkgs",
-        "rev": "c37f66a953535c394244888598947679af231863",
+        "rev": "7bff980f37fc24e09dbc986643719900c139bf12",
         "type": "github"
       },
       "original": {
@@ -608,11 +608,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769936401,
-        "narHash": "sha256-kwCOegKLZJM9v/e/7cqwg1p/YjjTAukKPqmxKnAZRgA=",
+        "lastModified": 1778901413,
+        "narHash": "sha256-GSKXTAnFqRAMlZkJrIPcQMYf+lpMr66K3i60mB9STvc=",
         "owner": "nix-community",
         "repo": "pyproject.nix",
-        "rev": "b0d513eeeebed6d45b4f2e874f9afba2021f7812",
+        "rev": "a228447c3e179d477c1b6246ef3efa8cfe3c469a",
         "type": "github"
       },
       "original": {
@@ -629,11 +629,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772865871,
-        "narHash": "sha256-/ZTSg97aouL0SlPHaokA4r3iuH9QzHVuWPACD2CUCFY=",
+        "lastModified": 1778901413,
+        "narHash": "sha256-GSKXTAnFqRAMlZkJrIPcQMYf+lpMr66K3i60mB9STvc=",
         "owner": "pyproject-nix",
         "repo": "pyproject.nix",
-        "rev": "e537db02e72d553cea470976b9733581bcf5b3ed",
+        "rev": "a228447c3e179d477c1b6246ef3efa8cfe3c469a",
         "type": "github"
       },
       "original": {
@@ -651,11 +651,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771518446,
-        "narHash": "sha256-nFJSfD89vWTu92KyuJWDoTQJuoDuddkJV3TlOl1cOic=",
+        "lastModified": 1776715674,
+        "narHash": "sha256-Gs1VnEkCkkRZxJQAC/Dhz0Jbfi22mFXChbtNg9w/Ybg=",
         "owner": "pyproject-nix",
         "repo": "pyproject.nix",
-        "rev": "eb204c6b3335698dec6c7fc1da0ebc3c6df05937",
+        "rev": "69f57f27e52a87c54e28138a75ec741cd46663c9",
         "type": "github"
       },
       "original": {
@@ -914,11 +914,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770770348,
-        "narHash": "sha256-A2GzkmzdYvdgmMEu5yxW+xhossP+txrYb7RuzRaqhlg=",
+        "lastModified": 1779411315,
+        "narHash": "sha256-IMFlxeyClau51KplhhSRGhdGTvD/knShHdybP1UOTuk=",
         "owner": "pyproject-nix",
         "repo": "uv2nix",
-        "rev": "5d1b2cb4fe3158043fbafbbe2e46238abbc954b0",
+        "rev": "fdf2a76275d7a9c27deb5d2f2ab33526ac9052ff",
         "type": "github"
       },
       "original": {
@@ -936,11 +936,11 @@
         "pyproject-nix": "pyproject-nix_3"
       },
       "locked": {
-        "lastModified": 1773039484,
-        "narHash": "sha256-+boo33KYkJDw9KItpeEXXv8+65f7hHv/earxpcyzQ0I=",
+        "lastModified": 1779411315,
+        "narHash": "sha256-IMFlxeyClau51KplhhSRGhdGTvD/knShHdybP1UOTuk=",
         "owner": "pyproject-nix",
         "repo": "uv2nix",
-        "rev": "b68be7cfeacbed9a3fa38a2b5adc0cfb81d9bb1f",
+        "rev": "fdf2a76275d7a9c27deb5d2f2ab33526ac9052ff",
         "type": "github"
       },
       "original": {
