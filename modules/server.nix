@@ -398,6 +398,7 @@
             enableACME = true;
             acmeRoot = null;
 
+<<<<<<< HEAD
             locations = {
               "/" = {
                 proxyPass = "http://localhost:7681";
@@ -418,6 +419,7 @@
               };
             };
           };
+
           "x.asherif.xyz" = {
             forceSSL = true;
             enableACME = true;
@@ -434,6 +436,7 @@
         tailscaleAuth = {
           enable = true;
           virtualHosts = [ "tty.asherif.xyz" ];
+          expectedTailnet = "dragon-armadillo.ts.net";
         };
       };
 
