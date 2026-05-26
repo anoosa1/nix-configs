@@ -411,7 +411,7 @@
               };
 
               "= /static/fonts/ComicCodeLigatures.otf" = {
-                alias = "${self.packages.${pkgs.stdenv.hostPlatform.system}.comic-code}/share/fonts/opentype/Comic Code Ligatures.otf";
+                alias = "${pkgs.runCommand "comic-code-font" { } ''ln -s "${self.packages.${pkgs.stdenv.hostPlatform.system}.comic-code}/share/fonts/opentype/Comic Code Ligatures.otf" "$out"''}";
                 extraConfig = ''
                   add_header Cache-Control "public, max-age=31536000, immutable";
                 '';
