@@ -445,7 +445,7 @@
         user = "anas";
         writeable = true;
         maxClients = 3;
-        entrypoint = [ "${pkgs.zsh}/bin/zsh" ];
+        entrypoint = [ "tmux" "new" "-As0" ];
         clientOptions = {
           fontFamily = "\"Comic Code Ligatures\", monospace";
           fontSize = "16";
