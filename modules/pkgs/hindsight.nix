@@ -31,32 +31,11 @@
           sed -i '/^dependencies = \[/,/^\]/c\dependencies = []' pyproject.toml
           sed -i '/^\[project.optional-dependencies\]/,/^\[/c\# removed' pyproject.toml
 
-          # Fix migration: CREATE INDEX CONCURRENTLY cannot run inside a transaction block.
-          # Replace manual op.execute("COMMIT") with Alembic's autocommit_block() which
-          # properly exits the transaction, runs the index creation, then starts a new one.
+          # Strip CONCURRENTLY from all migrations — Alembic wraps migrations in
+          # a transaction and CONCURRENTLY cannot run inside one. Safe for
+          # single-node deployments.
           chmod -R +w .
-          ${pkgs.python3.interpreter} -c "
-import re
-path = 'hindsight_api/alembic/versions/c1a2b3d4e5f6_enable_pg_trgm_and_entities_trgm_index.py'
-with open(path) as f:
-    content = f.read()
-
-# Fix _pg_upgrade: replace manual COMMIT + CONCURRENTLY with autocommit_block
-content = content.replace(
-    '    op.execute(\"COMMIT\")\n    op.execute(\n        f\"CREATE INDEX CONCURRENTLY',
-    '    with op.get_context().autocommit_block():\n        op.execute(\n            f\"CREATE INDEX CONCURRENTLY'
-)
-
-# Fix _pg_downgrade: same treatment for DROP INDEX CONCURRENTLY
-content = content.replace(
-    '    op.execute(\"COMMIT\")\n    op.execute(f\"DROP INDEX CONCURRENTLY',
-    '    with op.get_context().autocommit_block():\n        op.execute(f\"DROP INDEX CONCURRENTLY'
-)
-
-with open(path, 'w') as f:
-    f.write(content)
-print('Migration file patched successfully')
-"
+          ${pkgs.python3.interpreter} ${./strip-concurrently.py} hindsight_api/alembic/versions
         '';
 
         format = "pyproject";
