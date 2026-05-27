@@ -27,6 +27,7 @@
 
         preBuild = ''
           cp -r "$src"/hindsight-api-slim/. ./
+          cp -r "$src"/hindsight-clients/python/. ./clients/
           sed -i '/^dependencies = \[/,/^\]/c\dependencies = []' pyproject.toml
           sed -i '/^\[project.optional-dependencies\]/,/^\[/c\# removed' pyproject.toml
         '';
@@ -58,6 +59,7 @@
         pipInstallFlags = ["--no-deps"];
 
         postInstall = ''
+          # Install the server API
           mkdir -p $out/bin
           for ep in hindsight-api hindsight-worker hindsight-local-mcp hindsight-admin; do
             makeWrapper "${python3.interpreter}" "$out/bin/$ep" \
@@ -71,6 +73,9 @@
               )" \
               --set PYTHONPATH "$out/lib/${python3.libPrefix}/site-packages:$PYTHONPATH"
           done
+          # Install the Python client library into site-packages
+          cp -r ./clients/hindsight_client $out/lib/${python3.libPrefix}/site-packages/
+          cp -r ./clients/hindsight_client_api $out/lib/${python3.libPrefix}/site-packages/
         '';
 
         meta = with lib; {

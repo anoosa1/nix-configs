@@ -60,7 +60,7 @@
         HINDSIGHT_API_LLM_MODEL = "deepseek-v4-flash";
         HINDSIGHT_API_DATABASE_URL = "postgresql+psycopg:///hindsight";
         HINDSIGHT_API_EMBEDDINGS_PROVIDER = "gemini";
-        HINDSIGHT_API_RERANKER_PROVIDER = "none";
+        HINDSIGHT_API_RERANKER_PROVIDER = "rrf";
         HINDSIGHT_ENABLE_API = "true";
         HINDSIGHT_ENABLE_CP = "false";
         TOKENIZERS_PARALLELISM = "false";
@@ -140,6 +140,7 @@
           WHATSAPP_MODE = "self-chat";
           WHATSAPP_REPLY_PREFIX = "'*Anoosa*\n────────────\n'";
           HINDSIGHT_API_URL = "http://localhost:8888";
+          PYTHONPATH = "${self.packages.${pkgs.stdenv.hostPlatform.system}.hindsight}/lib/python3.13/site-packages";
         };
 
         #container = {
