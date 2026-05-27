@@ -107,6 +107,7 @@
         self.packages.${pkgs.stdenv.hostPlatform.system}.neovim
         self.packages.${pkgs.stdenv.hostPlatform.system}.tmux
         self.packages.${pkgs.stdenv.hostPlatform.system}.yazi
+        pkgs.git
         pkgs.fastfetch
         pkgs.ffmpeg
         pkgs.linux-firmware

@@ -134,6 +134,8 @@
           DISCORD_FREE_RESPONSE_CHANNELS = "1217976674516471878";
           DISCORD_HOME_CHANNEL = "1217976674516471878";
           DISCORD_REQUIRE_MENTION = "true";
+          DISCORD_AUTO_THREAD = "false";
+          DISCORD_REACTIONS = "false";
           WHATSAPP_ENABLED = "true";
           WHATSAPP_MODE = "self-chat";
           WHATSAPP_REPLY_PREFIX = "'*Anoosa*\n────────────\n'";
