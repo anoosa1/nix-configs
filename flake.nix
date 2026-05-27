@@ -129,6 +129,21 @@
       url = "github:Infinidoge/nix-minecraft";
     };
 
+    # soosa
+    soosa = {
+      url = "ssh://gitea@git.asherif.xyz/anoosa/soosa?ref=v2.0.0";
+
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+
+        flake-parts = {
+          follows = "flake-parts";
+        };
+      };
+    };
+
     ## Personal flakes
     # Secrets
     secrets = {
