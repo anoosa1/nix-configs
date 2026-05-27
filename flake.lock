@@ -699,6 +699,7 @@
         "quickshell": "quickshell",
         "rust-overlay": "rust-overlay",
         "secrets": "secrets",
+        "soosa": "soosa",
         "sops-nix": "sops-nix",
         "stylix": "stylix",
         "wrappers": "wrappers"
@@ -738,6 +739,30 @@
       "original": {
         "type": "git",
         "url": "ssh://gitea@git.asherif.xyz/anoosa/secrets.git"
+      }
+    },
+    "soosa": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1779921290,
+        "narHash": "sha256-d8+uGypTMBqpMUA94KkrglP/s5sdV2bVhDPK/DDtLUc=",
+        "ref": "v2",
+        "rev": "32aa397bb20ced24d0520d2d9c94c8e274732c99",
+        "revCount": 11,
+        "type": "git",
+        "url": "ssh://gitea@git.asherif.xyz/anoosa/soosa"
+      },
+      "original": {
+        "ref": "v2",
+        "type": "git",
+        "url": "ssh://gitea@git.asherif.xyz/anoosa/soosa"
       }
     },
     "sops-nix": {

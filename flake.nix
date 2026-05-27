@@ -131,7 +131,7 @@
 
     # soosa
     soosa = {
-      url = "ssh://gitea@git.asherif.xyz/anoosa/soosa?ref=v2.0.0";
+      url = "git+ssh://gitea@git.asherif.xyz/anoosa/soosa?ref=v2";
 
       inputs = {
         nixpkgs = {
