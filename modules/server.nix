@@ -657,11 +657,6 @@
       };
     };
 
-    # Enable pgvector extension for the hindsight database
-    systemd.services.postgresql.postStart = lib.mkAfter ''
-      $PSQL -d hindsight -c 'CREATE EXTENSION IF NOT EXISTS vector;'
-    '';
-
     users.users.hindsight = {
       isSystemUser = true;
       group = "hindsight";
