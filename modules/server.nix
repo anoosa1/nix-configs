@@ -58,7 +58,7 @@
         HINDSIGHT_API_PORT = "8888";
         HINDSIGHT_API_LLM_PROVIDER = "deepseek";
         HINDSIGHT_API_LLM_MODEL = "deepseek-v4-flash";
-        HINDSIGHT_API_DATABASE_URL = "postgresql+psycopg:///hindsight";
+        HINDSIGHT_API_DATABASE_URL = "postgresql:///hindsight";
         HINDSIGHT_API_EMBEDDINGS_PROVIDER = "gemini";
         HINDSIGHT_API_RERANKER_PROVIDER = "rrf";
         HINDSIGHT_ENABLE_API = "true";
@@ -90,7 +90,7 @@
       environment = {
         HINDSIGHT_API_LLM_PROVIDER = "deepseek";
         HINDSIGHT_API_LLM_MODEL = "deepseek-v4-flash";
-        HINDSIGHT_API_DATABASE_URL = "postgresql+psycopg:///hindsight";
+        HINDSIGHT_API_DATABASE_URL = "postgresql:///hindsight";
         HINDSIGHT_API_EMBEDDINGS_PROVIDER = "gemini";
         HINDSIGHT_API_RERANKER_PROVIDER = "rrf";
         TOKENIZERS_PARALLELISM = "false";
