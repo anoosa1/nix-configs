@@ -191,7 +191,7 @@
 
           mcp_servers = {
 	    nix = {
-	      command = "nix";
+	      command = "/run/current-system/sw/bin/nix";
 	      args = [ "run" "github:utensils/mcp-nixos" "--" ];
 	    };
 	  };
