@@ -59,7 +59,7 @@
         HINDSIGHT_API_LLM_PROVIDER = "deepseek";
         HINDSIGHT_API_LLM_MODEL = "deepseek-v4-flash";
         HINDSIGHT_API_DATABASE_URL = "postgresql:///hindsight";
-        HINDSIGHT_API_EMBEDDINGS_PROVIDER = "gemini";
+        HINDSIGHT_API_EMBEDDINGS_PROVIDER = "google";
         HINDSIGHT_API_RERANKER_PROVIDER = "rrf";
         HINDSIGHT_ENABLE_API = "true";
         HINDSIGHT_ENABLE_CP = "false";
