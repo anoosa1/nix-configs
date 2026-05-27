@@ -40,6 +40,11 @@
           pkgs.makeWrapper
         ];
 
+        buildInputs = with python3Packages; [
+          # Needed at build time for copying aiohttp_retry into site-packages
+          aiohttp-retry
+        ];
+
         propagatedBuildInputs = with python3Packages; [
           fastapi uvicorn pydantic wsproto
           sqlalchemy alembic asyncpg psycopg2-binary pgvector greenlet
@@ -54,11 +59,6 @@
           opentelemetry-semantic-conventions
           langchain-core langsmith orjson protobuf pillow tornado aiohttp
           pygments fastmcp uvloop
-          # hindsight_client_api (auto-generated OpenAPI client) uses aiohttp_retry
-          # in rest.py for retry support during HTTP requests. Install aiohttp_retry
-          # directly so both hindsight-api binaries and the Hermes agent's PYTHONPATH
-          # can find it without relying on makeWrapper propagation.
-          aiohttp-retry
         ];
 
         pipInstallFlags = ["--no-deps"];
@@ -81,8 +81,8 @@
           # Install the Python client library into site-packages
           cp -r ./clients/hindsight_client $out/lib/${python3.libPrefix}/site-packages/
           cp -r ./clients/hindsight_client_api $out/lib/${python3.libPrefix}/site-packages/
-          # hindsight_client_api uses aiohttp_retry — copy it from propagated deps
-          # into the same site-packages so Hermes agent's PYTHONPATH can find it.
+          # hindsight_client_api uses aiohttp_retry — copy it from build-time deps
+          # into site-packages so Hermes agent's PYTHONPATH can find it.
           cp -r "${python3Packages.aiohttp-retry}"/lib/${python3.libPrefix}/site-packages/aiohttp_retry* \
             "$out/lib/${python3.libPrefix}/site-packages/"
         '';
