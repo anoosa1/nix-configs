@@ -629,6 +629,8 @@
       postgresql = {
         enable = true;
         enableJIT = false;
+        package = pkgs.postgresql_16;
+        extraPlugins = with pkgs.postgresql16Packages; [ pgvector ];
 
         ensureDatabases = [
           "hass"
@@ -646,19 +648,17 @@
           }
         ];
 
-        # Ensure pgvector extension is available
-        extraPlugins = with pkgs.postgresqlPackages; [ pgvector ];
 
         settings = {
           shared_preload_libraries = "vector";
         };
       };
-
-      # Enable pgvector extension for the hindsight database
-      systemd.services.postgresql.postStart = lib.mkAfter ''
-        $PSQL -d hindsight -c 'CREATE EXTENSION IF NOT EXISTS vector;'
-      '';
     };
+
+    # Enable pgvector extension for the hindsight database
+    systemd.services.postgresql.postStart = lib.mkAfter ''
+      $PSQL -d hindsight -c 'CREATE EXTENSION IF NOT EXISTS vector;'
+    '';
 
     users.users.hindsight = {
       isSystemUser = true;
