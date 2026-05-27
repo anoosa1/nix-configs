@@ -76,7 +76,7 @@
                   hindsight-admin) echo hindsight_api.admin.cli ;;
                 esac
               )" \
-              --prefix PYTHONPATH : "$out/lib/${python3.libPrefix}/site-packages"
+              --set PYTHONPATH "$out/lib/${python3.libPrefix}/site-packages:$PYTHONPATH"
           done
           # Install the Python client library into site-packages
           cp -r ./clients/hindsight_client $out/lib/${python3.libPrefix}/site-packages/
