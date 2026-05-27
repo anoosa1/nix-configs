@@ -65,7 +65,6 @@
         HINDSIGHT_ENABLE_CP = "false";
         TOKENIZERS_PARALLELISM = "false";
       };
-      environmentFile = "/run/secrets/hindsight";
       serviceConfig = {
         ExecStart = "${self.packages.${pkgs.stdenv.hostPlatform.system}.hindsight}/bin/hindsight-api";
         User = "hindsight";
@@ -75,6 +74,7 @@
         StateDirectory = "hindsight";
         WorkingDirectory = "/var/lib/hindsight";
         ReadWritePaths = [ "/var/lib/hindsight" ];
+        EnvironmentFile = "/run/secrets/hindsight";
         # No network access needed beyond localhost for DB
         PrivateTmp = true;
         ProtectSystem = "strict";
@@ -93,7 +93,6 @@
         HINDSIGHT_API_DATABASE_URL = "postgresql+psycopg:///hindsight";
         TOKENIZERS_PARALLELISM = "false";
       };
-      environmentFile = "/run/secrets/hindsight";
       serviceConfig = {
         ExecStart = "${self.packages.${pkgs.stdenv.hostPlatform.system}.hindsight}/bin/hindsight-worker";
         User = "hindsight";
@@ -103,6 +102,7 @@
         StateDirectory = "hindsight";
         WorkingDirectory = "/var/lib/hindsight";
         ReadWritePaths = [ "/var/lib/hindsight" ];
+        EnvironmentFile = "/run/secrets/hindsight";
         PrivateTmp = true;
         ProtectSystem = "strict";
         ProtectHome = true;
