@@ -299,11 +299,11 @@
         "uv2nix": "uv2nix_2"
       },
       "locked": {
-        "lastModified": 1779818221,
-        "narHash": "sha256-JL1BOnA5YDinl9OKGV9ihwj7nKcSDUmV0XMvciQSmIk=",
+        "lastModified": 1779918189,
+        "narHash": "sha256-QSHwFz5EKcesODCQqgCtuvLTppEUuPFeKiLCXshsI24=",
         "ref": "refs/heads/main",
-        "rev": "ded9122b3308edb82a38ac6130cf8fbc41174403",
-        "revCount": 9543,
+        "rev": "df840410d64e66bcde3f46508400c4c2218064c8",
+        "revCount": 9544,
         "type": "git",
         "url": "https://git.asherif.xyz/anoosa/hermes-agent"
       },
@@ -727,11 +727,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1779854802,
-        "narHash": "sha256-i3c3xt30Y3J68detPga0/b76gRQdgHOgs1cDDEiRGE0=",
+        "lastModified": 1779864187,
+        "narHash": "sha256-6ZDLdZ76N24JbpJtFbC7KJTV6XDHBjWpyxFP8u+OAA0=",
         "ref": "refs/heads/main",
-        "rev": "d887a0a58150c2617f0e8f1977950964bc81040d",
-        "revCount": 70,
+        "rev": "4dd1a4157b600b8e201639112793ee9b0e422389",
+        "revCount": 71,
         "type": "git",
         "url": "ssh://gitea@git.asherif.xyz/anoosa/secrets.git"
       },

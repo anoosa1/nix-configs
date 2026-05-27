@@ -65,7 +65,6 @@
       targets = {
         gtk.enable = true;
         qutebrowser.enable = true;
-        starship.enable = true;
         zathura.enable = true;
       };
     };
