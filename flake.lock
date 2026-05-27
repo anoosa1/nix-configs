@@ -727,11 +727,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1779853633,
-        "narHash": "sha256-Q7E4lHhMIzFhvhLvAl5yHCNWsLllnlj3yRrWE1URGZ4=",
+        "lastModified": 1779854802,
+        "narHash": "sha256-i3c3xt30Y3J68detPga0/b76gRQdgHOgs1cDDEiRGE0=",
         "ref": "refs/heads/main",
-        "rev": "efd53d55db814aa3667126eda897db9271b25c8e",
-        "revCount": 69,
+        "rev": "d887a0a58150c2617f0e8f1977950964bc81040d",
+        "revCount": 70,
         "type": "git",
         "url": "ssh://gitea@git.asherif.xyz/anoosa/secrets.git"
       },
