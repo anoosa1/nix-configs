@@ -151,6 +151,8 @@
           SOOSA_LOG_CHANNEL_ID = "1217976674516471878";
         };
 
+        extraPackages = [ pkgs.opus ];
+
         #container = {
         #  enable = true;
         #  backend = "podman";
