@@ -4,7 +4,7 @@
   ...
 }:
 {
-  flake.nixosModules.server = { pkgs, ... }: {
+  flake.nixosModules.server = { pkgs, lib, ... }: {
     imports = [
       inputs.sops-nix.nixosModules.sops
       inputs.hermes-agent.nixosModules.default
@@ -38,6 +38,74 @@
         "hermes" = {
           owner = "hermes";
         };
+
+        "hindsight" = {
+          owner = "hindsight";
+        };
+      };
+    };
+
+    ## Hindsight — agent memory server
+    environment.systemPackages = [ self.packages.${pkgs.stdenv.hostPlatform.system}.hindsight ];
+
+    systemd.services.hindsight-api = {
+      description = "Hindsight API server — agent memory service";
+      after = [ "network.target" "postgresql.service" ];
+      wants = [ "postgresql.service" ];
+      wantedBy = [ "multi-user.target" ];
+      environment = {
+        HINDSIGHT_API_HOST = "127.0.0.1";
+        HINDSIGHT_API_PORT = "8888";
+        HINDSIGHT_API_LLM_PROVIDER = "deepseek";
+        HINDSIGHT_API_LLM_MODEL = "deepseek-v4-flash";
+        HINDSIGHT_API_DATABASE_URL = "postgresql+psycopg:///hindsight";
+        HINDSIGHT_API_EMBEDDINGS_PROVIDER = "gemini";
+        HINDSIGHT_API_RERANKER_PROVIDER = "none";
+        HINDSIGHT_ENABLE_API = "true";
+        HINDSIGHT_ENABLE_CP = "false";
+        TOKENIZERS_PARALLELISM = "false";
+      };
+      environmentFile = "/run/secrets/hindsight";
+      serviceConfig = {
+        ExecStart = "${self.packages.${pkgs.stdenv.hostPlatform.system}.hindsight}/bin/hindsight-api";
+        User = "hindsight";
+        Group = "hindsight";
+        Restart = "on-failure";
+        RestartSec = "5s";
+        StateDirectory = "hindsight";
+        WorkingDirectory = "/var/lib/hindsight";
+        ReadWritePaths = [ "/var/lib/hindsight" ];
+        # No network access needed beyond localhost for DB
+        PrivateTmp = true;
+        ProtectSystem = "strict";
+        ProtectHome = true;
+      };
+    };
+
+    systemd.services.hindsight-worker = {
+      description = "Hindsight background worker — task processing";
+      after = [ "network.target" "postgresql.service" "hindsight-api.service" ];
+      wants = [ "postgresql.service" ];
+      wantedBy = [ "multi-user.target" ];
+      environment = {
+        HINDSIGHT_API_LLM_PROVIDER = "deepseek";
+        HINDSIGHT_API_LLM_MODEL = "deepseek-v4-flash";
+        HINDSIGHT_API_DATABASE_URL = "postgresql+psycopg:///hindsight";
+        TOKENIZERS_PARALLELISM = "false";
+      };
+      environmentFile = "/run/secrets/hindsight";
+      serviceConfig = {
+        ExecStart = "${self.packages.${pkgs.stdenv.hostPlatform.system}.hindsight}/bin/hindsight-worker";
+        User = "hindsight";
+        Group = "hindsight";
+        Restart = "on-failure";
+        RestartSec = "10s";
+        StateDirectory = "hindsight";
+        WorkingDirectory = "/var/lib/hindsight";
+        ReadWritePaths = [ "/var/lib/hindsight" ];
+        PrivateTmp = true;
+        ProtectSystem = "strict";
+        ProtectHome = true;
       };
     };
 
@@ -69,6 +137,7 @@
           WHATSAPP_ENABLED = "true";
           WHATSAPP_MODE = "self-chat";
           WHATSAPP_REPLY_PREFIX = "'*Anoosa*\n────────────\n'";
+          HINDSIGHT_API_URL = "http://localhost:8888";
         };
 
         #container = {
@@ -109,6 +178,7 @@
           memory = {
             memory_enabled = true;
             user_profile_enabled = true;
+            provider = "hindsight";
           };
         };
       };
@@ -430,6 +500,22 @@
               };
             };
           };
+
+          "memory.asherif.xyz" = {
+            forceSSL = true;
+            enableACME = true;
+            acmeRoot = null;
+
+            locations."/" = {
+              proxyPass = "http://localhost:8888";
+              proxyWebsockets = true;
+              extraConfig = ''
+                proxy_set_header Host $host;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+              '';
+            };
+          };
         };
 
         tailscaleAuth = {
@@ -450,6 +536,7 @@
         clientOptions = {
           fontFamily = "\"Comic Code Ligatures\", monospace";
           fontSize = "16";
+          scrollback = "0";
         };
       };
 
@@ -470,6 +557,8 @@
           hlsPlayback = true;
         };
       };
+
+
 
       paperless = {
         enable = true;
@@ -538,8 +627,12 @@
       };
 
       postgresql = {
+        enable = true;
+        enableJIT = false;
+
         ensureDatabases = [
           "hass"
+          "hindsight"
         ];
 
         ensureUsers = [
@@ -547,9 +640,34 @@
             name = "hass";
             ensureDBOwnership = true;
           }
+          {
+            name = "hindsight";
+            ensureDBOwnership = true;
+          }
         ];
+
+        # Ensure pgvector extension is available
+        extraPlugins = with pkgs.postgresqlPackages; [ pgvector ];
+
+        settings = {
+          shared_preload_libraries = "vector";
+        };
       };
+
+      # Enable pgvector extension for the hindsight database
+      systemd.services.postgresql.postStart = lib.mkAfter ''
+        $PSQL -d hindsight -c 'CREATE EXTENSION IF NOT EXISTS vector;'
+      '';
     };
+
+    users.users.hindsight = {
+      isSystemUser = true;
+      group = "hindsight";
+      home = "/var/lib/hindsight";
+      createHome = true;
+    };
+
+    users.groups.hindsight = {};
 
     #users = {
     #  users = {

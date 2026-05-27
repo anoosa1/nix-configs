@@ -144,7 +144,7 @@
       useDHCP = lib.mkDefault true;
 
       hosts = {
-        "127.0.0.1" = [ "search.asherif.xyz" "hub.asherif.xyz" "accounts.asherif.xyz" "git.asherif.xyz" "x.asherif.xyz" "auth.asherif.xyz" "qbit.asherif.xyz" "tty.asherif.xyz" ];
+        "127.0.0.1" = [ "search.asherif.xyz" "hub.asherif.xyz" "accounts.asherif.xyz" "git.asherif.xyz" "x.asherif.xyz" "auth.asherif.xyz" "qbit.asherif.xyz" "tty.asherif.xyz" "memory.asherif.xyz" ];
       };
 
       # firewall
