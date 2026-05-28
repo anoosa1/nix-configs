@@ -103,9 +103,9 @@
         };
       };
 
-      # Client library: packages the hindsight_client Python libraries against
-      # Python 3.12 (same version as Hermes agent) with minimal deps, for use
-      # as extraPythonPackages in the hermes-agent NixOS module.
+      # Client library: pure Python files only (no transitive deps — Hermes
+      # sealed venv already supplies pydantic, aiohttp, etc.). Added to
+      # extraPythonPackages so Hermes finds hindsight_client on its PYTHONPATH.
       packages.hindsight-client = pkgs.stdenv.mkDerivation {
         pname = "hindsight-client";
         version = "0.6.2";
@@ -116,7 +116,6 @@
           hash = "sha256-RTxROxeLkVdmcVQ5UCYSe+SIqKkEeHrYkL9dLnJ3TPY=";
         };
 
-        outputs = [ "out" ];
         dontUnpack = true;
         dontBuild = true;
         dontFixup = true;
@@ -125,28 +124,13 @@
           mkdir -p "$out/lib/${pkgs.python312.libPrefix}/site-packages"
           cp -r "$src"/hindsight-clients/python/hindsight_client "$out/lib/${pkgs.python312.libPrefix}/site-packages/"
           cp -r "$src"/hindsight-clients/python/hindsight_client_api "$out/lib/${pkgs.python312.libPrefix}/site-packages/"
-          cp -r "${pkgs.python312Packages.aiohttp-retry}/lib/${pkgs.python312.libPrefix}/site-packages/aiohttp_retry"* \
-            "$out/lib/${pkgs.python312.libPrefix}/site-packages/"
         '';
-
-        # Propagate deps so they end up in the importing package's PYTHONPATH
-        propagatedBuildInputs = with pkgs.python312Packages; [
-          pydantic
-          aiohttp
-          aiohttp-retry
-          urllib3
-          python-dateutil
-        ];
 
         passthru = {
           pythonModule = pkgs.python312;
-          requiredPythonModules = with pkgs.python312Packages; [
-            pydantic
-            aiohttp
-            aiohttp-retry
-            urllib3
-            python-dateutil
-          ];
+          # No requiredPythonModules — Hermes sealed venv already has pydantic,
+          # aiohttp, etc. This just flags the package as a python312 module so
+          # requiredPythonModules adds it to PYTHONPATH.
         };
 
         meta = with lib; {
