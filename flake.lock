@@ -751,11 +751,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779932513,
-        "narHash": "sha256-TQzsODmEf1lR3Shu+QmhK/JTOoujBJjFHeyR7AfOsQ4=",
+        "lastModified": 1779933056,
+        "narHash": "sha256-RN6uNMGR/DjszeFHsYH9WYXMq+tzz6njADGU+FgZjYI=",
         "ref": "v2",
-        "rev": "c6fb6b62f3a6e90fdc105ca05a365be97b3c42b6",
-        "revCount": 28,
+        "rev": "5c17427cf410ee323f224921a41cf20b3c1adeeb",
+        "revCount": 29,
         "type": "git",
         "url": "ssh://gitea@git.asherif.xyz/anoosa/soosa"
       },
