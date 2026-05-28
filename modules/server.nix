@@ -149,6 +149,9 @@
           PYTHONPATH = "${self.packages.${pkgs.stdenv.hostPlatform.system}.hindsight}/lib/python3.13/site-packages";
           SOOSA_GUILD_ID = "1086946989823574088";
           SOOSA_LOG_CHANNEL_ID = "1217976674516471878";
+          SOOSA_WORDLE_SUMMARY_CHANNEL = "1217976674516471878";
+          SOOSA_WORDLE_ANSWERS_PATH = "${inputs.soosa.packages.${pkgs.stdenv.hostPlatform.system}.soosa}/share/soosa/wordlist_answers.txt";
+          SOOSA_WORDLE_ALLOWED_PATH = "${inputs.soosa.packages.${pkgs.stdenv.hostPlatform.system}.soosa}/share/soosa/wordlist_allowed.txt";
         };
 
         extraPackages = [ pkgs.opus ];

@@ -2,3 +2,4 @@ secrets/
 .sops.yaml
 .antigravitycli/
 .hermes/
+result
