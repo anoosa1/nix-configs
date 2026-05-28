@@ -137,8 +137,7 @@
         environment = {
           HASS_URL = "https://home.asherif.xyz";
           DISCORD_ALLOW_ANY_ATTACHMENT = "true";
-          DISCORD_ALLOWED_USERS = "404099093435121667";
-          DISCORD_ALLOWED_ROLES = "ai";
+          DISCORD_ALLOW_ALL_USERS = "true";
           DISCORD_ALLOW_MENTION_EVERYONE = "true";
           DISCORD_ALLOW_MENTION_ROLES = "true";
           DISCORD_FREE_RESPONSE_CHANNELS = "1217976674516471878";
