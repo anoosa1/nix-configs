@@ -154,7 +154,7 @@
           SOOSA_WORDLE_SUMMARY_CHANNEL = "1217975356070297620";
         };
 
-        extraPackages = [ pkgs.opus ];
+        extraPackages = [ pkgs.libopus ];
 
         #container = {
         #  enable = true;
@@ -177,6 +177,7 @@
           terminal = {
             backend = "local";
             timeout = 180;
+            cwd = "/var/lib/hermes/workspace";
           };
 
           display = {
