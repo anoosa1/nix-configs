@@ -102,5 +102,59 @@
           maintainers = [];
         };
       };
+
+      # Client library: packages the hindsight_client Python libraries against
+      # Python 3.12 (same version as Hermes agent) with minimal deps, for use
+      # as extraPythonPackages in the hermes-agent NixOS module.
+      packages.hindsight-client = pkgs.stdenv.mkDerivation {
+        pname = "hindsight-client";
+        version = "0.6.2";
+
+        src = pkgs.fetchzip {
+          name = "hindsight-source";
+          url = "https://github.com/vectorize-io/hindsight/archive/refs/heads/main.tar.gz";
+          hash = "sha256-RTxROxeLkVdmcVQ5UCYSe+SIqKkEeHrYkL9dLnJ3TPY=";
+        };
+
+        outputs = [ "out" ];
+        dontUnpack = true;
+        dontBuild = true;
+        dontFixup = true;
+
+        installPhase = ''
+          mkdir -p "$out/lib/${pkgs.python312.libPrefix}/site-packages"
+          cp -r "$src"/hindsight-clients/python/hindsight_client "$out/lib/${pkgs.python312.libPrefix}/site-packages/"
+          cp -r "$src"/hindsight-clients/python/hindsight_client_api "$out/lib/${pkgs.python312.libPrefix}/site-packages/"
+          cp -r "${pkgs.python312Packages.aiohttp-retry}/lib/${pkgs.python312.libPrefix}/site-packages/aiohttp_retry"* \
+            "$out/lib/${pkgs.python312.libPrefix}/site-packages/"
+        '';
+
+        # Propagate deps so they end up in the importing package's PYTHONPATH
+        propagatedBuildInputs = with pkgs.python312Packages; [
+          pydantic
+          aiohttp
+          aiohttp-retry
+          urllib3
+          python-dateutil
+        ];
+
+        passthru = {
+          pythonModule = pkgs.python312;
+          requiredPythonModules = with pkgs.python312Packages; [
+            pydantic
+            aiohttp
+            aiohttp-retry
+            urllib3
+            python-dateutil
+          ];
+        };
+
+        meta = with lib; {
+          description = "Hindsight client library for Python";
+          homepage = "https://github.com/vectorize-io/hindsight";
+          license = licenses.mit;
+          platforms = platforms.linux;
+        };
+      };
     };
 }

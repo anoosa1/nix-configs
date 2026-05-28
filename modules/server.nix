@@ -129,7 +129,10 @@
         extraDependencyGroups = [ "messaging" ];
 
         extraPlugins = [ inputs.soosa.packages.${pkgs.stdenv.hostPlatform.system}.soosa ];
-        extraPythonPackages = [ inputs.soosa.packages.${pkgs.stdenv.hostPlatform.system}.soosa ];
+        extraPythonPackages = [
+          inputs.soosa.packages.${pkgs.stdenv.hostPlatform.system}.soosa
+          self.packages.${pkgs.stdenv.hostPlatform.system}.hindsight-client
+        ];
 
         environment = {
           HASS_URL = "https://home.asherif.xyz";
@@ -146,7 +149,6 @@
           WHATSAPP_MODE = "self-chat";
           WHATSAPP_REPLY_PREFIX = "'*Anoosa*\n────────────\n'";
           HINDSIGHT_API_URL = "http://localhost:8888";
-          PYTHONPATH = "${self.packages.${pkgs.stdenv.hostPlatform.system}.hindsight}/lib/python3.13/site-packages";
           SOOSA_GUILD_ID = "1042512696253358100";
           SOOSA_LOG_CHANNEL_ID = "1217976674516471878";
           SOOSA_WORDLE_SUMMARY_CHANNEL = "1217975356070297620";
