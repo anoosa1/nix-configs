@@ -163,8 +163,14 @@
         #};
 
         settings = {
+          group_sessions_per_user = false;
+
           plugins = {
             enabled = [ "soosa" ];
+          };
+
+          discord = {
+            history_backfill_limit = 50;
           };
 
           toolsets = [ "all" ];
