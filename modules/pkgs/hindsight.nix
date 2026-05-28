@@ -124,6 +124,9 @@
           mkdir -p "$out/lib/${pkgs.python312.libPrefix}/site-packages"
           cp -r "$src"/hindsight-clients/python/hindsight_client "$out/lib/${pkgs.python312.libPrefix}/site-packages/"
           cp -r "$src"/hindsight-clients/python/hindsight_client_api "$out/lib/${pkgs.python312.libPrefix}/site-packages/"
+          # aiohttp-retry is not in the Hermes sealed venv, copy it alongside
+          cp -r "${pkgs.python312Packages.aiohttp-retry}/lib/${pkgs.python312.libPrefix}/site-packages/aiohttp_retry"* \
+            "$out/lib/${pkgs.python312.libPrefix}/site-packages/"
         '';
 
         passthru = {
