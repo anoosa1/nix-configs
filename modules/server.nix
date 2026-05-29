@@ -8,7 +8,7 @@
     imports = [
       inputs.sops-nix.nixosModules.sops
       inputs.hermes-agent.nixosModules.default
-      #self.nixosModules.ai
+      self.nixosModules.ai
       self.nixosModules.media
       self.nixosModules.security
     ];
