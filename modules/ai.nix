@@ -3,7 +3,8 @@
     sops = {
       secrets = {
         "open-webui" = {
-          owner = "open-webui";
+          owner = "root";
+          mode = "0444";
         };
       };
     };
@@ -21,19 +22,11 @@
           WEBUI_URL = "https://chat.asherif.xyz";
 
           # OIDC with Authelia
-          ENABLE_OAUTH_SIGNUP = "true";
-          OAUTH_MERGE_ACCOUNTS_BY_EMAIL = "true";
-          OAUTH_PROVIDER_NAME = "Authelia";
-          OAUTH_SCOPES = "openid email profile groups";
-          OAUTH_CODE_CHALLENGE_METHOD = "S256";
-
-          OPENID_PROVIDER_URL = "https://auth.asherif.xyz/.well-known/openid-configuration";
+          ENABLE_OAUTH_SIGNUP=***          OAUTH_MERGE_ACCOUNTS_BY_EMAIL=***          OAUTH_PROVIDER_NAME=***          OAUTH_SCOPES=*** email profile groups";
+          OAUTH_CODE_CHALLENGE_METHOD=***          OPENID_PROVIDER_URL = "https://auth.asherif.xyz/.well-known/openid-configuration";
 
           # Role mapping via Authelia groups claim
-          ENABLE_OAUTH_ROLE_MANAGEMENT = "true";
-          OAUTH_ADMIN_ROLES = "admin";
-          OAUTH_ROLES_CLAIM = "groups";
-        };
+          ENABLE_OAUTH_ROLE_MANAGEMENT=***          OAUTH_ADMIN_ROLES=***          OAUTH_ROLES_CLAIM=***        };
       };
 
       nginx = {
@@ -56,6 +49,11 @@
           };
         };
       };
+    };
+
+    # LoadCredential mounts the sops env file inside the DynamicUser sandbox
+    systemd.services.open-webui = {
+      serviceConfig.LoadCredential = [ "open-webui-env:/run/secrets/open-webui" ];
     };
   };
 }
