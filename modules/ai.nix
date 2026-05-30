@@ -4,43 +4,54 @@
       owner = "root";
       mode = "0444";
     };
-    services.open-webui = {
-      enable = true;
-      host = "127.0.0.1";
-      port = 3080;
-      openFirewall = false;
-      stateDir = "/var/lib/open-webui";
-      environmentFile = "/run/secrets/open-webui";
-      environment = {
-        WEBUI_URL = "https://chat.asherif.xyz";
-        ENABLE_OAUTH_SIGNUP = "true";
-        OAUTH_MERGE_ACCOUNTS_BY_EMAIL = "true";
-        OAUTH_PROVIDER_NAME = "Authelia";
-        OAUTH_SCOPES = "openid profile email groups";
-        OAUTH_CODE_CHALLENGE_METHOD = "S256";
-        OPENID_PROVIDER_URL = "https://auth.asherif.xyz/.well-known/openid-configuration";
-        ENABLE_OAUTH_ROLE_MANAGEMENT = "true";
-        OAUTH_ADMIN_ROLES = "admin";
-        OAUTH_ROLES_CLAIM = "groups";
-        OPENAI_API_BASE_URL = "https://api.deepseek.com";
-        RAG_OPENAI_API_BASE_URL = "http://127.0.0.1:8888/v1";
+
+    services = {
+      open-webui = {
+        enable = true;
+        host = "127.0.0.1";
+        port = 3080;
+        openFirewall = false;
+        stateDir = "/var/lib/open-webui";
+        environmentFile = "/run/secrets/open-webui";
+
+        environment = {
+          WEBUI_URL = "https://chat.asherif.xyz";
+          ENABLE_OAUTH_SIGNUP = "true";
+          OAUTH_MERGE_ACCOUNTS_BY_EMAIL = "true";
+          OAUTH_PROVIDER_NAME = "Authelia";
+          OAUTH_SCOPES = "openid profile email groups";
+          OAUTH_CODE_CHALLENGE_METHOD = "S256";
+          OPENID_PROVIDER_URL = "https://auth.asherif.xyz/.well-known/openid-configuration";
+          ENABLE_OAUTH_ROLE_MANAGEMENT = "true";
+          OAUTH_ADMIN_ROLES = "admin";
+          OAUTH_ROLES_CLAIM = "groups";
+          OPENAI_API_BASE_URL = "https://api.deepseek.com";
+          RAG_OPENAI_API_BASE_URL = "http://127.0.0.1:8888/v1";
+        };
+      };
+
+      nginx = {
+        virtualHosts = {
+          "chat.asherif.xyz" = {
+            forceSSL = true;
+            enableACME = true;
+            acmeRoot = null;
+
+            locations."/" = {
+              proxyPass = "http://127.0.0.1:3080";
+              proxyWebsockets = true;
+              extraConfig = ''
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+              '';
+            };
+          };
+        };
       };
     };
-    services.nginx.virtualHosts."chat.asherif.xyz" = {
-      forceSSL = true;
-      enableACME = true;
-      acmeRoot = null;
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:3080";
-        proxyWebsockets = true;
-        extraConfig = ''
-          proxy_set_header Host $host;
-          proxy_set_header X-Real-IP $remote_addr;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
-        '';
-      };
-    };
+
     systemd.services.open-webui.serviceConfig = {
       LoadCredential = [ "open-webui-env:/run/secrets/open-webui" ];
       SupplementaryGroups = [ config.users.groups.keys.name ];
