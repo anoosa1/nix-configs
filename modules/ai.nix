@@ -29,6 +29,12 @@
           OPENID_PROVIDER_URL = "https://auth.asherif.xyz/.well-known/openid-configuration";
           WEBUI_NAME = "Soosa";
           WEBUI_URL = "https://chat.asherif.xyz";
+
+          # DeepSeek as default LLM
+          OPENAI_API_BASE_URL = "https://api.deepseek.com";
+
+          # Hindsight for RAG/embeddings (runs on localhost:8888)
+          RAG_OPENAI_API_BASE_URL = "http://127.0.0.1:8888/v1";
         };
       };
 
