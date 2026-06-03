@@ -35,79 +35,9 @@
           owner = "paperless";
         };
 
-        "hermes" = {
-          owner = "hermes";
+        "searxng" = {
+          owner = "searx";
         };
-
-        "hindsight" = {
-          owner = "hindsight";
-        };
-      };
-    };
-
-    ## Hindsight — agent memory server
-    environment.systemPackages = [ self.packages.${pkgs.stdenv.hostPlatform.system}.hindsight ];
-
-    systemd.services.hindsight-api = {
-      description = "Hindsight API server — agent memory service";
-      after = [ "network.target" "postgresql.service" ];
-      wants = [ "postgresql.service" ];
-      wantedBy = [ "multi-user.target" ];
-      environment = {
-        HINDSIGHT_API_HOST = "127.0.0.1";
-        HINDSIGHT_API_PORT = "8888";
-        HINDSIGHT_API_LLM_PROVIDER = "deepseek";
-        HINDSIGHT_API_LLM_MODEL = "deepseek-v4-flash";
-        HINDSIGHT_API_DATABASE_URL = "postgresql:///hindsight";
-        HINDSIGHT_API_EMBEDDINGS_PROVIDER = "google";
-        HINDSIGHT_API_RERANKER_PROVIDER = "rrf";
-        HINDSIGHT_ENABLE_API = "true";
-        HINDSIGHT_ENABLE_CP = "false";
-        TOKENIZERS_PARALLELISM = "false";
-      };
-      serviceConfig = {
-        ExecStart = "${self.packages.${pkgs.stdenv.hostPlatform.system}.hindsight}/bin/hindsight-api";
-        User = "hindsight";
-        Group = "hindsight";
-        Restart = "on-failure";
-        RestartSec = "5s";
-        StateDirectory = "hindsight";
-        WorkingDirectory = "/var/lib/hindsight";
-        ReadWritePaths = [ "/var/lib/hindsight" ];
-        EnvironmentFile = "/run/secrets/hindsight";
-        # No network access needed beyond localhost for DB
-        PrivateTmp = true;
-        ProtectSystem = "strict";
-        ProtectHome = true;
-      };
-    };
-
-    systemd.services.hindsight-worker = {
-      description = "Hindsight background worker — task processing";
-      after = [ "network.target" "postgresql.service" "hindsight-api.service" ];
-      wants = [ "postgresql.service" ];
-      wantedBy = [ "multi-user.target" ];
-      environment = {
-        HINDSIGHT_API_LLM_PROVIDER = "deepseek";
-        HINDSIGHT_API_LLM_MODEL = "deepseek-v4-flash";
-        HINDSIGHT_API_DATABASE_URL = "postgresql:///hindsight";
-        HINDSIGHT_API_EMBEDDINGS_PROVIDER = "google";
-        HINDSIGHT_API_RERANKER_PROVIDER = "rrf";
-        TOKENIZERS_PARALLELISM = "false";
-      };
-      serviceConfig = {
-        ExecStart = "${self.packages.${pkgs.stdenv.hostPlatform.system}.hindsight}/bin/hindsight-worker";
-        User = "hindsight";
-        Group = "hindsight";
-        Restart = "on-failure";
-        RestartSec = "10s";
-        StateDirectory = "hindsight";
-        WorkingDirectory = "/var/lib/hindsight";
-        ReadWritePaths = [ "/var/lib/hindsight" ];
-        EnvironmentFile = "/run/secrets/hindsight";
-        PrivateTmp = true;
-        ProtectSystem = "strict";
-        ProtectHome = true;
       };
     };
 
@@ -122,93 +52,6 @@
     };
 
     services = {
-      hermes-agent = {
-        enable = true;
-        environmentFiles = [ "/run/secrets/hermes" ];
-        addToSystemPackages = true;
-        extraDependencyGroups = [ "messaging" ];
-
-        extraPlugins = [ inputs.soosa.packages.${pkgs.stdenv.hostPlatform.system}.soosa ];
-        extraPythonPackages = [
-          inputs.soosa.packages.${pkgs.stdenv.hostPlatform.system}.soosa
-          self.packages.${pkgs.stdenv.hostPlatform.system}.hindsight-client
-        ];
-
-        environment = {
-          HASS_URL = "https://home.asherif.xyz";
-          DISCORD_ALLOW_ANY_ATTACHMENT = "true";
-          DISCORD_ALLOW_ALL_USERS = "true";
-          DISCORD_ALLOW_MENTION_EVERYONE = "true";
-          DISCORD_ALLOW_MENTION_ROLES = "true";
-          DISCORD_FREE_RESPONSE_CHANNELS = "1217976674516471878";
-          DISCORD_HOME_CHANNEL = "1217976674516471878";
-          DISCORD_REQUIRE_MENTION = "true";
-          DISCORD_AUTO_THREAD = "false";
-          DISCORD_REACTIONS = "false";
-          WHATSAPP_ENABLED = "true";
-          WHATSAPP_MODE = "self-chat";
-          WHATSAPP_REPLY_PREFIX = "'*Anoosa*\n────────────\n'";
-          HINDSIGHT_API_URL = "http://localhost:8888";
-          SOOSA_GUILD_ID = "1042512696253358100";
-          SOOSA_LOG_CHANNEL_ID = "1217976674516471878";
-          SOOSA_WORDLE_SUMMARY_CHANNEL = "1217975356070297620";
-        };
-
-        extraPackages = [ pkgs.libopus ];
-
-        #container = {
-        #  enable = true;
-        #  backend = "podman";
-        #  hostUsers = [ "anas" ];
-        #};
-
-        settings = {
-          group_sessions_per_user = false;
-
-          plugins = {
-            enabled = [ "soosa" ];
-          };
-
-          discord = {
-            history_backfill_limit = 50;
-          };
-
-          toolsets = [ "all" ];
-
-          model = {
-            provider = "deepseek";
-            default = "deepseek-v4-flash";
-          };
-
-          terminal = {
-            backend = "local";
-            timeout = 180;
-            cwd = "/var/lib/hermes/workspace";
-          };
-
-          display = {
-            compact = false;
-            personality = "kawaii";
-          };
-
-          whatsapp = {
-            unauthorized_dm_behavior = "ignore";
-          };
-
-          mcp_servers = {
-	    nix = {
-	      command = "/run/current-system/sw/bin/nix";
-	      args = [ "run" "github:utensils/mcp-nixos" "--" ];
-	    };
-	  };
-
-          memory = {
-            memory_enabled = true;
-            user_profile_enabled = true;
-            provider = "hindsight";
-          };
-        };
-      };
 
       #code-server = {
       #  enable = true;
@@ -528,21 +371,6 @@
             };
           };
 
-          "memory.asherif.xyz" = {
-            forceSSL = true;
-            enableACME = true;
-            acmeRoot = null;
-
-            locations."/" = {
-              proxyPass = "http://localhost:8888";
-              proxyWebsockets = true;
-              extraConfig = ''
-                proxy_set_header Host $host;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header X-Forwarded-Proto $scheme;
-              '';
-            };
-          };
         };
 
         tailscaleAuth = {
@@ -584,8 +412,6 @@
           hlsPlayback = true;
         };
       };
-
-
 
       paperless = {
         enable = true;
@@ -657,11 +483,10 @@
         enable = true;
         enableJIT = false;
         package = pkgs.postgresql_16;
-        extraPlugins = with pkgs.postgresql16Packages; [ pgvector ];
+        extensions = with pkgs.postgresql16Packages; [ pgvector ];
 
         ensureDatabases = [
           "hass"
-          "hindsight"
         ];
 
         ensureUsers = [
@@ -669,27 +494,74 @@
             name = "hass";
             ensureDBOwnership = true;
           }
-          {
-            name = "hindsight";
-            ensureDBOwnership = true;
-          }
         ];
-
 
         settings = {
           shared_preload_libraries = "vector";
         };
       };
-    };
 
-    users.users.hindsight = {
-      isSystemUser = true;
-      group = "hindsight";
-      home = "/var/lib/hindsight";
-      createHome = true;
-    };
+      searx = {
+        enable = true;
+        domain = "searxng.asherif.xyz";
+        configureNginx = true;
+        redisCreateLocally = true;
+        environmentFile = "/run/secrets/searxng";
 
-    users.groups.hindsight = {};
+        settings = {
+          server = {
+            secret_key = "$SECRET_KEY";
+            bind_address = "127.0.0.1";
+            port = 8880;
+          };
+
+          search = {
+            safe_search = 0;
+            autocomplete = "google";
+            languages = [ "en" "fr" "ar" ];
+          };
+
+          ui = {
+            static_use_hash = true;
+          };
+
+          outgoing = {
+            request_timeout = 5.0;
+            max_request_timeout = 10.0;
+            useragent_suffix = "";
+          };
+
+          enabled_plugins = [
+            "Hash plugin"
+            "Self Information"
+            "Search on category select"
+            "Tracker URL remover"
+          ];
+
+          engines = {
+            "google" = {
+              disabled = false;
+            };
+
+            "duckduckgo" = {
+              disabled = false;
+            };
+
+            "bing" = {
+              disabled = false;
+            };
+
+            "wikidata" = {
+              disabled = false;
+            };
+
+            "wikipedia" = {
+              disabled = false;
+            };
+          };
+        };
+      };
+    };
 
     #users = {
     #  users = {
