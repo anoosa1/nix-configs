@@ -38,6 +38,7 @@
         "searxng" = {
           owner = "searx";
         };
+
       };
     };
 
@@ -210,10 +211,15 @@
             enableACME = true;
             acmeRoot = null;
 
+            extraConfig = ''
+              proxy_buffering off;
+            '';
+
             locations = {
               "/" = {
-                proxyPass = "http://unix:/run/code-server/code-server.sock:/";
+                proxyPass = "http://localhost:4096";
                 proxyWebsockets = true;
+                extraConfig = "proxy_set_header Host $host;";
               };
             };
           };
@@ -501,6 +507,12 @@
         };
       };
 
+      nginx.virtualHosts."searxng.asherif.xyz" = {
+        forceSSL = true;
+        enableACME = true;
+        acmeRoot = null;
+      };
+
       searx = {
         enable = true;
         domain = "searxng.asherif.xyz";
@@ -519,6 +531,7 @@
             safe_search = 0;
             autocomplete = "google";
             languages = [ "en" "fr" "ar" ];
+            formats = [ "html" "json" "rss" "csv" ];
           };
 
           ui = {
@@ -538,27 +551,28 @@
             "Tracker URL remover"
           ];
 
-          engines = {
-            "google" = {
+          engines = [
+            {
+              name = "google";
               disabled = false;
-            };
-
-            "duckduckgo" = {
+            }
+            {
+              name = "duckduckgo";
               disabled = false;
-            };
-
-            "bing" = {
+            }
+            {
+              name = "bing";
               disabled = false;
-            };
-
-            "wikidata" = {
+            }
+            {
+              name = "wikidata";
               disabled = false;
-            };
-
-            "wikipedia" = {
+            }
+            {
+              name = "wikipedia";
               disabled = false;
-            };
-          };
+            }
+          ];
         };
       };
     };
