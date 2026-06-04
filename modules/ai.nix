@@ -60,15 +60,10 @@
           OAUTH_ROLES_CLAIM = "groups";
           OAUTH_SCOPES = "openid profile email groups";
           OAUTH_USERNAME_CLAIM = "preferred_username";
-          OPENAI_API_BASE_URL = "http://127.0.0.1:8642/v1";
+          OPENAI_API_BASE_URLS = "http://127.0.0.1:8642/v1;https://api.deepseek.com";
           OPENID_PROVIDER_URL = "https://auth.asherif.xyz/.well-known/openid-configuration";
           WEBUI_NAME = "Soosa";
           WEBUI_URL = "https://chat.asherif.xyz";
-
-          # DeepSeek as default LLM
-          OPENAI_API_BASE_URL = "https://api.deepseek.com";
-
-          # Hindsight for RAG/embeddings (runs on localhost:8888)
           RAG_OPENAI_API_BASE_URL = "http://127.0.0.1:8888/v1";
         };
       };
@@ -101,6 +96,7 @@
           WHATSAPP_MODE = "self-chat";
           WHATSAPP_REPLY_PREFIX = "'*Anoosa*\n────────────\n'";
           HINDSIGHT_API_URL = "http://localhost:8888";
+          SEARXNG_URL = "https://searxng.asherif.xyz";
           SOOSA_GUILD_ID = "1042512696253358100";
           SOOSA_LOG_CHANNEL_ID = "1217976674516471878";
           SOOSA_WORDLE_SUMMARY_CHANNEL = "1217975356070297620";
@@ -131,6 +127,10 @@
           model = {
             provider = "deepseek";
             default = "deepseek-v4-flash";
+          };
+
+          web = {
+            search_backend = "searxng";
           };
 
           terminal = {
