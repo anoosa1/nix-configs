@@ -4,6 +4,10 @@
       self.nixosModules.hindsight
     ];
 
+    environment.systemPackages = [
+      self.packages.${pkgs.stdenv.hostPlatform.system}.zigpeek
+    ];
+
     services.hindsight = {
       enable = true;
       environmentFile = "/run/secrets/hindsight";
@@ -79,6 +83,7 @@
         extraPythonPackages = [
           inputs.soosa.packages.${pkgs.stdenv.hostPlatform.system}.soosa
           self.packages.${pkgs.stdenv.hostPlatform.system}.hindsight-client
+          self.packages.${pkgs.stdenv.hostPlatform.system}.zigpeek
         ];
 
         environment = {
