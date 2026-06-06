@@ -544,14 +544,32 @@
             useragent_suffix = "";
           };
 
-          enabled_plugins = [
-            "Hash plugin"
-            "Self Information"
-            "Search on category select"
-            "Tracker URL remover"
-          ];
+          default_doi_resolver = "sci-hub.st";
+
+          plugins = {
+            searx.plugins.oa_doi_rewrite.SXNGPlugin = {
+              active = true;
+            };
+            searx.plugins.infinite_scroll.SXNGPlugin = {
+              active = true;
+            };
+          };
+
+          categories_as_tabs = {
+            general = null;
+            images = null;
+            videos = null;
+            news = null;
+            map = null;
+            music = null;
+            it = null;
+            science = null;
+            files = null;
+            "social media" = null;
+          };
 
           engines = [
+            # General
             {
               name = "google";
               disabled = false;
@@ -560,17 +578,190 @@
               name = "duckduckgo";
               disabled = false;
             }
+
+            # Images
             {
-              name = "bing";
+              name = "google images";
+              categories = [ "images" ];
+            }
+            {
+              name = "bing images";
+              categories = [ "images" ];
+            }
+            {
+              name = "unsplash";
+              categories = [ "images" ];
+            }
+            {
+              name = "wikicommons.images";
+            }
+            {
+              name = "public domain image archive";
+              disabled = false;
+              categories = [ "images" ];
+            }
+
+            # Videos
+            {
+              name = "youtube";
+              categories = [ "videos" "music" ];
+            }
+            {
+              name = "google videos";
+              categories = [ "videos" ];
+            }
+            {
+              name = "wikicommons.videos";
+            }
+
+            # News
+            {
+              name = "brave.news";
+            }
+            {
+              name = "wikinews";
+            }
+
+            # Map
+            {
+              name = "apple maps";
+              disabled = false;
+              categories = [ "map" ];
+            }
+            {
+              name = "openstreetmap";
+              categories = [ "map" ];
+            }
+            {
+              name = "photon";
+              categories = [ "map" ];
+            }
+
+            # Music
+            {
+              name = "bandcamp";
+            }
+            {
+              name = "wikicommons.audio";
+            }
+
+            # IT
+            {
+              name = "stackoverflow";
+            }
+            {
+              name = "askubuntu";
+            }
+            {
+              name = "github";
+              categories = [ "it" ];
+            }
+            {
+              name = "arch linux wiki";
+              categories = [ "it" ];
+            }
+            {
+              name = "nixos wiki";
               disabled = false;
             }
             {
-              name = "wikidata";
+              name = "gentoo";
+            }
+            {
+              name = "hackernews";
+              disabled = false;
+              categories = [ "it" ];
+            }
+
+            # Science
+            {
+              name = "arxiv";
+              categories = [ "science" ];
+            }
+            {
+              name = "google scholar";
+              categories = [ "science" ];
+            }
+            {
+              name = "pubmed";
+              categories = [ "science" ];
+            }
+
+            # Files
+            {
+              name = "1337x";
+              disabled = false;
+              categories = [ "files" ];
+            }
+            {
+              name = "wikicommons.files";
+            }
+            {
+              name = "nyaa";
+              disabled = false;
+              categories = [ "files" ];
+            }
+            {
+              name = "bt4g";
+              categories = [ "files" ];
+            }
+            {
+              name = "annas archive";
+              disabled = false;
+              categories = [ "files" ];
+            }
+
+            # Social media
+            {
+              name = "reddit";
+              disabled = false;
+              categories = [ "social media" ];
+            }
+            {
+              name = "pinterest";
+              categories = [ "social media" ];
+            }
+            {
+              name = "lemmy communities";
+              categories = [ "social media" ];
+            }
+            {
+              name = "lemmy posts";
+              categories = [ "social media" ];
+            }
+            {
+              name = "lemmy users";
+              categories = [ "social media" ];
+            }
+            {
+              name = "lemmy comments";
+              categories = [ "social media" ];
+            }
+            {
+              name = "mastodon users";
+              categories = [ "social media" ];
+            }
+            {
+              name = "mastodon hashtags";
+              categories = [ "social media" ];
+            }
+
+            # Other
+            {
+              name = "wttr.in";
+            }
+            {
+              name = "steam";
               disabled = false;
             }
             {
-              name = "wikipedia";
-              disabled = false;
+              name = "etymonline";
+            }
+            {
+              name = "wiktionary";
+            }
+            {
+              name = "wordnik";
             }
           ];
         };
