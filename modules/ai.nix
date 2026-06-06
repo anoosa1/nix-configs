@@ -64,6 +64,9 @@
           OPENID_PROVIDER_URL = "https://auth.asherif.xyz/.well-known/openid-configuration";
           WEBUI_NAME = "Soosa";
           WEBUI_URL = "https://chat.asherif.xyz";
+          WEB_SEARCH_ENGINE = "searxng";
+          ENABLE_WEB_SEARCH = "true";
+          SEARXNG_QUERY_URL = "https://searxng.asherif.xyz";
           RAG_OPENAI_API_BASE_URL = "http://127.0.0.1:8888/v1";
         };
       };
