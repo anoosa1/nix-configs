@@ -268,6 +268,10 @@
               "/" = {
                 proxyPass = "http://unix:/run/gitea/gitea.sock:/";
               };
+
+              "/user/login" {
+                return = "302 /user/oauth2/authelia";
+              };
             };
           };
 
@@ -546,27 +550,14 @@
 
           default_doi_resolver = "sci-hub.st";
 
-          plugins = {
-            searx.plugins.oa_doi_rewrite.SXNGPlugin = {
-              active = true;
-            };
-            searx.plugins.infinite_scroll.SXNGPlugin = {
-              active = true;
-            };
-          };
-
-          categories_as_tabs = {
-            general = null;
-            images = null;
-            videos = null;
-            news = null;
-            map = null;
-            music = null;
-            it = null;
-            science = null;
-            files = null;
-            "social media" = null;
-          };
+          #plugins = {
+          #  searx.plugins.oa_doi_rewrite.SXNGPlugin = {
+          #    active = true;
+          #  };
+          #  searx.plugins.infinite_scroll.SXNGPlugin = {
+          #    active = true;
+          #  };
+          #};
 
           engines = [
             # General
