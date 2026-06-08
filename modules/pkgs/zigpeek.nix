@@ -64,10 +64,10 @@
 
       pipInstallFlags = [ "--no-deps" ];
 
-      # Relax lxml version constraint — nixpkgs has 6.0.2 but spec says ~=6.1.0.
-      # The two are compatible (6.0.x vs 6.1.x) and the API surface used by
-      # zigpeek (basic HTML parsing) hasn't changed.
-      pythonRelaxDeps = [ "lxml" ];
+      # Relax version constraints where nixpkgs ships a newer minor/patch.
+      # - lxml: nixpkgs has 6.0.2 but spec says ~=6.1.0 (6.0.x vs 6.1.x, compatible)
+      # - wasmtime: nixpkgs has 45.0.0 but spec says ~=44.0.0 (backward compatible API)
+      pythonRelaxDeps = [ "lxml" "wasmtime" ];
 
       # Verify entry point exists. buildPythonApplication with
       # format=pyproject should create console_scripts from
