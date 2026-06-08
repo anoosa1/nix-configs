@@ -269,7 +269,7 @@
                 proxyPass = "http://unix:/run/gitea/gitea.sock:/";
               };
 
-              "/user/login" {
+              "/user/login" = {
                 return = "302 /user/oauth2/authelia";
               };
             };
