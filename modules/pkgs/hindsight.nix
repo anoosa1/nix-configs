@@ -20,7 +20,7 @@
         src = pkgs.fetchzip {
           name = "hindsight-source";
           url = "https://github.com/vectorize-io/hindsight/archive/refs/heads/main.tar.gz";
-          hash = "sha256-Nx11aRDRmodi8fMLKuQgKsVb9lXXkTUTimQW29ETsNc=";
+          hash = "sha256-RTxROxeLkVdmcVQ5UCYSe+SIqKkEeHrYkL9dLnJ3TPY=";
         };
 
         dontUnpack = true;
