@@ -91,13 +91,6 @@
       };
     };
   
-    ## hardware
-    hardware = {
-      graphics = {
-        enable = true;
-      };
-    };
-    
     powerManagement = {
       enable = true;
     };

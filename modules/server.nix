@@ -181,9 +181,9 @@
         maxUploadSize = "16G";
         package = pkgs.nextcloud33;
 
-        extraApps = {
-          prayertimes = self.packages.${pkgs.stdenv.hostPlatform.system}.prayertimes;
-        };
+        #extraApps = {
+        #  prayertimes = self.packages.${pkgs.stdenv.hostPlatform.system}.prayertimes;
+        #};
 
         settings = {
           default_phone_region = "CA";
@@ -241,11 +241,6 @@
             enableACME = true;
             acmeRoot = null;
 
-            extraConfig = ''
-              proxy_hide_header X-Frame-Options;
-              add_header Content-Security-Policy "frame-ancestors 'self' https://hub.asherif.xyz;" always;
-            '';
-
             locations."/" = {
               proxyPass = "http://localhost:28981";
               proxyWebsockets = true;
@@ -259,9 +254,7 @@
             acmeRoot = null;
 
             extraConfig = ''
-              proxy_hide_header X-Frame-Options;
               client_max_body_size 0;
-              add_header Content-Security-Policy "frame-ancestors 'self' https://hub.asherif.xyz;" always;
             '';
 
             locations = {
@@ -283,13 +276,6 @@
               proxyPass = "http://localhost:8123";
               proxyWebsockets = true;
             };
-
-            extraConfig = ''
-              proxy_buffering off;
-              proxy_hide_header X-Frame-Options;
-              add_header Content-Security-Policy "frame-ancestors 'self' https://hub.asherif.xyz;" always;
-
-            '';
           };
 
           "hub.asherif.xyz" = {
