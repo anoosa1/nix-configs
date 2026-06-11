@@ -11,7 +11,7 @@
       self.nixosModules.ai
       self.nixosModules.media
       self.nixosModules.security
-      self.nixosModules.vpn
+      #self.nixosModules.vpn
     ];
 
     ## sops

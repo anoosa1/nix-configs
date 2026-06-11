@@ -43,7 +43,7 @@
           mobike = true;
           fragmentation = "yes";
           dpd_delay = "30s";
-          proposals = [ "aes256-sha256-modp2048" "aes256-sha256-modp4096" "aes128-sha256-modp2048" ];
+          proposals = [ "aes256-sha256-modp2048" "aes128-sha256-modp2048" ];
         };
 
         authorities."vpnCA" = {
