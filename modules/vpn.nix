@@ -15,6 +15,13 @@
       };
     };
 
+    ## stage certs into swanctl dirs (sops puts them in /run/secrets/)
+    systemd.tmpfiles.rules = [
+      "L+ /etc/swanctl/x509ca/ca-cert.pem - - - - /run/secrets/vpn/ca-cert"
+      "L+ /etc/swanctl/x509/server-cert.pem - - - - /run/secrets/vpn/server-cert"
+      "L+ /etc/swanctl/private/server-key.pem - - - - /run/secrets/vpn/server-key"
+    ];
+
     ## services
     services.strongswan-swanctl = {
       enable = true;
@@ -23,7 +30,7 @@
           version = 2;
           local."0" = {
             auth = "pubkey";
-            certs = [ "/run/secrets/vpn/server-cert" ];
+            certs = [ "server-cert.pem" ];
             id = "72.39.65.171";
           };
           remote."0".auth = "pubkey";
@@ -40,7 +47,7 @@
         };
 
         authorities."vpnCA" = {
-          cacert = "/run/secrets/vpn/ca-cert";
+          cacert = "ca-cert.pem";
         };
 
         pools."vpn-pool" = {
