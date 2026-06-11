@@ -24,7 +24,7 @@
           local."0" = {
             auth = "pubkey";
             certs = [ "/run/secrets/vpn/server-cert" ];
-            id = "astra.asherif.xyz";
+            id = "72.39.65.171";
           };
           remote."0".auth = "pubkey";
           children."ikev2-vpn" = {
