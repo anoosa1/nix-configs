@@ -4,10 +4,23 @@
   ...
 }:
 {
-  flake.nixosModules.anas = {
+  flake.nixosModules.anas = { pkgs, ... }: {
     imports = [
       inputs.home-manager.nixosModules.home-manager
+      inputs.hermes-agent.nixosModules.default
     ];
+
+    ## environment
+    environment = {
+      # system packages
+      systemPackages = [
+      (inputs.hermes-agent.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
+          extraPythonPackages = [ self.packages.${pkgs.stdenv.hostPlatform.system}.hindsight-client ];})
+      ];
+    };
+              nixpkgs.config.permittedInsecurePackages = [
+                "electron-39.8.10"
+              ];
 
     home-manager = {
       useGlobalPkgs = true;
