@@ -44,7 +44,7 @@
         };
 
         pools."vpn-pool" = {
-          subnet = [ "10.100.0.0/24" ];
+          addrs = "10.100.0.0/24";
           dns = [ "1.1.1.1" "1.0.0.1" ];
         };
       };
@@ -59,8 +59,7 @@
       nat = {
         enable = true;
         internalIPs = [ "10.100.0.0/24" ];
-        # TODO: verify interface with `ip route get 1.1.1.1 | awk '{print $5}'`
-        externalInterface = "eth0";
+        externalInterface = "eno1";
       };
     };
 
