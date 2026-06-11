@@ -62,6 +62,14 @@
     networking = {
       # Firewall — open IKE and IPsec NAT-T
       firewall.allowedUDPPorts = [ 500 4500 ];
+      firewall.extraCommands = ''
+        # Accept forwarded traffic from VPN clients (decrypted ESP inner packets)
+        iptables -A FORWARD -m policy --pol ipsec --dir in -s 10.100.0.0/24 -j ACCEPT
+        # Accept return traffic to VPN clients
+        iptables -A FORWARD -m policy --pol ipsec --dir out -d 10.100.0.0/24 -j ACCEPT
+        # MSS clamping for IPsec tunnel (encapsulation overhead)
+        iptables -A FORWARD -m policy --pol ipsec --dir in -s 10.100.0.0/24 -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss 1360
+      '';
 
       # NAT masquerade for VPN clients
       nat = {
