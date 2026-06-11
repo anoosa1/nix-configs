@@ -38,7 +38,7 @@
             local_ts = [ "0.0.0.0/0" ];
             esp_proposals = [ "aes256-sha256-modp2048" "aes128-sha256-modp2048" ];
           };
-          pools = [ "vpn-pool" ];
+          pools = [ "vpn-pool" "vpn-pool6" ];
           send_certreq = false;
           mobike = true;
           fragmentation = "yes";
@@ -55,6 +55,10 @@
           dns = [ "1.1.1.1" "1.0.0.1" ];
           netmask = [ "255.255.255.0" ];
         };
+
+        pools."vpn-pool6" = {
+          addrs = "fd00:cafe::/104";
+        };   
       };
     };
 
