@@ -35,7 +35,7 @@
           };
           remote."0".auth = "pubkey";
           children."ikev2-vpn" = {
-            local_ts = [ "0.0.0.0/0" ];
+            local_ts = [ "10.0.0.0/24" ];
             esp_proposals = [ "aes256-sha256-modp2048" "aes128-sha256-modp2048" ];
           };
           pools = [ "vpn-pool" "vpn-pool6" ];
