@@ -39,6 +39,19 @@
           owner = "searx";
         };
 
+        # VPN certs (sops-encrypted in secrets.yaml)
+        "vpn/ca-cert" = {
+          mode = "0444";
+        };
+
+        "vpn/server-cert" = {
+          mode = "0444";
+        };
+
+        "vpn/server-key" = {
+          mode = "0440";
+        };
+
       };
     };
 
@@ -743,18 +756,41 @@
           ];
         };
       };
+
+      # strongSwan IKEv2 VPN server (RSA cert auth via sops)
+      strongswan-swanctl = {
+        enable = true;
+        swanctl = {
+          connections."ikev2-vpn" = {
+            version = 2;
+            local."0" = {
+              auth = "pubkey";
+              certs = [ "/run/secrets/vpn/server-cert" ];
+              id = "astra.asherif.xyz";
+            };
+            remote."0".auth = "pubkey";
+            children."ikev2-vpn" = {
+              local_ts = [ "0.0.0.0/0" ];
+              esp_proposals = [ "aes256-sha256-modp2048" "aes128-sha256-modp2048" ];
+            };
+            pools = [ "vpn-pool" ];
+            send_certreq = false;
+            mobike = true;
+            fragmentation = "yes";
+            dpd_delay = "30s";
+            proposals = [ "aes256-sha256-modp2048" "aes128-sha256-modp2048" ];
+          };
+
+          authorities."vpnCA" = {
+            cacert = "/run/secrets/vpn/ca-cert";
+          };
+
+          pools."vpn-pool" = {
+            subnet = [ "10.100.0.0/24" ];
+            dns = [ "1.1.1.1" "1.0.0.1" ];
+          };
+        };
+      };
     };
-
-    #users = {
-    #  users = {
-    #    code-server = {
-    #      homeMode = "700";
-
-    #      openssh.authorizedKeys.keys = [
-    #        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHhK2hN/aKRr12GA6dklSQbL+jG5iQ9OuvXzprvzfGc8 anas@apollo"
-    #      ];
-    #    };
-    #  };
-    #};
   };
 }

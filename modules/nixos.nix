@@ -300,6 +300,7 @@
         pkgs.ffmpeg
         pkgs.linux-firmware
         pkgs.sops
+        pkgs.strongswan
       ];
     };
   

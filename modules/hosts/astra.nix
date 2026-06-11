@@ -19,6 +19,11 @@
       extraModulePackages = [ ];
       supportedFilesystems = [  ];
 
+      kernel.sysctl = {
+        "net.ipv4.ip_forward" = 1;
+        "net.ipv6.conf.all.forwarding" = 1;
+      };
+
       loader = {
         timeout = 0;
   
@@ -151,6 +156,14 @@
       firewall = {
         enable = true;
         allowPing = false;
+        allowedUDPPorts = [ 500 4500 ]; # IKE + IPsec NAT-T
+      };
+
+      # IP forwarding for VPN
+      nat = {
+        enable = true;
+        internalIPs = [ "10.100.0.0/24" ];
+        externalInterface = "eth0"; # TODO: verify with `ip route get 1.1.1.1 | awk '\''{print $5}'\''`
       };
     };
 
