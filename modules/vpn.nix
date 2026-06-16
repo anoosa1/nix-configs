@@ -40,7 +40,7 @@
           };
           pools = [ "vpn-pool" "vpn-pool6" ];
           send_certreq = false;
-          mobike = true;
+          mobike = false;
           fragmentation = "yes";
           dpd_delay = "30s";
           proposals = [ "aes256-sha256-modp2048" "aes128-sha256-modp2048" "aes256-sha256-modp4096" ];
@@ -53,7 +53,6 @@
         pools."vpn-pool" = {
           addrs = "10.100.0.0/24";
           dns = [ "1.1.1.1" "1.0.0.1" ];
-          netmask = [ "255.255.255.0" ];
         };
 
         pools."vpn-pool6" = {
