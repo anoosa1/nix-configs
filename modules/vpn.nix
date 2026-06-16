@@ -1,6 +1,6 @@
 {
   flake.nixosModules.vpn = { pkgs, lib, ... }: {
-    ## sops secrets for VPN certs and EAP password
+    ## sops secrets for VPN certs
     sops.secrets = {
       "vpn/ca-cert" = {
         mode = "0444";
@@ -11,10 +11,6 @@
       };
 
       "vpn/server-key" = {
-        mode = "0440";
-      };
-
-      "vpn/eap-password" = {
         mode = "0440";
       };
     };
@@ -37,48 +33,29 @@
             certs = [ "server-cert.pem" ];
             id = "astra.asherif.xyz";
           };
-          remote."0" = {
-            auth = "eap-mschapv2";
-            eap_id = "%any";
-          };
+          remote."0".auth = "pubkey";
           children."ikev2-vpn" = {
             local_ts = [ "0.0.0.0/0" ];
-            esp_proposals = [ "aes256-sha256-modp2048" "aes128-sha256-modp2048" ];
+            esp_proposals = [ "aes256-sha256-modp2048" "aes128-sha256-modp2048" "aes256-sha256-modp4096" ];
           };
           pools = [ "vpn-pool" ];
-          mobike = true;
+          send_certreq = false;
+          mobike = false;
           fragmentation = "yes";
           dpd_delay = "30s";
-          proposals = [ "aes256-sha256-modp2048" "aes128-sha256-modp2048" ];
+          proposals = [ "aes256-sha256-modp2048" "aes128-sha256-modp2048" "aes256-sha256-modp4096" ];
+        };
+
+        authorities."vpnCA" = {
+          cacert = "ca-cert.pem";
         };
 
         pools."vpn-pool" = {
           addrs = "10.100.0.0/24";
           dns = [ "1.1.1.1" "1.0.0.1" ];
         };
-
-        ## EAP-MSCHAPv2 credential
-        ## Password is loaded from sops secret /run/secrets/vpn/eap-password
-        ## (the includes mechanism reads it without putting it in the Nix store)
       };
-
-      ## include eap secret from a file outside the Nix store (sops-managed)
-      includes = [ "/etc/swanctl/conf.d/eap-secret.conf" ];
     };
-
-    ## write EAP secret file from sops-managed secret at activation time
-    systemd.services.strongswan-swanctl.preStart = lib.mkAfter ''
-      mkdir -p /etc/swanctl/conf.d
-      cat > /etc/swanctl/conf.d/eap-secret.conf <<SWANCTL
-      secrets {
-        eap-vpn {
-          id = anas
-          secret = "$(cat /run/secrets/vpn/eap-password)"
-        }
-      }
-      SWANCTL
-      chmod 600 /etc/swanctl/conf.d/eap-secret.conf
-    '';
 
     ## networking
     networking = {
