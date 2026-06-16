@@ -52,6 +52,7 @@
 
         pools."vpn-pool" = {
           addrs = "10.100.0.0/24";
+          dns = [ "1.1.1.1" "1.0.0.1" ];
         };
 
         pools."vpn-pool6" = {
