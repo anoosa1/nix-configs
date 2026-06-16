@@ -31,19 +31,19 @@
           local."0" = {
             auth = "pubkey";
             certs = [ "server-cert.pem" ];
-            id = "72.39.65.171";
+            id = "astra.asherif.xyz";
           };
           remote."0".auth = "pubkey";
           children."ikev2-vpn" = {
             local_ts = [ "0.0.0.0/0" ];
-            esp_proposals = [ "aes256-sha256-modp2048" "aes128-sha256-modp2048" ];
+            esp_proposals = [ "aes256-sha256-modp2048" "aes128-sha256-modp2048" "aes256-sha256-modp4096" ];
           };
           pools = [ "vpn-pool" "vpn-pool6" ];
           send_certreq = false;
           mobike = true;
           fragmentation = "yes";
           dpd_delay = "30s";
-          proposals = [ "aes256-sha256-modp2048" "aes128-sha256-modp2048" ];
+          proposals = [ "aes256-sha256-modp2048" "aes128-sha256-modp2048" "aes256-sha256-modp4096" ];
         };
 
         authorities."vpnCA" = {
@@ -67,14 +67,19 @@
       # Firewall — open IKE and IPsec NAT-T
       firewall.allowedUDPPorts = [ 500 4500 ];
       firewall.extraCommands = ''
-        # MSS clamping for IPsec tunnel overhead (must be before ACCEPT rules)
-        iptables -I FORWARD 1 -m policy --pol ipsec --dir in -s 10.100.0.0/24 -o eno1 -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss 1360
-        # IPsec forwarding — insert before nixos-fw chain
-        iptables -I FORWARD 2 -m policy --pol ipsec --dir in -s 10.100.0.0/24 -j ACCEPT
-        iptables -I FORWARD 3 -m policy --pol ipsec --dir out -d 10.100.0.0/24 -j ACCEPT
-        # NAT masquerade for VPN clients
-        iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o eno1 -j MASQUERADE
+        # IPsec forwarding — insert before nixos-fw chain (which ends in DROP)
+        iptables -I FORWARD 1 -m policy --pol ipsec --dir in -s 10.100.0.0/24 -j ACCEPT
+        iptables -I FORWARD 2 -m policy --pol ipsec --dir out -d 10.100.0.0/24 -j ACCEPT
+        # MSS clamping for IPsec tunnel overhead (avoids fragmentation)
+        iptables -I FORWARD 3 -m policy --pol ipsec --dir in -s 10.100.0.0/24 -o eno1 -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss 1360
       '';
+
+      # NAT masquerade for VPN clients — use NixOS module (reliable), not raw iptables
+      nat = {
+        enable = true;
+        internalIPs = [ "10.100.0.0/24" ];
+        externalInterface = "eno1";
+      };
     };
 
     ## kernel — IP forwarding for VPN
