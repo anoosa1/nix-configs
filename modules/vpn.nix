@@ -52,7 +52,6 @@
 
         pools."vpn-pool" = {
           addrs = "10.100.0.0/24";
-          dns = [ "1.1.1.1" "1.0.0.1" ];
         };
 
         pools."vpn-pool6" = {
@@ -94,20 +93,20 @@
     environment.etc."strongswan.d/charon-logging.conf".text = ''
       charon {
         filelog {
-          /var/log/charon-debug.log {
+          /tmp/charon-debug.log {
             time_format = %b %e %T
             ike_name = yes
             append = yes
-            default = 2
-            mgr = 2
-            ike = 2
-            chd = 2
-            cfg = 2
-            knl = 2
-            net = 2
-            enc = 2
-            asn = 2
-            tls = 2
+            default = 3
+            mgr = 3
+            ike = 3
+            chd = 3
+            cfg = 3
+            knl = 3
+            net = 3
+            enc = 3
+            asn = 3
+            tls = 3
           }
         }
       }
