@@ -4,7 +4,7 @@
   ...
 }:
 {
-  flake.nixosModules.server = { pkgs, lib, ... }: {
+  flake.nixosModules.server = { pkgs, lib, config, ... }: {
     imports = [
       inputs.sops-nix.nixosModules.sops
       inputs.hermes-agent.nixosModules.default
@@ -40,6 +40,9 @@
           owner = "searx";
         };
 
+        "nextcloud/oidc" = {
+          owner = "nextcloud";
+        };
       };
     };
 
@@ -177,16 +180,28 @@
         enable = true;
         configureRedis = true;
         database.createLocally = true;
+        home = "/data/lib/nextcloud";
         hostName = "hub.asherif.xyz";
         https = true;
         maxUploadSize = "16G";
         package = pkgs.nextcloud33;
+        extraApps = {
+          inherit (config.services.nextcloud.package.packages.apps)
+            calendar contacts notes tasks news music cookbook;
+          user_oidc = pkgs.fetchNextcloudApp {
+            url = "https://github.com/nextcloud-releases/user_oidc/releases/download/v8.10.1/user_oidc-v8.10.1.tar.gz";
+            hash = "sha256-Sc7R/hkjAvRUC4aUOLbMucoNabcXt27XB1pwqlz2Zv0=";
+            license = "agpl3Only";
+          };
+        };
+        extraAppsEnable = true;
 
         #extraApps = {
         #  prayertimes = self.packages.${pkgs.stdenv.hostPlatform.system}.prayertimes;
         #};
 
         settings = {
+          allow_local_remote_servers = true;
           default_phone_region = "CA";
           overwriteprotocol = "https";
 
@@ -745,6 +760,42 @@
         };
       };
 
+    };
+    systemd.services.nextcloud-configure-oidc = {
+      description = "Configure Authelia OIDC provider in Nextcloud";
+      requires = [ "nextcloud-setup.service" ];
+      after = [ "nextcloud-setup.service" "nextcloud.service" ];
+      wantedBy = [ "multi-user.target" ];
+
+      serviceConfig = {
+        Type = "oneshot";
+        User = "nextcloud";
+        Group = "nextcloud";
+        RemainAfterExit = true;
+      };
+
+      script = ''
+        if [ ! -f /run/secrets/nextcloud/oidc ]; then
+          echo "OIDC secret not found at /run/secrets/nextcloud/oidc — skipping provider setup"
+          exit 0
+        fi
+
+        ${config.services.nextcloud.occ}/bin/nextcloud-occ user_oidc:provider Authelia \
+          --clientid="nextcloud" \
+          --clientsecret-file="/run/secrets/nextcloud/oidc" \
+          --discoveryuri="https://auth.asherif.xyz/.well-known/openid-configuration" \
+          --scope="openid profile email" \
+          --endsessionendpointuri="https://auth.asherif.xyz/logout" \
+          --mapping-uid="preferred_username" \
+          --mapping-display-name="name" \
+          --mapping-email="email" \
+          --mapping-groups="groups" \
+          --group-provisioning="1" \
+          --unique-uid="0" \
+          || true
+
+        ${config.services.nextcloud.occ}/bin/nextcloud-occ app:enable files_external || true
+      '';
     };
   };
 }
