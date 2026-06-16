@@ -38,7 +38,7 @@
             local_ts = [ "0.0.0.0/0" ];
             esp_proposals = [ "aes256-sha256-modp2048" "aes128-sha256-modp2048" "aes256-sha256-modp4096" ];
           };
-          pools = [ "vpn-pool" "vpn-pool6" ];
+          pools = [ "vpn-pool" ];
           send_certreq = false;
           mobike = false;
           fragmentation = "yes";
@@ -89,5 +89,28 @@
 
     ## system packages — strongswan for troubleshooting
     environment.systemPackages = [ pkgs.strongswan ];
+
+    ## charon debug logging to file
+    environment.etc."strongswan.d/charon-logging.conf".text = ''
+      charon {
+        filelog {
+          /var/log/charon-debug.log {
+            time_format = %b %e %T
+            ike_name = yes
+            append = yes
+            default = 2
+            mgr = 2
+            ike = 2
+            chd = 2
+            cfg = 2
+            knl = 2
+            net = 2
+            enc = 2
+            asn = 2
+            tls = 2
+          }
+        }
+      }
+    '';
   };
 }
