@@ -299,11 +299,11 @@
         "uv2nix": "uv2nix_2"
       },
       "locked": {
-        "lastModified": 1781741948,
-        "narHash": "sha256-Umiw/oGd3KWeFOt8QNO4/gbRDdvjZk/99xuroUbxbNo=",
+        "lastModified": 1781744189,
+        "narHash": "sha256-jJ2kfJ3RpUeKsPs7/Jnd8oNykhCAQSFBV6AO9kQHlVw=",
         "ref": "refs/heads/main",
-        "rev": "93af73032737f67ca01845c6664882841863f439",
-        "revCount": 11936,
+        "rev": "3e8b3684af3e2845ca12b3e149b8f23bf75d91d2",
+        "revCount": 11937,
         "type": "git",
         "url": "https://git.asherif.xyz/anoosa/hermes-agent"
       },
