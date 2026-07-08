@@ -106,7 +106,7 @@
           API_SERVER_ENABLED = "true";
         };
 
-        extraPackages = [ pkgs.libopus ];
+        extraPackages = [ pkgs.libopus pkgs.agent-browser pkgs.chromium ];
 
         #container = {
         #  enable = true;
