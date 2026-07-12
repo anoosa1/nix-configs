@@ -144,7 +144,7 @@
       useDHCP = lib.mkDefault true;
 
       hosts = {
-        "127.0.0.1" = [ "search.asherif.xyz" "hub.asherif.xyz" "home.asherif.xyz" "git.asherif.xyz" "x.asherif.xyz" "auth.asherif.xyz" "qbit.asherif.xyz" "tty.asherif.xyz" "memory.asherif.xyz" "chat.asherif.xyz" "searxng.asherif.xyz"];
+        "127.0.0.1" = [ "search.asherif.xyz" "hub.asherif.xyz" "home.asherif.xyz" "git.asherif.xyz" "x.asherif.xyz" "auth.asherif.xyz" "qbit.asherif.xyz" "tty.asherif.xyz" "memory.asherif.xyz" "chat.asherif.xyz" "searxng.asherif.xyz" ];
       };
 
       # firewall
@@ -173,7 +173,7 @@
             "map to guest" = "bad user";
           };
           yousof = {
-            path = "/export/yousof";
+            path = "/data/export/yousof";
             browseable = "yes";
             "read only" = "no";
             "guest ok" = "no";

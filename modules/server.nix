@@ -9,6 +9,7 @@
       inputs.sops-nix.nixosModules.sops
       self.nixosModules.ai
       self.nixosModules.media
+      self.nixosModules.minecraft
       self.nixosModules.security
       #self.nixosModules.vpn
     ];
@@ -344,31 +345,31 @@
             };
           };
 
-          "tty.asherif.xyz" = {
-            forceSSL = true;
-            enableACME = true;
-            acmeRoot = null;
+          #"tty.asherif.xyz" = {
+          #  forceSSL = true;
+          #  enableACME = true;
+          #  acmeRoot = null;
 
-            locations = {
-              "/" = {
-                proxyPass = "http://localhost:7681";
-                proxyWebsockets = true;
-                extraConfig = ''
-                  # Inject font + hide scrollbar via sub_filter
-                  sub_filter_types text/html;
-                  sub_filter '</head>' '<style>@font-face { font-family: "Comic Code Ligatures"; src: url(/static/fonts/ComicCodeLigatures.otf) format("opentype"); } .xterm .xterm-viewport::-webkit-scrollbar { width: 0 !important; height: 0 !important; display: none !important; } .xterm .xterm-viewport { scrollbar-width: none !important; -ms-overflow-style: none !important; overflow-y: hidden !important; }</style></head>';
-                  sub_filter_once on;
-                '';
-              };
+          #  locations = {
+          #    "/" = {
+          #      proxyPass = "http://localhost:7681";
+          #      proxyWebsockets = true;
+          #      extraConfig = ''
+          #        # Inject font + hide scrollbar via sub_filter
+          #        sub_filter_types text/html;
+          #        sub_filter '</head>' '<style>@font-face { font-family: "Comic Code Ligatures"; src: url(/static/fonts/ComicCodeLigatures.otf) format("opentype"); } .xterm .xterm-viewport::-webkit-scrollbar { width: 0 !important; height: 0 !important; display: none !important; } .xterm .xterm-viewport { scrollbar-width: none !important; -ms-overflow-style: none !important; overflow-y: hidden !important; }</style></head>';
+          #        sub_filter_once on;
+          #      '';
+          #    };
 
-              "= /static/fonts/ComicCodeLigatures.otf" = {
-                alias = "${pkgs.runCommand "comic-code-font" { } ''ln -s "${self.packages.${pkgs.stdenv.hostPlatform.system}.comic-code}/share/fonts/opentype/Comic Code Ligatures.otf" "$out"''}";
-                extraConfig = ''
-                  add_header Cache-Control "public, max-age=31536000, immutable";
-                '';
-              };
-            };
-          };
+          #    "= /static/fonts/ComicCodeLigatures.otf" = {
+          #      alias = "${pkgs.runCommand "comic-code-font" { } ''ln -s "${self.packages.${pkgs.stdenv.hostPlatform.system}.comic-code}/share/fonts/opentype/Comic Code Ligatures.otf" "$out"''}";
+          #      extraConfig = ''
+          #        add_header Cache-Control "public, max-age=31536000, immutable";
+          #      '';
+          #    };
+          #  };
+          #};
 
           "x.asherif.xyz" = {
             forceSSL = true;
@@ -391,20 +392,20 @@
         };
       };
 
-      ttyd = {
-        enable = true;
-        interface = "127.0.0.1";
-        user = "anas";
-        writeable = true;
-        maxClients = 3;
-        entrypoint = [ "${self.packages.${pkgs.stdenv.hostPlatform.system}.tmux}/bin/tmux" "new" "-As0" "-c" "/home/anas" ];
+      #ttyd = {
+      #  enable = true;
+      #  interface = "127.0.0.1";
+      #  user = "anas";
+      #  writeable = true;
+      #  maxClients = 3;
+      #  entrypoint = [ "${self.packages.${pkgs.stdenv.hostPlatform.system}.tmux}/bin/tmux" "new" "-As0" "-c" "/home/anas" ];
 
-        clientOptions = {
-          fontFamily = "\"Comic Code Ligatures\", monospace";
-          fontSize = "16";
-          scrollback = "0";
-        };
-      };
+      #  clientOptions = {
+      #    fontFamily = "\"Comic Code Ligatures\", monospace";
+      #    fontSize = "16";
+      #    scrollback = "0";
+      #  };
+      #};
 
       nitter = {
         enable = true;

@@ -20,7 +20,7 @@
         src = pkgs.fetchzip {
           name = "hindsight-source";
           url = "https://github.com/vectorize-io/hindsight/archive/refs/heads/main.tar.gz";
-          hash = "sha256-3EJJoBugYScUgIpZJoB99CarMOMAFqDTloQ25QPWS0M=";
+          hash = "sha256-iuLbB8lRXNOuHRJ/U0YOTK66xoilo76xQ1iSd0IGwqk=";
         };
 
         dontUnpack = true;
@@ -113,7 +113,7 @@
         src = pkgs.fetchzip {
           name = "hindsight-source";
           url = "https://github.com/vectorize-io/hindsight/archive/refs/heads/main.tar.gz";
-          hash = "sha256-3EJJoBugYScUgIpZJoB99CarMOMAFqDTloQ25QPWS0M=";
+          hash = "sha256-iuLbB8lRXNOuHRJ/U0YOTK66xoilo76xQ1iSd0IGwqk=";
         };
 
         dontUnpack = true;
