@@ -279,6 +279,7 @@
         pkgs.bluetui
         pkgs.steam-tui
         pkgs.steamcmd
+        pkgs.vintagestory
       ];
     };
 
