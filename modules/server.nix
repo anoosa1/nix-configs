@@ -7,7 +7,7 @@
   flake.nixosModules.server = { pkgs, lib, config, ... }: {
     imports = [
       inputs.sops-nix.nixosModules.sops
-      self.nixosModules.ai
+      #self.nixosModules.ai
       self.nixosModules.media
       self.nixosModules.minecraft
       self.nixosModules.security

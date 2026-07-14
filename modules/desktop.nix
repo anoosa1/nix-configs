@@ -221,7 +221,7 @@
 
     home.packages = with pkgs; [
       self.packages.${pkgs.stdenv.hostPlatform.system}.handler
-      self.packages.${pkgs.stdenv.hostPlatform.system}.antigravity-fhs
+      inputs.codex-desktop-linux.packages.${pkgs.stdenv.hostPlatform.system}.codex-desktop-computer-use-ui
       brave
       gamescope
       imv

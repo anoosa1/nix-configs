@@ -145,6 +145,17 @@
     };
 
     ## Personal flakes
+    # Codex Desktop for Linux
+    codex-desktop-linux = {
+      url = "git+ssh://gitea@git.asherif.xyz/anoosa/codex-desktop-linux.git";
+
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+    };
+
     # Secrets
     secrets = {
       url = "git+ssh://gitea@git.asherif.xyz/anoosa/secrets.git";
