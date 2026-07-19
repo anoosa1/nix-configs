@@ -147,6 +147,8 @@
         enable = true;
       };
 
+      gnome.at-spi2-core.enable = true;
+
       displayManager = {
         dms-greeter = {
           enable = true;
@@ -217,11 +219,11 @@
   flake.homeModules.desktop = { config, pkgs, ... }: {
     imports = [
       inputs.dms.homeModules.dank-material-shell
+      inputs.codex-desktop-linux.homeManagerModules.default
     ];
 
     home.packages = with pkgs; [
       self.packages.${pkgs.stdenv.hostPlatform.system}.handler
-      inputs.codex-desktop-linux.packages.${pkgs.stdenv.hostPlatform.system}.codex-desktop-computer-use-ui
       brave
       gamescope
       imv
@@ -237,6 +239,11 @@
       zathura
     ];
 
+    dconf.settings = {
+      "org/a11y/Status".IsEnabled = true;
+      "org/gnome/desktop/interface".toolkit-accessibility = true;
+    };
+
     services = {
       pass-secret-service = {
         enable = true;
@@ -245,6 +252,29 @@
     };
 
     programs = {
+      codexDesktopLinux = {
+        enable = true;
+        cliPackage = pkgs.codex;
+
+        computerUseUi.enable = true;
+        remoteMobileControl.enable = true;
+
+        linuxFeatures = [
+          "appshots"
+          "global-dictation"
+          "mcp-helper-reaper"
+          "node-repl-reaper"
+          "open-target-discovery"
+          "persistent-status-panel"
+          "pet-overlay"
+        ];
+
+        remoteControl = {
+          enable = true;
+          package = pkgs.codex;
+        };
+      };
+
       dank-material-shell = {
         enable = true;
 
