@@ -201,15 +201,6 @@
       };
     };
 
-    programs.opencode = {
-      enable = true;
-
-      web = {
-        enable = true;
-        extraArgs = [ "--port" "4096" "--hostname" "127.0.0.1" ];
-      };
-    };
-
     accounts = {
       email = {
         maildirBasePath = ".local/var/mail";

@@ -46,47 +46,7 @@
       };
     };
 
-    systemd.services."phpfpm-4get".serviceConfig = {
-      ReadOnlyPaths = [ "/nix/store" ];
-      ReadWritePaths = [ "/var/lib/4get" ];
-
-      BindPaths = [
-        "/var/lib/4get/icons:${self.packages.${pkgs.stdenv.hostPlatform.system}."4get"}/share/4get/icons"
-        "/var/lib/4get/data/config.php:${self.packages.${pkgs.stdenv.hostPlatform.system}."4get"}/share/4get/data/config.php"
-      ];
-    };
-
     services = {
-
-      #code-server = {
-      #  enable = true;
-      #  auth = "none";
-      #  disableGettingStartedOverride = true;
-      #  disableTelemetry = true;
-      #  disableUpdateCheck = true;
-      #  disableWorkspaceTrust = true;
-      #  proxyDomain = "code.asherif.xyz";
-      #  socket = "/run/code-server/code-server.sock";
-      #  socketMode = "777";
-      #  user = "anas";
-      #  group = "anas";
-
-      #  package = pkgs.vscode-with-extensions.override {
-      #    vscode = pkgs.code-server;
-      #    vscodeExtensions = with pkgs.vscode-extensions; [
-      #      Google.gemini-cli-vscode-ide-companion
-      #      asvetliakov.vscode-neovim
-      #      bbenoist.nix
-      #      catppuccin.catppuccin-vsc
-      #      catppuccin.catppuccin-vsc-icons
-      #    ];
-      #  };
-
-      #  extraPackages = [
-      #    pkgs.gemini-cli
-      #  ];
-      #};
-
       gitea = {
         enable = true;
 
@@ -184,7 +144,7 @@
         hostName = "hub.asherif.xyz";
         https = true;
         maxUploadSize = "16G";
-        package = pkgs.nextcloud33;
+        package = pkgs.nextcloud34;
         extraApps = {
           inherit (config.services.nextcloud.package.packages.apps)
             calendar contacts notes tasks news music cookbook;
@@ -195,10 +155,6 @@
           };
         };
         extraAppsEnable = true;
-
-        #extraApps = {
-        #  prayertimes = self.packages.${pkgs.stdenv.hostPlatform.system}.prayertimes;
-        #};
 
         settings = {
           allow_local_remote_servers = true;
@@ -222,36 +178,6 @@
         recommendedProxySettings = true;
 
         virtualHosts = {
-          "code.asherif.xyz" = {
-            forceSSL = true;
-            enableACME = true;
-            acmeRoot = null;
-
-            extraConfig = ''
-              proxy_buffering off;
-            '';
-
-            locations = {
-              "/" = {
-                proxyPass = "http://localhost:4096";
-                proxyWebsockets = true;
-                extraConfig = "proxy_set_header Host $host;";
-              };
-            };
-          };
-
-          "anoosa.asherif.xyz" = {
-            forceSSL = true;
-            enableACME = true;
-            acmeRoot = null;
-
-            locations."/" = {
-              proxyPass = "http://localhost:9119";
-              proxyWebsockets = true;
-              extraConfig = "proxy_set_header Host $host;";
-            };
-          };
-
           "docs.asherif.xyz" = {
             forceSSL = true;
             enableACME = true;
@@ -300,39 +226,6 @@
             acmeRoot = null;
           };
 
-          "search.asherif.xyz" = {
-            root = "${self.packages.${pkgs.stdenv.hostPlatform.system}."4get"}/share/4get";
-            forceSSL = true;
-            enableACME = true;
-            acmeRoot = null;
-
-            locations = {
-              "/" = {
-                index = "index.php";
-                tryFiles = "$uri $uri/ $uri.php$is_args$query_string";
-              };
-
-              "/icons/" = {
-                alias = "/var/lib/4get/icons/";
-                extraConfig = "allow all;";
-              };
-
-              "~ \\.php$" = {
-                tryFiles = "$uri $uri/ $uri.php$is_args$query_string";
-
-                extraConfig = ''
-                  fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-                  fastcgi_pass unix:/run/phpfpm/4get.sock;
-                  fastcgi_index index.php;
-                  fastcgi_buffer_size 128k;
-                  fastcgi_buffers 4 256k;
-                  fastcgi_busy_buffers_size 256k;
-                  include ${pkgs.nginx}/conf/fastcgi_params;
-                '';
-              };
-            };
-          };
-
           "sunshine.asherif.xyz" = {
             forceSSL = true;
             enableACME = true;
@@ -344,32 +237,6 @@
               };
             };
           };
-
-          #"tty.asherif.xyz" = {
-          #  forceSSL = true;
-          #  enableACME = true;
-          #  acmeRoot = null;
-
-          #  locations = {
-          #    "/" = {
-          #      proxyPass = "http://localhost:7681";
-          #      proxyWebsockets = true;
-          #      extraConfig = ''
-          #        # Inject font + hide scrollbar via sub_filter
-          #        sub_filter_types text/html;
-          #        sub_filter '</head>' '<style>@font-face { font-family: "Comic Code Ligatures"; src: url(/static/fonts/ComicCodeLigatures.otf) format("opentype"); } .xterm .xterm-viewport::-webkit-scrollbar { width: 0 !important; height: 0 !important; display: none !important; } .xterm .xterm-viewport { scrollbar-width: none !important; -ms-overflow-style: none !important; overflow-y: hidden !important; }</style></head>';
-          #        sub_filter_once on;
-          #      '';
-          #    };
-
-          #    "= /static/fonts/ComicCodeLigatures.otf" = {
-          #      alias = "${pkgs.runCommand "comic-code-font" { } ''ln -s "${self.packages.${pkgs.stdenv.hostPlatform.system}.comic-code}/share/fonts/opentype/Comic Code Ligatures.otf" "$out"''}";
-          #      extraConfig = ''
-          #        add_header Cache-Control "public, max-age=31536000, immutable";
-          #      '';
-          #    };
-          #  };
-          #};
 
           "x.asherif.xyz" = {
             forceSSL = true;
@@ -391,21 +258,6 @@
           expectedTailnet = "dragon-armadillo.ts.net";
         };
       };
-
-      #ttyd = {
-      #  enable = true;
-      #  interface = "127.0.0.1";
-      #  user = "anas";
-      #  writeable = true;
-      #  maxClients = 3;
-      #  entrypoint = [ "${self.packages.${pkgs.stdenv.hostPlatform.system}.tmux}/bin/tmux" "new" "-As0" "-c" "/home/anas" ];
-
-      #  clientOptions = {
-      #    fontFamily = "\"Comic Code Ligatures\", monospace";
-      #    fontSize = "16";
-      #    scrollback = "0";
-      #  };
-      #};
 
       nitter = {
         enable = true;
@@ -453,41 +305,6 @@
 
         exporter = {
           enable = true;
-        };
-      };
-
-      phpfpm.pools."4get" = {
-        user = "nginx";
-        group = "nginx";
-
-        phpPackage = pkgs.php83.withExtensions (
-          { all, ... }:
-          with all;
-          [
-            apcu
-            fileinfo
-            curl
-            gd
-            mbstring
-            opcache
-            imagick
-            zlib
-            openssl
-            sodium
-            filter
-          ]
-        );
-
-        settings = {
-          "listen.owner" = "nginx";
-          "listen.group" = "nginx";
-          "pm" = "dynamic";
-          "pm.max_children" = 32;
-          "pm.start_servers" = 2;
-          "pm.min_spare_servers" = 2;
-          "pm.max_spare_servers" = 4;
-          "php_admin_value[apc.enabled]" = "1";
-          "php_admin_value[apc.shm_size]" = "32M";
         };
       };
 
@@ -552,14 +369,14 @@
 
           default_doi_resolver = "sci-hub.st";
 
-          #plugins = {
-          #  searx.plugins.oa_doi_rewrite.SXNGPlugin = {
-          #    active = true;
-          #  };
-          #  searx.plugins.infinite_scroll.SXNGPlugin = {
-          #    active = true;
-          #  };
-          #};
+          plugins = {
+            searx.plugins.oa_doi_rewrite.SXNGPlugin = {
+              active = true;
+            };
+            searx.plugins.infinite_scroll.SXNGPlugin = {
+              active = true;
+            };
+          };
 
           engines = [
             # General
