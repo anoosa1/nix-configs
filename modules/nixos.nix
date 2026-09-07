@@ -288,13 +288,12 @@
   
       # system packages
       systemPackages = [
-        self.packages.${pkgs.stdenv.hostPlatform.system}.antigravity-cli
         self.packages.${pkgs.stdenv.hostPlatform.system}.comic-code
         self.packages.${pkgs.stdenv.hostPlatform.system}.kitty
         self.packages.${pkgs.stdenv.hostPlatform.system}.neovim
         self.packages.${pkgs.stdenv.hostPlatform.system}.tmux
         self.packages.${pkgs.stdenv.hostPlatform.system}.yazi
-        pkgs.codex
+        inputs.codex-desktop-linux.packages.${pkgs.stdenv.hostPlatform.system}.codex
         pkgs.opencode
         pkgs.git
         pkgs.fastfetch

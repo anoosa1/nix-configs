@@ -132,7 +132,7 @@
 
       pam = {
         services = {
-          greetd = {
+          login = {
             gnupg = {
               enable = true;
               noAutostart = true;
@@ -150,11 +150,11 @@
       };
 
       gnome.at-spi2-core.enable = true;
+      gnome.gnome-keyring.enable = false;
 
       displayManager = {
         dms-greeter = {
           enable = true;
-          package = inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.default;
           quickshell.package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
           compositor = {
@@ -256,10 +256,10 @@
     programs = {
       codexDesktopLinux = {
         enable = true;
-        cliPackage = pkgs.codex;
+        package = inputs.codex-desktop-linux.packages.${pkgs.stdenv.hostPlatform.system}.codex-desktop;
+        cliPackage = inputs.codex-desktop-linux.packages.${pkgs.stdenv.hostPlatform.system}.codex;
 
         computerUseUi.enable = true;
-        remoteMobileControl.enable = true;
 
         linuxFeatures = [
           "appshots"
@@ -270,11 +270,6 @@
           "persistent-status-panel"
           "pet-overlay"
         ];
-
-        remoteControl = {
-          enable = true;
-          package = pkgs.codex;
-        };
       };
 
       dank-material-shell = {
