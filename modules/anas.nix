@@ -7,15 +7,13 @@
   flake.nixosModules.anas = { pkgs, ... }: {
     imports = [
       inputs.home-manager.nixosModules.home-manager
-      #inputs.hermes-agent.nixosModules.default
     ];
 
     ## environment
     environment = {
       # system packages
       systemPackages = [
-      #(inputs.hermes-agent.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
-      #    extraPythonPackages = [ self.packages.${pkgs.stdenv.hostPlatform.system}.hindsight-client ];})
+        inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.dsh
       ];
     };
               nixpkgs.config.permittedInsecurePackages = [
@@ -175,6 +173,11 @@
       configHome = "${config.home.homeDirectory}/.local/etc";
       stateHome = "${config.home.homeDirectory}/.local/var/state";
       dataHome = "${config.home.homeDirectory}/.local/share";
+
+      configFile."pam-gnupg".text = ''
+        ${config.xdg.dataHome}/gnupg
+        747A44E46090994046AC67263B6DE63E45837BA9
+      '';
 
       userDirs = {
         enable = true;

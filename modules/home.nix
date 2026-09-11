@@ -28,7 +28,6 @@
         pkgs.fd
         pkgs.file
         pkgs.fzf
-        pkgs.gemini-cli
         pkgs.p7zip
         pkgs.ripgrep
         pkgs.rsync

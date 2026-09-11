@@ -17,9 +17,9 @@
       url = "github:notashelf/nvf";
     };
 
-    # hermes
-    hermes-agent = {
-      url = "git+https://git.asherif.xyz/anoosa/hermes-agent";
+    # llm-agents
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
 
       inputs = {
         nixpkgs = {
@@ -127,21 +127,6 @@
     # nix-minecraft
     nix-minecraft = {
       url = "github:Infinidoge/nix-minecraft";
-    };
-
-    # soosa
-    soosa = {
-      url = "git+ssh://gitea@git.asherif.xyz/anoosa/soosa?ref=v2";
-
-      inputs = {
-        nixpkgs = {
-          follows = "nixpkgs";
-        };
-
-        flake-parts = {
-          follows = "flake-parts";
-        };
-      };
     };
 
     ## Personal flakes
