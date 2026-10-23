@@ -5,6 +5,15 @@
 }:
 {
   flake.nixosModules.desktop = { lib, pkgs, ... }: {
+    nixpkgs.overlays = [
+      (_final: prev: {
+        khal = prev.khal.overrideAttrs {
+          # The Sphinx hook reads a string; a structured list drops the man builder.
+          sphinxBuilders = "html man";
+        };
+      })
+    ];
+
     home-manager = {
       users = {
         anas = {
@@ -143,6 +152,12 @@
       };
     };
     
+    # The greeter extracts its embedded UI into its home cache before starting Niri.
+    systemd.tmpfiles.rules = [
+      "d /var/lib/dms-greeter 0750 dms-greeter dms-greeter -"
+      "d /var/lib/dms-greeter/.cache 0700 dms-greeter dms-greeter -"
+    ];
+
     ## services
     services = {
       accounts-daemon = {
@@ -230,7 +245,7 @@
       gamescope
       imv
       libnotify
-      logseq
+      #logseq
       mpv
       prismlauncher
       pulsemixer

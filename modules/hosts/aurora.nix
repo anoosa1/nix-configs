@@ -284,6 +284,10 @@
     };
 
     services = {
+      flatpak = {
+        enable = true;
+      };
+
       xserver = {
         videoDrivers = [ "nvidia" ];
       };
