@@ -1,15 +1,15 @@
 { inputs, self, ... }: {
-  flake.nixosConfigurations.astra = inputs.nixpkgs.lib.nixosSystem {
+  flake.nixosConfigurations.rais = inputs.nixpkgs.lib.nixosSystem {
     modules = [
       self.nixosModules.anas
-      self.nixosModules.astra
+      self.nixosModules.rais
       self.nixosModules.nixos
       self.nixosModules.server
       self.nixosModules.ssh
     ];
   };
 
-  flake.nixosModules.astra = { lib, ... }: {
+  flake.nixosModules.rais = { lib, ... }: {
     imports = [
       inputs.disko.nixosModules.disko
     ];
@@ -137,7 +137,7 @@
 
     ## networking
     networking = {
-      hostName = "astra";
+      hostName = "rais";
       nameservers = [ "100.100.100.100" "1.1.1.1" "1.0.0.1" ];
       search = [ "tail999916.ts.net" ];
       useNetworkd = true;
@@ -163,11 +163,11 @@
         settings = {
           default = {
             "workgroup" = "WORKGROUP";
-            "server string" = "astra";
-            "netbios name" = "astra";
+            "server string" = "rais";
+            "netbios name" = "rais";
             "security" = "user";
             "use sendfile" = "yes";
-            "hosts allow" = "10.0.0.235 10.0.0.228 127.0.0.1 localhost";
+            "hosts allow" = "192.168.40.100 127.0.0.1 localhost";
             "hosts deny" = "0.0.0.0/0";
             "guest account" = "nobody";
             "map to guest" = "bad user";

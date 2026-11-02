@@ -2,7 +2,11 @@
   flake.nixosModules.media = {
     sops = {
       secrets = {
-        "kavita" = {
+        "kavita/token" = {
+          owner = "kavita";
+        };
+
+        "kavita/client_secret" = {
           owner = "kavita";
         };
       };
@@ -11,7 +15,22 @@
     services = {
       kavita = {
         enable = true;
-        tokenKeyFile = "/run/secrets/kavita";
+
+        credentials = {
+          token = "/run/secrets/kavita/token";
+          client_secret = "/run/secrets/kavita/client_secret";
+        };
+
+        settigns = {
+          TokenKey = "@token@";
+
+          OpenIdConnectSettings = {
+            Authority = "https://auth.asherif.xyz";
+            ClientId = "kavita";
+            Enabled = true;
+            Secret = "@client_secret@";
+          };
+        };
       };
 
       immich = {

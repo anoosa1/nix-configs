@@ -159,10 +159,6 @@
                 domain = "asherif.xyz";
                 authelia_url = "https://auth.asherif.xyz";
               }
-              {
-                domain = "astra.dragon-armadillo.ts.net";
-                authelia_url = "https://astra.dragon-armadillo.ts.net";
-              }
             ];
             expiration = "1h";
             inactivity = "5m";

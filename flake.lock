@@ -661,11 +661,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1781499152,
-        "narHash": "sha256-jKLOzs66YHcqC6FsxVn+z84hHOEJ0KUCDE8Ljs52/Gc=",
+        "lastModified": 1793600635,
+        "narHash": "sha256-nwnyNYn1gnETlPXGxCmElEzp7zVA4bOmFYqLBsRf7w4=",
         "ref": "refs/heads/main",
-        "rev": "12a9f2d29435a1eb3bb02c3c7b86763331b2459e",
-        "revCount": 87,
+        "rev": "b53d2e12db0de980ee4da926fb77879859968de4",
+        "revCount": 88,
         "type": "git",
         "url": "ssh://gitea@git.asherif.xyz/anoosa/secrets.git"
       },

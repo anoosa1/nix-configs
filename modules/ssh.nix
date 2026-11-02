@@ -43,13 +43,13 @@
           };
 
           git = {
-            hostname = "astra";
+            hostname = "rais";
             user = "${config.home.username}";
             port = 23231;
           };
 
-          astra = {
-            hostname = "astra";
+          rais = {
+            hostname = "rais";
             user = "${config.home.username}";
           };
 
