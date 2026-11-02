@@ -143,15 +143,17 @@
         hostName = "hub.asherif.xyz";
         https = true;
         maxUploadSize = "16G";
-        package = pkgs.nextcloud34;
+        package = pkgs.nextcloud35;
         extraApps = {
           inherit (config.services.nextcloud.package.packages.apps)
-            calendar contacts notes tasks news music cookbook;
-          user_oidc = pkgs.fetchNextcloudApp {
-            url = "https://github.com/nextcloud-releases/user_oidc/releases/download/v8.10.1/user_oidc-v8.10.1.tar.gz";
-            hash = "sha256-Sc7R/hkjAvRUC4aUOLbMucoNabcXt27XB1pwqlz2Zv0=";
-            license = "agpl3Only";
-          };
+            calendar
+            contacts
+            notes
+            tasks
+            news
+            music
+            cookbook
+            user_oidc;
         };
         extraAppsEnable = true;
 
@@ -166,8 +168,6 @@
         };
 
         config = {
-          adminpassFile = null;
-          adminuser = null;
           dbtype = "pgsql";
         };
       };
