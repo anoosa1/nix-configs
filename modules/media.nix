@@ -21,7 +21,7 @@
           client_secret = "/run/secrets/kavita/client_secret";
         };
 
-        settigns = {
+        settings = {
           TokenKey = "@token@";
 
           OpenIdConnectSettings = {

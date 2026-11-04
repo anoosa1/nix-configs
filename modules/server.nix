@@ -27,10 +27,6 @@
           owner = "acme";
         };
 
-        "nitter" = {
-          mode = "0444";
-        };
-
         "paperless" = {
           owner = "paperless";
         };
@@ -224,31 +220,6 @@
             enableACME = true;
             acmeRoot = null;
           };
-
-          "sunshine.asherif.xyz" = {
-            forceSSL = true;
-            enableACME = true;
-            acmeRoot = null;
-
-            locations = {
-              "/" = {
-                proxyPass = "http://localhost:47990";
-              };
-            };
-          };
-
-          "x.asherif.xyz" = {
-            forceSSL = true;
-            enableACME = true;
-            acmeRoot = null;
-
-            locations = {
-              "/" = {
-                proxyPass = "http://localhost:59181";
-              };
-            };
-          };
-
         };
 
         tailscaleAuth = {
@@ -258,26 +229,12 @@
         };
       };
 
-      nitter = {
-        enable = true;
-        sessionsFile = "/run/secrets/nitter";
-
-        server = {
-          port = 59181;
-          https = true;
-          hostname = "x.asherif.xyz";
-        };
-
-        preferences = {
-          squareAvatars = true;
-          replaceTwitter = "x.asherif.xyz";
-          infiniteScroll = true;
-          hlsPlayback = true;
-        };
-      };
-
       paperless = {
         enable = true;
+        package = pkgs.paperless-ngx.overrideAttrs (old: {
+          # Temporary workaround for the slow-write watcher test failure in 3.3.4.
+          disabledTests = (old.disabledTests or [ ]) ++ [ "test_handles_slow_write" ];
+        });
         environmentFile = "/run/secrets/paperless";
 
         settings = {
