@@ -79,7 +79,6 @@
       systemPackages = [
         pkgs.bibata-cursors
         pkgs.brightnessctl
-        pkgs.t3code
         pkgs.waylock
       ];
     };
