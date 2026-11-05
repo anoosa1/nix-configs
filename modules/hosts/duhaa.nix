@@ -3,9 +3,9 @@
   self,
   ...
 }: {
-  flake.nixosConfigurations.aurora = inputs.nixpkgs.lib.nixosSystem {
+  flake.nixosConfigurations.duhaa = inputs.nixpkgs.lib.nixosSystem {
     modules = [
-      self.nixosModules.aurora
+      self.nixosModules.duhaa
       self.nixosModules.anas
       self.nixosModules.desktop
       self.nixosModules.nixos
@@ -13,7 +13,7 @@
     ];
   };
 
-  flake.nixosModules.aurora = { pkgs, lib, ... }: {
+  flake.nixosModules.duhaa = { pkgs, lib, ... }: {
     imports = [
       inputs.disko.nixosModules.disko
       inputs.impermanence.nixosModules.impermanence
@@ -232,7 +232,7 @@
     fileSystems."/nix/persist".neededForBoot = true;
 
     networking = {
-      hostName = "aurora";
+      hostName = "duhaa";
     };
 
     console = {

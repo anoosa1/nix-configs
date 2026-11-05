@@ -37,7 +37,6 @@
     ## boot
     boot = {
       consoleLogLevel = 0;
-      initrd.verbose = false;
 
       loader = {
         timeout = 0;
@@ -78,9 +77,10 @@
 
       # system packages
       systemPackages = [
-        pkgs.waylock
         pkgs.bibata-cursors
         pkgs.brightnessctl
+        pkgs.t3code
+        pkgs.waylock
       ];
     };
 

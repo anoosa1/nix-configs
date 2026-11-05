@@ -53,8 +53,8 @@
             user = "${config.home.username}";
           };
 
-          aurora = {
-            hostname = "aurora";
+          duhaa = {
+            hostname = "duhaa";
             user = "${config.home.username}";
           };
         };
