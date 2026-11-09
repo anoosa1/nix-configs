@@ -39,6 +39,11 @@
         "nextcloud/oidc" = {
           owner = "nextcloud";
         };
+
+        "gitea/oidc" = {
+          # Shared with Gitea; Dar requires at least 32 characters.
+          restartUnits = [ "dar.service" ];
+        };
       };
     };
 
@@ -47,6 +52,17 @@
         enable = true;
         origin = "https://dar.asherif.xyz";
         configureNginx = true;
+
+        oidc.clients.gitea = {
+          name = "Gitea";
+          type = "confidential";
+          secretFile = config.sops.secrets."gitea/oidc".path;
+          redirectUris = [
+            # Preserve the existing Gitea authentication source name.
+            "https://git.asherif.xyz/user/oauth2/authelia/callback"
+          ];
+          scopes = [ "openid" "profile" "email" "groups" ];
+        };
 
         apps = [
           inputs.dar.packages.${pkgs.stdenv.hostPlatform.system}.prayer-times
