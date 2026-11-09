@@ -130,6 +130,12 @@
     };
 
     ## Personal flakes
+    # Dar personal cloud
+    dar = {
+      # Keep Dar's pinned nixpkgs: its npm build crashes with our newer version.
+      url = "git+https://git.asherif.xyz/anoosa/dar";
+    };
+
     # Codex Desktop for Linux
     codex-desktop-linux = {
       url = "git+ssh://gitea@git.asherif.xyz/anoosa/codex-desktop-linux.git";

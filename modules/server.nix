@@ -6,6 +6,7 @@
 {
   flake.nixosModules.server = { pkgs, lib, config, ... }: {
     imports = [
+      inputs.dar.nixosModules.default
       inputs.sops-nix.nixosModules.sops
       self.nixosModules.media
       self.nixosModules.minecraft
@@ -42,6 +43,16 @@
     };
 
     services = {
+      dar = {
+        enable = true;
+        origin = "https://dar.asherif.xyz";
+        configureNginx = true;
+
+        apps = [
+          inputs.dar.packages.${pkgs.stdenv.hostPlatform.system}.prayer-times
+        ];
+      };
+
       gitea = {
         enable = true;
 
@@ -173,6 +184,10 @@
         recommendedProxySettings = true;
 
         virtualHosts = {
+          "dar.asherif.xyz" = {
+            acmeRoot = null;
+          };
+
           "docs.asherif.xyz" = {
             forceSSL = true;
             enableACME = true;
