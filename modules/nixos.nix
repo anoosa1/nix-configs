@@ -294,6 +294,7 @@
         self.packages.${pkgs.stdenv.hostPlatform.system}.tmux
         self.packages.${pkgs.stdenv.hostPlatform.system}.yazi
         inputs.codex-desktop-linux.packages.${pkgs.stdenv.hostPlatform.system}.codex
+        pkgs.claude-code
         pkgs.t3code
         pkgs.tea
         pkgs.git
