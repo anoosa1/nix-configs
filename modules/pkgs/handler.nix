@@ -18,7 +18,7 @@
         owner = "anoosa";
         repo = "scripts";
         rev = "master"; 
-        sha256 = "sha256-CuNZG3jB5WU4Ri//kgi1cjgX5GUcgDRYE37yvF2wTB4=";
+        sha256 = "sha256-EhpcgcZ3xsuMNw9x1G4lJmLaGSKib/OlGRLcwiBb4ng=";
       };
 
       dontUnpack = true;

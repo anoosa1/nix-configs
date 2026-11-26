@@ -16,9 +16,6 @@
         inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.dsh
       ];
     };
-              nixpkgs.config.permittedInsecurePackages = [
-                "electron-39.8.10"
-              ];
 
     home-manager = {
       useGlobalPkgs = true;

@@ -5,14 +5,16 @@
 }:
 {
   flake.nixosModules.desktop = { lib, pkgs, ... }: {
-    nixpkgs.overlays = [
-      (_final: prev: {
-        khal = prev.khal.overrideAttrs {
-          # The Sphinx hook reads a string; a structured list drops the man builder.
-          sphinxBuilders = "html man";
-        };
-      })
-    ];
+    nixpkgs = {
+      overlays = [
+        (_final: prev: {
+          khal = prev.khal.overrideAttrs {
+            # The Sphinx hook reads a string; a structured list drops the man builder.
+            sphinxBuilders = "html man";
+          };
+        })
+      ];
+    };
 
     home-manager = {
       users = {
@@ -169,7 +171,6 @@
       displayManager = {
         dms-greeter = {
           enable = true;
-          quickshell.package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
           compositor = {
             name = "niri";
@@ -235,20 +236,26 @@
   flake.homeModules.desktop = { config, pkgs, ... }: {
     imports = [
       inputs.dms.homeModules.dank-material-shell
-      inputs.codex-desktop-linux.homeManagerModules.default
     ];
 
     home.packages = with pkgs; [
       self.packages.${pkgs.stdenv.hostPlatform.system}.handler
-      brave
+      self.packages.${pkgs.stdenv.hostPlatform.system}.bwmenu
+      (brave-origin.override { enableVideoAcceleration = false; })
+      #logseq
+      bemenu
+      bitwarden-cli
+      self.packages.${pkgs.stdenv.hostPlatform.system}.discordo
+      self.packages.${pkgs.stdenv.hostPlatform.system}.wptui
       gamescope
       imv
+      keyutils
       libnotify
-      #logseq
       mpv
       prismlauncher
       pulsemixer
       rbw
+      self.packages.${pkgs.stdenv.hostPlatform.system}.stardew-valley
       steamguard-cli
       wl-clipboard
       wtype
@@ -268,28 +275,9 @@
     };
 
     programs = {
-      codexDesktopLinux = {
-        enable = true;
-        package = inputs.codex-desktop-linux.packages.${pkgs.stdenv.hostPlatform.system}.codex-desktop;
-        cliPackage = inputs.codex-desktop-linux.packages.${pkgs.stdenv.hostPlatform.system}.codex;
-
-        computerUseUi.enable = true;
-
-        linuxFeatures = [
-          "appshots"
-          "global-dictation"
-          "mcp-helper-reaper"
-          "node-repl-reaper"
-          "open-target-discovery"
-          "persistent-status-panel"
-          "pet-overlay"
-        ];
-      };
-
       dank-material-shell = {
         enable = true;
 
-        quickshell.package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default;
         package = inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
 
@@ -749,16 +737,34 @@
         };
       };
 
+      rbw = {
+        enable = true;
+
+        settings = {
+          email = "anas@asherif.xyz";
+          base_url = "https://passwords.asherif.xyz";
+          pinentry = self.packages.${pkgs.stdenv.hostPlatform.system}.bwmenu-pinentry;
+        };
+      };
+
       qutebrowser = {
         enable = true;
 
         quickmarks = {
-          nixsearch = "https://search.nixos.org/";
-          hmsearch = "https://home-manager-options.extranix.com/?query=&release=master";
+          s = "https://search.nixos.org/";
+          d = "https://dar.asherif.xyz/";
+          g = "https://git.asherif.xyz/";
         };
 
         searchEngines = {
-          g = "https://www.google.com/search?hl=en&q={}";
+          DEFAULT = "https://www.google.com/search?hl=en&q={}";
+        };
+
+        keyBindings.normal = {
+          ",b" = "spawn --userscript qute-bitwarden";
+          ",u" = "spawn --userscript qute-bitwarden --username-only";
+          ",p" = "spawn --userscript qute-bitwarden --password-only";
+          ",t" = "spawn --userscript qute-bitwarden --totp-only";
         };
 
         extraConfig = ''
@@ -795,12 +801,8 @@
           c.colors.completion.category.border.bottom = "${self.theme.base01}"
           c.colors.completion.category.border.top = palette["overlay2"]
           c.colors.completion.category.fg = "${self.theme.base0B}"
-          if samecolorrows:
-            c.colors.completion.even.bg = "${self.theme.base01}"
-            c.colors.completion.odd.bg = c.colors.completion.even.bg
-          else:
-            c.colors.completion.even.bg = "${self.theme.base01}"
-            c.colors.completion.odd.bg = palette["crust"]
+          c.colors.completion.even.bg = "${self.theme.base01}"
+          c.colors.completion.odd.bg = c.colors.completion.even.bg
           c.colors.completion.fg = palette["subtext0"]
           c.colors.completion.item.selected.bg = "${self.theme.base04}"
           c.colors.completion.item.selected.border.bottom = "${self.theme.base04}"

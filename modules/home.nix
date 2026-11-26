@@ -134,6 +134,10 @@
             p = "push";
           };
 
+          credential = {
+            helper = "${pkgs.pass-git-helper}/bin/pass-git-helper";
+          };
+
           user = {
             name = "Anas";
             email = "anas@asherif.xyz";
@@ -472,6 +476,16 @@
         "ctpv/config" = {
           text = ''
             set chafasixel
+          '';
+        };
+
+        "pass-git-helper/git-pass-mapping.ini" = {
+          text = ''
+            [github.com]
+            target=dev/github
+   
+            [dar.asherif.xyz]
+            target=git-dar
           '';
         };
 

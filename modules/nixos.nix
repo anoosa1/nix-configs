@@ -14,7 +14,7 @@
         allowUnfree = true;
   
         permittedInsecurePackages = [
-          "broadcom-sta-6.30.223.271-59-6.12.69"
+          "qutebrowser-3.7.0"
         ];
       };
     };
@@ -293,9 +293,11 @@
         self.packages.${pkgs.stdenv.hostPlatform.system}.neovim
         self.packages.${pkgs.stdenv.hostPlatform.system}.tmux
         self.packages.${pkgs.stdenv.hostPlatform.system}.yazi
-        inputs.codex-desktop-linux.packages.${pkgs.stdenv.hostPlatform.system}.codex
+        pkgs.codex
         pkgs.claude-code
-        pkgs.t3code
+        pkgs.antigravity-cli
+        pkgs.antigravity-acp
+        self.packages.${pkgs.stdenv.hostPlatform.system}.t3code
         pkgs.tea
         pkgs.git
         pkgs.fastfetch

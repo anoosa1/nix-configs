@@ -86,6 +86,8 @@
         "Mod+Shift+C".spawn = [ "${self.packages.${pkgs.stdenv.hostPlatform.system}.bookmarks}/bin/bookmarks.sh" "--copy" ];
         "Mod+V".spawn = [ "${self.packages.${pkgs.stdenv.hostPlatform.system}.bookmarks}/bin/bookmarks.sh" "--type" ];
 
+        "Mod+P".spawn = [ "${self.packages.${pkgs.stdenv.hostPlatform.system}.bwmenu}/bin/bwmenu.sh" ];
+
         "Mod+Shift+B" = _: {
           content = {
             center-column = {};
@@ -122,7 +124,8 @@
           };
         };
 
-        "Mod+W".spawn = [ "brave" ];
+        "Mod+W".spawn = [ "qutebrowser" ];
+        "Mod+Shift+W".spawn = [ "brave-origin" ];
         "Mod+Q" = _: {
           content = {
             close-window = {};
