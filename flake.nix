@@ -17,17 +17,6 @@
       url = "github:notashelf/nvf";
     };
 
-    # llm-agents
-    llm-agents = {
-      url = "github:numtide/llm-agents.nix";
-
-      inputs = {
-        nixpkgs = {
-          follows = "nixpkgs";
-        };
-      };
-    };
-
     # quickshell
     quickshell = {
       url = "git+https://git.outfoxxed.me/quickshell/quickshell";

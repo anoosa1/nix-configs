@@ -9,14 +9,6 @@
       inputs.home-manager.nixosModules.home-manager
     ];
 
-    ## environment
-    environment = {
-      # system packages
-      systemPackages = [
-        inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.dsh
-      ];
-    };
-
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
