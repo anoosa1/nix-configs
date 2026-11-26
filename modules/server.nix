@@ -40,8 +40,7 @@
           owner = "nextcloud";
         };
 
-        "gitea/oidc" = {
-          # Shared with Gitea; Dar requires at least 32 characters.
+        "gitea" = {
           restartUnits = [ "dar.service" ];
         };
       };
@@ -53,16 +52,30 @@
         origin = "https://dar.asherif.xyz";
         configureNginx = true;
 
+        package = inputs.dar.packages.${pkgs.stdenv.hostPlatform.system}.dar;
+
         oidc.clients.gitea = {
           name = "Gitea";
+          requirePkce = false;
+          secretFile = config.sops.secrets."gitea".path;
           type = "confidential";
-          secretFile = config.sops.secrets."gitea/oidc".path;
-          redirectUris = [
-            # Preserve the existing Gitea authentication source name.
-            "https://git.asherif.xyz/user/oauth2/authelia/callback"
-          ];
+
           scopes = [ "openid" "profile" "email" "groups" ];
+
+          redirectUris = [
+            "https://git.asherif.xyz/user/oauth2/asherif.xyz/callback"
+          ];
         };
+
+        agent = {
+          enable = true;
+          package = pkgs.codex;
+          claude.package = pkgs.claude-code;
+          userId = "2d81f169-5a28-4b3a-b404-2b2f3f57b179";
+          gitHosts = [ "github.com" ];
+        };
+
+        photos.immichAllowLocalHost = true;
 
         apps = [
           inputs.dar.packages.${pkgs.stdenv.hostPlatform.system}.prayer-times
@@ -230,9 +243,9 @@
                 proxyPass = "http://unix:/run/gitea/gitea.sock:/";
               };
 
-              "/user/login" = {
-                return = "302 /user/oauth2/authelia";
-              };
+              #"/user/login" = {
+              #  return = "302 /user/oauth2/authelia";
+              #};
             };
           };
 

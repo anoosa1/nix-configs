@@ -87,6 +87,7 @@
       qbittorrent = {
         enable = true;
         webuiPort = 9251;
+        openFirewall = true;
       };
     };
   };
